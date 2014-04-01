@@ -10,5 +10,12 @@ factory('webServices', function($http) {
 		});
 	};
 
+	webServicesAPI.getSpecificBook = function(id) {
+		return $http({
+			method: 'GET',
+			url: 'https://www.googleapis.com/books/v1/volumes/' + id
+		});
+	};
+
 	return webServicesAPI;
 });
