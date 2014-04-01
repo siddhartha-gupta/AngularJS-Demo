@@ -4,6 +4,5 @@ controller('allBooksController', function($scope, webServices) {
 
 	webServices.getBooks().success(function(response) {
 		$scope.booksList = response.items;
-		console.log($scope.booksList);
 	});
 });

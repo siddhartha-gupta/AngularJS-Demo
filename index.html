@@ -9,8 +9,6 @@
 	<script type="text/javascript" src="js/app/webservices.js"></script>
 </head>
 <body ng-app="googleBooks" ng-controller="allBooksController" >
-	<div ng-repeat="book in booksList">
-		<p><img src="{{book.volumeInfo.imageLinks.smallThumbnail}}" />{{book.volumeInfo.title}}</p>
-	</div>
+	<ng-view></ng-view>
 </body>
 </html>
