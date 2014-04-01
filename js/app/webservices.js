@@ -1,11 +1,11 @@
-angular.module('googleBooks.services', []).
+angular.module('googleBooks.webServices', []).
 factory('webServices', function($http) {
 
 	var webServicesAPI = {};
 
 	webServicesAPI.getBooks = function() {
 		return $http({
-			method: 'JSON',
+			method: 'GET',
 			url: 'https://www.googleapis.com/books/v1/volumes?q=mobile'
 		});
 	};
