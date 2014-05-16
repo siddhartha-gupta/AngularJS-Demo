@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('googleBooks.webServices', []).
 factory('webServices', function($http) {
 
