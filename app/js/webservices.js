@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('googleBooks.webServices', []).
-factory('webServices', function($http) {
+googleBooks.factory('webServices', function($http) {
 
 	var webServicesAPI = {};
 

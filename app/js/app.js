@@ -1,6 +1,6 @@
 'use strict';
 
-var googleBooks = angular.module('googleBooks', ['googleBooks.webServices', 'ngRoute']);
+var googleBooks = angular.module('googleBooks', ['ngRoute']);
 
 googleBooks.config(
 	function ($routeProvider) {
