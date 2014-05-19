@@ -6,9 +6,17 @@
 	<link rel="stylesheet" href="css/bootstrap.css" />
 	
 </head>
-<body ng-controller="allBooksController" >
+<body>
+	<div class="navbar" ng-controller="headerController">
+		<div class="navbar-inner">
+			<a class="brand" href="#/" ng-class="{active: routeIs('/')}">This is home page</a>
+			<a class="brand" href="#/allbooks" ng-class="{active: routeIs('/allbooks')}">Go Back</a>
+		</div>
+	</div>
+
 	<ng-view></ng-view>
-	
+
+	<!-- Script -->
 	<script type="text/javascript" src="libs/angular.js"></script>
 	<script type="text/javascript" src="libs/angular-route.js"></script>
 
@@ -17,5 +25,7 @@
 
 	<script type="text/javascript" src="js/controllers/allBooksController.js"></script>
 	<script type="text/javascript" src="js/controllers/bookDetailsController.js"></script>
+	<script type="text/javascript" src="js/controllers/headerController.js"></script>
+	
 </body>
 </html>
