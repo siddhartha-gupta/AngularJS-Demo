@@ -7,11 +7,62 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 </head>
-<body>
+<body ngCloak>
 
 <div class="container">
+	<nav class="navbar navbar-default" role="navigation">
+	</nav>
 	<div ng-controller="EventController">
-		<div>test</div>
+		<img ng-src="{{event.imageUrl}}" alt="{{event.name}}" />
+		<div class="row">
+			<div class="col-md-12">
+				<h2 ng-bind="event.name"></h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<div><strong>Date:</strong> {{event.date}}</div>
+				<div><strong>Time:</strong> {{event.time}}</div>
+			</div>
+			<div class="col-xs-4">
+				<address>
+					<strong>Address:</strong><br/>
+					{{event.location.address}}<br/>
+					{{event.location.city}}, {{event.location.province}}
+				</address>
+			</div>
+		</div>
+
+		<hr />
+
+		<h3>Sessions</h3>
+
+		<ul class="thumbnails list-unstyled">
+			<li ng-repeat="session in event.sessions">	
+				<div class="row session">
+					<div class="col-xs-1 well votingWidget">
+						<div class="votingButton" ng-click="upVoteSession(session)">
+							<i class="glyphicon glyphicon-chevron-up"></i>
+						</div>
+						<div class="badge badge-inverse">
+							<div>{{session.upVoteCount}}</div>
+						</div>
+						<div class="votingButton" ng-click="downVoteSession(session)">
+							<i class="glyphicon glyphicon-chevron-down"></i>
+						</div>
+					</div>
+					<div class="well col-xs-9">
+						<h4 class="well-title">{{session.name}}</h4>
+						<h6>{{session.creatorName}}</h6>
+						<span>Duration: {{session.duration}}</span><br/>
+						<span>Level: {{session.level}}</span>
+						<p>{{session.abstract}}</p>
+					</div>
+				</div>
+				
+			</li>
+		</ul>
 	</div>
 </div>
 
