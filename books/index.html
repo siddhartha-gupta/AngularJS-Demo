@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="booksApp">
 <head>
-	<title>Dummy</title>
-	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<title>Books App</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
 </head>
 
-<body>
-	<ng-view></ng-view>
+<body ngCloak>
+	<div class="wrapper">
+		<ng-view></ng-view>
+	</div>
 	<script type="text/javascript" src="../angular-1.4.5/angular.js"></script>
+	<script type="text/javascript" src="../angular-1.4.5/angular-route.js"></script>
+	
+	<!-- app load and config files -->
 	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+
+	<!-- services/factories -->
+	<script type="text/javascript" src="js/service/webService.js"></script>
+
+	<!-- controllers -->
+	<script type="text/javascript" src="js/controllers/mainController.js"></script>
 </body>
 </html>
