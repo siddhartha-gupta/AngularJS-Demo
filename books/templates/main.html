@@ -1,17 +1,19 @@
-<ul class="thumbnails list-unstyled" ng-cloak>
-	<li ng-repeat="book in booksList">
-		<div class="row session">
-			<div class="well col-xs-9">
-				<img class="pull-left" ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
-				<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
-					<h4 class="well-title">{{book.volumeInfo.title}}</h4>
-					Publisher: <span>{{book.volumeInfo.publisher}}</span><br/>
-					Price: <span>{{book.saleInfo.listPrice.amount | currency:"Rs. "}}</span><br/>
-					<a href="{{book.volumeInfo.previewLink}}" target="_blank">Preview Link</a><br/>
-					<a href="#/book/{{book.id}}">Read more...</a>
+<div class="container">
+	<ul class="thumbnails list-unstyled" ng-cloak>
+		<li ng-repeat="book in booksList">
+			<div class="row session">
+				<div class="well col-xs-9">
+					<img class="pull-left" ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
+					<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
+						<h4 class="well-title">{{book.volumeInfo.title}}</h4>
+						Publisher: <span>{{book.volumeInfo.publisher}}</span><br/>
+						Price: <span>{{book.saleInfo.listPrice.amount | currency:"Rs. "}}</span><br/>
+						<a href="{{book.volumeInfo.previewLink}}" target="_blank">Preview Link</a><br/>
+						<a href="#/book/{{book.id}}">Read more...</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		
-	</li>
-</ul>
+			
+		</li>
+	</ul>
+</div>

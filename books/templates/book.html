@@ -1,9 +1,10 @@
-<button ng-click="goBack()" class="btn btn-primary">Go back</button><br /><br /><br />
-
-<div class="well col-xs-9" ng-cloak>
-	<img class="pull-left" ng-src="{{booksDetails.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
-	<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
-		<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
-		<p>{{booksDetails.volumeInfo.description}}</p>
+<div class="container">
+	<button ng-click="goBack()" class="btn btn-primary">Go back</button><br /><br /><br />
+	<div class="well col-xs-9" ng-cloak>
+		<img class="pull-left" ng-src="{{booksDetails.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
+		<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
+			<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
+			<p>{{booksDetails.volumeInfo.description || "No book details"}}</p>
+		</div>
 	</div>
 </div>
