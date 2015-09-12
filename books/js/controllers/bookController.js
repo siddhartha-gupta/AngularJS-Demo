@@ -1,6 +1,7 @@
 booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, serverData) {
 	$scope.bookId = $routeParams.bookId || '';
 	$scope.booksDetails = serverData.data;
+	console.log($scope.booksDetails);
 
 	$scope.getBooks = function() {
 		bookData.getSpecificBook({
@@ -17,6 +18,4 @@ booksApp.controller('bookController', function bookController($scope, $routePara
 		console.log('go back clicked');
 		$location.path('/books');
 	};
-
-	// $scope.getBooks();
 });
