@@ -8,14 +8,18 @@
 </head>
 
 <body>
-	<div class="wrapper">
-		<img ng-src="{{event.imageUrl}}" alt="" />
-		<div class="row">
-			<div class="col-md-12">
-				<h2>Books demo app</h2>
+	<div class="container">
+		<div id="one" class="page-header" ng-controller="headerController">
+			<img ng-src="{{data.imageUrl}}" alt="" />
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Books demo app</h2>
+				</div>
 			</div>
 		</div>
-		<ng-view></ng-view>
+		<div id="two">
+			<div ng-view></div>
+		</div>
 	</div>
 	<script type="text/javascript" src="../angular-1.4.5/angular.js"></script>
 	<script type="text/javascript" src="../angular-1.4.5/angular-route.js"></script>
@@ -29,6 +33,7 @@
 	<script type="text/javascript" src="js/service/bookData.js"></script>
 
 	<!-- controllers -->
+	<script type="text/javascript" src="js/controllers/headerController.js"></script>
 	<script type="text/javascript" src="js/controllers/mainController.js"></script>
 	<script type="text/javascript" src="js/controllers/bookController.js"></script>
 </body>

@@ -1,4 +1,4 @@
-booksApp.controller('bookController', function mainController($scope, $routeParams, bookData, $location, serverData) {
+booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, serverData) {
 	$scope.bookId = $routeParams.bookId || '';
 	$scope.booksDetails = serverData.data;
 
