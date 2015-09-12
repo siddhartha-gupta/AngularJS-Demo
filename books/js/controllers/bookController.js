@@ -1,10 +1,10 @@
-booksApp.controller('bookController', function mainController($scope, $routeParams, webService, $location) {
+booksApp.controller('bookController', function mainController($scope, $routeParams, bookData, $location, serverData) {
 	$scope.bookId = $routeParams.bookId || '';
-	$scope.booksDetails = null;
+	$scope.booksDetails = serverData.data;
 
 	$scope.getBooks = function() {
-		webService.getCall({
-			url: 'https://www.googleapis.com/books/v1/volumes/' + $scope.bookId + '?projection=full'
+		bookData.getSpecificBook({
+			'bookId': $scope.bookId
 		}).then(function(response) {
 			$scope.booksDetails = response.data;
 			console.log('success: ', $scope.booksDetails);
@@ -18,5 +18,5 @@ booksApp.controller('bookController', function mainController($scope, $routePara
 		$location.path('/books');
 	};
 
-	$scope.getBooks();
+	// $scope.getBooks();
 });
