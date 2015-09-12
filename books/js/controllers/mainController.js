@@ -17,9 +17,6 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 	$scope.searchTimer = null;
 	$scope.currentReq = null;
 
-	console.log(serverData);
-	console.log($scope.booksList);
-
 	$scope.getBooks = function() {
 		$scope.books.searchQuery = $scope.books.searchQuery.trim();
 		$timeout.cancel($scope.searchTimer);
@@ -33,6 +30,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 				localStorageService.set('searchQuery', $scope.books.searchQuery);
 				localStorageService.set('sortOrder', $scope.books.sortOrder);
 				localStorageService.set('maxLimit', $scope.books.maxLimit);
+				// $scope.isDisabled = true;
 
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,

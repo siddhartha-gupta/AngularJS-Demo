@@ -3,23 +3,47 @@ booksApp.controller('headerController', function headerController($scope, $locat
 		'imageUrl': 'img/angularjs-logo.png',
 	};
 	$scope.show = false;
+	$scope.isDisabled = true;
 
-	$scope.$on('routeChangeSuccessEvent', function(event, next, current) {
-		console.log('routeChangeSuccessEvent captured: ', next, current);
-
+	$scope.$on('routeChangeStartEvent', function(event, next, current) {
 		switch (next.$$route.controller) {
 			case 'mainController':
+				$scope.isDisabled = false;
+				break;
+
+			case 'bookController':
+				$scope.isDisabled = true;
+				break;
+		}
+	});
+
+	$scope.$on('routeChangeSuccessEvent', function(event, next, current) {
+		switch (next.$$route.controller) {
+			case 'mainController':
+				$scope.isDisabled = false;
 				$scope.show = false;
 				break;
 
 			case 'bookController':
+				$scope.isDisabled = false;
 				$scope.show = true;
 				break;
 		}
 	});
 
+	$scope.$on('routeChangeErrorEvent', function(event, next, current) {
+		switch (next.$$route.controller) {
+			case 'mainController':
+				$scope.isDisabled = false;
+				break;
+
+			case 'bookController':
+				$scope.isDisabled = true;
+				break;
+		}
+	});
+
 	$scope.goBack = function() {
-		console.log('go back clicked');
 		$location.path('/books');
 	};
 });
