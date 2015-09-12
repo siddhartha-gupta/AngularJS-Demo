@@ -2,7 +2,7 @@ booksApp.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/books/:query?/:maxlimit?', {
 		controller: 'mainController',
 		templateUrl: 'templates/main.html',
-		resolve: {
+		/*resolve: {
 			serverData: function($route, bookData) {
 				var searchQuery = $route.current.params.searchQuery || 'mobile',
 					maxLimit = $route.current.params.maxLimit || 10;
@@ -12,7 +12,7 @@ booksApp.config(function($routeProvider, $locationProvider) {
 					'maxLimit': maxLimit
 				});
 			}
-		}
+		}*/
 	}).when('/book/:bookId', {
 		controller: 'bookController',
 		templateUrl: 'templates/book.html',

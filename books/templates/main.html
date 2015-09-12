@@ -1,3 +1,26 @@
+<div style="margin-bottom: 20px; width: 100%; float: left;">
+	<div class="col-xs-7">
+		<input class="form-control" type="text" ng-model="books.searchQuery" placeholder="Book type you would like to search..." name="q">
+	</div>
+	<div class="col-xs-2">
+		<select ng-model="books.sortOrder" class="form-control input-small">
+			<option selected value="name">By: Name</option>
+			<option value="-upVoteCount">By: Amount</option>
+		</select>
+	</div>
+	<div class="col-xs-2">
+		<select ng-model="books.maxLimit" class="form-control input-small">
+			<option selected value="10">Limit: 10</option>
+			<option value="20">Limit: 20</option>
+			<option value="30">Limit: 30</option>
+			<option value="40">Limit: 40</option>
+		</select>
+	</div>
+	<div class="col-xs-1">
+		<button class="btn btn-primary pull-right" type="submit" ng-click="getBooks()">Search</button>
+	</div>
+</div>
+
 <div class="container">
 	<ul class="thumbnails list-unstyled" ng-cloak>
 		<li ng-repeat="book in booksList">
