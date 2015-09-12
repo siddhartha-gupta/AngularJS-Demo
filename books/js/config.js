@@ -1,10 +1,10 @@
 booksApp.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/books/:query?/:maxlimit?', {
-		templateUrl: 'templates/main.html',
 		controller: 'mainController',
+		templateUrl: 'templates/main.html'
 	}).when('/book/:bookId', {
-		templateUrl: 'book.html',
-		controller: 'bookController'
+		controller: 'bookController',
+		templateUrl: 'templates/book.html'
 	}).otherwise({
 		redirectTo: '/books'
 	});

@@ -1,17 +1,7 @@
-/**
- * Forms
- */
-input.ng-invalid.ng-dirty {
-	background-color: pink;
+body {
+	background-color: #52575c !important;
 }
 
-/**
- * Voting Buttons
- */
-.votingWidget { text-align: center; }
-.votingButton .glyphicon.glyphicon-chevron-up {
-	color: red;
-}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 	display: none;
