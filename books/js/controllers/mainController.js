@@ -1,25 +1,35 @@
-booksApp.controller('mainController', function mainController($scope, $routeParams, bookData) {
+booksApp.controller('mainController', function mainController($scope, $routeParams, $timeout, bookData) {
 	$scope.books = {
 		'searchQuery': '',
-		'sortOrder': 'name',
+		'sortOrder': 'volumeInfo.title',
 		'maxLimit': '10'
 	};
 	$scope.booksList = [];
+	$scope.searchTimer = null;
+	$scope.currentReq = null;
 
 	$scope.getBooks = function() {
-		bookData.getAllBooks({
-			'searchQuery': $scope.books.searchQuery,
-			'maxLimit': $scope.books.maxLimit
-		}).then(function(response) {
-			$scope.booksList = response.data.items;
-			console.log('success: ', $scope.booksList);
-		}, function(response) {
-			console.log('error: ', response);
-		});
-	};
+		$scope.books.searchQuery = $scope.books.searchQuery.trim();
+		$timeout.cancel($scope.searchTimer);
 
-	$scope.searchBooks = function(books) {
-		console.log(books);
-		getBooks();
+		if ($scope.currentReq) {
+			$scope.currentReq.abort();
+		}
+
+		if ($scope.books.searchQuery.length > 2) {
+			$scope.searchTimer = $timeout(function(search) {
+				$scope.currentReq = bookData.getAllBooks({
+					'searchQuery': $scope.books.searchQuery,
+					'maxLimit': $scope.books.maxLimit
+				}).then(function(response) {
+					$scope.currentReq = null;
+					$scope.booksList = response.data.items;
+					console.log('success: ', $scope.booksList);
+				}, function(response) {
+					$scope.currentReq = null;
+					console.log('error: ', response);
+				});
+			}, 500);
+		}
 	};
 });
