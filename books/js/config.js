@@ -1,7 +1,23 @@
-booksApp.config(function($routeProvider, $locationProvider) {
+booksApp.config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
 	$routeProvider.when('/books/:query?/:maxlimit?', {
 		controller: 'mainController',
 		templateUrl: 'templates/main.html',
+		resolve: {
+			serverData: function($route, bookData, localStorageService) {
+				var searchQuery = localStorageService.get('searchQuery'),
+					sortOrder = localStorageService.get('sortOrder'),
+					maxLimit = localStorageService.get('maxLimit');
+
+				if (searchQuery && maxLimit) {
+					return bookData.getAllBooks({
+						'searchQuery': searchQuery,
+						'maxLimit': maxLimit
+					});
+				} else {
+					return [];
+				}
+			}
+		}
 	}).when('/book/:bookId', {
 		controller: 'bookController',
 		templateUrl: 'templates/book.html',
@@ -15,6 +31,8 @@ booksApp.config(function($routeProvider, $locationProvider) {
 	}).otherwise({
 		redirectTo: '/books'
 	});
+
+	localStorageServiceProvider.setStorageType('sessionStorage');
 }).run(function($rootScope, $location) {
 	$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
 		console.log('routeChangeSuccess: ', next, current);

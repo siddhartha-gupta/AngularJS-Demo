@@ -1,12 +1,24 @@
-booksApp.controller('mainController', function mainController($scope, $routeParams, $timeout, bookData) {
-	$scope.books = {
-		'searchQuery': '',
-		'sortOrder': 'volumeInfo.title',
-		'maxLimit': '10'
-	};
-	$scope.booksList = [];
+booksApp.controller('mainController', function mainController($scope, $routeParams, serverData, $timeout, bookData, localStorageService) {
+	if (serverData.data) {
+		$scope.books = {
+			'searchQuery': localStorageService.get('searchQuery'),
+			'sortOrder': localStorageService.get('sortOrder'),
+			'maxLimit': localStorageService.get('maxLimit')
+		};
+		$scope.booksList = serverData.data.items;
+	} else {
+		$scope.books = {
+			'searchQuery': '',
+			'sortOrder': 'volumeInfo.title',
+			'maxLimit': '10'
+		};
+		$scope.booksList = [];
+	}
 	$scope.searchTimer = null;
 	$scope.currentReq = null;
+
+	console.log(serverData);
+	console.log($scope.booksList);
 
 	$scope.getBooks = function() {
 		$scope.books.searchQuery = $scope.books.searchQuery.trim();
@@ -18,6 +30,10 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 
 		if ($scope.books.searchQuery.length > 2) {
 			$scope.searchTimer = $timeout(function(search) {
+				localStorageService.set('searchQuery', $scope.books.searchQuery);
+				localStorageService.set('sortOrder', $scope.books.sortOrder);
+				localStorageService.set('maxLimit', $scope.books.maxLimit);
+
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,
 					'maxLimit': $scope.books.maxLimit
