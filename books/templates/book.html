@@ -26,10 +26,12 @@
 			<span>
 				Publisher: {{booksDetails.volumeInfo.publisher}}
 			</span><br />
-			Categories: 
-			<span ng-repeat="category in booksDetails.volumeInfo.categories  track by $index">
-				{{category}}
-			</span><br />
+			<span ng-if="booksDetails.volumeInfo.categories.length > 0">
+				Categories: 
+				<span ng-repeat="category in booksDetails.volumeInfo.categories  track by $index">
+					{{category}}{{$last ? '' : ', '}}
+				</span><br />
+			</span>
 			<span>
 				Price: 
 				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}">
@@ -38,9 +40,9 @@
 				<span ng-show="{{booksDetails.saleInfo.saleability === 'NOT_FOR_SALE'}}">
 					Not available
 				</span>
-			</span><br />
+			</span><br /><br />
 
-			<p>{{booksDetails.volumeInfo.description || "No book details"}}</p>
+			<p>Description: {{booksDetails.volumeInfo.description || "Not available"}}</p>
 		</div>
 	</div>
 </div>
