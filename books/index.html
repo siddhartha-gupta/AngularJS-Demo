@@ -13,8 +13,10 @@
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li><a herf="#" ng-show="showBackBtn" ng-click="goBack($event)" ng-disabled="isDisabled">Go back</a></li>
-						<li><a herf="#" ng-show="showResetBtn" ng-click="resetApp($event)" ng-disabled="isDisabled">Reset app</a></li>
+						<li style="cursor: pointer;" ng-repeat="item in headerItems">
+							<a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled">{{item.text}}</a>
+						</li>
+
 					</ul>
 				</div>
 			</nav>

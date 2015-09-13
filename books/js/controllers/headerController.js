@@ -1,10 +1,44 @@
-booksApp.controller('headerController', function headerController($scope, $location, localStorageService, $window) {
+booksApp.controller('headerController', function headerController($scope, $location, localStorageService, $window, $log) {
 	$scope.data = {
 		'imageUrl': 'img/angularjs-logo.png',
 	};
-	$scope.showBackBtn = false;
+	$scope.showBackBtn = true;
 	$scope.isDisabled = true;
 	$scope.showResetBtn = true;
+
+	$scope.headerItems = [{
+		'showBtn': 'showBackBtn',
+		'click': 'goBack',
+		'text': 'Go back'
+	}, {
+		'showBtn': 'showResetBtn',
+		'click': 'resetApp',
+		'text': 'Reset app'
+	}];
+
+	$scope.showButton = function(btn) {
+		return $scope[btn];
+	};
+
+	$scope.callFunction = function(event, name) {
+		event.preventDefault();
+
+		if (angular.isFunction($scope[name])) {
+			$scope[name]();
+		}
+	};
+
+	$scope.resetApp = function() {
+		// angular.element(document.getElementById("header")).scope()
+		localStorageService.clearAll();
+		$location.path('/books').replace();
+		$window.location.reload();
+	};
+
+	$scope.goBack = function() {
+		event.preventDefault();
+		$location.path('/books').replace();
+	};
 
 	$scope.$on('routeChangeStartEvent', function(event, next, current) {
 		switch (next.$$route.controller) {
@@ -45,17 +79,4 @@ booksApp.controller('headerController', function headerController($scope, $locat
 				break;
 		}
 	});
-
-	$scope.resetApp = function(event) {
-		event.preventDefault();
-		// angular.element(document.getElementById("header")).scope()
-		localStorageService.clearAll();
-		$location.path('/books');
-		$window.location.reload();
-	};
-
-	$scope.goBack = function(event) {
-		event.preventDefault();
-		$location.path('/books');
-	};
 });

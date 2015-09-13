@@ -1,4 +1,4 @@
-booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, serverData) {
+booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, $log, serverData) {
 	$scope.bookId = $routeParams.bookId || '';
 	$scope.booksDetails = serverData.data;
 
@@ -7,9 +7,9 @@ booksApp.controller('bookController', function bookController($scope, $routePara
 			'bookId': $scope.bookId
 		}).then(function(response) {
 			$scope.booksDetails = response.data;
-			console.log('success: ', $scope.booksDetails);
+			$log.log('success: ', $scope.booksDetails);
 		}, function(response) {
-			console.log('error: ', response);
+			$log.log('error: ', response);
 		});
 	};
 });
