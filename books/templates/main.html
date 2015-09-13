@@ -20,7 +20,7 @@
 
 <div style="margin-bottom: 20px; width: 100%; float: left;">
 	<div class="col-xs-2">
-		<select ng-model="books.localSortOrder" class="form-control input-small" ng-change="updateSessionStorage('localSortOrder')">
+		<select ng-model="books.localSortOrder" class="form-control input-small" ng-change="updateSessionStorage(['localSortOrder'])">
 			<option selected value="volumeInfo.title">By: Name</option>
 			<option value="-saleInfo.listPrice.amount">By: Amount</option>
 		</select>

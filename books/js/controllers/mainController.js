@@ -29,11 +29,6 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 
 		if ($scope.books.searchQuery.length > 2) {
 			$scope.searchTimer = $timeout(function(search) {
-				localStorageService.set('searchQuery', $scope.books.searchQuery);
-				localStorageService.set('sortOrder', $scope.books.sortOrder);
-				localStorageService.set('maxLimit', $scope.books.maxLimit);
-				localStorageService.set('localSortOrder', $scope.books.localSortOrder);
-
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,
 					'orderBy': $scope.books.sortOrder,
@@ -47,10 +42,15 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 					console.log('error: ', response);
 				});
 			}, 500);
+		} else if($scope.books.searchQuery.length === 0) {
+			$scope.booksList = [];
 		}
+		$scope.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
 	};
 
-	$scope.updateSessionStorage = function(key) {
-		localStorageService.set(key, $scope.books[key]);
+	$scope.updateSessionStorage = function(keys) {
+		angular.forEach(keys, function(key) {
+			localStorageService.set(key, $scope.books[key]);
+		});
 	};
 });
