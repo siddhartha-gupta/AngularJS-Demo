@@ -3,14 +3,16 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 		$scope.books = {
 			'searchQuery': localStorageService.get('searchQuery'),
 			'sortOrder': localStorageService.get('sortOrder'),
-			'maxLimit': localStorageService.get('maxLimit')
+			'maxLimit': localStorageService.get('maxLimit'),
+			'localSortOrder': localStorageService.get('localSortOrder'),
 		};
 		$scope.booksList = serverData.data.items;
 	} else {
 		$scope.books = {
 			'searchQuery': '',
 			'sortOrder': 'relevance',
-			'maxLimit': '10'
+			'maxLimit': '10',
+			'localSortOrder': 'volumeInfo.title',
 		};
 		$scope.booksList = [];
 	}
@@ -30,7 +32,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 				localStorageService.set('searchQuery', $scope.books.searchQuery);
 				localStorageService.set('sortOrder', $scope.books.sortOrder);
 				localStorageService.set('maxLimit', $scope.books.maxLimit);
-				// $scope.isDisabled = true;
+				localStorageService.set('localSortOrder', $scope.books.localSortOrder);
 
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,
@@ -46,5 +48,9 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 				});
 			}, 500);
 		}
+	};
+
+	$scope.updateSessionStorage = function(key) {
+		localStorageService.set(key, $scope.books[key]);
 	};
 });
