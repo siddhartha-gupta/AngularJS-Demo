@@ -3,7 +3,18 @@
 		<img class="pull-left" ng-src="{{booksDetails.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
 		<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
 			<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
+			<a href="{{booksDetails.volumeInfo.previewLink}}" target="_blank">Preview Link</a><br/>
+			<span>
+				Price: 
+				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}">
+					{{booksDetails.saleInfo.listPrice.amount | currency:"Rs. "}}
+				</span>
+				<span ng-show="{{booksDetails.saleInfo.saleability === 'NOT_FOR_SALE'}}">
+					Not available
+				</span>
+			</span><br />
 			<p>{{booksDetails.volumeInfo.description || "No book details"}}</p>
+
 		</div>
 	</div>
 </div>
