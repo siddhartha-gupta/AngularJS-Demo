@@ -3,7 +3,33 @@
 		<img class="pull-left" ng-src="{{booksDetails.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
 		<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
 			<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
-			<a href="{{booksDetails.volumeInfo.previewLink}}" target="_blank">Preview Link</a><br/>
+			<h5>{{booksDetails.volumeInfo.subtitle}}</h5>
+
+			<a href="{{booksDetails.volumeInfo.previewLink}}" target="_blank">About</a><br/>
+			<a href="{{booksDetails.accessInfo.webReaderLink}}" target="_blank">Web reader link</a><br/>
+			<span ng-show="{{booksDetails.accessInfo.pdf.isAvailable}}">
+				<a href="{{booksDetails.accessInfo.pdf.acsTokenLink}}" target="_blank">PDF link</a><br/>
+			</span>
+
+			<span>
+				Average Rating: {{booksDetails.volumeInfo.averageRating}}
+			</span><br />
+			<span>
+				Ratings Count: {{booksDetails.volumeInfo.ratingsCount}}
+			</span><br />
+			<span>
+				Page Count: {{booksDetails.volumeInfo.pageCount}}
+			</span><br />
+			<span>
+				Published Date: {{booksDetails.volumeInfo.publishedDate}}
+			</span><br />
+			<span>
+				Publisher: {{booksDetails.volumeInfo.publisher}}
+			</span><br />
+			Categories: 
+			<span ng-repeat="category in booksDetails.volumeInfo.categories  track by $index">
+				{{category}}
+			</span><br />
 			<span>
 				Price: 
 				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}">
@@ -13,8 +39,8 @@
 					Not available
 				</span>
 			</span><br />
-			<p>{{booksDetails.volumeInfo.description || "No book details"}}</p>
 
+			<p>{{booksDetails.volumeInfo.description || "No book details"}}</p>
 		</div>
 	</div>
 </div>
