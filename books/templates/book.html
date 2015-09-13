@@ -5,6 +5,7 @@
 			<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
 			<h5>{{booksDetails.volumeInfo.subtitle}}</h5>
 
+			<a href="{{booksDetails.saleInfo.buyLink}}" target="_blank" ng-if="booksDetails.saleInfo.buyLink">Buy Link</a><br/>
 			<a href="{{booksDetails.volumeInfo.previewLink}}" target="_blank">About</a><br/>
 			<a href="{{booksDetails.accessInfo.webReaderLink}}" target="_blank">Web reader link</a><br/>
 			<span ng-show="{{booksDetails.accessInfo.pdf.isAvailable}}">
