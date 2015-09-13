@@ -12,28 +12,28 @@
 			</span>
 
 			<span>
-				Average Rating: {{booksDetails.volumeInfo.averageRating}}
+				<strong>Average Rating: </strong>{{booksDetails.volumeInfo.averageRating}}
 			</span><br />
 			<span>
-				Ratings Count: {{booksDetails.volumeInfo.ratingsCount}}
+				<strong>Ratings Count: </strong>{{booksDetails.volumeInfo.ratingsCount}}
 			</span><br />
 			<span>
-				Page Count: {{booksDetails.volumeInfo.pageCount}}
+				<strong>Page Count: </strong>{{booksDetails.volumeInfo.pageCount}}
 			</span><br />
 			<span>
-				Published Date: {{booksDetails.volumeInfo.publishedDate}}
+				<strong>Published Date: </strong>{{booksDetails.volumeInfo.publishedDate}}
 			</span><br />
 			<span>
-				Publisher: {{booksDetails.volumeInfo.publisher}}
+				<strong>Publisher: </strong>{{booksDetails.volumeInfo.publisher}}
 			</span><br />
 			<span ng-if="booksDetails.volumeInfo.categories.length > 0">
-				Categories: 
+				<strong>Categories: </strong>
 				<span ng-repeat="category in booksDetails.volumeInfo.categories  track by $index">
 					{{category}}{{$last ? '' : ', '}}
 				</span><br />
 			</span>
 			<span>
-				Price: 
+				<strong>Price: </strong>
 				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}">
 					{{booksDetails.saleInfo.listPrice.amount | currency:"Rs. "}}
 				</span>
@@ -42,7 +42,7 @@
 				</span>
 			</span><br /><br />
 
-			<p>Description: {{booksDetails.volumeInfo.description || "Not available"}}</p>
+			<p><strong>Description: </strong>{{booksDetails.volumeInfo.description || "Not available"}}</p>
 		</div>
 	</div>
 </div>

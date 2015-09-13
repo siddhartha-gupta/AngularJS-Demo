@@ -35,9 +35,9 @@
 					<img class="pull-left" ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
 					<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
 						<h4 class="well-title">{{book.volumeInfo.title}}</h4>
-						Publisher: <span>{{book.volumeInfo.publisher}}</span><br/>
+						<strong>Publisher: </strong><span>{{book.volumeInfo.publisher}}</span><br/>
 						<span>
-							Price: 
+							<strong>Price: </strong>
 							<span ng-show="{{book.saleInfo.saleability === 'FOR_SALE'}}">
 								{{book.saleInfo.listPrice.amount | currency:"Rs. "}}
 							</span>

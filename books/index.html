@@ -10,7 +10,16 @@
 <body>
 	<div class="container">
 		<div id="one" class="page-header" ng-controller="headerController">
-			<button ng-show="show" ng-click="goBack()" ng-disabled="isDisabled" class="btn btn-primary">Go back</button><br /><br /><br />
+			<!-- <button ng-show="showResetBtn" ng-click="resetApp()" ng-disabled="isDisabled" class="btn btn-primary">Reset app</button><br /><br /><br />
+			<button ng-show="showBackBtn" ng-click="goBack()" ng-disabled="isDisabled" class="btn btn-primary">Go back</button><br /><br /><br /> -->
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li><a herf="#" ng-show="showBackBtn" ng-click="goBack($event)" ng-disabled="isDisabled">Go back</a></li>
+						<li><a herf="#" ng-show="showResetBtn" ng-click="resetApp($event)" ng-disabled="isDisabled">Reset app</a></li>
+					</ul>
+				</div>
+			</nav>
 			<img ng-src="{{data.imageUrl}}" alt="" />
 			<div class="row">
 				<div class="col-md-12">
