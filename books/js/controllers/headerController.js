@@ -48,6 +48,7 @@ booksApp.controller('headerController', function headerController($scope, $locat
 
 	$scope.resetApp = function(event) {
 		event.preventDefault();
+		// angular.element(document.getElementById("header")).scope()
 		localStorageService.clearAll();
 		$location.path('/books');
 		$window.location.reload();

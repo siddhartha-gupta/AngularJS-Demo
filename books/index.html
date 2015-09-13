@@ -9,9 +9,7 @@
 
 <body>
 	<div class="container">
-		<div id="one" class="page-header" ng-controller="headerController">
-			<!-- <button ng-show="showResetBtn" ng-click="resetApp()" ng-disabled="isDisabled" class="btn btn-primary">Reset app</button><br /><br /><br />
-			<button ng-show="showBackBtn" ng-click="goBack()" ng-disabled="isDisabled" class="btn btn-primary">Go back</button><br /><br /><br /> -->
+		<div id="header" class="page-header" ng-controller="headerController">
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
@@ -27,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="two">
+		<div id="content">
 			<div ng-view></div>
 		</div>
 	</div>
