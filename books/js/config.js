@@ -11,6 +11,7 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 				if (searchQuery && maxLimit) {
 					return bookData.getAllBooks({
 						'searchQuery': searchQuery,
+						'orderBy': sortOrder,
 						'maxLimit': maxLimit
 					});
 				} else {

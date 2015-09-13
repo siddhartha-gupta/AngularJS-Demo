@@ -3,7 +3,7 @@
 booksApp.factory('bookData', function(webService) {
 	var getAllBooks = function(params) {
 			return webService.getCall({
-				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + params.searchQuery + '&maxResults=' + params.maxLimit
+				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + params.searchQuery + '&maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
 			});
 		},
 

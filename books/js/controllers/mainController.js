@@ -9,7 +9,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 	} else {
 		$scope.books = {
 			'searchQuery': '',
-			'sortOrder': 'volumeInfo.title',
+			'sortOrder': 'relevance',
 			'maxLimit': '10'
 		};
 		$scope.booksList = [];
@@ -34,6 +34,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,
+					'orderBy': $scope.books.sortOrder,
 					'maxLimit': $scope.books.maxLimit
 				}).then(function(response) {
 					$scope.currentReq = null;
