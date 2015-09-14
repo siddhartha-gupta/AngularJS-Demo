@@ -9,7 +9,12 @@
 			<a href="{{booksDetails.volumeInfo.previewLink}}" target="_blank">About</a><br/>
 			<a href="{{booksDetails.accessInfo.webReaderLink}}" target="_blank">Web reader link</a><br/>
 			<span ng-show="{{booksDetails.accessInfo.pdf.isAvailable}}">
-				<a href="{{booksDetails.accessInfo.pdf.acsTokenLink}}" target="_blank">PDF link</a><br/>
+				<span ng-if="booksDetails.accessInfo.pdf.acsTokenLink">
+					<a href="{{booksDetails.accessInfo.pdf.acsTokenLink}}" target="_blank">PDF link</a><br/>
+				</span>
+				<span ng-if="booksDetails.accessInfo.pdf.downloadLink">
+					<a href="{{booksDetails.accessInfo.pdf.downloadLink}}" target="_blank">Download link</a><br/>
+				</span>
 			</span>
 
 			<span>
@@ -42,7 +47,7 @@
 					Not available
 				</span>
 			</span><br /><br />
-
+			<!-- render description as html and remove tag bsaed on user setting -->
 			<p><strong>Description: </strong>{{booksDetails.volumeInfo.description || "Not available"}}</p>
 		</div>
 	</div>
