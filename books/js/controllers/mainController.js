@@ -1,4 +1,4 @@
-booksApp.controller('mainController', function mainController($scope, $routeParams, serverData, $timeout, $log, bookData, localStorageService) {
+booksApp.controller('mainController', function mainController($scope, $routeParams, serverData, $timeout, $log, $location, bookData, localStorageService) {
 	if (serverData.data) {
 		$scope.books = {
 			'searchQuery': localStorageService.get('searchQuery'),
@@ -46,6 +46,11 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 			$scope.booksList = [];
 		}
 		$scope.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
+	};
+
+	$scope.showBook = function(id) {
+		console.log('showbookfn');
+		$location.path('/book/' + id).replace();
 	};
 
 	$scope.updateSessionStorage = function(keys) {
