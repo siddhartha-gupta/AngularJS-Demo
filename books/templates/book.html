@@ -47,8 +47,10 @@
 					Not available
 				</span>
 			</span><br /><br />
-			<!-- render description as html and remove tag bsaed on user setting -->
-			<p><strong>Description: </strong>{{booksDetails.volumeInfo.description || "Not available"}}</p>
+			<p>
+				<strong>Description: </strong>
+				<span ng-bind-html="booksDetails.volumeInfo.description | renderHTML:'Not available'"></span>
+			</p>
 		</div>
 	</div>
 </div>
