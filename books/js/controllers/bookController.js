@@ -1,7 +1,8 @@
 booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, $log, serverData) {
 	$scope.bookId = $routeParams.bookId || '';
 	$scope.booksDetails = serverData.data;
-	$scope.booksDetails.volumeInfo.description = '';
+
+	console.log(serverData.data);
 
 	$scope.getBooks = function() {
 		bookData.getSpecificBook({
