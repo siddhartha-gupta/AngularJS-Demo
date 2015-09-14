@@ -35,17 +35,18 @@
 				<div class="well col-xs-11">
 					<img class="pull-left" ng-src="{{book.volumeInfo.imageLinks.smallThumbnail}}" style="width:128px;" />
 					<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
-						<h4 class="well-title">{{book.volumeInfo.title}}</h4>
-						<strong>Publisher: </strong><span>{{book.volumeInfo.publisher}}</span><br/>
-						<span>
-							<strong>Price: </strong>
-							<span ng-show="{{book.saleInfo.saleability === 'FOR_SALE'}}">
-								{{book.saleInfo.listPrice.amount | currency:"Rs. "}}
-							</span>
-							<span ng-show="{{book.saleInfo.saleability === 'NOT_FOR_SALE'}}">
-								Not available
-							</span>
-						</span><br/>
+						<collapse-title text="{{book.volumeInfo.title}}">
+							<strong>Publisher: </strong><span>{{book.volumeInfo.publisher}}</span><br/>
+							<span>
+								<strong>Price: </strong>
+								<span ng-show="{{book.saleInfo.saleability === 'FOR_SALE'}}">
+									{{book.saleInfo.listPrice.amount | currency:"Rs. "}}
+								</span>
+								<span ng-show="{{book.saleInfo.saleability === 'NOT_FOR_SALE'}}">
+									Not available
+								</span>
+							</span><br/>
+						</collapse-title>
 						<a href="#/book/{{book.id}}">Read more...</a>
 					</div>
 				</div>
