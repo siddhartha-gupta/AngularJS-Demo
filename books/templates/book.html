@@ -12,19 +12,19 @@
 			<links url="booksDetails.accessInfo.pdf.downloadLink" text="'Download link'"></links>
 
 			<span>
-				<strong>Average Rating: </strong>{{booksDetails.volumeInfo.averageRating}}
+				<strong>Average Rating: </strong><span ng-bind="::booksDetails.volumeInfo.averageRating"></span>
 			</span><br />
 			<span>
-				<strong>Ratings Count: </strong>{{booksDetails.volumeInfo.ratingsCount}}
+				<strong>Ratings Count: </strong><span ng-bind="::booksDetails.volumeInfo.ratingsCount"></span>
 			</span><br />
 			<span>
-				<strong>Page Count: </strong>{{booksDetails.volumeInfo.pageCount}}
+				<strong>Page Count: </strong><span ng-bind="::booksDetails.pageCount"></span>
 			</span><br />
 			<span>
-				<strong>Published Date: </strong>{{booksDetails.volumeInfo.publishedDate}}
+				<strong>Published Date: </strong><span ng-bind="::booksDetails.volumeInfo.publishedDate"></span>
 			</span><br />
 			<span>
-				<strong>Publisher: </strong>{{booksDetails.volumeInfo.publisher}}
+				<strong>Publisher: </strong><span ng-bind="::booksDetails.volumeInfo.publisher"></span>
 			</span><br />
 			<span ng-if="booksDetails.volumeInfo.categories.length > 0">
 				<strong>Categories: </strong>
@@ -34,8 +34,7 @@
 			</span>
 			<span>
 				<strong>Price: </strong>
-				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}">
-					{{booksDetails.saleInfo.listPrice.amount | currency:"Rs. "}}
+				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}" ng-bind="::booksDetails.saleInfo.listPrice.amount | currency:'Rs. '">
 				</span>
 				<span ng-show="{{booksDetails.saleInfo.saleability === 'NOT_FOR_SALE'}}">
 					Not available
