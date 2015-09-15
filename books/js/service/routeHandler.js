@@ -1,0 +1,20 @@
+'use strict';
+
+booksApp.factory('routeHandler', function(webService) {
+	var getAllBooks = function(params) {
+			return webService.getCall({
+				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + params.searchQuery + '&maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
+			});
+		},
+
+		getSpecificBook = function(params) {
+			return webService.getCall({
+				url: 'https://www.googleapis.com/books/v1/volumes/' + params.bookId + '?projection=full'
+			});
+		};
+
+	return {
+		getAllBooks: getAllBooks,
+		getSpecificBook: getSpecificBook
+	};
+});
