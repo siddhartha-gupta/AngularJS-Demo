@@ -2,9 +2,9 @@ booksApp.controller('headerController', function headerController($scope, $locat
 	$scope.data = {
 		'imageUrl': 'img/angularjs-logo.png',
 	};
-	$scope.showBackBtn = true;
+	$scope.showBackBtn = false;
+	$scope.showResetBtn = false;
 	$scope.isDisabled = true;
-	$scope.showResetBtn = true;
 
 	$scope.headerItems = [{
 		'showBtn': 'showBackBtn',
