@@ -1,4 +1,14 @@
 booksApp.controller('mainController', function mainController($scope, $routeParams, serverData, $timeout, $log, $location, bookData, localStorageService) {
+	$scope.books = {
+		'searchQuery': '',
+		'sortOrder': 'relevance',
+		'maxLimit': '10',
+		'localSortOrder': 'volumeInfo.title',
+	};
+	$scope.booksList = [];
+	$scope.searchTimer = null;
+	$scope.currentReq = null;
+
 	if (serverData.data) {
 		$scope.books = {
 			'searchQuery': localStorageService.get('searchQuery'),
@@ -7,23 +17,13 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 			'localSortOrder': localStorageService.get('localSortOrder'),
 		};
 		$scope.booksList = serverData.data.items;
-	} else {
-		$scope.books = {
-			'searchQuery': '',
-			'sortOrder': 'relevance',
-			'maxLimit': '10',
-			'localSortOrder': 'volumeInfo.title',
-		};
-		$scope.booksList = [];
 	}
-	$scope.searchTimer = null;
-	$scope.currentReq = null;
 
 	$scope.getBooks = function() {
 		$scope.books.searchQuery = $scope.books.searchQuery.trim();
 		$timeout.cancel($scope.searchTimer);
 
-		if ($scope.currentReq) {
+		if ($scope.currentReq && angular.isFunction($scope.currentReq.abort)) {
 			$scope.currentReq.abort();
 		}
 
