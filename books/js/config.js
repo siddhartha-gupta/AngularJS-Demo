@@ -34,19 +34,17 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 	});
 
 	localStorageServiceProvider.setStorageType('sessionStorage');
-}).run(function($rootScope, $location) {
+}).run(function($rootScope, $location, routeHandler) {
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		// $rootScope.$broadcast will notify all $rootScope.$on as well as $scope.$on listeners
-		$rootScope.$broadcast('routeChangeStartEvent', next, current);
+		routeHandler.onRouteChangeStart(next, current);
 	});
 
 	$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
-		// $rootScope.$broadcast will notify all $rootScope.$on as well as $scope.$on listeners
-		$rootScope.$broadcast('routeChangeSuccessEvent', next, current);
+		routeHandler.onRouteChangeSuccess(next, current);
 	});
 
 	$rootScope.$on("$routeChangeError", function(event, next, current) {
-		// $rootScope.$broadcast will notify all $rootScope.$on as well as $scope.$on listeners
-		$rootScope.$broadcast('routeChangeErrorEvent', next, current);
+		routeHandler.onRouteChangeError(next, current);
 	});
 });

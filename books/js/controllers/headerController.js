@@ -1,10 +1,12 @@
-booksApp.controller('headerController', function headerController($scope, $location, localStorageService, $window, $log) {
+booksApp.controller('headerController', function headerController($scope, $location, localStorageService, routeHandler, $window, $log) {
 	$scope.data = {
 		'imageUrl': 'img/angularjs-logo.png',
 	};
-	$scope.showBackBtn = false;
-	$scope.showResetBtn = false;
-	$scope.isDisabled = true;
+	$scope.headerButtons = {
+		'showBackBtn': false,
+		'showResetBtn': false,
+		'isDisabled': true,
+	};
 
 	$scope.headerItems = [{
 		'showBtn': 'showBackBtn',
@@ -17,7 +19,7 @@ booksApp.controller('headerController', function headerController($scope, $locat
 	}];
 
 	$scope.showButton = function(btn) {
-		return $scope[btn];
+		return $scope.headerButtons[btn];
 	};
 
 	$scope.callFunction = function(event, name) {
@@ -40,43 +42,9 @@ booksApp.controller('headerController', function headerController($scope, $locat
 		$location.path('/books').replace();
 	};
 
-	$scope.$on('routeChangeStartEvent', function(event, next, current) {
-		switch (next.$$route.controller) {
-			case 'mainController':
-				$scope.isDisabled = false;
-				break;
+	var updateHeaderButtons = function(buttonState) {
+		$scope.headerButtons = buttonState;
+	};
 
-			case 'bookController':
-				$scope.isDisabled = true;
-				break;
-		}
-	});
-
-	$scope.$on('routeChangeSuccessEvent', function(event, next, current) {
-		switch (next.$$route.controller) {
-			case 'mainController':
-				$scope.isDisabled = false;
-				$scope.showBackBtn = false;
-				$scope.showResetBtn = true;
-				break;
-
-			case 'bookController':
-				$scope.isDisabled = false;
-				$scope.showBackBtn = true;
-				$scope.showResetBtn = true;
-				break;
-		}
-	});
-
-	$scope.$on('routeChangeErrorEvent', function(event, next, current) {
-		switch (next.$$route.controller) {
-			case 'mainController':
-				$scope.isDisabled = false;
-				break;
-
-			case 'bookController':
-				$scope.isDisabled = true;
-				break;
-		}
-	});
+	routeHandler.registerObserverCallback(updateHeaderButtons);
 });
