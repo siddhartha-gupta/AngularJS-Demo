@@ -1,20 +1,21 @@
 'use strict';
 
 booksApp.factory('routeHandler', function(webService) {
-	var getAllBooks = function(params) {
-			return webService.getCall({
-				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + params.searchQuery + '&maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
-			});
+	var onRouteChangeStart = function() {
+
 		},
 
-		getSpecificBook = function(params) {
-			return webService.getCall({
-				url: 'https://www.googleapis.com/books/v1/volumes/' + params.bookId + '?projection=full'
-			});
+		onRouteChangeSuccess = function() {
+
+		},
+
+		onRouteChangeError = function() {
+
 		};
 
 	return {
-		getAllBooks: getAllBooks,
-		getSpecificBook: getSpecificBook
+		onRouteChangeStart: onRouteChangeStart,
+		onRouteChangeSuccess: onRouteChangeSuccess,
+		onRouteChangeError: onRouteChangeError
 	};
 });
