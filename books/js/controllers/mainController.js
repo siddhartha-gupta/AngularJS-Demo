@@ -49,7 +49,6 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 	};
 
 	$scope.showBook = function(id) {
-		console.log('showbookfn');
 		$location.path('/book/' + id).replace();
 	};
 
