@@ -1,7 +1,7 @@
 <div>
-	<div ng-click="toggleSection()" ng-show="isVisible" style="cursor: pointer;">
-		<img class="pull-left" ng-src="{{imgsrc}}" style="width:128px;" />
-		<div class="pull-left" style="padding-left:10px; width: calc(100% - 128px)">
+	<div class="toggle-section" ng-click="toggleSection()" ng-show="isVisible">
+		<img class="pull-left img-size" ng-src="{{imgsrc}}" />
+		<div class="pull-left book-info">
 			<h4 class="well-title" ng-bind="::title"></h4>
 			<strong>Publisher: </strong><span ng-bind="::publisher"></span><br/>
 			<span>
@@ -15,7 +15,7 @@
 			<a href="#" ng-click="showbook($event)">Read more...</a>
 		</div>
 	</div>
-	<div ng-click="toggleSection()" ng-hide="isVisible" style="cursor: pointer;">
+	<div class="toggle-section" ng-click="toggleSection()" ng-hide="isVisible">
 		<h4 class="well-title" ng-bind="::title"></h4>
 	</div>
 </div>

@@ -13,7 +13,7 @@
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li style="cursor: pointer;" ng-repeat="item in headerItems">
+						<li ng-repeat="item in headerItems">
 							<a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled" ng-bind="::item.text"></a>
 						</li>
 					</ul>
@@ -31,6 +31,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="../libs//angular-1.4.5/angular.js"></script>
+	<script type="text/javascript" src="../libs//angular-1.4.5/angular-animate.js"></script>
 	<script type="text/javascript" src="../libs/angular-1.4.5/angular-route.js"></script>
 	<script type="text/javascript" src="../libs/angular-local-storage/angular-local-storage.js"></script>
 	
@@ -46,6 +47,7 @@
 	<!-- directives -->
 	<script type="text/javascript" src="js/directives/collapseTitle.js"></script>
 	<script type="text/javascript" src="js/directives/links.js"></script>
+	<script type="text/javascript" src="js/directives/customError.js"></script>
 
 	<!-- filters -->
 	<script type="text/javascript" src="js/filters/htmlRender.js"></script>

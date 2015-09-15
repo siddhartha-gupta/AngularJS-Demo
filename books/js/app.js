@@ -1,4 +1,4 @@
 'use strict';
 
 // var booksApp = angular.module('booksApp');
-var booksApp = angular.module('booksApp', ['ngRoute', 'LocalStorageModule']);
+var booksApp = angular.module('booksApp', ['ngAnimate', 'ngRoute', 'LocalStorageModule']);

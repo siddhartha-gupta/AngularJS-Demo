@@ -5,6 +5,12 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 		'maxLimit': '10',
 		'localSortOrder': 'volumeInfo.title',
 	};
+
+	$scope.error = {
+		isVisible: false,
+		className: 'slideover',
+		text: 'Please type 3 or more chars'
+	};
 	$scope.booksList = [];
 	$scope.searchTimer = null;
 	$scope.currentReq = null;
@@ -19,7 +25,9 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 		$scope.booksList = serverData.data.items;
 	}
 
+	console.log($scope.books.searchQuery);
 	$scope.getBooks = function() {
+		console.log($scope.books.searchQuery);
 		$scope.books.searchQuery = $scope.books.searchQuery.trim();
 		$timeout.cancel($scope.searchTimer);
 
@@ -28,6 +36,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 		}
 
 		if ($scope.books.searchQuery.length > 2) {
+			$scope.error.isVisible = false;
 			$scope.searchTimer = $timeout(function(search) {
 				$scope.currentReq = bookData.getAllBooks({
 					'searchQuery': $scope.books.searchQuery,
@@ -42,8 +51,11 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 					$log.log('error: ', response);
 				});
 			}, 500);
-		} else if ($scope.books.searchQuery.length === 0) {
-			$scope.booksList = [];
+		} else {
+			$scope.error.isVisible = true;
+			if ($scope.books.searchQuery.length === 0) {
+				$scope.booksList = [];
+			}
 		}
 		$scope.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
 	};

@@ -1,6 +1,7 @@
-<div style="margin-bottom: 20px; width: 100%; float: left;">
+<div class="custom-container">
 	<div class="col-xs-7">
 		<input class="form-control" type="text" ng-model="books.searchQuery" placeholder="Book or book type you would like to search..." ng-change="getBooks()" />
+		<custom-error ng-if="error.isVisible" elemclass="{{error.className}}" text="{{error.text}}"></custom-error>
 	</div>
 	<div class="col-xs-2">
 		<select ng-model="books.sortOrder" class="form-control input-small" ng-change="getBooks()">
@@ -18,7 +19,7 @@
 	</div>
 </div>
 
-<div style="margin-bottom: 20px; width: 100%; float: left;">
+<div class="custom-container">
 	<div class="col-xs-2">
 		<select ng-model="books.localSortOrder" class="form-control input-small" ng-change="updateSessionStorage(['localSortOrder'])">
 			<option selected value="volumeInfo.title">By: Name</option>
