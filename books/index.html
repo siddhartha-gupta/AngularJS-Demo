@@ -14,7 +14,7 @@
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
 						<li style="cursor: pointer;" ng-repeat="item in headerItems">
-							<a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled">{{item.text}}</a>
+							<a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled" ng-bind="item.text">}}</a>
 						</li>
 
 					</ul>
