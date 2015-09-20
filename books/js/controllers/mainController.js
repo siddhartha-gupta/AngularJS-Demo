@@ -38,18 +38,7 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 		if ($scope.books.searchQuery.length > 2) {
 			$scope.error.isVisible = false;
 			$scope.searchTimer = $timeout(function(search) {
-				$scope.currentReq = bookData.getAllBooks({
-					'searchQuery': $scope.books.searchQuery,
-					'orderBy': $scope.books.sortOrder,
-					'maxLimit': $scope.books.maxLimit
-				}).then(function(response) {
-					$scope.currentReq = null;
-					$scope.booksList = response.data.items;
-					$log.log('success: ', $scope.booksList);
-				}, function(response) {
-					$scope.currentReq = null;
-					$log.log('error: ', response);
-				});
+				searchBooks();
 			}, 500);
 		} else {
 			$scope.error.isVisible = true;
@@ -58,6 +47,21 @@ booksApp.controller('mainController', function mainController($scope, $routePara
 			}
 		}
 		$scope.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
+	};
+
+	var searchBooks = function() {
+		$scope.currentReq = bookData.getAllBooks({
+			'searchQuery': $scope.books.searchQuery,
+			'orderBy': $scope.books.sortOrder,
+			'maxLimit': $scope.books.maxLimit
+		}).then(function(response) {
+			$scope.currentReq = null;
+			$scope.booksList = response.data.items;
+			$log.log('success: ', $scope.booksList);
+		}, function(response) {
+			$scope.currentReq = null;
+			$log.log('error: ', response);
+		});
 	};
 
 	$scope.showBook = function(id) {
