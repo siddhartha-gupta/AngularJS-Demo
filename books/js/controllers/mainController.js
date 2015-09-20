@@ -1,76 +1,78 @@
-booksApp.controller('mainController', function mainController($scope, $routeParams, serverData, $timeout, $log, $location, bookData, localStorageService) {
-	$scope.books = {
+booksApp.controller('mainController', function mainController($scope, $timeout, $log, $location, bookData, localStorageService, serverData) {
+	var _this = this;
+
+	_this.books = {
 		'searchQuery': '',
 		'sortOrder': 'relevance',
 		'maxLimit': '10',
 		'localSortOrder': 'volumeInfo.title',
 	};
 
-	$scope.error = {
+	_this.error = {
 		isVisible: false,
 		className: 'slideover',
 		text: 'Please type 3 or more chars'
 	};
-	$scope.booksList = [];
-	$scope.searchTimer = null;
-	$scope.currentReq = null;
+	_this.booksList = [];
+	_this.searchTimer = null;
+	_this.currentReq = null;
 
 	if (serverData.data) {
-		$scope.books = {
+		_this.books = {
 			'searchQuery': localStorageService.get('searchQuery'),
 			'sortOrder': localStorageService.get('sortOrder'),
 			'maxLimit': localStorageService.get('maxLimit'),
 			'localSortOrder': localStorageService.get('localSortOrder'),
 		};
-		$scope.booksList = serverData.data.items;
+		_this.booksList = serverData.data.items;
 	}
 
-	console.log($scope.books.searchQuery);
-	$scope.getBooks = function() {
-		console.log($scope.books.searchQuery);
-		$scope.books.searchQuery = $scope.books.searchQuery.trim();
-		$timeout.cancel($scope.searchTimer);
+	console.log(_this.books.searchQuery);
+	_this.getBooks = function() {
+		console.log(_this.books.searchQuery);
+		_this.books.searchQuery = _this.books.searchQuery.trim();
+		$timeout.cancel(_this.searchTimer);
 
-		if ($scope.currentReq && angular.isFunction($scope.currentReq.abort)) {
-			$scope.currentReq.abort();
+		if (_this.currentReq && angular.isFunction(_this.currentReq.abort)) {
+			_this.currentReq.abort();
 		}
 
-		if ($scope.books.searchQuery.length > 2) {
-			$scope.error.isVisible = false;
-			$scope.searchTimer = $timeout(function(search) {
+		if (_this.books.searchQuery.length > 2) {
+			_this.error.isVisible = false;
+			_this.searchTimer = $timeout(function(search) {
 				searchBooks();
 			}, 500);
 		} else {
-			$scope.error.isVisible = true;
-			if ($scope.books.searchQuery.length === 0) {
-				$scope.booksList = [];
+			_this.error.isVisible = true;
+			if (_this.books.searchQuery.length === 0) {
+				_this.booksList = [];
 			}
 		}
-		$scope.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
+		_this.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
 	};
 
 	var searchBooks = function() {
-		$scope.currentReq = bookData.getAllBooks({
-			'searchQuery': $scope.books.searchQuery,
-			'orderBy': $scope.books.sortOrder,
-			'maxLimit': $scope.books.maxLimit
+		_this.currentReq = bookData.getAllBooks({
+			'searchQuery': _this.books.searchQuery,
+			'orderBy': _this.books.sortOrder,
+			'maxLimit': _this.books.maxLimit
 		}).then(function(response) {
-			$scope.currentReq = null;
-			$scope.booksList = response.data.items;
-			$log.log('success: ', $scope.booksList);
+			_this.currentReq = null;
+			_this.booksList = response.data.items;
+			$log.log('success: ', _this.booksList);
 		}, function(response) {
-			$scope.currentReq = null;
+			_this.currentReq = null;
 			$log.log('error: ', response);
 		});
 	};
 
-	$scope.showBook = function(id) {
+	_this.showBook = function(id) {
 		$location.path('/book/' + id).replace();
 	};
 
-	$scope.updateSessionStorage = function(keys) {
+	_this.updateSessionStorage = function(keys) {
 		angular.forEach(keys, function(key) {
-			localStorageService.set(key, $scope.books[key]);
+			localStorageService.set(key, _this.books[key]);
 		});
 	};
 });

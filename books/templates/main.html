@@ -1,16 +1,16 @@
 <div class="custom-container">
 	<div class="col-xs-7">
-		<input class="form-control" type="text" ng-model="books.searchQuery" placeholder="Book or book type you would like to search..." ng-change="getBooks()" />
-		<custom-error ng-if="error.isVisible" elemclass="{{error.className}}" text="{{error.text}}"></custom-error>
+		<input class="form-control" type="text" ng-model="customController.books.searchQuery" placeholder="Book or book type you would like to search..." ng-change="getBooks()" />
+		<custom-error ng-if="customController.error.isVisible" elemclass="{{customController.error.className}}" text="{{customController.error.text}}"></custom-error>
 	</div>
 	<div class="col-xs-2">
-		<select ng-model="books.sortOrder" class="form-control input-small" ng-change="getBooks()">
+		<select ng-model="customController.books.sortOrder" class="form-control input-small" ng-change="customController.getBooks()">
 			<option selected value="relevance">By relevance</option>
 			<option value="newest">Newest</option>
 		</select>
 	</div>
 	<div class="col-xs-2">
-		<select ng-model="books.maxLimit" class="form-control input-small" ng-change="getBooks()">
+		<select ng-model="customController.books.maxLimit" class="form-control input-small" ng-change="customController.getBooks()">
 			<option selected value="10">Limit: 10</option>
 			<option value="20">Limit: 20</option>
 			<option value="30">Limit: 30</option>
@@ -21,7 +21,7 @@
 
 <div class="custom-container">
 	<div class="col-xs-2">
-		<select ng-model="books.localSortOrder" class="form-control input-small" ng-change="updateSessionStorage(['localSortOrder'])">
+		<select ng-model="customController.books.localSortOrder" class="form-control input-small" ng-change="customController.updateSessionStorage(['localSortOrder'])">
 			<option selected value="volumeInfo.title">By: Name</option>
 			<option value="-saleInfo.listPrice.amount">By: Price Descending</option>
 			<option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
@@ -31,10 +31,10 @@
 
 <div class="container">
 	<ul class="thumbnails list-unstyled" ng-cloak>
-		<li ng-repeat="book in booksList | orderBy:books.localSortOrder">
+		<li ng-repeat="book in customController.booksList | orderBy:customController.books.localSortOrder">
 			<div class="row session">
 				<div class="well col-xs-11">
-					<collapse-title imgsrc="book.volumeInfo.imageLinks.smallThumbnail" title="book.volumeInfo.title" publisher="book.volumeInfo.publisher" saleability="book.saleInfo.saleability" amount="book.saleInfo.listPrice.amount" id="book.id" showbookfn="showBook" />
+					<collapse-title imgsrc="book.volumeInfo.imageLinks.smallThumbnail" title="book.volumeInfo.title" publisher="book.volumeInfo.publisher" saleability="book.saleInfo.saleability" amount="book.saleInfo.listPrice.amount" id="book.id" showbookfn="customController.showBook" />
 				</div>
 			</div>
 		</li>

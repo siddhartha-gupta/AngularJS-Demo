@@ -1,48 +1,48 @@
 <div class="container">
 	<div class="well col-xs-9" ng-cloak>
-		<img class="pull-left img-size" ng-src="{{booksDetails.volumeInfo.imageLinks.smallThumbnail}}" />
+		<img class="pull-left img-size" ng-src="{{customController.booksDetails.volumeInfo.imageLinks.smallThumbnail}}" />
 		<div class="pull-left book-info">
-			<h4 class="well-title">{{booksDetails.volumeInfo.title}}</h4>
-			<h5>{{booksDetails.volumeInfo.subtitle}}</h5>
+			<h4 class="well-title">{{customController.booksDetails.volumeInfo.title}}</h4>
+			<h5>{{customController.booksDetails.volumeInfo.subtitle}}</h5>
 
-			<links url="booksDetails.saleInfo.buyLink" text="'Buy link'"></links>
-			<links url="booksDetails.volumeInfo.previewLink" text="'About'"></links>
-			<links url="booksDetails.accessInfo.webReaderLink" text="'Web reader link'"></links>
-			<links url="booksDetails.accessInfo.pdf.acsTokenLink" text="'PDF link'"></links>
-			<links url="booksDetails.accessInfo.pdf.downloadLink" text="'Download link'"></links>
+			<links url="customController.booksDetails.saleInfo.buyLink" text="'Buy link'"></links>
+			<links url="customController.booksDetails.volumeInfo.previewLink" text="'About'"></links>
+			<links url="customController.booksDetails.accessInfo.webReaderLink" text="'Web reader link'"></links>
+			<links url="customController.booksDetails.accessInfo.pdf.acsTokenLink" text="'PDF link'"></links>
+			<links url="customController.booksDetails.accessInfo.pdf.downloadLink" text="'Download link'"></links>
 
 			<span>
-				<strong>Average Rating: </strong><span ng-bind="::booksDetails.volumeInfo.averageRating"></span>
+				<strong>Average Rating: </strong><span ng-bind="::customController.booksDetails.volumeInfo.averageRating"></span>
 			</span><br />
 			<span>
-				<strong>Ratings Count: </strong><span ng-bind="::booksDetails.volumeInfo.ratingsCount"></span>
+				<strong>Ratings Count: </strong><span ng-bind="::customController.booksDetails.volumeInfo.ratingsCount"></span>
 			</span><br />
 			<span>
-				<strong>Page Count: </strong><span ng-bind="::booksDetails.pageCount"></span>
+				<strong>Page Count: </strong><span ng-bind="::customController.booksDetails.pageCount"></span>
 			</span><br />
 			<span>
-				<strong>Published Date: </strong><span ng-bind="::booksDetails.volumeInfo.publishedDate"></span>
+				<strong>Published Date: </strong><span ng-bind="::customController.booksDetails.volumeInfo.publishedDate"></span>
 			</span><br />
 			<span>
-				<strong>Publisher: </strong><span ng-bind="::booksDetails.volumeInfo.publisher"></span>
+				<strong>Publisher: </strong><span ng-bind="::customController.booksDetails.volumeInfo.publisher"></span>
 			</span><br />
-			<span ng-if="booksDetails.volumeInfo.categories.length > 0">
+			<span ng-if="customController.booksDetails.volumeInfo.categories.length > 0">
 				<strong>Categories: </strong>
-				<span ng-repeat="category in booksDetails.volumeInfo.categories  track by $index">
+				<span ng-repeat="category in customController.booksDetails.volumeInfo.categories  track by $index">
 					{{category}}{{$last ? '' : ', '}}
 				</span><br />
 			</span>
 			<span>
 				<strong>Price: </strong>
-				<span ng-show="{{booksDetails.saleInfo.saleability === 'FOR_SALE'}}" ng-bind="::booksDetails.saleInfo.listPrice.amount | currency:'Rs. '">
+				<span ng-show="{{customController.booksDetails.saleInfo.saleability === 'FOR_SALE'}}" ng-bind="::customController.booksDetails.saleInfo.listPrice.amount | currency:'Rs. '">
 				</span>
-				<span ng-show="{{booksDetails.saleInfo.saleability === 'NOT_FOR_SALE'}}">
+				<span ng-show="{{customController.booksDetails.saleInfo.saleability === 'NOT_FOR_SALE'}}">
 					Not available
 				</span>
 			</span><br /><br />
 			<p>
 				<strong>Description: </strong>
-				<span ng-bind-html="booksDetails.volumeInfo.description | renderHTML:'Not available'"></span>
+				<span ng-bind-html="customController.booksDetails.volumeInfo.description | renderHTML:'Not available'"></span>
 			</p>
 		</div>
 	</div>

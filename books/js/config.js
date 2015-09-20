@@ -1,6 +1,7 @@
 booksApp.config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
 	$routeProvider.when('/books/:query?/:maxlimit?', {
 		controller: 'mainController',
+		controllerAs: 'customController',
 		templateUrl: 'templates/main.html',
 		resolve: {
 			serverData: function($route, bookData, localStorageService) {
@@ -21,6 +22,7 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 		}
 	}).when('/book/:bookId', {
 		controller: 'bookController',
+		controllerAs: 'customController',
 		templateUrl: 'templates/book.html',
 		resolve: {
 			serverData: function($route, bookData) {

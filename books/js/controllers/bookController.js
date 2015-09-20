@@ -1,15 +1,16 @@
-booksApp.controller('bookController', function bookController($scope, $routeParams, bookData, $location, $log, serverData) {
-	$scope.bookId = $routeParams.bookId || '';
-	$scope.booksDetails = serverData.data;
+booksApp.controller('bookController', function bookController($routeParams, bookData, $location, $log, serverData) {
+	var _this = this;
+	_this.bookId = $routeParams.bookId || '';
+	_this.booksDetails = serverData.data;
 
-	$log.log(serverData.data);
+	$log.log(_this.booksDetails);
 
-	$scope.getBooks = function() {
+	_this.getBooks = function() {
 		bookData.getSpecificBook({
-			'bookId': $scope.bookId
+			'bookId': _this.bookId
 		}).then(function(response) {
-			$scope.booksDetails = response.data;
-			$log.log('success: ', $scope.booksDetails);
+			_this.booksDetails = response.data;
+			$log.log('success: ', _this.booksDetails);
 		}, function(response) {
 			$log.log('error: ', response);
 		});
