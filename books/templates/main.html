@@ -1,6 +1,6 @@
 <div class="custom-container">
 	<div class="col-xs-7">
-		<input class="form-control" type="text" ng-model="customController.books.searchQuery" placeholder="Book or book type you would like to search..." ng-change="getBooks()" />
+		<input class="form-control" type="text" placeholder="Book or book type you would like to search..." ng-model="customController.books.searchQuery" ng-change="customController.getBooks()" />
 		<custom-error ng-if="customController.error.isVisible" elemclass="{{customController.error.className}}" text="{{customController.error.text}}"></custom-error>
 	</div>
 	<div class="col-xs-2">

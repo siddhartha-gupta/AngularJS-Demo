@@ -19,31 +19,41 @@ booksApp.factory('routeHandler', function() {
 		},
 
 		onRouteChangeStart = function(next, current) {
-			switch (next.$$route.controller) {
-				case 'mainController':
-					headerButtons.isDisabled = false;
-					break;
+			if(next && next.$$route && next.$$route.controller) {
+				switch (next.$$route.controller) {
+					case 'mainController':
+						headerButtons.isDisabled = false;
+						break;
 
-				case 'bookController':
-					headerButtons.isDisabled = true;
-					break;
+					case 'bookController':
+						headerButtons.isDisabled = true;
+						break;
+				}
+			} else {
+				headerButtons.isDisabled = false;
 			}
 			notifyObservers();
 		},
 
 		onRouteChangeSuccess = function(next, current) {
-			switch (next.$$route.controller) {
-				case 'mainController':
-					headerButtons.isDisabled = false;
-					headerButtons.showBackBtn = false;
-					headerButtons.showResetBtn = true;
-					break;
+			if(next && next.$$route && next.$$route.controller) {
+				switch (next.$$route.controller) {
+					case 'mainController':
+						headerButtons.isDisabled = false;
+						headerButtons.showBackBtn = false;
+						headerButtons.showResetBtn = true;
+						break;
 
-				case 'bookController':
-					headerButtons.isDisabled = false;
-					headerButtons.showBackBtn = true;
-					headerButtons.showResetBtn = true;
-					break;
+					case 'bookController':
+						headerButtons.isDisabled = false;
+						headerButtons.showBackBtn = true;
+						headerButtons.showResetBtn = true;
+						break;
+				}
+			} else {
+				headerButtons.isDisabled = false;
+				headerButtons.showBackBtn = false;
+				headerButtons.showResetBtn = true;
 			}
 			notifyObservers();
 		},
