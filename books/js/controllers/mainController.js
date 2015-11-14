@@ -27,10 +27,10 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		_this.booksList = serverData.data.items;
 	}
 
-	console.log(_this.books.searchQuery);
 	_this.getBooks = function() {
-		console.log(_this.books.searchQuery);
 		_this.books.searchQuery = _this.books.searchQuery.trim();
+
+		console.log('getBooks: ', _this.books.searchQuery);
 		$timeout.cancel(_this.searchTimer);
 
 		if (_this.currentReq && angular.isFunction(_this.currentReq.abort)) {
