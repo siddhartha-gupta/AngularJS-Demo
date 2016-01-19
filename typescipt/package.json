@@ -1,0 +1,10 @@
+{
+	"name": "angular2-typescript",
+	"version": "0.0.1",
+	"description": "angular 2 quick start",
+	"main": "index.js",
+	"devDependencies": {
+		"gulp": "^3.9.0",
+		"gulp-typescript": "^2.10.0"
+	}
+}
