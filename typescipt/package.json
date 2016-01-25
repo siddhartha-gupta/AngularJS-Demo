@@ -4,8 +4,11 @@
   "description": "angular 2 quick start",
   "main": "index.js",
   "devDependencies": {
+    "connect-livereload": "^0.5.4",
+    "express": "^4.13.4",
     "gulp": "^3.9.0",
-    "gulp-typescript": "^2.10.0"
+    "gulp-typescript": "^2.10.0",
+    "tiny-lr": "^0.2.1"
   },
   "dependencies": {
     "angular2": "^2.0.0-beta.1",
@@ -13,8 +16,8 @@
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
     "jquery": "^2.2.0",
-    "reflect-metadata": "^0.1.2",
-    "rxjs": "^5.0.0-beta.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
     "systemjs": "^0.19.16",
     "zone.js": "^0.5.10"
   }
