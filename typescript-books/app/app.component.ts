@@ -9,7 +9,7 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http';
 	template: `
 	<h1>{{title}}</h1>
   `,
-	// viewProviders: [HTTP_PROVIDERS],
+  viewProviders: [HTTP_PROVIDERS]
 })
 
 export class App {
@@ -19,11 +19,11 @@ export class App {
 
 	constructor(http: Http) {
 		http.get('https://www.googleapis.com/books/v1/volumes?q=test')
-			// Call map on the response observable to get the parsed people object
-			.map(res => res.json())
-			// Subscribe to the observable to get the parsed people object and attach it to the
-			// component
-			.subscribe(booksData => this.booksData = booksData);
+      // Call map on the response observable to get the parsed people object
+      .map(res => res.json())
+      // Subscribe to the observable to get the parsed people object and attach it to the
+      // component
+      .subscribe(booksData => this.booksData = booksData);
 	}
 
 	ngOnInit() {
