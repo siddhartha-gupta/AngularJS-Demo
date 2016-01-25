@@ -1,5 +1,7 @@
 import {Component} from 'angular2/core';
+import {OnInit} from 'angular2/core';
 import {Hero} from './hero';
+import {HeroService} from './hero.service';
 import {HeroDetailComponent} from './hero-detail.component';
 
 @Component({
@@ -64,7 +66,8 @@ import {HeroDetailComponent} from './hero-detail.component';
       border-radius: 4px 0px 0px 4px;
     }
   `],
-	directives: [HeroDetailComponent]
+	directives: [HeroDetailComponent],
+	providers: [HeroService]
 })
 
 export class AppComponent {
@@ -72,17 +75,15 @@ export class AppComponent {
 	public heroes = HEROES;
 	public selectedHero: Hero;
 	onSelect(hero: Hero) { this.selectedHero = hero; }
+	getHeroes() {
+		this._heroService.getHeroes().then(heroes => this.heroes = heroes);
+	}
 }
 
-var HEROES: Hero[] = [
-	{ "id": 11, "name": "Mr. Nice" },
-	{ "id": 12, "name": "Narco" },
-	{ "id": 13, "name": "Bombasto" },
-	{ "id": 14, "name": "Celeritas" },
-	{ "id": 15, "name": "Magneta" },
-	{ "id": 16, "name": "RubberMan" },
-	{ "id": 17, "name": "Dynama" },
-	{ "id": 18, "name": "Dr IQ" },
-	{ "id": 19, "name": "Magma" },
-	{ "id": 20, "name": "Tornado" }
-];
+export class AppComponent implements OnInit {
+	ngOnInit() {
+		this.getHeroes();
+	}
+}
+
+public heroes: Hero[];
