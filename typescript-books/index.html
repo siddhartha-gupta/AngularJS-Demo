@@ -12,6 +12,9 @@
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+    <link href="app/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/css/app.css" rel="stylesheet">
 
     <!-- 2. Configure SystemJS -->
     <script>
@@ -23,7 +26,7 @@
           }
         }
       });
-      System.import('build/boot').then(null, console.error.bind(console));
+      System.import('build/app/boot').then(null, console.error.bind(console));
     </script>
 
   </head>
