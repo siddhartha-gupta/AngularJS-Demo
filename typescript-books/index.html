@@ -32,8 +32,31 @@
   </head>
 
   <!-- 3. Display the application -->
+
   <body>
-    <books-app>Loading...</books-app>
+    <div class="container">
+      <div id="header" class="page-header" ng-controller="headerController">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+              <li ng-repeat="item in headerItems">
+                <!-- <a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled" ng-bind="::item.text"></a> -->
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- <img ng-src="{{data.imageUrl}}" alt="" /> -->
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Books demo app</h2>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <books-app>Loading...</books-app>
+      </div>
+    </div>
   </body>
+  <body>
 
 </html>
