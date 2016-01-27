@@ -11,9 +11,8 @@ import {api} from './api.service'
 @View({
 	directives: [Alert],
 	template: `
-	<h1>{{title}}</h1>
 	<ul class="books-listing">
-		<li *ngFor="#bookData of booksData">
+		<li *ngFor="#bookData of booksData" class="well col-xs-11">
 			<img class="pull-left img-size" src="{{bookData.volumeInfo.imageLinks.smallThumbnail}}" />
 			<div class="pull-left book-info">
 				<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
@@ -25,7 +24,6 @@ import {api} from './api.service'
 })
 
 export class App {
-	public title = 'Google Books API';
 	public booksData: Array<Object>;
 
 	constructor(public api: api) { }
