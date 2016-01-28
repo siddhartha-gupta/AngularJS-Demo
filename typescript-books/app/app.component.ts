@@ -9,27 +9,8 @@ import {api} from './api.service'
 })
 
 @View({
-	directives: [Alert],
-	template: `
-	<ul class="books-listing">
-		<li *ngFor="#bookData of booksData" class="well col-xs-11">
-			<img class="pull-left img-size" src="{{bookData.volumeInfo.imageLinks.smallThumbnail}}" />
-			<div class="pull-left book-info">
-				<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
-				<strong>Publisher: </strong><span>{{bookData.volumeInfo.publisher}}</span><br/>
-				<strong>Price: </strong>				
-				<span *ngIf="bookData.saleInfo.saleability === 'FOR_SALE'">
-					Rs. {{bookData.saleInfo.listPrice.amount}}
-				</span>
-				<span *ngIf="bookData.saleInfo.saleability === 'NOT_FOR_SALE'">
-					Not available
-				</span>
-				<br/>
-				<a href="#" (click)="showbook($event, bookData)">Read more...</a>
-			</div>
-        </li>
-	</ul>
-  `
+	directives: [],
+	templateUrl: 'app/templates/app.template.html'
 })
 
 export class App {
