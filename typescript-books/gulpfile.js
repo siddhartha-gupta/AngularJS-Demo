@@ -31,6 +31,7 @@ gulp.task('copy:libs', ['clean'], function() {
 			'node_modules/rxjs/bundles/Rx.js',
 			'node_modules/angular2/bundles/angular2.dev.js',
 			'node_modules/angular2/bundles/http.dev.js',
+			'node_modules/angular2/bundles/router.dev.js',
 			'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js'
 		])
 		.pipe(gulp.dest('dist/lib'))
