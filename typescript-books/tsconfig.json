@@ -18,6 +18,8 @@
   ],
   "files": [
     "app/app.component.ts",
+    "app/header.component.ts",
+    "app/booksListing.component.ts",
     "app/api.service.ts",
     "app/boot.ts"
   ],
