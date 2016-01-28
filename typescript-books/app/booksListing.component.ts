@@ -22,11 +22,11 @@ export class BooksListing {
 		this.api.getData('https://www.googleapis.com/books/v1/volumes?q=test').subscribe(
 			data => this.booksData = data.items,
 			error => console.error('Error: ' + error),
-			() => console.log('Completed!: ', this.booksData);
+			() => console.log('Completed!: ', this.booksData)
 		);
 	}
 
-	showbook(event, data) {
+	showbook(event: Event, data: any) {
 		event.preventDefault();
 		event.stopPropagation();
 

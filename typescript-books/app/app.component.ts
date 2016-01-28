@@ -17,8 +17,8 @@ import {BooksListing} from './booksListing.component'
 })
 
 @RouteConfig([
-		new Route({ path: "/", as: "Default", component: BooksListing }),
-		new Route({ path: "/page2", as: "Page2", component: AppHeader })
+		new Route({ path: "/", component: BooksListing }),
+		new Route({ path: "/page2", component: AppHeader })
 ])
 
 export class App {
