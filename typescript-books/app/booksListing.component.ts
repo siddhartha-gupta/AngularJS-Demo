@@ -1,5 +1,7 @@
 import {Component, View, OnInit} from 'angular2/core';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import {RouteConfig, RouterLink, RouterOutlet, Route, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location, LocationStrategy, HashLocationStrategy, Router} from 'angular2/router'
+
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
 
@@ -9,7 +11,7 @@ import {api} from './api.service'
 })
 
 @View({
-	directives: [],
+	directives: [ROUTER_DIRECTIVES],
 	templateUrl: 'app/templates/booksListing.template.html'
 })
 
@@ -24,13 +26,5 @@ export class BooksListing {
 			error => console.error('Error: ' + error),
 			() => console.log('Completed!: ', this.booksData)
 		);
-	}
-
-	showbook(event: Event, data: any) {
-		event.preventDefault();
-		event.stopPropagation();
-
-		let id = data.id;
-		console.log(id);
 	}
 }
