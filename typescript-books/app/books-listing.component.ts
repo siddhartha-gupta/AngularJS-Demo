@@ -6,11 +6,8 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
 
 @Component({
-	selector: 'app-content',
-	providers: [api]
-})
-
-@View({
+	selector: 'home',
+	providers: [HTTP_PROVIDERS, api],
 	directives: [ROUTER_DIRECTIVES],
 	templateUrl: 'app/templates/booksListing.template.html'
 })
@@ -18,7 +15,9 @@ import {api} from './api.service'
 export class BooksListing {
 	public booksData: Array<Object>;
 
-	constructor(public api: api) { }
+	constructor(public api: api) {
+		console.log('BooksListing constructor');
+	}
 
 	ngOnInit() {
 		this.api.getData('https://www.googleapis.com/books/v1/volumes?q=test').subscribe(

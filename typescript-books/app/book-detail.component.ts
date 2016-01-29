@@ -6,22 +6,22 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
 
 @Component({
-	selector: 'app-content',
-	providers: [api]
-})
-
-@View({
+	selector: 'test',
+	providers: [HTTP_PROVIDERS, api],
 	directives: [ROUTER_DIRECTIVES],
 	templateUrl: 'app/templates/bookDetail.template.html'
 })
 
 export class BookDetail {
-	public bookData: Array<Object>;
+	bookData: Array<Object>;
 
-	constructor(public api: api) { }
+	constructor(public api: api) { 
+		console.log('BookDetail constructor');
+	}
 
 	ngOnInit() {
-		this.api.getData(url: 'https://www.googleapis.com/books/v1/volumes/-3P00MGV74wC?projection=full').subscribe(
+		console.log('ngOnInit');
+		this.api.getData('https://www.googleapis.com/books/v1/volumes/-3P00MGV74wC?projection=full').subscribe(
 			data => this.bookData = data,
 			error => console.error('Error: ' + error),
 			() => console.log('Completed!: ', this.bookData)
