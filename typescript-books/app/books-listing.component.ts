@@ -1,8 +1,8 @@
-import {Component, View, OnInit} from 'angular2/core';
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
-import {RouteConfig, RouterLink, RouterOutlet, Route, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location, LocationStrategy, HashLocationStrategy, Router} from 'angular2/router'
+import {Component, View, OnInit} from 'angular2/core'
+import {Http, HTTP_PROVIDERS} from 'angular2/http'
+import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
+import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
-import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
 import { _settings } from './settings'
 

@@ -1,18 +1,51 @@
-<ul class="books-listing" *ngIf="booksData">
-	<li *ngFor="#bookData of booksData" class="well col-xs-11">
-		<img class="pull-left img-size" src="{{bookData.volumeInfo.imageLinks.smallThumbnail}}" />
-		<div class="pull-left book-info">
-			<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
-			<strong>Publisher: </strong><span>{{bookData.volumeInfo.publisher}}</span><br/>
-			<strong>Price: </strong>				
-			<span *ngIf="bookData.saleInfo.saleability === 'FOR_SALE'">
-				Rs. {{bookData.saleInfo.listPrice.amount}}
-			</span>
-			<span *ngIf="bookData.saleInfo.saleability === 'NOT_FOR_SALE'">
-				Not available
-			</span>
-			<br/>
-			<a [routerLink]="['/Book', {id: bookData.id}]">Read more...</a>
-		</div>
-    </li>
-</ul>
+<div class="custom-container">
+	<div class="col-xs-7">
+		<input class="form-control" type="text" placeholder="Book or book type you would like to search..." />
+		<!-- <custom-error ng-if="customController.error.isVisible" elemclass="{{customController.error.className}}" text="{{customController.error.text}}"></custom-error> -->
+	</div>
+	<!-- <div class="col-xs-2">
+		<select ng-model="customController.books.sortOrder" class="form-control input-small" ng-change="customController.getBooks()">
+			<option selected value="relevance">By relevance</option>
+			<option value="newest">Newest</option>
+		</select>
+	</div>
+	<div class="col-xs-2">
+		<select ng-model="customController.books.maxLimit" class="form-control input-small" ng-change="customController.getBooks()">
+			<option selected value="10">Limit: 10</option>
+			<option value="20">Limit: 20</option>
+			<option value="30">Limit: 30</option>
+			<option value="40">Limit: 40</option>
+		</select>
+	</div> -->
+</div>
+
+<div class="custom-container">
+	<!-- <div class="col-xs-2">
+		<select ng-model="customController.books.localSortOrder" class="form-control input-small" ng-change="customController.updateSessionStorage(['localSortOrder'])">
+			<option selected value="volumeInfo.title">By: Name</option>
+			<option value="-saleInfo.listPrice.amount">By: Price Descending</option>
+			<option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
+		</select>
+	</div> -->
+</div>
+
+<div class="container" *ngIf="booksData">
+	<ul class="books-listing">
+		<li *ngFor="#bookData of booksData" class="well col-xs-11">
+			<img class="pull-left img-size" src="{{bookData.volumeInfo.imageLinks.smallThumbnail}}" />
+			<div class="pull-left book-info">
+				<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
+				<strong>Publisher: </strong><span>{{bookData.volumeInfo.publisher}}</span><br/>
+				<strong>Price: </strong>				
+				<span *ngIf="bookData.saleInfo.saleability === 'FOR_SALE'">
+					Rs. {{bookData.saleInfo.listPrice.amount}}
+				</span>
+				<span *ngIf="bookData.saleInfo.saleability === 'NOT_FOR_SALE'">
+					Not available
+				</span>
+				<br/>
+				<a [routerLink]="['/Book', {id: bookData.id}]">Read more...</a>
+			</div>
+	    </li>
+	</ul>
+</div>
