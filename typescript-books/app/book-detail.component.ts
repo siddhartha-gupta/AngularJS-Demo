@@ -6,7 +6,7 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
 
 @Component({
-	selector: 'test',
+	selector: 'Book',
 	providers: [HTTP_PROVIDERS, api],
 	directives: [ROUTER_DIRECTIVES],
 	templateUrl: 'app/templates/bookDetail.template.html'

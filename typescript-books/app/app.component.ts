@@ -18,7 +18,7 @@ import {BookDetail} from './book-detail.component'
 
 @RouteConfig([
 	{ path: '', as: 'Home', component: BooksListing },
-	{ path: '/test', as: 'Test', component: BookDetail }
+	{ path: '/book:id', as: 'Book', component: BookDetail }
 ])
 
 export class App {
