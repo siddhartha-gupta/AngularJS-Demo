@@ -6,13 +6,14 @@ import {RouteConfig, RouterLink, RouterOutlet, Route, ROUTER_DIRECTIVES, ROUTER_
 import {AppHeader} from './header.component'
 import {BooksListing} from './books-listing.component'
 import {BookDetail} from './book-detail.component'
+import { _settings } from './settings'
 
 @Component({
 	selector: 'books-app'
 })
 
 @View({
-	templateUrl: 'app/templates/app.template.html',
+	templateUrl: _settings.buildPath + 'app.template.html',
 	directives: [AppHeader, RouterLink, RouterOutlet, BooksListing, BookDetail]
 })
 

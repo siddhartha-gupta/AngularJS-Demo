@@ -4,12 +4,13 @@ import {RouteConfig, RouterLink, RouterOutlet, Route, ROUTER_DIRECTIVES, ROUTER_
 
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {api} from './api.service'
+import { _settings } from './settings'
 
 @Component({
 	selector: 'home',
 	providers: [HTTP_PROVIDERS, api],
 	directives: [ROUTER_DIRECTIVES],
-	templateUrl: 'app/templates/booksListing.template.html'
+	templateUrl: _settings.buildPath + 'booksListing.template.html'
 })
 
 export class BooksListing {
