@@ -4,7 +4,8 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {RouteConfig,RouterLink,RouterOutlet,Route,ROUTER_DIRECTIVES,ROUTER_PROVIDERS,Location,LocationStrategy,HashLocationStrategy,Router} from 'angular2/router'
 
 import {AppHeader} from './header.component'
-import {BooksListing} from './booksListing.component'
+import {BooksListing} from './books-listing.component'
+import {BookDetail} from './book-detail.component'
 
 @Component({
 	selector: 'books-app',
@@ -23,12 +24,12 @@ import {BooksListing} from './booksListing.component'
 		component: BooksListing,
 		useAsDefault: true
 	},
-
 	{
 		path: "/test",
 		name: "Test",
-		component: AppHeader
-	}
+		component: BookDetail
+	},
+	// { path: '/contact', component: BooksListing, as: 'contact' },
 ])
 
 export class App {

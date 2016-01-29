@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="well col-xs-9">
+		<img class="pull-left img-size" src="{{bookData.volumeInfo.imageLinks.smallThumbnail}}" />
+		<div class="pull-left book-info">
+			<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
+			<h5>{{bookData.volumeInfo.subtitle}}</h5>
+
+			<!-- <links url="bookData.saleInfo.buyLink" text="'Buy link'"></links>
+			<links url="bookData.volumeInfo.previewLink" text="'About'"></links>
+			<links url="bookData.accessInfo.webReaderLink" text="'Web reader link'"></links>
+			<links url="bookData.accessInfo.pdf.acsTokenLink" text="'PDF link'"></links>
+			<links url="bookData.accessInfo.pdf.downloadLink" text="'Download link'"></links> -->
+
+			<span>
+				<strong>Average Rating: </strong><span>{{bookData.volumeInfo.averageRating}}</span>
+			</span><br />
+			<span>
+				<strong>Ratings Count: </strong><span>{{bookData.volumeInfo.ratingsCount}}</span>
+			</span><br />
+			<span>
+				<strong>Page Count: </strong><span>{{bookData.pageCount}}</span>
+			</span><br />
+			<span>
+				<strong>Published Date: </strong><span>{{bookData.volumeInfo.publishedDate}}</span>
+			</span><br />
+			<span>
+				<strong>Publisher: </strong><span>{{bookData.volumeInfo.publisher}}</span>
+			</span><br />
+			<!-- <span ng-if="bookData.volumeInfo.categories.length > 0">
+				<strong>Categories: </strong>
+				<span ng-repeat="category in bookData.volumeInfo.categories  track by $index">
+					{{category}}{{$last ? '' : ', '}}
+				</span><br />
+			</span> -->
+			<span>
+				<strong>Price: </strong>
+				<!-- <span ng-show="{{bookData.saleInfo.saleability === 'FOR_SALE'}}" ng-bind="::bookData.saleInfo.listPrice.amount | currency:'Rs. '"></span> -->
+				<!-- <span ng-show="{{bookData.saleInfo.saleability === 'NOT_FOR_SALE'}}">Not available</span> -->
+			</span><br /><br />
+			<!-- <p>
+				<strong>Description: </strong>
+				<span ng-bind-html="bookData.volumeInfo.description | renderHTML:'Not available'"></span>
+			</p> -->
+		</div>
+	</div>
+</div>
