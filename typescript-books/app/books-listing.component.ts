@@ -19,24 +19,49 @@ interface modelInterface {
 
 export class BooksListing {
 	model: modelInterface = {
-		searchQuery: 'test'
+		searchQuery: ''
 	};
 	booksData: Array<Object>;
+	pendingRequest: any;
+	inputError: Boolean = false;
 
 	constructor(public api: api) {
 		// this.model ;
 		console.log('BooksListing constructor');
 	}
 
-	ngOnInit() {
-		// this.api.getData('https://www.googleapis.com/books/v1/volumes?q=test').subscribe(
-		// 	data => this.booksData = data.items,
-		// 	error => console.error('Error: ' + error),
-		// 	() => console.log('Completed!: ', this.booksData)
-		// );
+	ngOnInit() { }
+
+	searchBooks($event: Event) {
+		this.model.searchQuery = this.model.searchQuery.trim();
+
+		console.log('searchBooks: ', this.model.searchQuery);
+		if (this.pendingRequest) {
+			this.pendingRequest = this.pendingRequest.unsubscribe();
+			console.log('cancelled observable');
+		}
+
+
+		if (this.model.searchQuery.length > 2) {
+			this.sendSearchRequest();
+			this.inputError = false;
+		} else {
+			this.inputError = true;
+			if (this.model.searchQuery.length === 0) {
+				this.booksData = [];
+			}
+		}
+		// this.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
 	}
 
-	searchBooks() {
-
+	sendSearchRequest() {
+		// &maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
+		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery).
+			delay(500).
+			subscribe(
+			data => this.booksData = data.items,
+			inputError => console.inputError('inputError: ' + inputError),
+			() => console.log('Completed!: ', this.booksData)
+			);
 	}
 }

@@ -1,9 +1,9 @@
 <div class="custom-container">
 	<div class="col-xs-7">
 		<form (ngSubmit)="onSubmit()" #booksSearch="ngForm">
-			<input type="text" class="form-control" required [(ngModel)]="model.searchQuery" ngControl="searchQuery" #searchQuery="ngForm" placeholder="Book or book type you would like to search..." />
-			<div [hidden]="searchQuery.valid" class="alert alert-danger">
-				Type any text
+			<input type="text" class="form-control" required [(ngModel)]="model.searchQuery" ngControl="searchQuery" #searchQuery="ngForm" placeholder="Book or book type you would like to search..." (keyup)="searchBooks($event)" />
+			<div *ngIf="inputError" class="alert alert-danger">
+				Please type 3 or more characters
 			</div>
 		</form>
 	</div>
