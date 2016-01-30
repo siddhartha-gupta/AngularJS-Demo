@@ -59,3 +59,11 @@ input.ng-invalid.ng-dirty {
 	padding-left: 10px;
 	width: calc(100% - 128px);
 }
+
+.no-style .ng-valid {
+	border-left: 1px  solid #CCC
+}
+
+.no-style .ng-invalid {
+	border-left: 1px  solid #CCC
+}

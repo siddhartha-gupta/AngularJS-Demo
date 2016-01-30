@@ -1,7 +1,11 @@
 <div class="custom-container">
 	<div class="col-xs-7">
-		<input class="form-control" type="text" placeholder="Book or book type you would like to search..." />
-		<!-- <custom-error ng-if="customController.error.isVisible" elemclass="{{customController.error.className}}" text="{{customController.error.text}}"></custom-error> -->
+		<form (ngSubmit)="onSubmit()" #booksSearch="ngForm">
+			<input type="text" class="form-control" required [(ngModel)]="model.searchQuery" ngControl="searchQuery" #searchQuery="ngForm" placeholder="Book or book type you would like to search..." />
+			<div [hidden]="searchQuery.valid" class="alert alert-danger">
+				Type any text
+			</div>
+		</form>
 	</div>
 	<!-- <div class="col-xs-2">
 		<select ng-model="customController.books.sortOrder" class="form-control input-small" ng-change="customController.getBooks()">
