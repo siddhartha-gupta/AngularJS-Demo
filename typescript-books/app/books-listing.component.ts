@@ -8,6 +8,7 @@ import { _settings } from './settings'
 
 interface modelInterface {
 	searchQuery: string;
+	searchLimit: number;
 }
 
 @Component({
@@ -19,11 +20,13 @@ interface modelInterface {
 
 export class BooksListing {
 	model: modelInterface = {
-		searchQuery: ''
+		searchQuery: '',
+		searchLimit: 10
 	};
 	booksData: Array<Object>;
 	pendingRequest: any;
 	inputError: Boolean = false;
+	searchLimitVals = [10, 20, 30 ,40];
 
 	constructor(public api: api) {
 		// this.model ;
@@ -35,7 +38,8 @@ export class BooksListing {
 	searchBooks($event: Event) {
 		this.model.searchQuery = this.model.searchQuery.trim();
 
-		console.log('searchBooks: ', this.model.searchQuery);
+		console.log('searchBooks, searchQuery: ', this.model.searchQuery);
+		console.log('searchBooks, searchLimit: ', this.model.searchLimit);
 		if (this.pendingRequest) {
 			this.pendingRequest = this.pendingRequest.unsubscribe();
 			console.log('cancelled observable');
@@ -56,7 +60,7 @@ export class BooksListing {
 
 	sendSearchRequest() {
 		// &maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
-		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery).
+		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit).
 			delay(500).
 			subscribe(
 			data => this.booksData = data.items,
