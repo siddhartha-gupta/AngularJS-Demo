@@ -1,12 +1,12 @@
 <div id="header" class="page-header" ng-controller="headerController">
 	<nav class="navbar navbar-default" role="navigation">
-	  <div class="collapse navbar-collapse navbar-ex1-collapse">
-		<ul class="nav navbar-nav">
-		  <li ng-repeat="item in headerItems">
-			<!-- <a herf="#" ng-show="showButton(item.showBtn)" ng-click="callFunction($event, item.click)" ng-disabled="isDisabled" ng-bind="::item.text"></a> -->
-		  </li>
-		</ul>
-	  </div>
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav" *ngFor="#item of headerItems">
+				<li *ngIf="item.showBtn" (click)="item.click($event)">
+					<a herf="#">{{item.click}}</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
 	<img src="{{imgUrl}}" alt="" />
 	<div class="row">
