@@ -9,6 +9,7 @@ import { _settings } from './settings'
 interface modelInterface {
 	searchQuery: string;
 	searchLimit: number;
+	searchOrder: string;
 }
 
 @Component({
@@ -19,17 +20,19 @@ interface modelInterface {
 })
 
 export class BooksListing {
-	model: modelInterface = {
-		searchQuery: '',
-		searchLimit: 10
-	};
 	booksData: Array<Object>;
 	pendingRequest: any;
 	inputError: Boolean = false;
-	searchLimitVals = [10, 20, 30 ,40];
+
+	model: modelInterface = {
+		searchQuery: '',
+		searchLimit: 10,
+		searchOrder: 'relevance'
+	};
+	searchLimitVals:Array<number> = [10, 20, 30 ,40];
+	searchOrderVals: Array<string> = ['relevance', 'newest'];
 
 	constructor(public api: api) {
-		// this.model ;
 		console.log('BooksListing constructor');
 	}
 
@@ -60,11 +63,11 @@ export class BooksListing {
 
 	sendSearchRequest() {
 		// &maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
-		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit).
+		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.searchOrder).
 			delay(500).
 			subscribe(
 			data => this.booksData = data.items,
-			inputError => console.inputError('inputError: ' + inputError),
+			error => console.error('Error: ' + error),
 			() => console.log('Completed!: ', this.booksData)
 			);
 	}

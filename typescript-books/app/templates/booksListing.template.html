@@ -7,28 +7,18 @@
 			</div>
 		</form>
 	</div>
-	<!-- <div class="col-xs-2">
-		<select ng-model="customController.books.sortOrder" class="form-control input-small" ng-change="customController.getBooks()">
-			<option selected value="relevance">By relevance</option>
-			<option value="newest">Newest</option>
-		</select>
-	</div>-->
 
-	<div class="form-group">
+	<div class="form-group col-xs-2">
+		<select class="form-control" required [(ngModel)]="model.searchOrder" #searchLimit (ngModelChange)="searchBooks($event)">
+			<option *ngFor="#sov of searchOrderVals" [value]="sov">Limit: {{sov}}</option>
+		</select>
+	</div>
+
+	<div class="form-group col-xs-2">
 		<select class="form-control" required [(ngModel)]="model.searchLimit" #searchLimit (ngModelChange)="searchBooks($event)">
 			<option *ngFor="#slv of searchLimitVals" [value]="slv">Limit: {{slv}}</option>
 		</select>
 	</div>
-</div>
-
-<div class="custom-container">
-	<!-- <div class="col-xs-2">
-		<select ng-model="customController.books.localSortOrder" class="form-control input-small" ng-change="customController.updateSessionStorage(['localSortOrder'])">
-			<option selected value="volumeInfo.title">By: Name</option>
-			<option value="-saleInfo.listPrice.amount">By: Price Descending</option>
-			<option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
-		</select>
-	</div> -->
 </div>
 
 <div class="container" *ngIf="booksData">
