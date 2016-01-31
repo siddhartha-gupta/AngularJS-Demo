@@ -55,15 +55,7 @@ export class AppHeader {
 	}
 
 	headerFunc($event: Event, funcName: string) {
-		switch (funcName) {
-			case 'resetApp':
-				this.resetApp($event);
-				break;
-
-			case 'goBack':
-				this.goBack($event);
-				break;
-		}
+		this[funcName]($event);
 	}
 
 	goBack($event: Event) {
