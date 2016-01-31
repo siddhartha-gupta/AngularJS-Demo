@@ -23,6 +23,7 @@
     "app/book-detail.component.ts",
     "app/api.service.ts",
     "app/settings.ts",
+    "app/pipe.ts",
     "app/boot.ts"
   ],
   "atom": {
