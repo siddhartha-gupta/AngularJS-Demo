@@ -16,13 +16,13 @@ export class AppHeader {
 		this.imgUrl = 'app/img/angularjs-logo.png';
 		this.headerItems = [{
 			'name': 'backBtn',
-			'click': 'goBack',
+			'clickFunc': 'goBack',
 			'text': 'Go back',
 			'showBtn': false
 		},
 		{
 			'name': 'resetBtn',
-			'click': 'resetApp',
+			'clickFunc': 'resetApp',
 			'text': 'Reset app',
 			'showBtn': true
 		}];
@@ -51,6 +51,18 @@ export class AppHeader {
 					}
 					break;
 			}
+		}
+	}
+
+	headerFunc($event: Event, funcName: string) {
+		switch (funcName) {
+			case 'resetApp':
+				this.resetApp($event);
+				break;
+
+			case 'goBack':
+				this.goBack($event);
+				break;
 		}
 	}
 
