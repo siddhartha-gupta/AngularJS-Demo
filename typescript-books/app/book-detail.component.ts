@@ -18,9 +18,7 @@ import { _settings } from './settings'
 export class BookDetail {
 	bookData: Array<Object>;
 
-	constructor(private api: api, private _routeParams: RouteParams) { 
-		console.log('BookDetail constructor');
-	}
+	constructor(private api: api, private _routeParams: RouteParams) { }
 
 	ngOnInit() {
 		console.log('ngOnInit');

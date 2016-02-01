@@ -21,34 +21,29 @@ interface modelInterface {
 })
 
 export class BooksListing {
-	booksData: Array<Object>;
 	pendingRequest: any;
-	inputError: Boolean = false;
-
 	model: modelInterface = {
 		searchQuery: '',
 		searchLimit: 10,
 		searchOrder: 'relevance'
 	};
+
+	booksData: Array<Object>;
+	inputError: Boolean = false;
 	searchLimitVals:Array<number> = [10, 20, 30 ,40];
 	searchOrderVals: Array<string> = ['relevance', 'newest'];
 
-	constructor(public api: api) {
-		console.log('BooksListing constructor');
-	}
+	constructor(private api: api) {}
 
 	ngOnInit() { }
 
 	searchBooks($event: Event) {
 		this.model.searchQuery = this.model.searchQuery.trim();
 
-		console.log('searchBooks, searchQuery: ', this.model.searchQuery);
-		console.log('searchBooks, searchLimit: ', this.model.searchLimit);
+		console.log('searchBooks, searchQuery: ', this.model.searchQuery, ', :searchLimit: ', this.model.searchLimit);
 		if (this.pendingRequest) {
 			this.pendingRequest = this.pendingRequest.unsubscribe();
-			console.log('cancelled observable');
 		}
-
 
 		if (this.model.searchQuery.length > 2) {
 			this.sendSearchRequest();

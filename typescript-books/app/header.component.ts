@@ -2,6 +2,13 @@ import {Component, View, OnInit} from 'angular2/core';
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Location} from 'angular2/router'
 
+interface headerItemsInterface {
+	name: string;
+	clickFunc: number;
+	text: string;
+	showBtn: Boolean;
+}
+
 @Component({
 	selector: 'app-header',
 	directives: [],
@@ -10,7 +17,7 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Locati
 
 export class AppHeader {
 	imgUrl: string;
-	headerItems: Array<Object>;
+	headerItems: headerItemsInterface[] = [];
 
 	constructor(private router: Router, private location: Location) {
 		this.imgUrl = 'app/img/angularjs-logo.png';
