@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/app",
+    "target": "ES5",
+    "module": "system",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "filesGlob": [
+    "app/**/*.ts",
+    "typings/**/*.d.ts",
+    "node_modules/immutable/dist/immutable.d.ts"
+  ],
+  "files": [
+    "app/ts/components/app.component.ts",
+    "app/ts/components/header.component.ts",
+    "app/ts/components/books-listing.component.ts",
+    "app/ts/components/book-detail.component.ts",
+    "app/ts/directives/links.directive.ts",
+    "app/ts/directives/generic-info.directive.ts",
+    "app/ts/directives/collapse-title.directive.ts",
+    "app/ts/services/api.service.ts",
+    "app/ts/services/localStorage.service.ts",
+    "app/ts/services/utils.service.ts",
+    "app/ts/helpers/app-interfaces.ts",
+    "app/ts/helpers/settings.ts",
+    "app/ts/boot.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}
