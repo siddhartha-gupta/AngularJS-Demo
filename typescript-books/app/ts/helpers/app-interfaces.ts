@@ -4,7 +4,7 @@ export interface modelInterface {
 	searchOrder: string;
 }
 
-export interface headerItemsInterface {
+export interface headerInterface {
 	name: string;
 	clickFunc: number;
 	text: string;

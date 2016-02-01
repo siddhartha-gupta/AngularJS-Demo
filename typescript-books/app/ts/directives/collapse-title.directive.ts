@@ -1,6 +1,7 @@
 import {Component, View, OnInit} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
-import { _settings } from './settings'
+
+import { _settings } from '../helpers/settings'
 
 @Component({
 	selector: 'collapse-title, [collapse-title]',

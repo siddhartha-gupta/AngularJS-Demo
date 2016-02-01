@@ -17,18 +17,18 @@
     "node_modules/immutable/dist/immutable.d.ts"
   ],
   "files": [
-    "app/app.component.ts",
-    "app/header.component.ts",
-    "app/books-listing.component.ts",
-    "app/book-detail.component.ts",
-    "app/api.service.ts",
-    "app/links.directive.ts",
-    "app/generic-info.directive.ts",
-    "app/collapse-title.directive.ts",
-    "app/settings.ts",
-    "app/app-interfaces.ts",
-    "app/pipe.ts",
-    "app/boot.ts"
+    "app/ts/components/app.component.ts",
+    "app/ts/components/header.component.ts",
+    "app/ts/components/books-listing.component.ts",
+    "app/ts/components/book-detail.component.ts",
+    "app/ts/services/api.service.ts",
+    "app/ts/directives/links.directive.ts",
+    "app/ts/directives/generic-info.directive.ts",
+    "app/ts/directives/collapse-title.directive.ts",
+    "app/ts/helpers/app-interfaces.ts",
+    "app/ts/helpers/settings.ts",
+    "app/ts/helpers/pipe.ts",
+    "app/ts/boot.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

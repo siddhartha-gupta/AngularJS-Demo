@@ -2,17 +2,18 @@ import {Component, View, OnInit} from 'angular2/core';
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Location} from 'angular2/router'
 
-import {headerItemsInterface} from './app-interfaces'
+import {headerInterface} from '../helpers/app-interfaces'
+import {_settings} from '../helpers/settings'
 
 @Component({
 	selector: 'app-header',
 	directives: [],
-	templateUrl: 'app/templates/header.template.html'
+	templateUrl: _settings.buildPath + 'header.template.html'
 })
 
 export class AppHeader {
 	imgUrl: string;
-	headerItems: headerItemsInterface[] = [];
+	headerItems: headerInterface[] = [];
 
 	constructor(private router: Router, private location: Location) {
 		this.imgUrl = 'app/img/angularjs-logo.png';

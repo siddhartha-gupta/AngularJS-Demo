@@ -6,7 +6,7 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2
 import {AppHeader} from './header.component'
 import {BooksListing} from './books-listing.component'
 import {BookDetail} from './book-detail.component'
-import { _settings } from './settings'
+import { _settings } from '../helpers/settings'
 
 @Component({
 	selector: 'books-app',

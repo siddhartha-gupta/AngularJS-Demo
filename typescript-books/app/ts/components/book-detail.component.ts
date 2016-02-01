@@ -3,10 +3,10 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
-import {Links} from './links.directive'
-import {GenericInfo} from './generic-info.directive'
-import {api} from './api.service'
-import { _settings } from './settings'
+import {Links} from '../directives/links.directive'
+import {GenericInfo} from '../directives/generic-info.directive'
+import {api} from '../services/api.service'
+import { _settings } from '../helpers/settings'
 
 @Component({
 	selector: 'Book',

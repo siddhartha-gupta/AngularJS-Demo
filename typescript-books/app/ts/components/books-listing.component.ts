@@ -3,10 +3,10 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
-import {CollapseTitle} from './collapse-title.directive'
-import {api} from './api.service'
-import {_settings} from './settings'
-import {modelInterface} from './app-interfaces'
+import {CollapseTitle} from '../directives/collapse-title.directive'
+import {api} from '../services/api.service'
+import {_settings} from '../helpers/settings'
+import {modelInterface} from '../helpers/app-interfaces'
 
 @Component({
 	selector: 'home',
