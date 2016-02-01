@@ -5,12 +5,13 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import {CollapseTitle} from '../directives/collapse-title.directive'
 import {api} from '../services/api.service'
+import {LocalStorage} from '../services/localStorage.service'
 import {_settings} from '../helpers/settings'
 import {modelInterface} from '../helpers/app-interfaces'
 
 @Component({
 	selector: 'home',
-	providers: [HTTP_PROVIDERS, api],
+	providers: [HTTP_PROVIDERS, api, LocalStorage],
 	directives: [ROUTER_DIRECTIVES, CollapseTitle],
 	templateUrl: _settings.buildPath + 'booksListing.template.html'
 })
@@ -28,7 +29,7 @@ export class BooksListing {
 	searchLimitVals: Array<number> = [10, 20, 30, 40];
 	searchOrderVals: Array<string> = ['relevance', 'newest'];
 
-	constructor(private api: api) { }
+	constructor(private api: api, private LS: LocalStorage) { }
 
 	ngOnInit() { }
 
@@ -49,7 +50,12 @@ export class BooksListing {
 				this.booksData = [];
 			}
 		}
-		// this.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
+		this.LS.setValue('test', 'test');
+		this.LS.setValue({
+			'searchQuery': this.model.searchQuery,
+			'searchLimit': this.model.searchLimit,
+			'searchOrder': this.model.searchOrder
+		});
 	}
 
 	sendSearchRequest() {
