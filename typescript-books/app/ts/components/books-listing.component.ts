@@ -21,13 +21,13 @@ export class BooksListing {
 	model: modelInterface = {
 		searchQuery: '',
 		searchLimit: 10,
-		searchOrder: 'relevance'
+		sortOrder: 'relevance'
 	};
 
 	booksData: Array<Object>;
 	inputError: Boolean = false;
 	searchLimitVals: Array<number> = [10, 20, 30, 40];
-	searchOrderVals: Array<string> = ['relevance', 'newest'];
+	sortOrderVals: Array<string> = ['relevance', 'newest'];
 
 	constructor(private api: api, private LS: LocalStorage) { }
 
@@ -50,16 +50,15 @@ export class BooksListing {
 				this.booksData = [];
 			}
 		}
-		this.LS.setValue('test', 'test');
 		this.LS.setValue({
 			'searchQuery': this.model.searchQuery,
 			'searchLimit': this.model.searchLimit,
-			'searchOrder': this.model.searchOrder
+			'sortOrder': this.model.sortOrder
 		});
 	}
 
 	sendSearchRequest() {
-		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.searchOrder).
+		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.sortOrder).
 			delay(500).
 			subscribe(
 			data => this.booksData = data.items,

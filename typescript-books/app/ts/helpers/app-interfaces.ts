@@ -1,7 +1,7 @@
 export interface modelInterface {
 	searchQuery: string;
 	searchLimit: number;
-	searchOrder: string;
+	sortOrder: string;
 }
 
 export interface headerInterface {
