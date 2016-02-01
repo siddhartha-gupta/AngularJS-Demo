@@ -4,13 +4,13 @@ import {Injectable} from 'angular2/core'
 export class Utils {
 	constructor() { }
 
-	private getType(obj: any) {
+	getDataType(obj: any) {
 		return ({}).toString.call(obj).toLowerCase();
 	}
 
 	isNullUndefined(val: any, validateZeroNaN?: Boolean) {
 		let isNull: Boolean = false,
-			type = this.getType(val);
+			type = this.getDataType(val);
 
 		switch (type) {
 			case '[object array]':
