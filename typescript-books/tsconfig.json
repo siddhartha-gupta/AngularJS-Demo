@@ -26,6 +26,7 @@
     "app/generic-info.directive.ts",
     "app/collapse-title.directive.ts",
     "app/settings.ts",
+    "app/app-interfaces.ts",
     "app/pipe.ts",
     "app/boot.ts"
   ],

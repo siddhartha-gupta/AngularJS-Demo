@@ -2,12 +2,7 @@ import {Component, View, OnInit} from 'angular2/core';
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Location} from 'angular2/router'
 
-interface headerItemsInterface {
-	name: string;
-	clickFunc: number;
-	text: string;
-	showBtn: Boolean;
-}
+import {headerItemsInterface} from './app-interfaces'
 
 @Component({
 	selector: 'app-header',

@@ -5,13 +5,8 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import {CollapseTitle} from './collapse-title.directive'
 import {api} from './api.service'
-import { _settings } from './settings'
-
-interface modelInterface {
-	searchQuery: string;
-	searchLimit: number;
-	searchOrder: string;
-}
+import {_settings} from './settings'
+import {modelInterface} from './app-interfaces'
 
 @Component({
 	selector: 'home',
@@ -30,10 +25,10 @@ export class BooksListing {
 
 	booksData: Array<Object>;
 	inputError: Boolean = false;
-	searchLimitVals:Array<number> = [10, 20, 30 ,40];
+	searchLimitVals: Array<number> = [10, 20, 30, 40];
 	searchOrderVals: Array<string> = ['relevance', 'newest'];
 
-	constructor(private api: api) {}
+	constructor(private api: api) { }
 
 	ngOnInit() { }
 
@@ -61,9 +56,9 @@ export class BooksListing {
 		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.searchOrder).
 			delay(500).
 			subscribe(
-				data => this.booksData = data.items,
-				error => console.error('Error: ' + error),
-				() => console.log('Completed!: ', this.booksData)
+			data => this.booksData = data.items,
+			error => console.error('Error: ' + error),
+			() => console.log('Completed!: ', this.booksData)
 			);
 	}
 }
