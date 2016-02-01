@@ -65,9 +65,9 @@ export class BooksListing {
 		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.searchOrder).
 			delay(500).
 			subscribe(
-			data => this.booksData = data.items,
-			error => console.error('Error: ' + error),
-			() => console.log('Completed!: ', this.booksData)
+				data => this.booksData = data.items,
+				error => console.error('Error: ' + error),
+				() => console.log('Completed!: ', this.booksData)
 			);
 	}
 }

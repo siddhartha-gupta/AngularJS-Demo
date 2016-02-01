@@ -3,14 +3,15 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
-import {Links} from './links.directive';
+import {Links} from './links.directive'
+import {BookInfo} from './book-info.directive'
 import {api} from './api.service'
 import { _settings } from './settings'
 
 @Component({
 	selector: 'Book',
 	providers: [HTTP_PROVIDERS, api],
-	directives: [ROUTER_DIRECTIVES, Links],
+	directives: [ROUTER_DIRECTIVES, Links, BookInfo],
 	templateUrl: _settings.buildPath + 'bookDetail.template.html'
 })
 
