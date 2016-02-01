@@ -1,0 +1,46 @@
+<html>
+
+  <head>
+    <base href="/">
+    <title>Angular 2 QuickStart</title>
+
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="lib/es6-shim.min.js"></script>
+    <script src="lib/system-polyfills.js"></script>
+    <script src="lib/angular2-polyfills.js"></script>
+    <script src="lib/system.src.js"></script>
+    <script src="lib/Rx.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/angular2.dev.js"></script>
+    <script src="lib/http.dev.js"></script>
+    <script src="lib/router.dev.js"></script>
+    <script src="lib/ng2-bootstrap.min.js"></script>
+    <link href="app/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/css/app.css" rel="stylesheet">
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        packages: {        
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        },
+        paths: {
+          underscore: 'lib/underscore.js'
+        }
+      });
+      System.import('app/ts/boot').then(null, console.error.bind(console));
+    </script>
+
+  </head>
+  <body>
+    <div class="container">
+      <books-app></books-app>
+    </div>
+  </body>
+  <body>
+
+</html>
