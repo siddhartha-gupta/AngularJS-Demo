@@ -3,9 +3,11 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
-import {CollapseTitle} from '../directives/collapse-title.directive'
-import {_settings} from '../helpers/settings'
 import {modelInterface} from '../helpers/app-interfaces'
+import {CollapseTitle} from '../directives/collapse-title.directive'
+
+import {_settings} from '../helpers/settings'
+
 import {api} from '../services/api.service'
 import {LocalStorage} from '../services/localStorage.service'
 import {Utils} from '../services/utils.service'
@@ -25,20 +27,41 @@ export class BooksListing {
 	inputError: Boolean = false;
 	searchLimitVals: Array<number> = [10, 20, 30, 40];
 	sortOrderVals: Array<string> = ['relevance', 'newest'];
+	localSortOrderVals: Array<Object> = [{
+		'text': 'By: Name',
+		'sortValue': '+volumeInfo.title'
+	}, {
+			'text': 'By: Price Descending',
+			'sortValue': '-saleInfo.listPrice.amount'
+		}, {
+			'text': 'By: Price Ascending',
+			'sortValue': '+saleInfo.listPrice.amount'
+		}]
+
+	// <option selected value="volumeInfo.title">By: Name</option>
+	// <option value="-saleInfo.listPrice.amount">By: Price Descending</option>
+	// <option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
 
 	constructor(private api: api, private LS: LocalStorage, private utils: Utils) {
+		this.checkLSForData();
+	}
+
+	private checkLSForData() {
 		let searchQuery = this.LS.getValue('searchQuery'),
 			searchLimit = this.LS.getValue('searchLimit'),
-			sortOrder = this.LS.getValue('sortOrder');
+			sortOrder = this.LS.getValue('sortOrder'),
+			localSortKey = this.LS.getValue('localSortKey');
 
-		if (!this.utils.isNullUndefined(searchQuery) && 
-			!this.utils.isNullUndefined(searchLimit) && 
-			!this.utils.isNullUndefined(sortOrder)) {
+		if (!this.utils.isNullUndefined(searchQuery) &&
+			!this.utils.isNullUndefined(searchLimit) &&
+			!this.utils.isNullUndefined(sortOrder) &&
+			!this.utils.isNullUndefined(localSortKey)) {
 			console.log('ls value obtained: ', searchQuery);
 			this.model = {
 				searchQuery: searchQuery,
 				searchLimit: searchLimit,
-				sortOrder: sortOrder
+				sortOrder: sortOrder,
+				localSortKey: localSortKey
 			};
 			this.sendSearchRequest();
 		} else {
@@ -46,7 +69,8 @@ export class BooksListing {
 			this.model = {
 				searchQuery: '',
 				searchLimit: 10,
-				sortOrder: 'relevance'
+				sortOrder: 'relevance',
+				localSortKey: '+volumeInfo.title'
 			};
 		}
 	}
@@ -83,7 +107,23 @@ export class BooksListing {
 			subscribe(
 			data => this.booksData = data.items,
 			error => console.error('Error: ' + error),
-			() => console.log('Completed!: ', this.booksData)
+			() => this.sortData()
 			);
+	}
+
+	sortData($event?: Event) {
+		let sortkey = this.model.localSortKey,
+			sortDirection = 1;
+
+		if(sortkey.indexOf('-') > 0) {
+			sortkey = sortkey.replace(/-/, '');
+			sortDirection = -1;
+		} else {
+			sortkey = sortkey.replace(/\+/, '');
+			sortDirection = 1;
+		}
+		if (!this.utils.isNullUndefined(this.booksData)) {
+			this.utils.sortArrayObject(sortkey, this.booksData, sortDirection);
+		}
 	}
 }

@@ -34,4 +34,41 @@ export class Utils {
 		}
 		return isNull;
 	}
+
+	getObject(obj: Object, key: string) {
+		key = key.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+		key = key.replace(/^\./, '');           // strip a leading dot
+		var a = key.split('.');
+		for (var i = 0, n = a.length; i < n; ++i) {
+			var k = a[i];
+			if (k in obj) {
+				obj = obj[k];
+			} else {
+				return;
+			}
+		}
+		return obj;
+	}
+
+	sortArrayObject(key: string, data: any[], direction?: any) {
+		console.log(key);
+		console.log(data);
+		console.log(direction);
+
+		data.sort((a, b) => {
+			let aData = this.getObject(a, key),
+				bData = this.getObject(b, key);
+
+			console.log(aData);
+			if (aData === bData) {
+				return 0;
+			}
+			else if (aData > bData) {
+				return direction;
+			}
+			else {
+				return -direction;
+			}
+		});
+	}
 }

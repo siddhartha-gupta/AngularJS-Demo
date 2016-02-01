@@ -1,6 +1,6 @@
 <div class="custom-container">
 	<div class="col-xs-7">
-		<form (ngSubmit)="onSubmit()" #booksSearch="ngForm">
+		<form #booksSearch="ngForm">
 			<input type="text" class="form-control" required [(ngModel)]="model.searchQuery" ngControl="searchQuery" #searchQuery="ngForm" placeholder="Book or book type you would like to search..." (keyup)="searchBooks($event)" />
 			<div *ngIf="inputError" class="alert alert-danger">
 				Please type 3 or more characters
@@ -17,6 +17,14 @@
 	<div class="form-group col-xs-2">
 		<select class="form-control" required [(ngModel)]="model.searchLimit" #searchLimit (ngModelChange)="searchBooks($event)">
 			<option *ngFor="#slv of searchLimitVals" [value]="slv">Limit: {{slv}}</option>
+		</select>
+	</div>
+</div>
+
+<div class="custom-container">
+	<div class="col-xs-2">
+		<select class="form-control" required [(ngModel)]="model.localSortKey" #searchLimit (ngModelChange)="sortData($event)">
+			<option *ngFor="#lsov of localSortOrderVals" [value]="lsov.sortValue">{{lsov.text}}</option>
 		</select>
 	</div>
 </div>
