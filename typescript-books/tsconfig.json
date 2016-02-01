@@ -26,6 +26,7 @@
     "app/ts/directives/collapse-title.directive.ts",
     "app/ts/services/api.service.ts",
     "app/ts/services/localStorage.service.ts",
+    "app/ts/services/utils.service.ts",
     "app/ts/helpers/app-interfaces.ts",
     "app/ts/helpers/settings.ts",
     "app/ts/helpers/pipe.ts",
