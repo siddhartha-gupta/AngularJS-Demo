@@ -30,9 +30,18 @@
 </div>
 
 <div class="container" *ngIf="booksData">
-	<ul class="books-listing">
+	<ul class="books-listing" *ngIf="booksData.length > 0 && !showLoader">
 		<li *ngFor="#bookData of booksData" class="well col-xs-11">
 			<collapse-title [imageLinks]="bookData.volumeInfo.imageLinks" [volumeInfo]="bookData.volumeInfo" [saleInfo]="bookData.saleInfo" [bookId]="bookData.id"></collapse-title>
-	    </li>
+		</li>
 	</ul>
+	<div class='loader' *ngIf="booksData.length === 0 && showLoader">
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--text'></div>
+	  </div>
 </div>

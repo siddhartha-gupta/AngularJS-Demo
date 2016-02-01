@@ -23,7 +23,9 @@ export class BooksListing {
 	pendingRequest: any;
 	model: modelInterface;
 
-	booksData: Array<Object>;
+	booksData: Array<Object> = [];
+
+	showLoader: Boolean = false;
 	inputError: Boolean = false;
 	searchLimitVals: Array<number> = [10, 20, 30, 40];
 	sortOrderVals: Array<string> = ['relevance', 'newest'];
@@ -97,11 +99,13 @@ export class BooksListing {
 		this.LS.setValue({
 			'searchQuery': this.model.searchQuery,
 			'searchLimit': this.model.searchLimit,
-			'sortOrder': this.model.sortOrder
+			'sortOrder': this.model.sortOrder,
+			'localSortKey': this.model.localSortKey
 		});
 	}
 
 	sendSearchRequest() {
+		this.showLoader = true;
 		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.sortOrder).
 			delay(500).
 			subscribe(
@@ -112,10 +116,12 @@ export class BooksListing {
 	}
 
 	sortData($event?: Event) {
+		this.showLoader = false;
+
 		let sortkey = this.model.localSortKey,
 			sortDirection = 1;
 
-		if(sortkey.indexOf('-') > 0) {
+		if (sortkey.indexOf('-') > 0) {
 			sortkey = sortkey.replace(/-/, '');
 			sortDirection = -1;
 		} else {

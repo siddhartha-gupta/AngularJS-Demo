@@ -17,17 +17,18 @@ import { _settings } from '../helpers/settings'
 
 export class BookDetail {
 	bookData: Array<Object>;
+	showLoader:Boolean =false
 
 	constructor(private api: api, private _routeParams: RouteParams) { }
 
 	ngOnInit() {
-		console.log('ngOnInit');
+		this.showLoader = true;
 		let id = this._routeParams.get('id');
 
 		this.api.getData('https://www.googleapis.com/books/v1/volumes/' + id + '?projection=full').subscribe(
 			data => this.bookData = data,
 			error => console.error('Error: ' + error),
-			() => console.log('Completed!: ', this.bookData)
+			() => this.showLoader = false
 		);
 	}
 }
