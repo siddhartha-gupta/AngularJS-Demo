@@ -6,7 +6,6 @@ export class api {
 	constructor(public http: Http) { }
 
 	getData(url: string) {
-		console.log('getData: ', url);
 		return this.http.get(url).map(response => { return response.json() });
 	}
 }
