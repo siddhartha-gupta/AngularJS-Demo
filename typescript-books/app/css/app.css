@@ -5,19 +5,23 @@ body {
 .books-listing {
 	overflow: hidden;
 	list-style: none;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	margin: 0 0 10px;
 }
 
 .books-listing li {
 	float: left;
-    position: relative;
-    width: 100%;
-    margin: 10px 0;
+	position: relative;
+	width: 100%;
+	margin: 10px 0;
 }
 
 input.ng-invalid.ng-dirty {
 	outline: 0;
 	border-color: rgb(191, 22, 92);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgb(191, 22, 92);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgb(191, 22, 92);
 }
 
 .custom-container {
