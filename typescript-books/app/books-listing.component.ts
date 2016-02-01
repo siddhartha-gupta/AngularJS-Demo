@@ -62,7 +62,6 @@ export class BooksListing {
 	}
 
 	sendSearchRequest() {
-		// &maxResults=' + params.maxLimit + '&orderBy=' + params.orderBy
 		this.pendingRequest = this.api.getData('https://www.googleapis.com/books/v1/volumes?q=' + this.model.searchQuery + '&maxResults=' + this.model.searchLimit + '&orderBy=' + this.model.searchOrder).
 			delay(500).
 			subscribe(

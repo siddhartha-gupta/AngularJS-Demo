@@ -5,21 +5,11 @@
 			<h4 class="well-title">{{bookData.volumeInfo.title}}</h4>
 			<h5>{{bookData.volumeInfo.subtitle}}</h5>
 
-			<div *ngIf="bookData.saleInfo.buyLink">
-				<a href="{{bookData.saleInfo.buyLink}}" target="_blank">Buy link</a><br/>
-			</div>
-			<div *ngIf="bookData.volumeInfo.previewLink">
-				<a href="{{bookData.volumeInfo.previewLink}}" target="_blank">About</a><br/>
-			</div>
-			<div *ngIf="bookData.accessInfo.webReaderLink">
-				<a href="{{bookData.accessInfo.webReaderLink}}" target="_blank">Web reader link</a><br/>
-			</div>
-			<div *ngIf="bookData.accessInfo.acsTokenLink">
-				<a href="{{bookData.accessInfo.acsTokenLink}}" target="_blank">PDF link</a><br/>
-			</div>
-			<div *ngIf="bookData.accessInfo.downloadLink">
-				<a href="{{bookData.accessInfo.downloadLink}}" target="_blank">Download link</a><br/>
-			</div>
+			<links [url]="bookData.saleInfo.buyLink" text="Buy Link"></links>
+			<links [url]="bookData.volumeInfo.previewLink" text="About"></links>
+			<links [url]="bookData.accessInfo.webReaderLink" text="Web reader link"></links>
+			<links [url]="bookData.accessInfo.acsTokenLink" text="PDF link"></links>
+			<links [url]="bookData.accessInfo.downloadLink" text="Download link"></links>
 
 			<span>
 				<strong>Average Rating: </strong><span>{{bookData.volumeInfo.averageRating}}</span>
