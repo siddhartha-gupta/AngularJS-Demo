@@ -20,12 +20,12 @@ export class AppHeader {
 			'text': 'Go back',
 			'showBtn': false
 		},
-		{
-			'name': 'resetBtn',
-			'clickFunc': 'resetApp',
-			'text': 'Reset app',
-			'showBtn': true
-		}];
+			{
+				'name': 'resetBtn',
+				'clickFunc': 'resetApp',
+				'text': 'Reset app',
+				'showBtn': true
+			}];
 
 		router.subscribe((val) => this.onRouteChange(val))
 	}
@@ -33,24 +33,24 @@ export class AppHeader {
 	onRouteChange(val: string) {
 		console.log('headerChange: ', val);
 
-		if (val) {
-			let routeName = val.match(/[^?]*/i)[0];
+		let routeName = val.match(/[^?]*/i)[0];
 
-			switch (routeName) {
-				case 'book':
-					for (var key in this.headerItems) {
-						if (this.headerItems[key].name === 'backBtn') {
-							this.headerItems[key].showBtn = true;
-						}
+		switch (routeName) {
+			case 'book':
+				for (var key in this.headerItems) {
+					if (this.headerItems[key].name === 'backBtn') {
+						this.headerItems[key].showBtn = true;
 					}
-					break;
+				}
+				break;
 
-				default:
+			default:
+				for (var key in this.headerItems) {
 					if (this.headerItems[key].name === 'backBtn') {
 						this.headerItems[key].showBtn = false;
 					}
-					break;
-			}
+				}
+				break;
 		}
 	}
 
