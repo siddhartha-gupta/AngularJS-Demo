@@ -36,21 +36,22 @@
 			<span>
 				<strong>Publisher: </strong><span>{{bookData.volumeInfo.publisher}}</span>
 			</span><br />
-			<!-- <span ng-if="bookData.volumeInfo.categories.length > 0">
+			<span *ngIf="bookData.volumeInfo.categories.length > 0">
 				<strong>Categories: </strong>
-				<span ng-repeat="category in bookData.volumeInfo.categories  track by $index">
-					{{category}}{{$last ? '' : ', '}}
+				<span *ngFor="#category of bookData.volumeInfo.categories">
+					{{category}}{{last ? '' : ', '}}
 				</span><br />
-			</span> -->
+			</span>
 			<span>
 				<strong>Price: </strong>
-				<!-- <span ng-show="{{bookData.saleInfo.saleability === 'FOR_SALE'}}" ng-bind="::bookData.saleInfo.listPrice.amount | currency:'Rs. '"></span> -->
-				<!-- <span ng-show="{{bookData.saleInfo.saleability === 'NOT_FOR_SALE'}}">Not available</span> -->
+				<span *ngIf="bookData.saleInfo.saleability === 'FOR_SALE'">Rs. {{bookData.saleInfo.listPrice.amount}}</span>
+				<span *ngIf="bookData.saleInfo.saleability === 'NOT_FOR_SALE'">Not available</span>
 			</span><br /><br />
-			<!-- <p>
+			<p>
 				<strong>Description: </strong>
-				<span ng-bind-html="bookData.volumeInfo.description | renderHTML:'Not available'"></span>
-			</p> -->
+				<span *ngIf="bookData.volumeInfo.description" [innerHTML]="bookData.volumeInfo.description"></span>
+				<span *ngIf="!bookData.volumeInfo.description">Not available</span>
+			</p>
 		</div>
 	</div>
 </div>
