@@ -4,14 +4,14 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import {Links} from './links.directive'
-import {BookInfo} from './book-info.directive'
+import {GenericInfo} from './generic-info.directive'
 import {api} from './api.service'
 import { _settings } from './settings'
 
 @Component({
 	selector: 'Book',
 	providers: [HTTP_PROVIDERS, api],
-	directives: [ROUTER_DIRECTIVES, Links, BookInfo],
+	directives: [ROUTER_DIRECTIVES, Links, GenericInfo],
 	templateUrl: _settings.buildPath + 'bookDetail.template.html'
 })
 

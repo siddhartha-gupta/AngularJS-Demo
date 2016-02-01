@@ -7,8 +7,4 @@ import { _settings } from './settings'
 	templateUrl: _settings.buildPath + '/directives/links.template.html'
 })
 
-export class Links {
-
-}
-
-
+export class Links {}

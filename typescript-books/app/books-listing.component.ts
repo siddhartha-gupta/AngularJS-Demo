@@ -3,6 +3,7 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
+import {CollapseTitle} from './collapse-title.directive'
 import {api} from './api.service'
 import { _settings } from './settings'
 
@@ -15,7 +16,7 @@ interface modelInterface {
 @Component({
 	selector: 'home',
 	providers: [HTTP_PROVIDERS, api],
-	directives: [ROUTER_DIRECTIVES],
+	directives: [ROUTER_DIRECTIVES, CollapseTitle],
 	templateUrl: _settings.buildPath + 'booksListing.template.html'
 })
 
