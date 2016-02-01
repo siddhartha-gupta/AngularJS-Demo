@@ -71,7 +71,6 @@ export class AppHeader {
 	resetApp($event: Event) {
 		console.log('resetApp');
 		this.LS.resetStorage();
-		// this.location.path('/');
-		this.router.navigate(['./']);
+		this.router.navigate(['./Home']);
 	}
 }
