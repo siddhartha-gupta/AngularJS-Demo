@@ -31,7 +31,8 @@ export class GamePlay {
 
 	drawGrid() {
 		let gridCell: Array<any> = [],
-			elem = this._dom.query('ul[id*=game-grid]');
+			elem = this._dom.query('ul[id*=game-grid]'),
+			that = this;
 
 		this._dom.setInnerHTML(elem, '');
 
@@ -45,9 +46,10 @@ export class GamePlay {
 			}
 		}
 		this._dom.setInnerHTML(elem, gridCell.join(''));
-		this.renderer.listen(this.elementRef.nativeElement, 'click', (event: Event) => {
-			this.onBlockClick(event);
-		});
+		this.elementRef.nativeElement.removeEventListener('click', that.onBlockClick.bind(that), false);
+		this.renderer.listen(this.elementRef.nativeElement, 'click', that.onBlockClick.bind(that));
+		
+		// el.addEventListener(evt, listener, false);
 
 		if (!this.genericConfig.config.playerstarts) {
 			console.log('on restart makeAIMove');
@@ -62,9 +64,12 @@ export class GamePlay {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		var cellnum = event.target.getAttribute('data-cellnum');
+		let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
+		// debugger;
 
 		if (!this.currentGameConfig.currentGame.isWon) {
+			console.log(this.currentGameConfig.currentGame.moves);
+			console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
 			if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
 				this.renderer.setText(event.target, 'X');
 				this.renderer.setElementClass(event.target, 'x-text', true);

@@ -56,8 +56,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     this.drawGrid();
                 };
                 GamePlay.prototype.drawGrid = function () {
-                    var _this = this;
-                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]');
+                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), that = this;
                     this._dom.setInnerHTML(elem, '');
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
@@ -67,9 +66,9 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         }
                     }
                     this._dom.setInnerHTML(elem, gridCell.join(''));
-                    this.renderer.listen(this.elementRef.nativeElement, 'click', function (event) {
-                        _this.onBlockClick(event);
-                    });
+                    this.elementRef.nativeElement.removeEventListener('click', that.onBlockClick.bind(that), false);
+                    this.renderer.listen(this.elementRef.nativeElement, 'click', that.onBlockClick.bind(that));
+                    // el.addEventListener(evt, listener, false);
                     if (!this.genericConfig.config.playerstarts) {
                         console.log('on restart makeAIMove');
                         this.makeAIMove();
@@ -81,8 +80,11 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    var cellnum = event.target.getAttribute('data-cellnum');
+                    var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
+                    // debugger;
                     if (!this.currentGameConfig.currentGame.isWon) {
+                        console.log(this.currentGameConfig.currentGame.moves);
+                        console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
                         if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
                             this.renderer.setText(event.target, 'X');
                             this.renderer.setElementClass(event.target, 'x-text', true);

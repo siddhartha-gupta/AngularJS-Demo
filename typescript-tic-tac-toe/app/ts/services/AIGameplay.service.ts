@@ -43,12 +43,12 @@ export class AIGamePlay {
 	}
 
 	playerStartsGame() {
-		let moveIndex0 = this.currentGameConfig.currentGame.movesIndex[0],
-			moveIndex1 = this.currentGameConfig.currentGame.movesIndex[1],
-			moveIndex2 = this.currentGameConfig.currentGame.movesIndex[2],
-			result,
-			dlta,
-			randomPosition = [];
+		let moveIndex0: number = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10),
+			moveIndex1: number = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10),
+			moveIndex2: number = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10),
+			result: number,
+			dlta: number,
+			randomPosition: Array<number> = [];
 
 		switch (this.currentGameConfig.currentGame.stepsPlayed) {
 			case 1:
@@ -84,12 +84,10 @@ export class AIGamePlay {
 						this.cachedNextMove = result + dlta;
 						console.log('cachedNextMove: ', this.cachedNextMove);
 					} else {
-						console.log('moveIndex0: ', moveIndex0);
 						dlta = 22 - moveIndex0;
 						randomPosition.push(moveIndex0 + (10 / dlta));
 						randomPosition.push(moveIndex0 - (10 / dlta));
 						randomPosition.push(moveIndex2 + dlta);
-						console.log('randomPosition: ', randomPosition);
 						result = randomPosition[Math.floor(Math.random() * randomPosition.length)];
 					}
 				}
@@ -106,13 +104,13 @@ export class AIGamePlay {
 	}
 
 	aiStartsGame() {
-		let moveIndex0 = this.currentGameConfig.currentGame.movesIndex[0],
-			moveIndex1 = this.currentGameConfig.currentGame.movesIndex[1],
-			moveIndex2 = this.currentGameConfig.currentGame.movesIndex[2],
-			moveIndex3 = this.currentGameConfig.currentGame.movesIndex[3],
-			randomPosition = [],
-			result,
-			dlta;
+		let moveIndex0: number = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10),
+			moveIndex1: number = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10),
+			moveIndex2: number = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10),
+			moveIndex3: number = parseInt(this.currentGameConfig.currentGame.movesIndex[3], 10),
+			result: number,
+			dlta: number,
+			randomPosition: Array<number> = [];
 
 		if (this.currentGameConfig.currentGame.stepsPlayed === 0) {
 			result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
