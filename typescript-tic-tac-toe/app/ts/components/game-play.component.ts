@@ -32,8 +32,14 @@ export class GamePlay {
 	drawGrid() {
 		let gridCell: Array<any> = [],
 			elem = this._dom.query('ul[id*=game-grid]'),
+			liElem = this._dom.querySelectorAll(elem, 'li'),
 			that = this;
 
+		if (liElem) {
+			for (let i = 0, len = liElem.length; i < length; i += 1) {
+				liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
+			}
+		}
 		this._dom.setInnerHTML(elem, '');
 
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
@@ -46,13 +52,15 @@ export class GamePlay {
 			}
 		}
 		this._dom.setInnerHTML(elem, gridCell.join(''));
-		this.elementRef.nativeElement.removeEventListener('click', that.onBlockClick.bind(that), false);
-		this.renderer.listen(this.elementRef.nativeElement, 'click', that.onBlockClick.bind(that));
-		
-		// el.addEventListener(evt, listener, false);
+
+		liElem = this._dom.querySelectorAll(elem, 'li');
+		if (!this.utils.isNullUndefined(liElem)) {
+			for (let i = 0, len = liElem.length; i < len; i++) {
+				this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
+			}
+		}
 
 		if (!this.genericConfig.config.playerstarts) {
-			console.log('on restart makeAIMove');
 			this.makeAIMove();
 		}
 	}
