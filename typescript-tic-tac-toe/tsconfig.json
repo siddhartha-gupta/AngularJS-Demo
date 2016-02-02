@@ -24,6 +24,7 @@
     "app/ts/services/utils.service.ts",
     "app/ts/services/GenericConfig.service.ts",
     "app/ts/services/CurrentGameConfig.service.ts",
+    "app/ts/services/AIGamePlay.service.ts",
     "app/ts/helpers/app-interfaces.ts",
     "app/ts/helpers/settings.ts",
     "app/ts/boot.ts"
