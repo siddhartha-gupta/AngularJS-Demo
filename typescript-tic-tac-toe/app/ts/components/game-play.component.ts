@@ -1,4 +1,5 @@
 import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
+import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../helpers/settings'
@@ -9,14 +10,14 @@ import { Utils } from '../services/utils.service'
 
 @Component({
 	selector: 'game-play-grid',
-	providers: [AIGamePlay, Utils],
+	providers: [AIGamePlay, Utils, BrowserDomAdapter],
 	templateUrl: _settings.buildPath + 'gameplay.template.html'
 })
 
 export class GamePlay {
 	theHtmlString: string = '';
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public elementRef: ElementRef, public renderer: Renderer, public utils: Utils) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
 		this.drawGrid();
 	}
 
@@ -59,7 +60,7 @@ export class GamePlay {
 		if (!this.currentGameConfig.currentGame.isWon) {
 			if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
 				this.renderer.setText(event.target, 'X');
-				// $('li[id*=combine_' + cellnum + ']').text('X').addClass('x-text');
+				this.renderer.setElementClass(event.target, 'x-text', true);
 
 				this.currentGameConfig.currentGame.moves[cellnum] = 1;
 				this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
@@ -171,8 +172,11 @@ export class GamePlay {
 
 		this.currentGameConfig.currentGame.moves[result] = 2;
 		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-		$('li[id*=combine_' + result + ']').text('O').addClass('o-text');
+		// $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
+		var elem = this._dom.query('li[id*=combine_' + result + ']');
 
+		this.renderer.setText(elem, 'O');
+		this.renderer.setElementClass(elem, 'o-text', true);
 		this.currentGameConfig.currentGame.stepsPlayed++;
 		this.checkGameEnd(false);
 	}

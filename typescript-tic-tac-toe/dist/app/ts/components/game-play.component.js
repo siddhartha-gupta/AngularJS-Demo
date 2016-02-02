@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,12 +8,15 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, utils_service_1;
+    var core_1, browser_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (browser_1_1) {
+                browser_1 = browser_1_1;
             },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
@@ -32,13 +35,14 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, elementRef, renderer, utils) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, utils, elementRef, renderer, _dom) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
+                    this.utils = utils;
                     this.elementRef = elementRef;
                     this.renderer = renderer;
-                    this.utils = utils;
+                    this._dom = _dom;
                     this.theHtmlString = '';
                     this.drawGrid();
                 }
@@ -74,7 +78,7 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                     if (!this.currentGameConfig.currentGame.isWon) {
                         if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
                             this.renderer.setText(event.target, 'X');
-                            // $('li[id*=combine_' + cellnum + ']').text('X').addClass('x-text');
+                            this.renderer.setElementClass(event.target, 'x-text', true);
                             this.currentGameConfig.currentGame.moves[cellnum] = 1;
                             this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
                             this.currentGameConfig.currentGame.stepsPlayed++;
@@ -166,17 +170,20 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                     console.log('result: ', result);
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-                    $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
+                    // $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
+                    var elem = this._dom.query('li[id*=combine_' + result + ']');
+                    this.renderer.setText(elem, 'O');
+                    this.renderer.setElementClass(elem, 'o-text', true);
                     this.currentGameConfig.currentGame.stepsPlayed++;
                     this.checkGameEnd(false);
                 };
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'game-play-grid',
-                        providers: [AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils],
+                        providers: [AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils, browser_1.BrowserDomAdapter],
                         templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, core_1.ElementRef, core_1.Renderer, utils_service_1.Utils])
+                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
                 ], GamePlay);
                 return GamePlay;
             })();
