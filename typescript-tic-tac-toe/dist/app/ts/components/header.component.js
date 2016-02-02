@@ -21,23 +21,12 @@ System.register(['angular2/core', '../helpers/settings'], function(exports_1) {
         execute: function() {
             AppHeader = (function () {
                 function AppHeader() {
-                    this.headerItems = [];
-                    this.headerItems = [{
-                            'name': 'backBtn',
-                            'clickFunc': 'goBack',
-                            'text': 'Go back',
-                            'showBtn': false
-                        },
-                        {
-                            'name': 'resetBtn',
-                            'clickFunc': 'resetApp',
-                            'text': 'Reset app',
-                            'showBtn': true
-                        }];
                 }
                 AppHeader = __decorate([
                     core_1.Component({
                         selector: 'app-header',
+                        directives: [],
+                        providers: [],
                         templateUrl: settings_1._settings.buildPath + 'header.template.html'
                     }), 
                     __metadata('design:paramtypes', [])

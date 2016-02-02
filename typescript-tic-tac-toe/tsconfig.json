@@ -20,7 +20,9 @@
     "app/ts/components/app.component.ts",
     "app/ts/components/header.component.ts",
     "app/ts/components/game-play.component.ts",
+    "app/ts/components/game-score.component.ts",
     "app/ts/services/utils.service.ts",
+    "app/ts/services/GenericConfig.service.ts",
     "app/ts/helpers/app-interfaces.ts",
     "app/ts/helpers/settings.ts",
     "app/ts/boot.ts"

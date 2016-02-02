@@ -71,4 +71,8 @@ export class Utils {
 			}
 		});
 	}
+
+	log() {
+		console.log.apply(console, arguments);
+	}
 }

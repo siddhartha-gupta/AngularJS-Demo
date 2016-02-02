@@ -2,6 +2,7 @@ import {Component, View, OnInit} from 'angular2/core'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../helpers/settings'
+import { GenericConfig } from '../services/GenericConfig.service'
 
 @Component({
 	selector: 'game-play-grid',
@@ -9,5 +10,8 @@ import { _settings } from '../helpers/settings'
 })
 
 export class GamePlay {
-	constructor() { }
+	constructor(public genericConfig: GenericConfig) {
+		genericConfig.initDefaultConfig();
+		console.log(genericConfig.config);
+	}
 }
