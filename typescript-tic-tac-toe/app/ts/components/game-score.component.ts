@@ -1,5 +1,4 @@
 import {Component, View, OnInit} from 'angular2/core'
-import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../helpers/settings'
@@ -12,7 +11,6 @@ import { GenericConfig } from '../services/GenericConfig.service'
 })
 
 export class GameScore {
-	constructor(public genericConfig: GenericConfig, private _dom: BrowserDomAdapter) {
-		console.log(this._dom.query('span.stats-text'));
+	constructor(private genericConfig: GenericConfig) {
 	}
 }
