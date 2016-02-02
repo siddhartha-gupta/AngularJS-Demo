@@ -26,13 +26,16 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig) {
+                function GamePlay(genericConfig, currentGameConfig, elementRef, renderer) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
+                    this.elementRef = elementRef;
+                    this.renderer = renderer;
                     this.theHtmlString = '';
                     this.drawGrid();
                 }
                 GamePlay.prototype.drawGrid = function () {
+                    var _this = this;
                     var gridCell = [];
                     this.theHtmlString = '';
                     console.log(this.genericConfig.config.gridSize);
@@ -40,14 +43,20 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
-                            gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick($event)"></li>');
+                            gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
                             this.currentGameConfig.currentGame.moves[combinedId] = 0;
                         }
                     }
                     this.theHtmlString = gridCell.join('');
+                    // this.renderer.listen();
+                    this.renderer.listen(this.elementRef.nativeElement, 'click', function (event) {
+                        console.log('Element clicked');
+                        // console.log(event);
+                        _this.onBlockClick(event);
+                    });
                     // $('#game-grid li').off('click').on('click', game.gamePlay.onBlockClick);
                 };
-                GamePlay.prototype.onBlockClick = function ($event) {
+                GamePlay.prototype.onBlockClick = function (event) {
                     console.log('onBlockClick');
                 };
                 GamePlay = __decorate([
@@ -55,7 +64,7 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                         selector: 'game-play-grid',
                         templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig])
+                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, core_1.ElementRef, core_1.Renderer])
                 ], GamePlay);
                 return GamePlay;
             })();

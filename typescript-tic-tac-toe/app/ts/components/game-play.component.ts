@@ -1,4 +1,4 @@
-import {Component, View, OnInit, ElementRef, DynamicComponentLoader} from 'angular2/core'
+import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../helpers/settings'
@@ -13,31 +13,38 @@ import { CurrentGameConfig } from '../services/CurrentGameConfig.service'
 export class GamePlay {
 	theHtmlString: string = '';
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public elementRef: ElementRef, public renderer: Renderer) {
 		this.drawGrid();
 	}
 
 	drawGrid() {
 		let gridCell: Array<any> = [];
 
-		this.theHtmlString= '';
+		this.theHtmlString = '';
 		console.log(this.genericConfig.config.gridSize);
 		console.log(this.currentGameConfig.currentGame);
-		
+
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
 			for (let j = 1; j <= len; j += 1) {
 				let idAttr: Array<any> = [],
 					combinedId = i.toString() + j.toString();
 
-				gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick($event)"></li>');
+				gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
 				this.currentGameConfig.currentGame.moves[combinedId] = 0;
 			}
 		}
 		this.theHtmlString = gridCell.join('');
+
+		// this.renderer.listen();
+		this.renderer.listen(this.elementRef.nativeElement, 'click', (event: Event) => {
+			console.log('Element clicked');
+			// console.log(event);
+			this.onBlockClick(event);
+		});
 		// $('#game-grid li').off('click').on('click', game.gamePlay.onBlockClick);
 	}
 
-	onBlockClick($event: Event) {
+	onBlockClick(event: Event) {
 		console.log('onBlockClick');
 	}
 }
