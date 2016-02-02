@@ -47,17 +47,18 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
-                    this.theHtmlString = '';
-                    this.startGame();
                 }
+                GamePlay.prototype.ngOnInit = function () {
+                    this.startGame();
+                };
                 GamePlay.prototype.startGame = function () {
                     this.currentGameConfig.initDefaultConfig();
                     this.drawGrid();
                 };
                 GamePlay.prototype.drawGrid = function () {
                     var _this = this;
-                    var gridCell = [];
-                    this.theHtmlString = '';
+                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]');
+                    this._dom.setInnerHTML(elem, '');
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
@@ -65,12 +66,14 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                             this.currentGameConfig.currentGame.moves[combinedId] = 0;
                         }
                     }
-                    this.theHtmlString = gridCell.join('');
+                    this._dom.setInnerHTML(elem, gridCell.join(''));
                     this.renderer.listen(this.elementRef.nativeElement, 'click', function (event) {
                         _this.onBlockClick(event);
                     });
-                    if (!this.genericConfig.config.playerstarts)
+                    if (!this.genericConfig.config.playerstarts) {
+                        console.log('on restart makeAIMove');
                         this.makeAIMove();
+                    }
                 };
                 GamePlay.prototype.onBlockClick = function (event) {
                     console.log('onBlockClick');
@@ -109,6 +112,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
+                    console.log('makeAIMove');
                     var result = '00';
                     // check if ai can win
                     result = this.aiGamePlay.chooseMove(true);

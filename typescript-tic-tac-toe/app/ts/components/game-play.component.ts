@@ -1,5 +1,6 @@
 import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
+// import { ELEMENT_PROBE_BINDINGS} from 'angular2/debug'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../helpers/settings'
@@ -16,9 +17,10 @@ import { Utils } from '../services/utils.service'
 })
 
 export class GamePlay {
-	theHtmlString: string = '';
-
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
+	}
+
+	ngOnInit() {
 		this.startGame();
 	}
 
@@ -28,8 +30,10 @@ export class GamePlay {
 	}
 
 	drawGrid() {
-		let gridCell: Array<any> = [];
-		this.theHtmlString = '';
+		let gridCell: Array<any> = [],
+			elem = this._dom.query('ul[id*=game-grid]');
+
+		this._dom.setInnerHTML(elem, '');
 
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
 			for (let j = 1; j <= len; j += 1) {
@@ -40,12 +44,15 @@ export class GamePlay {
 				this.currentGameConfig.currentGame.moves[combinedId] = 0;
 			}
 		}
-		this.theHtmlString = gridCell.join('');
+		this._dom.setInnerHTML(elem, gridCell.join(''));
 		this.renderer.listen(this.elementRef.nativeElement, 'click', (event: Event) => {
 			this.onBlockClick(event);
 		});
 
-		if (!this.genericConfig.config.playerstarts) this.makeAIMove();
+		if (!this.genericConfig.config.playerstarts) {
+			console.log('on restart makeAIMove');
+			this.makeAIMove();
+		}
 	}
 
 	onBlockClick(event: Event) {
@@ -90,6 +97,7 @@ export class GamePlay {
 	}
 
 	makeAIMove() {
+		console.log('makeAIMove');
 		let result = '00';
 
 		// check if ai can win
