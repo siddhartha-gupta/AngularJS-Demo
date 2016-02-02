@@ -4,7 +4,9 @@ import {Injectable} from 'angular2/core'
 export class GenericConfig {
 	public config: Object;
 
-	constructor() {}
+	constructor() {
+		this.initDefaultConfig();
+	}
 
 	initDefaultConfig() {
 		this.config = {
@@ -23,10 +25,10 @@ export class GenericConfig {
 				corners: [11, 13, 31, 33],
 				playerstarts: true,
 				gameScore: {
-					'total_games': 0,
+					'totalGames': 0,
 					'draws': 0,
-					'player_win': 0,
-					'computer_win': 0,
+					'playerWins': 0,
+					'computerWins': 0,
 				},
 				gridComputationLen: 0
 			};

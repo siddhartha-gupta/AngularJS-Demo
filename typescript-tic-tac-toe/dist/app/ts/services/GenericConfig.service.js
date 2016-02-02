@@ -18,6 +18,7 @@ System.register(['angular2/core'], function(exports_1) {
         execute: function() {
             GenericConfig = (function () {
                 function GenericConfig() {
+                    this.initDefaultConfig();
                 }
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
@@ -36,10 +37,10 @@ System.register(['angular2/core'], function(exports_1) {
                         corners: [11, 13, 31, 33],
                         playerstarts: true,
                         gameScore: {
-                            'total_games': 0,
+                            'totalGames': 0,
                             'draws': 0,
-                            'player_win': 0,
-                            'computer_win': 0,
+                            'playerWins': 0,
+                            'computerWins': 0,
                         },
                         gridComputationLen: 0
                     };

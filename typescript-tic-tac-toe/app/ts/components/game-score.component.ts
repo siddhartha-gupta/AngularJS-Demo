@@ -6,11 +6,15 @@ import { GenericConfig } from '../services/GenericConfig.service'
 
 @Component({
 	selector: 'game-score',
-	providers: [BrowserDomAdapter],
 	templateUrl: _settings.buildPath + 'gamescore.template.html'
 })
 
 export class GameScore {
 	constructor(private genericConfig: GenericConfig) {
+		console.log(genericConfig.config);
+	}
+
+	resetGame($event: Event) {
+		console.log('resetGame');
 	}
 }
