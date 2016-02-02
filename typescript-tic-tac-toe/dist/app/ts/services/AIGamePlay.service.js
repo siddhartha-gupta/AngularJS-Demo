@@ -94,6 +94,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                                     console.log('cachedNextMove: ', this.cachedNextMove);
                                 }
                                 else {
+                                    console.log('moveIndex0: ', moveIndex0);
                                     dlta = 22 - moveIndex0;
                                     randomPosition.push(moveIndex0 + (10 / dlta));
                                     randomPosition.push(moveIndex0 - (10 / dlta));

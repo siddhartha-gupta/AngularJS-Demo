@@ -84,6 +84,7 @@ export class AIGamePlay {
 						this.cachedNextMove = result + dlta;
 						console.log('cachedNextMove: ', this.cachedNextMove);
 					} else {
+						console.log('moveIndex0: ', moveIndex0);
 						dlta = 22 - moveIndex0;
 						randomPosition.push(moveIndex0 + (10 / dlta));
 						randomPosition.push(moveIndex0 - (10 / dlta));
@@ -105,7 +106,7 @@ export class AIGamePlay {
 	}
 
 	aiStartsGame() {
-		var moveIndex0 = this.currentGameConfig.currentGame.movesIndex[0],
+		let moveIndex0 = this.currentGameConfig.currentGame.movesIndex[0],
 			moveIndex1 = this.currentGameConfig.currentGame.movesIndex[1],
 			moveIndex2 = this.currentGameConfig.currentGame.movesIndex[2],
 			moveIndex3 = this.currentGameConfig.currentGame.movesIndex[3],

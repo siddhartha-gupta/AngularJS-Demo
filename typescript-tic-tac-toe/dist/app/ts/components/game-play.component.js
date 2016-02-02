@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, utils_service_1;
+    var core_1, browser_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, GameStatus_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -30,28 +30,34 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
             function (AIGamePlay_service_1_1) {
                 AIGamePlay_service_1 = AIGamePlay_service_1_1;
             },
+            function (GameStatus_service_1_1) {
+                GameStatus_service_1 = GameStatus_service_1_1;
+            },
             function (utils_service_1_1) {
                 utils_service_1 = utils_service_1_1;
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, utils, elementRef, renderer, _dom) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
+                    this.gameStatus = gameStatus;
                     this.utils = utils;
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
                     this.theHtmlString = '';
-                    this.drawGrid();
+                    this.startGame();
                 }
+                GamePlay.prototype.startGame = function () {
+                    this.currentGameConfig.initDefaultConfig();
+                    this.drawGrid();
+                };
                 GamePlay.prototype.drawGrid = function () {
                     var _this = this;
                     var gridCell = [];
                     this.theHtmlString = '';
-                    console.log(this.genericConfig.config.gridSize);
-                    console.log(this.currentGameConfig.currentGame);
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
@@ -60,13 +66,11 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         }
                     }
                     this.theHtmlString = gridCell.join('');
-                    // this.renderer.listen();
                     this.renderer.listen(this.elementRef.nativeElement, 'click', function (event) {
-                        console.log('Element clicked');
-                        // console.log(event);
                         _this.onBlockClick(event);
                     });
-                    // $('#game-grid li').off('click').on('click', game.gamePlay.onBlockClick);
+                    if (!this.genericConfig.config.playerstarts)
+                        this.makeAIMove();
                 };
                 GamePlay.prototype.onBlockClick = function (event) {
                     console.log('onBlockClick');
@@ -82,7 +86,6 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                             this.currentGameConfig.currentGame.moves[cellnum] = 1;
                             this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
                             this.currentGameConfig.currentGame.stepsPlayed++;
-                            console.log('calling checkGameEnd');
                             this.checkGameEnd(true);
                         }
                         else {
@@ -91,56 +94,19 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.checkGameEnd = function (isHuman) {
+                    var _this = this;
                     console.log('checkGameEnd: ', isHuman);
-                    var gridValue = (isHuman) ? 1 : 2;
-                    for (n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
-                        var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
-                        if ((n1 == gridValue) && (n2 == gridValue) && (n3 == gridValue)) {
-                            this.currentGameConfig.currentGame.isWon = true;
+                    var status = this.gameStatus.checkGameEnd(isHuman);
+                    console.log(status);
+                    switch (status) {
+                        case 'gameComplete':
+                            setTimeout(function () {
+                                _this.startGame();
+                            }, 100);
                             break;
-                        }
-                    }
-                    if (this.currentGameConfig.currentGame.isWon) {
-                        this.onGameWon();
-                    }
-                    else {
-                        if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
-                            this.onGameDraw();
-                        }
-                        else if (isHuman) {
-                            console.log('makeAIMove: ', isHuman);
+                        case 'makeAIMove':
                             this.makeAIMove();
-                        }
                     }
-                };
-                GamePlay.prototype.onGameWon = function (isHuman) {
-                    if (isHuman) {
-                        this.genericConfig.config.gameScore.total_games += 1;
-                        this.genericConfig.config.gameScore.player_win += 1;
-                        // $('#total_games').text(this.genericConfig.config.gameScore.total_games);
-                        // $('#player_win').text(this.genericConfig.config.gameScore.player_win);
-                        // showWinnerText('Player won the match');
-                        this.genericConfig.config.playerstarts = true;
-                    }
-                    else {
-                        this.genericConfig.config.gameScore.total_games += 1;
-                        this.genericConfig.config.gameScore.computer_win += 1;
-                        // $('#total_games').text(this.genericConfig.config.gameScore.total_games);
-                        // $('#computer_win').text(this.genericConfig.config.gameScore.computer_win);
-                        // showWinnerText('Computer won the match');
-                        this.genericConfig.config.playerstarts = false;
-                    }
-                };
-                GamePlay.prototype.onGameDraw = function () {
-                    this.genericConfig.config.gameScore.total_games += 1;
-                    this.genericConfig.config.gameScore.draws += 1;
-                    // $('#total_games').text(this.genericConfig.config.gameScore.total_games);
-                    // $('#draws').text(this.genericConfig.config.gameScore.draws);
-                    // showWinnerText('Match drawn');
-                    this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
-                    // setTimeout(function() {
-                    // 	game.app.startGame();
-                    // }, 1000);
                 };
                 GamePlay.prototype.makeAIMove = function () {
                     var result = '00';
@@ -180,10 +146,10 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'game-play-grid',
-                        providers: [AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils, browser_1.BrowserDomAdapter],
+                        providers: [AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
                         templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
+                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
                 ], GamePlay);
                 return GamePlay;
             })();

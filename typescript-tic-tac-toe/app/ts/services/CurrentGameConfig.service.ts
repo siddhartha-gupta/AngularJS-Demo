@@ -21,6 +21,5 @@ export class CurrentGameConfig {
 		for (i = 0; i <= this.genericConfig.config.gridComputationLen; i++) {
 			this.currentGame.movesIndex[i] = 0;
 		}
-		// if (!this.genericConfig.config.playerstarts) game.gamePlay.makeAIMove();
 	}
 }
