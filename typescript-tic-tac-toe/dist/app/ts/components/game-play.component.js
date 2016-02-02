@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service'], function(exports_1) {
+System.register(['angular2/core', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1;
+    var core_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -26,15 +26,19 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
             },
             function (AIGamePlay_service_1_1) {
                 AIGamePlay_service_1 = AIGamePlay_service_1_1;
+            },
+            function (utils_service_1_1) {
+                utils_service_1 = utils_service_1_1;
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, elementRef, renderer) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, elementRef, renderer, utils) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
                     this.elementRef = elementRef;
                     this.renderer = renderer;
+                    this.utils = utils;
                     this.theHtmlString = '';
                     this.drawGrid();
                 }
@@ -164,14 +168,15 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
                     $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
                     this.currentGameConfig.currentGame.stepsPlayed++;
-                    checkGameEnd(false);
+                    this.checkGameEnd(false);
                 };
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'game-play-grid',
+                        providers: [AIGamePlay_service_1.AIGamePlay, utils_service_1.Utils],
                         templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, core_1.ElementRef, core_1.Renderer])
+                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, core_1.ElementRef, core_1.Renderer, utils_service_1.Utils])
                 ], GamePlay);
                 return GamePlay;
             })();

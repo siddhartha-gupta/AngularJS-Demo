@@ -5,16 +5,18 @@ import { _settings } from '../helpers/settings'
 import { GenericConfig } from '../services/GenericConfig.service'
 import { CurrentGameConfig } from '../services/CurrentGameConfig.service'
 import { AIGamePlay } from '../services/AIGamePlay.service'
+import { Utils } from '../services/utils.service'
 
 @Component({
 	selector: 'game-play-grid',
+	providers: [AIGamePlay, Utils],
 	templateUrl: _settings.buildPath + 'gameplay.template.html'
 })
 
 export class GamePlay {
 	theHtmlString: string = '';
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public elementRef: ElementRef, public renderer: Renderer) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public elementRef: ElementRef, public renderer: Renderer, public utils: Utils) {
 		this.drawGrid();
 	}
 
@@ -172,6 +174,6 @@ export class GamePlay {
 		$('li[id*=combine_' + result + ']').text('O').addClass('o-text');
 
 		this.currentGameConfig.currentGame.stepsPlayed++;
-		checkGameEnd(false);
+		this.checkGameEnd(false);
 	}
 }
