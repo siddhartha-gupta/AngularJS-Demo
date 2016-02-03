@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', '../directives/winner.directive', '../settings', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../settings', '../directives/winner.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, winner_directive_1, settings_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
+    var core_1, browser_1, settings_1, winner_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -18,11 +18,11 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
             function (browser_1_1) {
                 browser_1 = browser_1_1;
             },
-            function (winner_directive_1_1) {
-                winner_directive_1 = winner_directive_1_1;
-            },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
+            },
+            function (winner_directive_1_1) {
+                winner_directive_1 = winner_directive_1_1;
             },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;

@@ -1,10 +1,9 @@
 import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
-import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
-
-import { Winner } from '../directives/winner.directive'
 
 import { _settings } from '../settings'
+import { Winner } from '../directives/winner.directive'
+
 import { GenericConfig } from '../services/generic-config.service'
 import { CurrentGameConfig } from '../services/current-game-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'

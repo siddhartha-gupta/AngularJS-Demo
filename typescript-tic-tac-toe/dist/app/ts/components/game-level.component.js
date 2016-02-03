@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'ng2-bootstrap/ng2-bootstrap', '../settings', '../services/generic-config.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', '../settings', '../services/generic-config.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,18 +8,12 @@ System.register(['angular2/core', 'angular2/common', 'ng2-bootstrap/ng2-bootstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, ng2_bootstrap_1, settings_1, generic_config_service_1, utils_service_1;
+    var core_1, settings_1, generic_config_service_1, utils_service_1;
     var GameLevel;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (common_1_1) {
-                common_1 = common_1_1;
-            },
-            function (ng2_bootstrap_1_1) {
-                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
@@ -52,7 +46,6 @@ System.register(['angular2/core', 'angular2/common', 'ng2-bootstrap/ng2-bootstra
                     core_1.Component({
                         selector: 'game-level',
                         providers: [utils_service_1.Utils],
-                        directives: [ng2_bootstrap_1.BUTTON_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES],
                         templateUrl: settings_1._settings.templatePath.component + 'gamelevel.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, utils_service_1.Utils])
