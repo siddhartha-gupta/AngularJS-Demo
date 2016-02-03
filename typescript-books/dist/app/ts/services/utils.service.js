@@ -62,12 +62,8 @@ System.register(['angular2/core'], function(exports_1) {
                 };
                 Utils.prototype.sortArrayObject = function (key, data, direction) {
                     var _this = this;
-                    console.log(key);
-                    console.log(data);
-                    console.log(direction);
                     data.sort(function (a, b) {
                         var aData = _this.getObject(a, key), bData = _this.getObject(b, key);
-                        console.log(aData);
                         if (aData === bData) {
                             return 0;
                         }
@@ -78,6 +74,13 @@ System.register(['angular2/core'], function(exports_1) {
                             return -direction;
                         }
                     });
+                };
+                Utils.prototype.log = function () {
+                    var msg = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        msg[_i - 0] = arguments[_i];
+                    }
+                    console.log.apply(console, arguments);
                 };
                 Utils = __decorate([
                     core_1.Injectable(), 

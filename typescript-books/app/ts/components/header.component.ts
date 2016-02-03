@@ -5,11 +5,12 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Locati
 import {headerInterface} from '../helpers/app-interfaces'
 import {_settings} from '../helpers/settings'
 import {LocalStorage} from '../services/localStorage.service'
+import {Utils} from '../services/utils.service'
 
 @Component({
 	selector: 'app-header',
 	directives: [],
-	providers: [LocalStorage],
+	providers: [LocalStorage, Utils],
 	templateUrl: _settings.buildPath + 'header.template.html'
 })
 
@@ -17,7 +18,7 @@ export class AppHeader {
 	imgUrl: string;
 	headerItems: headerInterface[] = [];
 
-	constructor(private router: Router, private location: Location, private LS: LocalStorage) {
+	constructor(private router: Router, private location: Location, private LS: LocalStorage, private utils: Utils) {
 		this.imgUrl = 'app/img/angularjs-logo.png';
 		this.headerItems = [{
 			'name': 'backBtn',

@@ -51,15 +51,10 @@ export class Utils {
 	}
 
 	sortArrayObject(key: string, data: any[], direction?: any) {
-		this.utils.log(key);
-		this.utils.log(data);
-		this.utils.log(direction);
-
 		data.sort((a, b) => {
 			let aData = this.getObject(a, key),
 				bData = this.getObject(b, key);
 
-			this.utils.log(aData);
 			if (aData === bData) {
 				return 0;
 			}
@@ -70,5 +65,9 @@ export class Utils {
 				return -direction;
 			}
 		});
+	}
+
+	log(...msg: any[]) {
+		console.log.apply(console, arguments);
 	}
 }

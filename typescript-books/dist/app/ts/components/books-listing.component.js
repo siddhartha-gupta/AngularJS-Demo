@@ -68,7 +68,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
                         !this.utils.isNullUndefined(searchLimit) &&
                         !this.utils.isNullUndefined(sortOrder) &&
                         !this.utils.isNullUndefined(localSortKey)) {
-                        console.log('ls value obtained: ', searchQuery);
+                        this.utils.log('ls value obtained: ', searchQuery);
                         this.model = {
                             searchQuery: searchQuery,
                             searchLimit: searchLimit,
@@ -78,7 +78,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
                         this.sendSearchRequest();
                     }
                     else {
-                        console.log('ls value not obtained');
+                        this.utils.log('ls value not obtained');
                         this.model = {
                             searchQuery: '',
                             searchLimit: 10,
@@ -90,7 +90,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
                 BooksListing.prototype.ngOnInit = function () { };
                 BooksListing.prototype.searchBooks = function ($event) {
                     this.model.searchQuery = this.model.searchQuery.trim();
-                    console.log('searchBooks, searchQuery: ', this.model.searchQuery, ', :searchLimit: ', this.model.searchLimit);
+                    this.utils.log('searchBooks, searchQuery: ', this.model.searchQuery, ', :searchLimit: ', this.model.searchLimit);
                     if (this.pendingRequest) {
                         this.pendingRequest = this.pendingRequest.unsubscribe();
                     }

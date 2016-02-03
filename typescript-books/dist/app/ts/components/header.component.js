@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../services/localStorage.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../services/localStorage.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, settings_1, localStorage_service_1;
+    var core_1, router_1, settings_1, localStorage_service_1, utils_service_1;
     var AppHeader;
     return {
         setters:[
@@ -23,14 +23,18 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
             },
             function (localStorage_service_1_1) {
                 localStorage_service_1 = localStorage_service_1_1;
+            },
+            function (utils_service_1_1) {
+                utils_service_1 = utils_service_1_1;
             }],
         execute: function() {
             AppHeader = (function () {
-                function AppHeader(router, location, LS) {
+                function AppHeader(router, location, LS, utils) {
                     var _this = this;
                     this.router = router;
                     this.location = location;
                     this.LS = LS;
+                    this.utils = utils;
                     this.headerItems = [];
                     this.imgUrl = 'app/img/angularjs-logo.png';
                     this.headerItems = [{
@@ -48,7 +52,7 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
                     router.subscribe(function (val) { return _this.onRouteChange(val); });
                 }
                 AppHeader.prototype.onRouteChange = function (val) {
-                    console.log('headerChange: ', val);
+                    this.utils.log('headerChange: ', val);
                     var routeName = val.match(/[^?]*/i)[0];
                     switch (routeName) {
                         case 'book':
@@ -71,11 +75,11 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
                     this[funcName]($event);
                 };
                 AppHeader.prototype.goBack = function ($event) {
-                    console.log('goBack');
+                    this.utils.log('goBack');
                     this.location.back();
                 };
                 AppHeader.prototype.resetApp = function ($event) {
-                    console.log('resetApp');
+                    this.utils.log('resetApp');
                     this.LS.resetStorage();
                     this.router.navigate(['./Home']);
                 };
@@ -83,10 +87,10 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
                     core_1.Component({
                         selector: 'app-header',
                         directives: [],
-                        providers: [localStorage_service_1.LocalStorage],
+                        providers: [localStorage_service_1.LocalStorage, utils_service_1.Utils],
                         templateUrl: settings_1._settings.buildPath + 'header.template.html'
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.Location, localStorage_service_1.LocalStorage])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.Location, localStorage_service_1.LocalStorage, utils_service_1.Utils])
                 ], AppHeader);
                 return AppHeader;
             })();
