@@ -64,12 +64,6 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                 };
                 GamePlay.prototype.drawGrid = function () {
                     var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
-                    if (liElem) {
-                        for (var i = 0, len = liElem.length; i < length; i += 1) {
-                            liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
-                        }
-                    }
-                    this._dom.setInnerHTML(elem, '');
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
@@ -140,7 +134,6 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                     console.log('result: ', result);
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-                    // $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
                     var elem = this._dom.query('li[id*=combine_' + result + ']');
                     this.renderer.setText(elem, 'O');
                     this.renderer.setElementClass(elem, 'o-text', true);
@@ -172,6 +165,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                 GamePlay.prototype.showWinnerText = function (text) {
                     var _this = this;
                     console.log('showWinnerText: ', text);
+                    this.domCleanUp();
                     this.winnerText = text;
                     this.displayWinnerText = true;
                     setTimeout(function () {
@@ -180,6 +174,15 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                         _this.genericConfig.config.playGame = true;
                         _this.startGame();
                     }, 2000);
+                };
+                GamePlay.prototype.domCleanUp = function () {
+                    var elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
+                    if (liElem) {
+                        for (var i = 0, len = liElem.length; i < length; i += 1) {
+                            liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
+                        }
+                    }
+                    this._dom.setInnerHTML(elem, '');
                 };
                 GamePlay = __decorate([
                     core_1.Component({

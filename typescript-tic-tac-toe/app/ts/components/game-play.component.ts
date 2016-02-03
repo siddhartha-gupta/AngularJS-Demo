@@ -46,13 +46,6 @@ export class GamePlay {
 			liElem = this._dom.querySelectorAll(elem, 'li'),
 			that = this;
 
-		if (liElem) {
-			for (let i = 0, len = liElem.length; i < length; i += 1) {
-				liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
-			}
-		}
-		this._dom.setInnerHTML(elem, '');
-
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
 			for (let j = 1; j <= len; j += 1) {
 				let idAttr: Array<any> = [],
@@ -133,7 +126,6 @@ export class GamePlay {
 
 		this.currentGameConfig.currentGame.moves[result] = 2;
 		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-		// $('li[id*=combine_' + result + ']').text('O').addClass('o-text');
 		var elem = this._dom.query('li[id*=combine_' + result + ']');
 
 		this.renderer.setText(elem, 'O');
@@ -170,6 +162,7 @@ export class GamePlay {
 	showWinnerText(text: string) {
 		console.log('showWinnerText: ', text);
 
+		this.domCleanUp();
 		this.winnerText = text;
 		this.displayWinnerText = true;
 
@@ -179,5 +172,18 @@ export class GamePlay {
 			this.genericConfig.config.playGame = true;
 			this.startGame();
 		}, 2000);
+	}
+
+	domCleanUp() {
+		let elem = this._dom.query('ul[id*=game-grid]'),
+			liElem = this._dom.querySelectorAll(elem, 'li'),
+			that = this;
+
+		if (liElem) {
+			for (let i = 0, len = liElem.length; i < length; i += 1) {
+				liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
+			}
+		}
+		this._dom.setInnerHTML(elem, '');
 	}
 }

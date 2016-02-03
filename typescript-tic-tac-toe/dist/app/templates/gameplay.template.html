@@ -1,6 +1,6 @@
 <div id="container">
-	<ul id="game-grid"></ul>
-	<span *ngIf="displayWinnerText">
+	<span *ngIf="displayWinnerText" class="winner-text">
 		<winner-text [text]="winnerText"></winner-text>
 	</span>
+	<ul id="game-grid"></ul>
 </div>

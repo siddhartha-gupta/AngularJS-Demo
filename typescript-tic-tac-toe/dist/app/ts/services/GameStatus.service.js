@@ -67,7 +67,6 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                 GameStatus.prototype.onGameDraw = function () {
                     this.genericConfig.config.gameScore.totalGames += 1;
                     this.genericConfig.config.gameScore.draws += 1;
-                    // showWinnerText('Match drawn');
                     this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
                 };
                 GameStatus = __decorate([

@@ -50,8 +50,6 @@ export class GameStatus {
 	onGameDraw() {
 		this.genericConfig.config.gameScore.totalGames += 1;
 		this.genericConfig.config.gameScore.draws += 1;
-
-		// showWinnerText('Match drawn');
 		this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
 	}
 }
