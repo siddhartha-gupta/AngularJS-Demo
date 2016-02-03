@@ -112,16 +112,18 @@ export class AIGamePlay {
 			dlta: number,
 			randomPosition: Array<number> = [];
 
-		if (this.currentGameConfig.currentGame.stepsPlayed === 0) {
-			result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
+		switch (this.currentGameConfig.currentGame.stepsPlayed) {
+			case 0:
+				result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
 
-			if (result == 22) {
-				this.aiThinking = 1;
-			} else {
-				this.aiThinking = 2;
-			}
-		} else
-			if (this.currentGameConfig.currentGame.stepsPlayed == 2) {
+				if (result == 22) {
+					this.aiThinking = 1;
+				} else {
+					this.aiThinking = 2;
+				}
+				break;
+
+			case 2:
 				if (this.aiThinking == 1) {
 					if (moveIndex1 == 11 || moveIndex1 == 13 || moveIndex1 == 31 || moveIndex1 == 33) {
 						result = 44 - moveIndex1;
@@ -143,7 +145,9 @@ export class AIGamePlay {
 						this.aiThinking = 23;
 					}
 				}
-			} else if (this.currentGameConfig.currentGame.stepsPlayed == 4) {
+				break;
+
+			case 4:
 				if (this.aiThinking == 22) {
 					for (let i = 0; i < 4; i++) {
 						if (this.currentGameConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
@@ -159,7 +163,8 @@ export class AIGamePlay {
 				} else if (this.aiThinking == 1) {
 					result = 44 + moveIndex2 - (2 * moveIndex3);
 				}
-			}
+				break;
+		}
 		return result;
 	}
 
