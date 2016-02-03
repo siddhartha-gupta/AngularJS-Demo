@@ -45,6 +45,7 @@ export class GamePlay {
 			liElem = this._dom.querySelectorAll(elem, 'li'),
 			that = this;
 
+		this.domCleanUp();
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
 			for (let j = 1; j <= len; j += 1) {
 				let idAttr: Array<any> = [],
@@ -167,7 +168,6 @@ export class GamePlay {
 	showWinnerText(text: string) {
 		console.log('showWinnerText: ', text);
 
-		this.domCleanUp();
 		this.winnerText = text;
 		this.displayWinnerText = true;
 

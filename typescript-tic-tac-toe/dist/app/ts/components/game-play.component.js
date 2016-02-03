@@ -64,6 +64,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                 };
                 GamePlay.prototype.drawGrid = function () {
                     var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
+                    this.domCleanUp();
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
@@ -171,7 +172,6 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                 GamePlay.prototype.showWinnerText = function (text) {
                     var _this = this;
                     console.log('showWinnerText: ', text);
-                    this.domCleanUp();
                     this.winnerText = text;
                     this.displayWinnerText = true;
                     setTimeout(function () {
