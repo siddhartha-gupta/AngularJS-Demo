@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core'
-import { GenericConfig } from './GenericConfig.service'
-import { CurrentGameConfig } from './CurrentGameConfig.service'
+import { GenericConfig } from './generic-config.service'
+import { CurrentGameConfig } from './current-game-config.service'
 
 @Injectable()
 export class GameStatus {

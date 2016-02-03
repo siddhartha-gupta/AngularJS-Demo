@@ -6,10 +6,10 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 import { Winner } from '../directives/winner.directive'
 
 import { _settings } from '../settings'
-import { GenericConfig } from '../services/GenericConfig.service'
-import { CurrentGameConfig } from '../services/CurrentGameConfig.service'
-import { AIGamePlay } from '../services/AIGamePlay.service'
-import { GameStatus } from '../services/GameStatus.service'
+import { GenericConfig } from '../services/generic-config.service'
+import { CurrentGameConfig } from '../services/current-game-config.service'
+import { AIGamePlay } from '../services/ai-gamePlay.service'
+import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 
 @Component({

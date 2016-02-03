@@ -2,7 +2,7 @@ import {Component, View, OnInit} from 'angular2/core'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { _settings } from '../settings'
-import { GenericConfig } from '../services/GenericConfig.service'
+import { GenericConfig } from '../services/generic-config.service'
 import { Utils } from '../services/utils.service'
 
 @Component({

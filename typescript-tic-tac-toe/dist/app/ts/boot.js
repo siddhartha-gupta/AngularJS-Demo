@@ -1,5 +1,5 @@
-System.register(['angular2/platform/browser', 'rxjs/Rx', './components/app.component', './services/GenericConfig.service', './services/CurrentGameConfig.service'], function(exports_1) {
-    var browser_1, app_component_1, GenericConfig_service_1, CurrentGameConfig_service_1;
+System.register(['angular2/platform/browser', 'rxjs/Rx', './components/app.component', './services/generic-config.service', './services/current-game-config.service'], function(exports_1) {
+    var browser_1, app_component_1, generic_config_service_1, current_game_config_service_1;
     return {
         setters:[
             function (browser_1_1) {
@@ -9,14 +9,14 @@ System.register(['angular2/platform/browser', 'rxjs/Rx', './components/app.compo
             function (app_component_1_1) {
                 app_component_1 = app_component_1_1;
             },
-            function (GenericConfig_service_1_1) {
-                GenericConfig_service_1 = GenericConfig_service_1_1;
+            function (generic_config_service_1_1) {
+                generic_config_service_1 = generic_config_service_1_1;
             },
-            function (CurrentGameConfig_service_1_1) {
-                CurrentGameConfig_service_1 = CurrentGameConfig_service_1_1;
+            function (current_game_config_service_1_1) {
+                current_game_config_service_1 = current_game_config_service_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.App, [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig]).catch(console.error);
+            browser_1.bootstrap(app_component_1.App, [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig]).catch(console.error);
         }
     }
 });

@@ -59,4 +59,4 @@ System.register(['angular2/core'], function(exports_1) {
     }
 });
 
-//# sourceMappingURL=GenericConfig.service.js.map
+//# sourceMappingURL=generic-config.service.js.map

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', '../directives/winner.directive', '../settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../directives/winner.directive', '../settings', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, winner_directive_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, GameStatus_service_1, utils_service_1;
+    var core_1, browser_1, winner_directive_1, settings_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -24,17 +24,17 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             },
-            function (GenericConfig_service_1_1) {
-                GenericConfig_service_1 = GenericConfig_service_1_1;
+            function (generic_config_service_1_1) {
+                generic_config_service_1 = generic_config_service_1_1;
             },
-            function (CurrentGameConfig_service_1_1) {
-                CurrentGameConfig_service_1 = CurrentGameConfig_service_1_1;
+            function (current_game_config_service_1_1) {
+                current_game_config_service_1 = current_game_config_service_1_1;
             },
-            function (AIGamePlay_service_1_1) {
-                AIGamePlay_service_1 = AIGamePlay_service_1_1;
+            function (ai_gamePlay_service_1_1) {
+                ai_gamePlay_service_1 = ai_gamePlay_service_1_1;
             },
-            function (GameStatus_service_1_1) {
-                GameStatus_service_1 = GameStatus_service_1_1;
+            function (game_status_service_1_1) {
+                game_status_service_1 = game_status_service_1_1;
             },
             function (utils_service_1_1) {
                 utils_service_1 = utils_service_1_1;
@@ -193,11 +193,11 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'game-play-grid',
-                        providers: [AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
+                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
                         directives: [winner_directive_1.Winner],
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
                 ], GamePlay);
                 return GamePlay;
             })();
