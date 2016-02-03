@@ -112,26 +112,26 @@ export class GamePlay {
 
 	makeAIMove() {
 		console.log('makeAIMove');
-		let result = '00';
+		let result:number = 0;
 
 		// check if ai can win
 		result = this.aiGamePlay.chooseMove(true);
 
 		// check move to prevent ai loss
-		if (!result || result == '00') {
+		if (!result || result === 0) {
 			result = this.aiGamePlay.chooseMove(false);
 		} else {
 			console.log('winning move is possible: ', result);
 		}
 
 		// check best possible move for ai
-		if (!result || result == '00') {
+		if (!result || result === 0) {
 			result = this.aiGamePlay.seekBestMove();
 		} else {
 			console.log('move to prevent defeat: ', result);
 		}
 
-		if (!result || result == '00' || result <= '10') {
+		if (!result || result == 0 || result <= 10) {
 			result = this.aiGamePlay.makeRandomMove();
 			console.log('making random move: ', result);
 		} else {
