@@ -16,7 +16,7 @@ System.register(['angular2/platform/browser', 'rxjs/Rx', './components/app.compo
                 current_game_config_service_1 = current_game_config_service_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.App, [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig]).catch(console.error);
+            browser_1.bootstrap(app_component_1.App, [browser_1.ELEMENT_PROBE_PROVIDERS, generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig]).catch(console.error);
         }
     }
 });

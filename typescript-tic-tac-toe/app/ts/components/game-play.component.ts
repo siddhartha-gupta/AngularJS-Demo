@@ -1,6 +1,5 @@
 import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
-// import { ELEMENT_PROBE_BINDINGS} from 'angular2/debug'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
 import { Winner } from '../directives/winner.directive'
