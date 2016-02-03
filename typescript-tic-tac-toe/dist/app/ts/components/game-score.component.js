@@ -33,6 +33,7 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                 }
                 GameScore.prototype.resetGame = function ($event) {
                     console.log('resetGame');
+                    window.location.reload();
                 };
                 GameScore = __decorate([
                     core_1.Component({

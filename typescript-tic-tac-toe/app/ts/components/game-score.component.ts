@@ -18,5 +18,6 @@ export class GameScore {
 
 	resetGame($event: Event) {
 		console.log('resetGame');
+		window.location.reload();
 	}
 }

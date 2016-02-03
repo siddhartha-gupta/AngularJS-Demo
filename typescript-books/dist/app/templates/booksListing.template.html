@@ -1,0 +1,47 @@
+<div class="custom-container">
+	<div class="col-xs-7">
+		<form #booksSearch="ngForm">
+			<input type="text" class="form-control" required [(ngModel)]="model.searchQuery" ngControl="searchQuery" #searchQuery="ngForm" placeholder="Book or book type you would like to search..." (keyup)="searchBooks($event)" />
+			<div *ngIf="inputError" class="alert alert-danger">
+				Please type 3 or more characters
+			</div>
+		</form>
+	</div>
+
+	<div class="form-group col-xs-2">
+		<select class="form-control" required [(ngModel)]="model.sortOrder" #searchLimit (ngModelChange)="searchBooks($event)">
+			<option *ngFor="#sov of sortOrderVals" [value]="sov">Order: {{sov}}</option>
+		</select>
+	</div>
+
+	<div class="form-group col-xs-2">
+		<select class="form-control" required [(ngModel)]="model.searchLimit" #searchLimit (ngModelChange)="searchBooks($event)">
+			<option *ngFor="#slv of searchLimitVals" [value]="slv">Limit: {{slv}}</option>
+		</select>
+	</div>
+</div>
+
+<div class="custom-container">
+	<div class="col-xs-2">
+		<select class="form-control" required [(ngModel)]="model.localSortKey" #searchLimit (ngModelChange)="sortData($event)">
+			<option *ngFor="#lsov of localSortOrderVals" [value]="lsov.sortValue">{{lsov.text}}</option>
+		</select>
+	</div>
+</div>
+
+<div class="container" *ngIf="booksData">
+	<ul class="books-listing" *ngIf="booksData.length > 0 && !showLoader">
+		<li *ngFor="#bookData of booksData" class="well col-xs-11">
+			<collapse-title [imageLinks]="bookData.volumeInfo.imageLinks" [volumeInfo]="bookData.volumeInfo" [saleInfo]="bookData.saleInfo" [bookId]="bookData.id"></collapse-title>
+		</li>
+	</ul>
+	<div class='loader' *ngIf="booksData.length === 0 && showLoader">
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--dot'></div>
+		<div class='loader--text'></div>
+	  </div>
+</div>
