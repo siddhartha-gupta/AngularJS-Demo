@@ -38,9 +38,6 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
             }],
         execute: function() {
             BooksListing = (function () {
-                // <option selected value="volumeInfo.title">By: Name</option>
-                // <option value="-saleInfo.listPrice.amount">By: Price Descending</option>
-                // <option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
                 function BooksListing(api, LS, utils) {
                     this.api = api;
                     this.LS = LS;

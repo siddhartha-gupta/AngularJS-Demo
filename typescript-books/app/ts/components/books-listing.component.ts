@@ -39,10 +39,6 @@ export class BooksListing {
 			'sortValue': '+saleInfo.listPrice.amount'
 		}]
 
-	// <option selected value="volumeInfo.title">By: Name</option>
-	// <option value="-saleInfo.listPrice.amount">By: Price Descending</option>
-	// <option value="+saleInfo.listPrice.amount">By: Price Ascending</option>
-
 	constructor(private api: api, private LS: LocalStorage, private utils: Utils) {
 		this.checkLSForData();
 	}
