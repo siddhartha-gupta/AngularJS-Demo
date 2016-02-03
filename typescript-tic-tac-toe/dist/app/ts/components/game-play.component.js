@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', '../helpers/settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,8 +47,8 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
-                    this.utils.log(this.currentGameConfig);
-                    this.utils.log(this.genericConfig);
+                    console.log(this.currentGameConfig);
+                    console.log(this.genericConfig);
                 }
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame();
@@ -84,15 +84,15 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.onBlockClick = function (event) {
-                    this.utils.log('onBlockClick');
+                    console.log('onBlockClick');
                     if (event) {
                         event.preventDefault();
                         event.stopPropagation();
                     }
                     var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
                     if (!this.currentGameConfig.currentGame.isWon) {
-                        this.utils.log(this.currentGameConfig.currentGame.moves);
-                        this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
+                        console.log(this.currentGameConfig.currentGame.moves);
+                        console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
                         if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
                             this.renderer.setText(event.target, 'X');
                             this.renderer.setElementClass(event.target, 'x-text', true);
@@ -108,9 +108,9 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                 };
                 GamePlay.prototype.checkGameEnd = function (isHuman) {
                     var _this = this;
-                    this.utils.log('checkGameEnd: ', isHuman);
+                    console.log('checkGameEnd: ', isHuman);
                     var status = this.gameStatus.checkGameEnd(isHuman);
-                    this.utils.log(status);
+                    console.log(status);
                     switch (status) {
                         case 'gameComplete':
                             setTimeout(function () {
@@ -122,7 +122,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
-                    this.utils.log('makeAIMove');
+                    console.log('makeAIMove');
                     var result = 0;
                     // check if ai can win
                     result = this.aiGamePlay.chooseMove(true);
@@ -131,23 +131,23 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         result = this.aiGamePlay.chooseMove(false);
                     }
                     else {
-                        this.utils.log('winning move is possible: ', result);
+                        console.log('winning move is possible: ', result);
                     }
                     // check best possible move for ai
                     if (!result || result === 0) {
                         result = this.aiGamePlay.seekBestMove();
                     }
                     else {
-                        this.utils.log('move to prevent defeat: ', result);
+                        console.log('move to prevent defeat: ', result);
                     }
                     if (!result || result == 0 || result <= 10) {
                         result = this.aiGamePlay.makeRandomMove();
-                        this.utils.log('making random move: ', result);
+                        console.log('making random move: ', result);
                     }
                     else {
-                        this.utils.log('best move available: ', result);
+                        console.log('best move available: ', result);
                     }
-                    this.utils.log('result: ', result);
+                    console.log('result: ', result);
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
                     // $('li[id*=combine_' + result + ']').text('O').addClass('o-text');

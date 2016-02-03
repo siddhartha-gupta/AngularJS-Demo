@@ -26,8 +26,8 @@
     "app/ts/services/CurrentGameConfig.service.ts",
     "app/ts/services/AIGamePlay.service.ts",
     "app/ts/services/GameStatus.service.ts",
-    "app/ts/helpers/app-interfaces.ts",
-    "app/ts/helpers/settings.ts",
+    "app/ts/services/app-interfaces.service.ts",
+    "app/ts/settings.ts",
     "app/ts/boot.ts"
   ],
   "atom": {

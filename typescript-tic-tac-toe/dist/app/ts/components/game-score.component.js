@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../helpers/settings', '../services/GenericConfig.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', '../settings', '../services/GenericConfig.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29,10 +29,10 @@ System.register(['angular2/core', '../helpers/settings', '../services/GenericCon
                 function GameScore(genericConfig, utils) {
                     this.genericConfig = genericConfig;
                     this.utils = utils;
-                    this.utils.log(genericConfig.config);
+                    console.log(genericConfig.config);
                 }
                 GameScore.prototype.resetGame = function ($event) {
-                    this.utils.log('resetGame');
+                    console.log('resetGame');
                 };
                 GameScore = __decorate([
                     core_1.Component({

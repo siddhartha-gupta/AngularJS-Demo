@@ -6,4 +6,4 @@ System.register([], function(exports_1) {
     }
 });
 
-//# sourceMappingURL=app-interfaces.js.map
+//# sourceMappingURL=app-interfaces.service.js.map

@@ -1,0 +1,1 @@
+{"version":3,"sources":["settings.ts"],"names":[],"mappings":";QAAa,SAAS;;;;YAAT,uBAAA,SAAS,GAAG;gBACxB,SAAS,EAAE,gBAAgB;aAC3B,CAAA,CAAC","file":"app/ts/settings.js","sourcesContent":["export const _settings = {\r\n\tbuildPath: 'app/templates/'\r\n};\r\n"],"sourceRoot":"/source/"}

@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core'
-import {GenericConfigInterface} from '../helpers/app-interfaces'
+import {GenericConfigInterface} from '../services/app-interfaces.service'
 
 @Injectable()
 export class GenericConfig {

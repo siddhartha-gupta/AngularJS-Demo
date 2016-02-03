@@ -46,7 +46,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                             return 'gameComplete';
                         }
                         else if (isHuman) {
-                            this.utils.log('makeAIMove: ', isHuman);
+                            console.log('makeAIMove: ', isHuman);
                             return 'makeAIMove';
                         }
                     }

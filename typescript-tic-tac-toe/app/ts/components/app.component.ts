@@ -4,7 +4,7 @@ import {AppHeader} from './header.component'
 import {GamePlay} from './game-play.component'
 import {GameScore} from './game-score.component'
 
-import {_settings} from '../helpers/settings'
+import {_settings} from '../settings'
 
 @Component({
 	selector: 'game-app',
