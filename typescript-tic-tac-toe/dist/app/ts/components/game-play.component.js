@@ -113,18 +113,22 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                     // check if ai can win
                     result = this.aiGamePlay.chooseMove(true);
                     // check move to prevent ai loss
-                    if (!result || result === 0) {
-                        result = this.aiGamePlay.chooseMove(false);
-                    }
-                    else {
-                        console.log('winning move is possible: ', result);
+                    if (this.genericConfig.config.gameLevel > 1) {
+                        if (!result || result === 0) {
+                            result = this.aiGamePlay.chooseMove(false);
+                        }
+                        else {
+                            console.log('winning move is possible: ', result);
+                        }
                     }
                     // check best possible move for ai
-                    if (!result || result === 0) {
-                        result = this.aiGamePlay.seekBestMove();
-                    }
-                    else {
-                        console.log('move to prevent defeat: ', result);
+                    if (this.genericConfig.config.gameLevel > 2) {
+                        if (!result || result === 0) {
+                            result = this.aiGamePlay.seekBestMove();
+                        }
+                        else {
+                            console.log('move to prevent defeat: ', result);
+                        }
                     }
                     if (!result || result == 0 || result <= 10) {
                         result = this.aiGamePlay.makeRandomMove();

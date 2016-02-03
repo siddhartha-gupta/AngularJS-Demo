@@ -1,4 +1,4 @@
-System.register(['angular2/core', './header.component', './game-play.component', './game-score.component', '../settings'], function(exports_1) {
+System.register(['angular2/core', './header.component', './game-play.component', './game-score.component', './game-level.component', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './header.component', './game-play.component',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, header_component_1, game_play_component_1, game_score_component_1, settings_1;
+    var core_1, header_component_1, game_play_component_1, game_score_component_1, game_level_component_1, settings_1;
     var App;
     return {
         setters:[
@@ -24,6 +24,9 @@ System.register(['angular2/core', './header.component', './game-play.component',
             function (game_score_component_1_1) {
                 game_score_component_1 = game_score_component_1_1;
             },
+            function (game_level_component_1_1) {
+                game_level_component_1 = game_level_component_1_1;
+            },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             }],
@@ -35,7 +38,7 @@ System.register(['angular2/core', './header.component', './game-play.component',
                     core_1.Component({
                         selector: 'game-app',
                         templateUrl: settings_1._settings.buildPath + 'app.template.html',
-                        directives: [header_component_1.AppHeader, game_play_component_1.GamePlay, game_score_component_1.GameScore]
+                        directives: [header_component_1.AppHeader, game_play_component_1.GamePlay, game_score_component_1.GameScore, game_level_component_1.GameLevel]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], App);

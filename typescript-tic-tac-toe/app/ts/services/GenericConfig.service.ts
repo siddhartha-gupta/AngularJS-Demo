@@ -12,6 +12,7 @@ export class GenericConfig {
 	initDefaultConfig() {
 		this.config = {
 				gridSize: 3,
+				gameLevel: 3,
 				playGame: true,
 				ways: [
 					[0, 11, 12, 13],
