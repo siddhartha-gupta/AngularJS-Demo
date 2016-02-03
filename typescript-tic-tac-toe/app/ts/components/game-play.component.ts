@@ -70,27 +70,29 @@ export class GamePlay {
 	}
 
 	onBlockClick(event: Event) {
-		console.log('onBlockClick');
-
 		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
 
-		if (!this.currentGameConfig.currentGame.isWon) {
-			console.log(this.currentGameConfig.currentGame.moves);
-			console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
-			if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-				this.renderer.setText(event.target, 'X');
-				this.renderer.setElementClass(event.target, 'x-text', true);
+		console.log('onBlockClick');
+		if (this.genericConfig.config.playGame) {
+			let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
 
-				this.currentGameConfig.currentGame.moves[cellnum] = 1;
-				this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
-				this.currentGameConfig.currentGame.stepsPlayed++;
-				this.getGameStatus(true);
-			} else {
-				alert('You cannot move here!');
+			if (!this.currentGameConfig.currentGame.isWon) {
+				console.log(this.currentGameConfig.currentGame.moves);
+				console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
+				if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
+					this.renderer.setText(event.target, 'X');
+					this.renderer.setElementClass(event.target, 'x-text', true);
+
+					this.currentGameConfig.currentGame.moves[cellnum] = 1;
+					this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
+					this.currentGameConfig.currentGame.stepsPlayed++;
+					this.getGameStatus(true);
+				} else {
+					alert('You cannot move here!');
+				}
 			}
 		}
 	}

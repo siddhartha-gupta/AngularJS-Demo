@@ -83,25 +83,27 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                     }
                 };
                 GamePlay.prototype.onBlockClick = function (event) {
-                    console.log('onBlockClick');
                     if (event) {
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
-                    if (!this.currentGameConfig.currentGame.isWon) {
-                        console.log(this.currentGameConfig.currentGame.moves);
-                        console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
-                        if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-                            this.renderer.setText(event.target, 'X');
-                            this.renderer.setElementClass(event.target, 'x-text', true);
-                            this.currentGameConfig.currentGame.moves[cellnum] = 1;
-                            this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
-                            this.currentGameConfig.currentGame.stepsPlayed++;
-                            this.getGameStatus(true);
-                        }
-                        else {
-                            alert('You cannot move here!');
+                    console.log('onBlockClick');
+                    if (this.genericConfig.config.playGame) {
+                        var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
+                        if (!this.currentGameConfig.currentGame.isWon) {
+                            console.log(this.currentGameConfig.currentGame.moves);
+                            console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
+                            if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
+                                this.renderer.setText(event.target, 'X');
+                                this.renderer.setElementClass(event.target, 'x-text', true);
+                                this.currentGameConfig.currentGame.moves[cellnum] = 1;
+                                this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
+                                this.currentGameConfig.currentGame.stepsPlayed++;
+                                this.getGameStatus(true);
+                            }
+                            else {
+                                alert('You cannot move here!');
+                            }
                         }
                     }
                 };
