@@ -17,7 +17,7 @@
 			<book-info [data]="bookData.volumeInfo.publishedDate" text="Published Date"></book-info>
 			<book-info [data]="bookData.volumeInfo.publisher" text="Publisher"></book-info>
 
-			<span *ngIf="bookData.volumeInfo.categories.length > 0">
+			<span *ngIf="bookData.volumeInfo.categories && bookData.volumeInfo.categories.length > 0">
 				<strong>Categories: </strong>
 				<span *ngFor="#category of bookData.volumeInfo.categories">
 					{{category}}{{last ? '' : ', '}}
