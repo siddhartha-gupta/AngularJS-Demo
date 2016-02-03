@@ -18,8 +18,8 @@ import { Utils } from '../services/utils.service'
 
 export class GamePlay {
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
-		console.log(this.currentGameConfig);
-		console.log(this.genericConfig);
+		this.utils.log(this.currentGameConfig);
+		this.utils.log(this.genericConfig);
 	}
 
 	ngOnInit() {
@@ -68,7 +68,7 @@ export class GamePlay {
 	}
 
 	onBlockClick(event: Event) {
-		console.log('onBlockClick');
+		this.utils.log('onBlockClick');
 
 		if (event) {
 			event.preventDefault();
@@ -77,8 +77,8 @@ export class GamePlay {
 		let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
 
 		if (!this.currentGameConfig.currentGame.isWon) {
-			console.log(this.currentGameConfig.currentGame.moves);
-			console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
+			this.utils.log(this.currentGameConfig.currentGame.moves);
+			this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
 			if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
 				this.renderer.setText(event.target, 'X');
 				this.renderer.setElementClass(event.target, 'x-text', true);
@@ -94,10 +94,10 @@ export class GamePlay {
 	}
 
 	checkGameEnd(isHuman: Boolean) {
-		console.log('checkGameEnd: ', isHuman);
+		this.utils.log('checkGameEnd: ', isHuman);
 		let status: string = this.gameStatus.checkGameEnd(isHuman);
 
-		console.log(status);
+		this.utils.log(status);
 		switch (status) {
 			case 'gameComplete':
 				setTimeout(() => {
@@ -111,7 +111,7 @@ export class GamePlay {
 	}
 
 	makeAIMove() {
-		console.log('makeAIMove');
+		this.utils.log('makeAIMove');
 		let result:number = 0;
 
 		// check if ai can win
@@ -121,23 +121,23 @@ export class GamePlay {
 		if (!result || result === 0) {
 			result = this.aiGamePlay.chooseMove(false);
 		} else {
-			console.log('winning move is possible: ', result);
+			this.utils.log('winning move is possible: ', result);
 		}
 
 		// check best possible move for ai
 		if (!result || result === 0) {
 			result = this.aiGamePlay.seekBestMove();
 		} else {
-			console.log('move to prevent defeat: ', result);
+			this.utils.log('move to prevent defeat: ', result);
 		}
 
 		if (!result || result == 0 || result <= 10) {
 			result = this.aiGamePlay.makeRandomMove();
-			console.log('making random move: ', result);
+			this.utils.log('making random move: ', result);
 		} else {
-			console.log('best move available: ', result);
+			this.utils.log('best move available: ', result);
 		}
-		console.log('result: ', result);
+		this.utils.log('result: ', result);
 
 		this.currentGameConfig.currentGame.moves[result] = 2;
 		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;

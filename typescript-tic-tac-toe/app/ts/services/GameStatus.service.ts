@@ -28,7 +28,7 @@ export class GameStatus {
 				this.onGameDraw();
 				return 'gameComplete';
 			} else if (isHuman) {
-				console.log('makeAIMove: ', isHuman);
+				this.utils.log('makeAIMove: ', isHuman);
 				return 'makeAIMove';
 			}
 		}

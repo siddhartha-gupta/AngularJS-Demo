@@ -11,7 +11,6 @@ export class CurrentGameConfig {
 	}
 
 	initDefaultConfig() {
-		console.log('initDefaultConfig');
 		this.currentGame = {
 			isWon: false,
 			moves: [],

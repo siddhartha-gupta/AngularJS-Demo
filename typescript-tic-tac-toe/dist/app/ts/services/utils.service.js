@@ -62,12 +62,12 @@ System.register(['angular2/core'], function(exports_1) {
                 };
                 Utils.prototype.sortArrayObject = function (key, data, direction) {
                     var _this = this;
-                    console.log(key);
-                    console.log(data);
-                    console.log(direction);
+                    this.utils.log(key);
+                    this.utils.log(data);
+                    this.utils.log(direction);
                     data.sort(function (a, b) {
                         var aData = _this.getObject(a, key), bData = _this.getObject(b, key);
-                        console.log(aData);
+                        _this.utils.log(aData);
                         if (aData === bData) {
                             return 0;
                         }

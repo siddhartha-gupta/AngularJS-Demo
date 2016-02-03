@@ -47,8 +47,8 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
-                    console.log(this.currentGameConfig);
-                    console.log(this.genericConfig);
+                    this.utils.log(this.currentGameConfig);
+                    this.utils.log(this.genericConfig);
                 }
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame();
@@ -84,15 +84,15 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.onBlockClick = function (event) {
-                    console.log('onBlockClick');
+                    this.utils.log('onBlockClick');
                     if (event) {
                         event.preventDefault();
                         event.stopPropagation();
                     }
                     var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
                     if (!this.currentGameConfig.currentGame.isWon) {
-                        console.log(this.currentGameConfig.currentGame.moves);
-                        console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
+                        this.utils.log(this.currentGameConfig.currentGame.moves);
+                        this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
                         if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
                             this.renderer.setText(event.target, 'X');
                             this.renderer.setElementClass(event.target, 'x-text', true);
@@ -108,9 +108,9 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                 };
                 GamePlay.prototype.checkGameEnd = function (isHuman) {
                     var _this = this;
-                    console.log('checkGameEnd: ', isHuman);
+                    this.utils.log('checkGameEnd: ', isHuman);
                     var status = this.gameStatus.checkGameEnd(isHuman);
-                    console.log(status);
+                    this.utils.log(status);
                     switch (status) {
                         case 'gameComplete':
                             setTimeout(function () {
@@ -122,7 +122,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
-                    console.log('makeAIMove');
+                    this.utils.log('makeAIMove');
                     var result = 0;
                     // check if ai can win
                     result = this.aiGamePlay.chooseMove(true);
@@ -131,23 +131,23 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         result = this.aiGamePlay.chooseMove(false);
                     }
                     else {
-                        console.log('winning move is possible: ', result);
+                        this.utils.log('winning move is possible: ', result);
                     }
                     // check best possible move for ai
                     if (!result || result === 0) {
                         result = this.aiGamePlay.seekBestMove();
                     }
                     else {
-                        console.log('move to prevent defeat: ', result);
+                        this.utils.log('move to prevent defeat: ', result);
                     }
                     if (!result || result == 0 || result <= 10) {
                         result = this.aiGamePlay.makeRandomMove();
-                        console.log('making random move: ', result);
+                        this.utils.log('making random move: ', result);
                     }
                     else {
-                        console.log('best move available: ', result);
+                        this.utils.log('best move available: ', result);
                     }
-                    console.log('result: ', result);
+                    this.utils.log('result: ', result);
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
                     // $('li[id*=combine_' + result + ']').text('O').addClass('o-text');

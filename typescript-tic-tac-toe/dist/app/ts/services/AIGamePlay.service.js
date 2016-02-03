@@ -91,7 +91,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                                     dlta = 22 - moveIndex2;
                                     result = 22 + (10 / dlta);
                                     this.cachedNextMove = result + dlta;
-                                    console.log('cachedNextMove: ', this.cachedNextMove);
+                                    this.utils.log('cachedNextMove: ', this.cachedNextMove);
                                 }
                                 else {
                                     dlta = 22 - moveIndex0;
@@ -108,7 +108,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                             }
                             break;
                     }
-                    console.log('playerStartsGame: ', result);
+                    this.utils.log('playerStartsGame: ', result);
                     return result;
                 };
                 AIGamePlay.prototype.aiStartsGame = function () {

@@ -25,7 +25,6 @@ System.register(['angular2/core', './GenericConfig.service'], function(exports_1
                     this.initDefaultConfig();
                 }
                 CurrentGameConfig.prototype.initDefaultConfig = function () {
-                    console.log('initDefaultConfig');
                     this.currentGame = {
                         isWon: false,
                         moves: [],
