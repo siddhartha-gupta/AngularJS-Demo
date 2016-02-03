@@ -51,15 +51,15 @@ export class Utils {
 	}
 
 	sortArrayObject(key: string, data: any[], direction?: any) {
-		console.log(key);
-		console.log(data);
-		console.log(direction);
+		this.utils.log(key);
+		this.utils.log(data);
+		this.utils.log(direction);
 
 		data.sort((a, b) => {
 			let aData = this.getObject(a, key),
 				bData = this.getObject(b, key);
 
-			console.log(aData);
+			this.utils.log(aData);
 			if (aData === bData) {
 				return 0;
 			}

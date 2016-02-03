@@ -58,7 +58,7 @@ export class BooksListing {
 			!this.utils.isNullUndefined(searchLimit) &&
 			!this.utils.isNullUndefined(sortOrder) &&
 			!this.utils.isNullUndefined(localSortKey)) {
-			console.log('ls value obtained: ', searchQuery);
+			this.utils.log('ls value obtained: ', searchQuery);
 			this.model = {
 				searchQuery: searchQuery,
 				searchLimit: searchLimit,
@@ -67,7 +67,7 @@ export class BooksListing {
 			};
 			this.sendSearchRequest();
 		} else {
-			console.log('ls value not obtained');
+			this.utils.log('ls value not obtained');
 			this.model = {
 				searchQuery: '',
 				searchLimit: 10,
@@ -82,7 +82,7 @@ export class BooksListing {
 	searchBooks($event: Event) {
 		this.model.searchQuery = this.model.searchQuery.trim();
 
-		console.log('searchBooks, searchQuery: ', this.model.searchQuery, ', :searchLimit: ', this.model.searchLimit);
+		this.utils.log('searchBooks, searchQuery: ', this.model.searchQuery, ', :searchLimit: ', this.model.searchLimit);
 		if (this.pendingRequest) {
 			this.pendingRequest = this.pendingRequest.unsubscribe();
 		}

@@ -36,7 +36,7 @@ export class AppHeader {
 	}
 
 	onRouteChange(val: string) {
-		console.log('headerChange: ', val);
+		this.utils.log('headerChange: ', val);
 
 		let routeName = val.match(/[^?]*/i)[0];
 
@@ -64,12 +64,12 @@ export class AppHeader {
 	}
 
 	goBack($event: Event) {
-		console.log('goBack');
+		this.utils.log('goBack');
 		this.location.back();
 	}
 
 	resetApp($event: Event) {
-		console.log('resetApp');
+		this.utils.log('resetApp');
 		this.LS.resetStorage();
 		this.router.navigate(['./Home']);
 	}
