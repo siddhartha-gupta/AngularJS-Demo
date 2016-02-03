@@ -4,5 +4,10 @@
 		<label *ngFor="#item of radioItems">
 			<input type="radio" name="gameLevel" (click)="genericConfig.config.gameLevel = item.value" [checked]="item.value === genericConfig.config.gameLevel">{{item.text}}
 		</label>
+		<!-- <div class="btn-group" data-toggle="buttons">
+			<label *ngFor="#item of radioItems" class="btn btn-default">
+				<input type="radio" name="gameLevel" (click)="genericConfig.config.gameLevel = item.value" [checked]="item.value === genericConfig.config.gameLevel">{{item.text}}
+			</label>
+		</div> -->
     </form>
 </div>
