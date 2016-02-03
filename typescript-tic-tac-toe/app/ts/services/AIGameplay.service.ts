@@ -11,7 +11,7 @@ export class AIGamePlay {
 
 	chooseMove(istowin?: Boolean) {
 		let gridValue = (istowin) ? 2 : 1,
-			result;
+			result: any;
 
 		for (let n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
 			var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]],
@@ -94,7 +94,7 @@ export class AIGamePlay {
 				break;
 
 			case 5:
-				if (this.aiThinking == 3 && cachedNextMove !== undefined) {
+				if (this.aiThinking == 3 && this.cachedNextMove !== undefined) {
 					result = this.cachedNextMove;
 				}
 				break;
@@ -145,7 +145,7 @@ export class AIGamePlay {
 				}
 			} else if (this.currentGameConfig.currentGame.stepsPlayed == 4) {
 				if (this.aiThinking == 22) {
-					for (i = 0; i < 4; i++) {
+					for (let i = 0; i < 4; i++) {
 						if (this.currentGameConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
 							result = this.genericConfig.config.corners[i];
 						}
@@ -164,7 +164,7 @@ export class AIGamePlay {
 	}
 
 	makeRandomMove() {
-		let result;
+		let result: any;
 
 		do {
 			result = this.genericConfig.config.choices[Math.floor(Math.random() * 9)];
@@ -174,7 +174,7 @@ export class AIGamePlay {
 	}
 
 	chooseCorner(choice?: string) {
-		let result;
+		let result: any;
 
 		switch (choice) {
 			case 'blank':

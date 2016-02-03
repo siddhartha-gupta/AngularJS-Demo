@@ -18,6 +18,8 @@ import { Utils } from '../services/utils.service'
 
 export class GamePlay {
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
+		console.log(this.currentGameConfig);
+		console.log(this.genericConfig);
 	}
 
 	ngOnInit() {
@@ -73,7 +75,6 @@ export class GamePlay {
 			event.stopPropagation();
 		}
 		let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
-		// debugger;
 
 		if (!this.currentGameConfig.currentGame.isWon) {
 			console.log(this.currentGameConfig.currentGame.moves);
@@ -130,7 +131,7 @@ export class GamePlay {
 			console.log('move to prevent defeat: ', result);
 		}
 
-		if (!result || result == '00' || result <= 10) {
+		if (!result || result == '00' || result <= '10') {
 			result = this.aiGamePlay.makeRandomMove();
 			console.log('making random move: ', result);
 		} else {

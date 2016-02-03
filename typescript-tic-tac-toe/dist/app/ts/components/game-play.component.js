@@ -47,6 +47,8 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
+                    console.log(this.currentGameConfig);
+                    console.log(this.genericConfig);
                 }
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame();
@@ -88,7 +90,6 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                         event.stopPropagation();
                     }
                     var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
-                    // debugger;
                     if (!this.currentGameConfig.currentGame.isWon) {
                         console.log(this.currentGameConfig.currentGame.moves);
                         console.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
@@ -139,7 +140,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../helpers/setti
                     else {
                         console.log('move to prevent defeat: ', result);
                     }
-                    if (!result || result == '00' || result <= 10) {
+                    if (!result || result == '00' || result <= '10') {
                         result = this.aiGamePlay.makeRandomMove();
                         console.log('making random move: ', result);
                     }

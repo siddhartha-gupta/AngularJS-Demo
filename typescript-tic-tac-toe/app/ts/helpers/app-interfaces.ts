@@ -1,13 +1,21 @@
-export interface modelInterface {
-	searchQuery: string;
-	searchLimit: number;
-	sortOrder: string;
-	localSortKey: string;
+export interface CurrentGameConfigInterface {
+	isWon: Boolean;
+	moves: Array<any>;
+	stepsPlayed: number;
+	movesIndex: Array<any>;
 }
 
-export interface headerInterface {
-	name: string;
-	clickFunc: number;
-	text: string;
-	showBtn: Boolean;
+export interface GenericConfigInterface {
+	gridSize: number;
+	ways: Array<Array<any>>;
+	choices: Array<number>;
+	corners: Array<number>;
+	playerstarts: Boolean;
+	gameScore: {
+		'totalGames': number;
+		'draws': number;
+		'playerWins': number;
+		'computerWins': number;
+				};
+	gridComputationLen: number
 }

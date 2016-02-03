@@ -103,7 +103,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                             }
                             break;
                         case 5:
-                            if (this.aiThinking == 3 && cachedNextMove !== undefined) {
+                            if (this.aiThinking == 3 && this.cachedNextMove !== undefined) {
                                 result = this.cachedNextMove;
                             }
                             break;
@@ -151,7 +151,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     }
                     else if (this.currentGameConfig.currentGame.stepsPlayed == 4) {
                         if (this.aiThinking == 22) {
-                            for (i = 0; i < 4; i++) {
+                            for (var i = 0; i < 4; i++) {
                                 if (this.currentGameConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
                                     result = this.genericConfig.config.corners[i];
                                 }

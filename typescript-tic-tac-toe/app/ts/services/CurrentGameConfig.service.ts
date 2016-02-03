@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core'
+import {CurrentGameConfigInterface} from '../helpers/app-interfaces'
 import { GenericConfig } from './GenericConfig.service'
 
 @Injectable()
 export class CurrentGameConfig {
-	public currentGame: Object;
+	public currentGame: CurrentGameConfigInterface;
 
-	constructor(public genericConfig: GenericConfig) {
+	constructor(private genericConfig: GenericConfig) {
 		this.initDefaultConfig();
 	}
 
@@ -18,7 +19,7 @@ export class CurrentGameConfig {
 			movesIndex: []
 		};
 
-		for (i = 0; i <= this.genericConfig.config.gridComputationLen; i++) {
+		for (let i = 0; i <= this.genericConfig.config.gridComputationLen; i++) {
 			this.currentGame.movesIndex[i] = 0;
 		}
 	}

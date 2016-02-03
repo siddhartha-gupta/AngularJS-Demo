@@ -29,7 +29,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                 }
                 GameStatus.prototype.checkGameEnd = function (isHuman) {
                     var gridValue = (isHuman) ? 1 : 2;
-                    for (n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
+                    for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
                         var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
                         if ((n1 == gridValue) && (n2 == gridValue) && (n3 == gridValue)) {
                             this.currentGameConfig.currentGame.isWon = true;
@@ -53,20 +53,20 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                 };
                 GameStatus.prototype.onGameWon = function (isHuman) {
                     if (isHuman) {
-                        this.genericConfig.config.gameScore.total_games += 1;
-                        this.genericConfig.config.gameScore.player_win += 1;
+                        this.genericConfig.config.gameScore.totalGames += 1;
+                        this.genericConfig.config.gameScore.playerWins += 1;
                         // showWinnerText('Player won the match');
                         this.genericConfig.config.playerstarts = true;
                     }
                     else {
-                        this.genericConfig.config.gameScore.total_games += 1;
-                        this.genericConfig.config.gameScore.computer_win += 1;
+                        this.genericConfig.config.gameScore.totalGames += 1;
+                        this.genericConfig.config.gameScore.computerWins += 1;
                         // showWinnerText('Computer won the match');
                         this.genericConfig.config.playerstarts = false;
                     }
                 };
                 GameStatus.prototype.onGameDraw = function () {
-                    this.genericConfig.config.gameScore.total_games += 1;
+                    this.genericConfig.config.gameScore.totalGames += 1;
                     this.genericConfig.config.gameScore.draws += 1;
                     // showWinnerText('Match drawn');
                     this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;

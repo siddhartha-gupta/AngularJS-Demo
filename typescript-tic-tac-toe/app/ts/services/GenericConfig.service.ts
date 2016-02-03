@@ -1,8 +1,9 @@
 import {Injectable} from 'angular2/core'
+import {GenericConfigInterface} from '../helpers/app-interfaces'
 
 @Injectable()
 export class GenericConfig {
-	public config: Object;
+	public config: GenericConfigInterface;
 
 	constructor() {
 		this.initDefaultConfig();

@@ -32,7 +32,7 @@ System.register(['angular2/core', './GenericConfig.service'], function(exports_1
                         stepsPlayed: 0,
                         movesIndex: []
                     };
-                    for (i = 0; i <= this.genericConfig.config.gridComputationLen; i++) {
+                    for (var i = 0; i <= this.genericConfig.config.gridComputationLen; i++) {
                         this.currentGame.movesIndex[i] = 0;
                     }
                 };
