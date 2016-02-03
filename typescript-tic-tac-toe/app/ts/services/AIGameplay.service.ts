@@ -35,22 +35,25 @@ export class AIGamePlay {
 	}
 
 	seekBestMove() {
-		if (this.genericConfig.config.playerstarts) {
-			return this.playerStartsGame();
-		} else {
-			return this.aiStartsGame();
-		}
-	}
-
-	playerStartsGame() {
 		let moveIndex0: number = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10),
 			moveIndex1: number = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10),
 			moveIndex2: number = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10),
+			moveIndex3: number = parseInt(this.currentGameConfig.currentGame.movesIndex[3], 10),
 			result: number,
 			dlta: number,
 			randomPosition: Array<number> = [];
 
 		switch (this.currentGameConfig.currentGame.stepsPlayed) {
+			case 0:
+				result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
+
+				if (result == 22) {
+					this.aiThinking = 1;
+				} else {
+					this.aiThinking = 2;
+				}
+				break;
+
 			case 1:
 				if (moveIndex0 == 11 || moveIndex0 == 13 || moveIndex0 == 31 || moveIndex0 == 33) {
 					result = 22;
@@ -63,6 +66,31 @@ export class AIGamePlay {
 					this.aiThinking = 3;
 				}
 				break;
+
+			case 2:
+				if (this.aiThinking == 1) {
+					if (moveIndex1 == 11 || moveIndex1 == 13 || moveIndex1 == 31 || moveIndex1 == 33) {
+						result = 44 - moveIndex1;
+					} else {
+						dlta = 22 - moveIndex1;
+						randomPosition.push(22 + dlta + (10 / dlta));
+						randomPosition.push(22 + dlta - (10 / dlta));
+						result = randomPosition[Math.floor(Math.random() * randomPosition.length)];
+					}
+				} else if (this.aiThinking == 2) {
+					if (moveIndex1 == 22) {
+						result = 44 - moveIndex0;
+						this.aiThinking = 21;
+					} else if (moveIndex1 == 11 || moveIndex1 == 13 || moveIndex1 == 31 || moveIndex1 == 33) {
+						result = this.chooseCorner('blank');
+						this.aiThinking = 22;
+					} else {
+						result = 22;
+						this.aiThinking = 23;
+					}
+				}
+				break;
+
 
 			case 3:
 				if (this.aiThinking == 1) {
@@ -93,60 +121,6 @@ export class AIGamePlay {
 				}
 				break;
 
-			case 5:
-				if (this.aiThinking == 3 && this.cachedNextMove !== undefined) {
-					result = this.cachedNextMove;
-				}
-				break;
-		}
-		console.log('playerStartsGame: ', result);
-		return result;
-	}
-
-	aiStartsGame() {
-		let moveIndex0: number = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10),
-			moveIndex1: number = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10),
-			moveIndex2: number = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10),
-			moveIndex3: number = parseInt(this.currentGameConfig.currentGame.movesIndex[3], 10),
-			result: number,
-			dlta: number,
-			randomPosition: Array<number> = [];
-
-		switch (this.currentGameConfig.currentGame.stepsPlayed) {
-			case 0:
-				result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
-
-				if (result == 22) {
-					this.aiThinking = 1;
-				} else {
-					this.aiThinking = 2;
-				}
-				break;
-
-			case 2:
-				if (this.aiThinking == 1) {
-					if (moveIndex1 == 11 || moveIndex1 == 13 || moveIndex1 == 31 || moveIndex1 == 33) {
-						result = 44 - moveIndex1;
-					} else {
-						dlta = 22 - moveIndex1;
-						randomPosition.push(22 + dlta + (10 / dlta));
-						randomPosition.push(22 + dlta - (10 / dlta));
-						result = randomPosition[Math.floor(Math.random() * randomPosition.length)];
-					}
-				} else if (this.aiThinking == 2) {
-					if (moveIndex1 == 22) {
-						result = 44 - moveIndex0;
-						this.aiThinking = 21;
-					} else if (moveIndex1 == 11 || moveIndex1 == 13 || moveIndex1 == 31 || moveIndex1 == 33) {
-						result = this.chooseCorner('blank');
-						this.aiThinking = 22;
-					} else {
-						result = 22;
-						this.aiThinking = 23;
-					}
-				}
-				break;
-
 			case 4:
 				if (this.aiThinking == 22) {
 					for (let i = 0; i < 4; i++) {
@@ -164,7 +138,14 @@ export class AIGamePlay {
 					result = 44 + moveIndex2 - (2 * moveIndex3);
 				}
 				break;
+
+			case 5:
+				if (this.aiThinking == 3 && this.cachedNextMove !== undefined) {
+					result = this.cachedNextMove;
+				}
+				break;
 		}
+		console.log('playerStartsGame: ', result);
 		return result;
 	}
 

@@ -22,7 +22,7 @@ export class GameStatus {
 		}
 
 		if (this.currentGameConfig.currentGame.isWon) {
-			this.onGameWon();
+			this.onGameWon(isHuman);
 			return 'gameWon';
 		} else {
 			if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
@@ -36,6 +36,7 @@ export class GameStatus {
 	}
 
 	onGameWon(isHuman?: Boolean) {
+		console.log('onGameWon: ', isHuman);
 		if (isHuman) {
 			this.genericConfig.config.gameScore.totalGames += 1;
 			this.genericConfig.config.gameScore.playerWins += 1;

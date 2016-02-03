@@ -38,7 +38,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                         }
                     }
                     if (this.currentGameConfig.currentGame.isWon) {
-                        this.onGameWon();
+                        this.onGameWon(isHuman);
                         return 'gameWon';
                     }
                     else {
@@ -53,6 +53,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     }
                 };
                 GameStatus.prototype.onGameWon = function (isHuman) {
+                    console.log('onGameWon: ', isHuman);
                     if (isHuman) {
                         this.genericConfig.config.gameScore.totalGames += 1;
                         this.genericConfig.config.gameScore.playerWins += 1;
