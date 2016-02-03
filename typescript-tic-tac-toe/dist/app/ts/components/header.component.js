@@ -25,8 +25,6 @@ System.register(['angular2/core', '../settings'], function(exports_1) {
                 AppHeader = __decorate([
                     core_1.Component({
                         selector: 'app-header',
-                        directives: [],
-                        providers: [],
                         templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 
                     __metadata('design:paramtypes', [])
