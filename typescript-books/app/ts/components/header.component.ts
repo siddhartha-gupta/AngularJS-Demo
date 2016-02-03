@@ -66,7 +66,7 @@ export class AppHeader {
 
 	goBack($event: Event) {
 		this.utils.log('goBack');
-		this.location.back();
+		this.router.navigate(['./Home']);
 	}
 
 	resetApp($event: Event) {

@@ -76,7 +76,7 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
                 };
                 AppHeader.prototype.goBack = function ($event) {
                     this.utils.log('goBack');
-                    this.location.back();
+                    this.router.navigate(['./Home']);
                 };
                 AppHeader.prototype.resetApp = function ($event) {
                     this.utils.log('resetApp');
