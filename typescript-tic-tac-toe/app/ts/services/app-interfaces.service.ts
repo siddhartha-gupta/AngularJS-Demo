@@ -7,6 +7,7 @@ export interface CurrentGameConfigInterface {
 
 export interface GenericConfigInterface {
 	gridSize: number;
+	playGame: Boolean;
 	ways: Array<Array<any>>;
 	choices: Array<number>;
 	corners: Array<number>;

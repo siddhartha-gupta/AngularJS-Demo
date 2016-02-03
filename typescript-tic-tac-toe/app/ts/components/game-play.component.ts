@@ -3,6 +3,8 @@ import {BrowserDomAdapter} from 'angular2/platform/browser'
 // import { ELEMENT_PROBE_BINDINGS} from 'angular2/debug'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 
+import { Winner } from '../directives/winner.directive'
+
 import { _settings } from '../settings'
 import { GenericConfig } from '../services/GenericConfig.service'
 import { CurrentGameConfig } from '../services/CurrentGameConfig.service'
@@ -13,11 +15,18 @@ import { Utils } from '../services/utils.service'
 @Component({
 	selector: 'game-play-grid',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
+	directives: [Winner],
 	templateUrl: _settings.buildPath + 'gameplay.template.html'
 })
 
 export class GamePlay {
+	winnerText: string;
+	displayWinnerText: Boolean;
+
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
+		this.winnerText = '';
+		this.displayWinnerText = false;
+
 		console.log(this.currentGameConfig);
 		console.log(this.genericConfig);
 	}
@@ -86,33 +95,16 @@ export class GamePlay {
 				this.currentGameConfig.currentGame.moves[cellnum] = 1;
 				this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
 				this.currentGameConfig.currentGame.stepsPlayed++;
-				this.checkGameEnd(true);
+				this.getGameStatus(true);
 			} else {
 				alert('You cannot move here!');
 			}
 		}
 	}
 
-	checkGameEnd(isHuman: Boolean) {
-		console.log('checkGameEnd: ', isHuman);
-		let status: string = this.gameStatus.checkGameEnd(isHuman);
-
-		console.log(status);
-		switch (status) {
-			case 'gameComplete':
-				setTimeout(() => {
-					this.startGame();
-				}, 100);
-				break;
-
-			case 'makeAIMove':
-				this.makeAIMove();
-		}
-	}
-
 	makeAIMove() {
 		console.log('makeAIMove');
-		let result:number = 0;
+		let result: number = 0;
 
 		// check if ai can win
 		result = this.aiGamePlay.chooseMove(true);
@@ -147,6 +139,45 @@ export class GamePlay {
 		this.renderer.setText(elem, 'O');
 		this.renderer.setElementClass(elem, 'o-text', true);
 		this.currentGameConfig.currentGame.stepsPlayed++;
-		this.checkGameEnd(false);
+		this.getGameStatus(false);
+	}
+
+	getGameStatus(isHuman: Boolean) {
+		console.log('getGameStatus: ', isHuman);
+		let status: string = this.gameStatus.checkGameEnd(isHuman);
+
+		console.log(status);
+		switch (status) {
+			case 'gameWon':
+				this.genericConfig.config.playGame = false;
+				if (isHuman) {
+					this.showWinnerText('Player won the match');
+				} else {
+					this.showWinnerText('Computer won the match');
+				}
+				break;
+
+			case 'gameDraw':
+				this.genericConfig.config.playGame = false;
+				this.showWinnerText('Match Drawn!');
+				break;
+
+			case 'makeAIMove':
+				this.makeAIMove();
+		}
+	}
+
+	showWinnerText(text: string) {
+		console.log('showWinnerText: ', text);
+
+		this.winnerText = text;
+		this.displayWinnerText = true;
+
+		setTimeout(() => {
+			this.displayWinnerText = false;
+			this.winnerText = '';
+			this.genericConfig.config.playGame = true;
+			this.startGame();
+		}, 2000);
 	}
 }

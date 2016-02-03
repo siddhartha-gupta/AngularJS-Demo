@@ -23,6 +23,7 @@ System.register(['angular2/core'], function(exports_1) {
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
                         gridSize: 3,
+                        playGame: true,
                         ways: [
                             [0, 11, 12, 13],
                             [0, 21, 22, 23],

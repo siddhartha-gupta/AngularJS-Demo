@@ -28,6 +28,7 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     this.currentGameConfig = currentGameConfig;
                 }
                 GameStatus.prototype.checkGameEnd = function (isHuman) {
+                    console.log('checkGameEnd: ', isHuman);
                     var gridValue = (isHuman) ? 1 : 2;
                     for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
                         var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
@@ -38,12 +39,12 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     }
                     if (this.currentGameConfig.currentGame.isWon) {
                         this.onGameWon();
-                        return 'gameComplete';
+                        return 'gameWon';
                     }
                     else {
                         if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
                             this.onGameDraw();
-                            return 'gameComplete';
+                            return 'gameDraw';
                         }
                         else if (isHuman) {
                             console.log('makeAIMove: ', isHuman);
@@ -55,13 +56,11 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     if (isHuman) {
                         this.genericConfig.config.gameScore.totalGames += 1;
                         this.genericConfig.config.gameScore.playerWins += 1;
-                        // showWinnerText('Player won the match');
                         this.genericConfig.config.playerstarts = true;
                     }
                     else {
                         this.genericConfig.config.gameScore.totalGames += 1;
                         this.genericConfig.config.gameScore.computerWins += 1;
-                        // showWinnerText('Computer won the match');
                         this.genericConfig.config.playerstarts = false;
                     }
                 };
@@ -70,9 +69,6 @@ System.register(['angular2/core', './GenericConfig.service', './CurrentGameConfi
                     this.genericConfig.config.gameScore.draws += 1;
                     // showWinnerText('Match drawn');
                     this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
-                    // setTimeout(function() {
-                    // 	game.app.startGame();
-                    // }, 1000);
                 };
                 GameStatus = __decorate([
                     core_1.Injectable(), 

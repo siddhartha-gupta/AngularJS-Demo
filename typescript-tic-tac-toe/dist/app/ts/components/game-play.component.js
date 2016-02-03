@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', '../settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', '../directives/winner.directive', '../settings', '../services/GenericConfig.service', '../services/CurrentGameConfig.service', '../services/AIGamePlay.service', '../services/GameStatus.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, GameStatus_service_1, utils_service_1;
+    var core_1, browser_1, winner_directive_1, settings_1, GenericConfig_service_1, CurrentGameConfig_service_1, AIGamePlay_service_1, GameStatus_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -17,6 +17,9 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
             },
             function (browser_1_1) {
                 browser_1 = browser_1_1;
+            },
+            function (winner_directive_1_1) {
+                winner_directive_1 = winner_directive_1_1;
             },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
@@ -47,6 +50,8 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
+                    this.winnerText = '';
+                    this.displayWinnerText = false;
                     console.log(this.currentGameConfig);
                     console.log(this.genericConfig);
                 }
@@ -99,26 +104,11 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
                             this.currentGameConfig.currentGame.moves[cellnum] = 1;
                             this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
                             this.currentGameConfig.currentGame.stepsPlayed++;
-                            this.checkGameEnd(true);
+                            this.getGameStatus(true);
                         }
                         else {
                             alert('You cannot move here!');
                         }
-                    }
-                };
-                GamePlay.prototype.checkGameEnd = function (isHuman) {
-                    var _this = this;
-                    console.log('checkGameEnd: ', isHuman);
-                    var status = this.gameStatus.checkGameEnd(isHuman);
-                    console.log(status);
-                    switch (status) {
-                        case 'gameComplete':
-                            setTimeout(function () {
-                                _this.startGame();
-                            }, 100);
-                            break;
-                        case 'makeAIMove':
-                            this.makeAIMove();
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
@@ -155,12 +145,47 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
                     this.renderer.setText(elem, 'O');
                     this.renderer.setElementClass(elem, 'o-text', true);
                     this.currentGameConfig.currentGame.stepsPlayed++;
-                    this.checkGameEnd(false);
+                    this.getGameStatus(false);
+                };
+                GamePlay.prototype.getGameStatus = function (isHuman) {
+                    console.log('getGameStatus: ', isHuman);
+                    var status = this.gameStatus.checkGameEnd(isHuman);
+                    console.log(status);
+                    switch (status) {
+                        case 'gameWon':
+                            this.genericConfig.config.playGame = false;
+                            if (isHuman) {
+                                this.showWinnerText('Player won the match');
+                            }
+                            else {
+                                this.showWinnerText('Computer won the match');
+                            }
+                            break;
+                        case 'gameDraw':
+                            this.genericConfig.config.playGame = false;
+                            this.showWinnerText('Match Drawn!');
+                            break;
+                        case 'makeAIMove':
+                            this.makeAIMove();
+                    }
+                };
+                GamePlay.prototype.showWinnerText = function (text) {
+                    var _this = this;
+                    console.log('showWinnerText: ', text);
+                    this.winnerText = text;
+                    this.displayWinnerText = true;
+                    setTimeout(function () {
+                        _this.displayWinnerText = false;
+                        _this.winnerText = '';
+                        _this.genericConfig.config.playGame = true;
+                        _this.startGame();
+                    }, 2000);
                 };
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'game-play-grid',
                         providers: [AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
+                        directives: [winner_directive_1.Winner],
                         templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
                     }), 
                     __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
