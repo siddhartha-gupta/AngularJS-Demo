@@ -195,7 +195,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../directives/wi
                         selector: 'game-play-grid',
                         providers: [AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
                         directives: [winner_directive_1.Winner],
-                        templateUrl: settings_1._settings.buildPath + 'gameplay.template.html'
+                        templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
                     __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, CurrentGameConfig_service_1.CurrentGameConfig, AIGamePlay_service_1.AIGamePlay, GameStatus_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
                 ], GamePlay);

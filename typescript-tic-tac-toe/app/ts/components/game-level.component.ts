@@ -4,12 +4,11 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
 import { _settings } from '../settings'
 import { GenericConfig } from '../services/GenericConfig.service'
 import { Utils } from '../services/utils.service'
-import { levelModelInterface } from '../services/app-interfaces.service'
 
 @Component({
 	selector: 'game-level',
 	providers: [Utils],
-	templateUrl: _settings.buildPath + 'gamelevel.template.html'
+	templateUrl: _settings.templatePath.component + 'gamelevel.template.html'
 })
 
 export class GameLevel {

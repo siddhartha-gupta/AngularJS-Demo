@@ -1,3 +1,6 @@
 export const _settings = {
-	buildPath: 'app/templates/'
+	templatePath: {
+		'directive': 'app/templates/directives/',
+		'component': 'app/templates/components/'
+	}
 };

@@ -46,7 +46,7 @@ System.register(['angular2/core', '../settings', '../services/GenericConfig.serv
                     core_1.Component({
                         selector: 'game-level',
                         providers: [utils_service_1.Utils],
-                        templateUrl: settings_1._settings.buildPath + 'gamelevel.template.html'
+                        templateUrl: settings_1._settings.templatePath.component + 'gamelevel.template.html'
                     }), 
                     __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, utils_service_1.Utils])
                 ], GameLevel);

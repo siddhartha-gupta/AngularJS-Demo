@@ -16,7 +16,7 @@ import { Utils } from '../services/utils.service'
 	selector: 'game-play-grid',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
 	directives: [Winner],
-	templateUrl: _settings.buildPath + 'gameplay.template.html'
+	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 
 export class GamePlay {

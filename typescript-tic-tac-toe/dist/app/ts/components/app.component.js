@@ -37,7 +37,7 @@ System.register(['angular2/core', './header.component', './game-play.component',
                 App = __decorate([
                     core_1.Component({
                         selector: 'game-app',
-                        templateUrl: settings_1._settings.buildPath + 'app.template.html',
+                        templateUrl: settings_1._settings.templatePath.component + 'app.template.html',
                         directives: [header_component_1.AppHeader, game_play_component_1.GamePlay, game_score_component_1.GameScore, game_level_component_1.GameLevel]
                     }), 
                     __metadata('design:paramtypes', [])

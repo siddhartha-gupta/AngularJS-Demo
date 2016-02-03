@@ -38,7 +38,7 @@ System.register(['angular2/core', '../settings', '../services/GenericConfig.serv
                     core_1.Component({
                         selector: 'game-score',
                         providers: [utils_service_1.Utils],
-                        templateUrl: settings_1._settings.buildPath + 'gamescore.template.html'
+                        templateUrl: settings_1._settings.templatePath.component + 'gamescore.template.html'
                     }), 
                     __metadata('design:paramtypes', [GenericConfig_service_1.GenericConfig, utils_service_1.Utils])
                 ], GameScore);

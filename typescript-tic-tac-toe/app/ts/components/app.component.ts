@@ -9,7 +9,7 @@ import {_settings} from '../settings'
 
 @Component({
 	selector: 'game-app',
-	templateUrl: _settings.buildPath + 'app.template.html',
+	templateUrl: _settings.templatePath.component + 'app.template.html',
 	directives: [AppHeader, GamePlay, GameScore, GameLevel]
 })
 

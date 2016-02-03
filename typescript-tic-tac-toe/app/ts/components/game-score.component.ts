@@ -8,7 +8,7 @@ import { Utils } from '../services/utils.service'
 @Component({
 	selector: 'game-score',
 	providers: [Utils],
-	templateUrl: _settings.buildPath + 'gamescore.template.html'
+	templateUrl: _settings.templatePath.component + 'gamescore.template.html'
 })
 
 export class GameScore {

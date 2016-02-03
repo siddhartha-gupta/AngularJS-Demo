@@ -7,7 +7,7 @@ import {_settings} from '../settings'
 	selector: 'app-header',
 	directives: [],
 	providers: [],
-	templateUrl: _settings.buildPath + 'header.template.html'
+	templateUrl: _settings.templatePath.component + 'header.template.html'
 })
 
 export class AppHeader {

@@ -27,7 +27,7 @@ System.register(['angular2/core', '../settings'], function(exports_1) {
                         selector: 'app-header',
                         directives: [],
                         providers: [],
-                        templateUrl: settings_1._settings.buildPath + 'header.template.html'
+                        templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppHeader);

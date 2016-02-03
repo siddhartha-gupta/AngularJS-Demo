@@ -26,7 +26,7 @@ System.register(['angular2/core', '../settings'], function(exports_1) {
                     core_1.Component({
                         selector: 'winner-text, [winner-text]',
                         inputs: ['text'],
-                        templateUrl: settings_1._settings.buildPath + '/directives/winner.template.html'
+                        templateUrl: settings_1._settings.templatePath.directive + 'winner.template.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], Winner);

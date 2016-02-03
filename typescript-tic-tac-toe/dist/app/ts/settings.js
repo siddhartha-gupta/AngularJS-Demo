@@ -4,7 +4,10 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             exports_1("_settings", _settings = {
-                buildPath: 'app/templates/'
+                templatePath: {
+                    'directive': 'app/templates/directives/',
+                    'component': 'app/templates/components/'
+                }
             });
         }
     }
