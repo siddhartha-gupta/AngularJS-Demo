@@ -1,4 +1,4 @@
-booksApp.controller('mainController', function mainController($scope, $timeout, $log, $location, bookData, localStorageService, serverData) {
+booksApp.controller('mainController', function mainController($scope, $timeout, $log, $location, webService, localStorageService, serverData) {
 	var _this = this;
 
 	_this.books = {
@@ -52,10 +52,8 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 	};
 
 	var searchBooks = function() {
-		_this.currentReq = bookData.getAllBooks({
-			'searchQuery': _this.books.searchQuery,
-			'orderBy': _this.books.sortOrder,
-			'maxLimit': _this.books.maxLimit
+		_this.currentReq = webService.getCall({
+			'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder
 		}).then(function(response) {
 			_this.currentReq = null;
 			_this.booksList = response.data.items;

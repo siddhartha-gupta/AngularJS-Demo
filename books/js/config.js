@@ -4,16 +4,14 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 		controllerAs: 'customController',
 		templateUrl: 'templates/main.html',
 		resolve: {
-			serverData: function($route, bookData, localStorageService) {
+			serverData: function($route, webService, localStorageService) {
 				var searchQuery = localStorageService.get('searchQuery'),
 					sortOrder = localStorageService.get('sortOrder'),
 					maxLimit = localStorageService.get('maxLimit');
 
 				if (searchQuery && maxLimit) {
-					return bookData.getAllBooks({
-						'searchQuery': searchQuery,
-						'orderBy': sortOrder,
-						'maxLimit': maxLimit
+					return webService.getCall({
+						'url': 'https://www.googleapis.com/books/v1/volumes?q=' + searchQuery + '&maxResults=' + maxLimit + '&orderBy=' + sortOrder
 					});
 				} else {
 					return [];
@@ -25,9 +23,9 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 		controllerAs: 'customController',
 		templateUrl: 'templates/book.html',
 		resolve: {
-			serverData: function($route, bookData) {
-				return bookData.getSpecificBook({
-					'bookId': $route.current.params.bookId
+			serverData: function($route, webService) {
+				return webService.getCall({
+					url: 'https://www.googleapis.com/books/v1/volumes/' + $route.current.params.bookId + '?projection=full'
 				});
 			}
 		}

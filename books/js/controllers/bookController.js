@@ -1,4 +1,4 @@
-booksApp.controller('bookController', function bookController($routeParams, bookData, $location, $log, serverData) {
+booksApp.controller('bookController', function bookController($routeParams, webService, $location, $log, serverData) {
 	var _this = this;
 	_this.bookId = $routeParams.bookId || '';
 	_this.booksDetails = serverData.data;
@@ -6,8 +6,8 @@ booksApp.controller('bookController', function bookController($routeParams, book
 	$log.log(_this.booksDetails);
 
 	_this.getBooks = function() {
-		bookData.getSpecificBook({
-			'bookId': _this.bookId
+		webService.getCall({
+			url: 'https://www.googleapis.com/books/v1/volumes/' + _this.bookId + '?projection=full'
 		}).then(function(response) {
 			_this.booksDetails = response.data;
 			$log.log('success: ', _this.booksDetails);
