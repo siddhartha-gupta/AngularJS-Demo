@@ -34,7 +34,7 @@
 		<li ng-repeat="book in customController.booksList | orderBy:customController.books.localSortOrder">
 			<div class="row session">
 				<div class="well col-xs-11">
-					<collapse-title imgsrc="book.volumeInfo.imageLinks.smallThumbnail" title="book.volumeInfo.title" publisher="book.volumeInfo.publisher" saleability="book.saleInfo.saleability" amount="book.saleInfo.listPrice.amount" id="book.id" showbookfn="customController.showBook" />
+					<collapse-section imgsrc="book.volumeInfo.imageLinks.smallThumbnail" title="book.volumeInfo.title" publisher="book.volumeInfo.publisher" saleability="book.saleInfo.saleability" amount="book.saleInfo.listPrice.amount" id="book.id" showbookfn="customController.showBook" />
 				</div>
 			</div>
 		</li>

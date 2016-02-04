@@ -1,10 +1,10 @@
 'use strict';
 
-booksApp.directive('collapseTitle', function() {
+booksApp.directive('collapseSection', function() {
 	return {
 		restrict: 'E',
 		replace: true,
-		templateUrl: 'templates/directives/collapseTitle.html',
+		templateUrl: 'templates/directives/collapseSection.html',
 		scope: {
 			imgsrc: '=',
 			title: '=',
