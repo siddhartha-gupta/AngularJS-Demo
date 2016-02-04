@@ -10,23 +10,23 @@ booksApp.controller('headerController', function headerController($scope, $locat
 
 	$scope.headerItems = [{
 		'showBtn': 'showBackBtn',
-		'click': 'goBack',
+		'clickFunc': 'goBack',
 		'text': 'Go back'
 	}, {
 		'showBtn': 'showResetBtn',
-		'click': 'resetApp',
+		'clickFunc': 'resetApp',
 		'text': 'Reset app'
 	}];
 
-	$scope.showButton = function(btn) {
-		return $scope.headerButtons[btn];
+	$scope.showButton = function(showBtn) {
+		return $scope.headerButtons[showBtn];
 	};
 
-	$scope.callFunction = function(event, name) {
+	$scope.callFunction = function(event, clickFunc) {
 		event.preventDefault();
 
-		if (angular.isFunction($scope[name])) {
-			$scope[name]();
+		if (angular.isFunction($scope[clickFunc])) {
+			$scope[clickFunc]();
 		}
 	};
 
