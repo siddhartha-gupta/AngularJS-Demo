@@ -6,7 +6,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder
 			}).then(function(response) {
 				_this.currentReq = null;
-				processServerData(response);
+				processServerData(response.data);
 				$log.log('success: ', _this.booksList);
 			}, function(response) {
 				_this.currentReq = null;
@@ -15,7 +15,31 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		},
 
 		processServerData = function(data) {
-			_this.booksList = data.data.items;
+			var categorisedData = {
+				'All': []
+			};
+
+			if (data.items && data.items.length > 0) {
+				for (var i = 0, len = data.items.length; i < len; i++) {
+					var categoryName = 'All';
+					if (data.items[i].volumeInfo.categories && data.items[i].volumeInfo.categories.length > 0) {
+						for (var j = 0, catLen = data.items[i].volumeInfo.categories.length; j < catLen; j++) {
+							categoryName = data.items[i].volumeInfo.categories[j];
+
+							if (!categorisedData.hasOwnProperty(categoryName)) {
+								categorisedData[categoryName] = [];
+							}
+							categorisedData[categoryName].push(data.items[i]);
+						}
+					} else {
+						// set default, i.e All
+						categorisedData[categoryName].push(data.items[i]);
+					}
+				}
+			}
+
+			console.log(categorisedData);
+			_this.booksList = data.items;
 		};
 
 	_this.books = {
@@ -41,7 +65,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 			'maxLimit': localStorageService.get('maxLimit'),
 			'localSortOrder': localStorageService.get('localSortOrder'),
 		};
-		processServerData(serverData);
+		processServerData(serverData.data);
 	}
 
 	_this.getBooks = function() {
