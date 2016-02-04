@@ -1,5 +1,22 @@
 booksApp.controller('mainController', function mainController($scope, $timeout, $log, $location, webService, localStorageService, serverData) {
-	var _this = this;
+	var _this = this,
+
+		searchBooks = function() {
+			_this.currentReq = webService.getCall({
+				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder
+			}).then(function(response) {
+				_this.currentReq = null;
+				processServerData(response);
+				$log.log('success: ', _this.booksList);
+			}, function(response) {
+				_this.currentReq = null;
+				$log.log('error: ', response);
+			});
+		},
+
+		processServerData = function(data) {
+			_this.booksList = data.data.items;
+		};
 
 	_this.books = {
 		'searchQuery': '',
@@ -24,7 +41,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 			'maxLimit': localStorageService.get('maxLimit'),
 			'localSortOrder': localStorageService.get('localSortOrder'),
 		};
-		_this.booksList = serverData.data.items;
+		processServerData(serverData);
 	}
 
 	_this.getBooks = function() {
@@ -49,19 +66,6 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 			}
 		}
 		_this.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
-	};
-
-	var searchBooks = function() {
-		_this.currentReq = webService.getCall({
-			'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder
-		}).then(function(response) {
-			_this.currentReq = null;
-			_this.booksList = response.data.items;
-			$log.log('success: ', _this.booksList);
-		}, function(response) {
-			_this.currentReq = null;
-			$log.log('error: ', response);
-		});
 	};
 
 	_this.showBook = function(id) {
