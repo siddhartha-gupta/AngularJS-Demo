@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs nav-justified">
+	<li ng-repeat="(key, item) in ngModel" ng-class="{active: key === activeTab}">
+		<a ng-click="toggleActive(key)">{{key}}</a>
+	</li>
+</ul>
+<div class="tab-content">
+	<div ng-repeat="(key, booksList) in ngModel" class="tab-pane" ng-class="{active: key === activeTab}">
+		<ul class="list-unstyled" ng-cloak>
+			<li ng-repeat="book in booksList | orderBy:customController.books.localSortOrder" class="books-listing">
+				<!-- <div class="row session"> -->
+					<div class="tab-pane bs-callout bs-callout-primary col-xs-12">
+						<collapse-section imgsrc="book.volumeInfo.imageLinks.smallThumbnail" title="book.volumeInfo.title" publisher="book.volumeInfo.publisher" saleability="book.saleInfo.saleability" amount="book.saleInfo.listPrice.amount" id="book.id" showbookfn="customController.showBook" />
+					</div>
+				<!-- </div> -->
+			</li>
+		</ul>
+	</div>
+</div>

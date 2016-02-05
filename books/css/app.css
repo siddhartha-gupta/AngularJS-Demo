@@ -52,3 +52,34 @@ input.ng-invalid.ng-dirty {
 	padding-left: 10px;
 	width: calc(100% - 128px);
 }
+
+.nav-tabs.nav-justified>li {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+.bs-callout {
+    padding: 20px;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 0;
+    border-bottom: none;
+    margin: 0;
+}
+
+.bs-callout-primary {
+    border-left-color: #428bca;
+}
+
+.books-listing:first-child .bs-callout {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.books-listing:last-child .bs-callout {
+	border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}

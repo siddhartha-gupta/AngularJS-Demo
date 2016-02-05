@@ -15,30 +15,31 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		},
 
 		processServerData = function(data) {
-			var categorisedData = {
+			_this.categorisedData = {
 				'All': []
 			};
 
 			if (data.items && data.items.length > 0) {
 				for (var i = 0, len = data.items.length; i < len; i++) {
 					var categoryName = 'All';
+
+					// push in all key by default
+					_this.categorisedData[categoryName].push(data.items[i]);
+
 					if (data.items[i].volumeInfo.categories && data.items[i].volumeInfo.categories.length > 0) {
 						for (var j = 0, catLen = data.items[i].volumeInfo.categories.length; j < catLen; j++) {
 							categoryName = data.items[i].volumeInfo.categories[j];
 
-							if (!categorisedData.hasOwnProperty(categoryName)) {
-								categorisedData[categoryName] = [];
+							if (!_this.categorisedData.hasOwnProperty(categoryName)) {
+								_this.categorisedData[categoryName] = [];
 							}
-							categorisedData[categoryName].push(data.items[i]);
+							_this.categorisedData[categoryName].push(data.items[i]);
 						}
-					} else {
-						// set default, i.e All
-						categorisedData[categoryName].push(data.items[i]);
 					}
 				}
 			}
 
-			console.log(categorisedData);
+			console.log(_this.categorisedData);
 			_this.booksList = data.items;
 		};
 
@@ -57,6 +58,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 	_this.booksList = [];
 	_this.searchTimer = null;
 	_this.currentReq = null;
+	_this.categorisedData = {};
 
 	if (serverData.data) {
 		_this.books = {
