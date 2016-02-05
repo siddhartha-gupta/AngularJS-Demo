@@ -7,7 +7,6 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 			}).then(function(response) {
 				_this.currentReq = null;
 				processServerData(response.data);
-				$log.log('success: ', _this.booksList);
 			}, function(response) {
 				_this.currentReq = null;
 				$log.log('error: ', response);
@@ -38,9 +37,6 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 					}
 				}
 			}
-
-			console.log(_this.categorisedData);
-			_this.booksList = data.items;
 		};
 
 	_this.books = {
@@ -56,7 +52,6 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		className: 'slideover',
 		text: 'Please type 3 or more chars'
 	};
-	_this.booksList = [];
 	_this.searchTimer = null;
 	_this.currentReq = null;
 	_this.categorisedData = {};
@@ -67,14 +62,13 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 			'sortOrder': localStorageService.get('sortOrder'),
 			'maxLimit': localStorageService.get('maxLimit'),
 			'localSortOrder': localStorageService.get('localSortOrder'),
+			'activeTab': localStorageService.get('activeTab')
 		};
 		processServerData(serverData.data);
 	}
 
 	_this.getBooks = function() {
 		_this.books.searchQuery = _this.books.searchQuery.trim();
-
-		console.log('getBooks: ', _this.books.searchQuery);
 		$timeout.cancel(_this.searchTimer);
 
 		if (_this.currentReq && angular.isFunction(_this.currentReq.abort)) {
@@ -89,7 +83,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		} else {
 			_this.error.isVisible = true;
 			if (_this.books.searchQuery.length === 0) {
-				_this.booksList = [];
+				_this.categorisedData = {};
 			}
 		}
 		_this.books.activeTab = 'All';

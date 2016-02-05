@@ -7,7 +7,8 @@ booksApp.directive('customTabs', function() {
 		scope: {
 			ngModel: '=',
 			showbook: '=',
-			localsortorder: '='
+			localsortorder: '=',
+			activetab: '='
 		},
 		templateUrl: 'templates/directives/customTabs.html',
 		controller: 'customTabs'
