@@ -1,7 +1,7 @@
 booksApp.controller('headerController', function headerController($scope, $location, localStorageService, routeHandler, $window, $log) {
-	$scope.data = {
+	/*$scope.data = {
 		'imageUrl': 'img/angularjs-logo.png',
-	};
+	};*/
 	$scope.headerButtons = {
 		'showBackBtn': false,
 		'showResetBtn': false,
