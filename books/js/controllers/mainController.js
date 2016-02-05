@@ -48,6 +48,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 		'sortOrder': 'relevance',
 		'maxLimit': '10',
 		'localSortOrder': 'volumeInfo.title',
+		'activeTab': 'All'
 	};
 
 	_this.error = {
@@ -91,6 +92,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 				_this.booksList = [];
 			}
 		}
+		_this.books.activeTab = 'All';
 		_this.updateSessionStorage(['searchQuery', 'sortOrder', 'maxLimit', 'localSortOrder']);
 	};
 
