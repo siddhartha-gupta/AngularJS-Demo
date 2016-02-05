@@ -14,7 +14,7 @@ gulp.task('clean', function() {
 });
 
 // copy static assets - i.e. non TypeScript compiled source
-gulp.task('copy:assets', ['clean'], function() {
+gulp.task('copyAssets', ['clean'], function() {
 	return gulp.src(['app/**/*', 'index.html', '!app/**/*.ts'], {
 			base: './'
 		})
@@ -22,7 +22,7 @@ gulp.task('copy:assets', ['clean'], function() {
 });
 
 // copy dependencies
-gulp.task('copy:libs', ['clean'], function() {
+gulp.task('copyLibs', ['clean'], function() {
 	return gulp.src([
 			'node_modules/es6-shim/es6-shim.min.js',
 			'node_modules/systemjs/dist/system-polyfills.js',
@@ -73,6 +73,6 @@ gulp.task('serve', ['build'], function() {
 	gulp.watch(['app/**/*', 'index.html'], ['buildAndReload']);
 });
 
-gulp.task('build', ['compile', 'copy:libs', 'copy:assets']);
+gulp.task('build', ['compile', 'copyLibs', 'copyAssets']);
 gulp.task('buildAndReload', ['build'], reload);
 gulp.task('default', ['build']);

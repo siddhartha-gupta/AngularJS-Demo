@@ -95,7 +95,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
                             this.utils.log(this.currentGameConfig.currentGame.moves);
                             this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
                             if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-                                this.renderer.setText(event.target, 'X');
+                                // this.renderer.setText(event.target, 'x');
                                 this.renderer.setElementClass(event.target, 'x-text', true);
                                 this.currentGameConfig.currentGame.moves[cellnum] = 1;
                                 this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
@@ -142,7 +142,7 @@ System.register(['angular2/core', 'angular2/platform/browser', '../settings', '.
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
                     var elem = this._dom.query('li[id*=combine_' + result + ']');
-                    this.renderer.setText(elem, 'O');
+                    // this.renderer.setText(elem, 'o');
                     this.renderer.setElementClass(elem, 'o-text', true);
                     this.currentGameConfig.currentGame.stepsPlayed++;
                     this.getGameStatus(false);

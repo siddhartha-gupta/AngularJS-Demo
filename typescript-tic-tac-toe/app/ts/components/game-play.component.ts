@@ -82,7 +82,7 @@ export class GamePlay {
 				this.utils.log(this.currentGameConfig.currentGame.moves);
 				this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
 				if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-					this.renderer.setText(event.target, 'X');
+					// this.renderer.setText(event.target, 'x');
 					this.renderer.setElementClass(event.target, 'x-text', true);
 
 					this.currentGameConfig.currentGame.moves[cellnum] = 1;
@@ -133,7 +133,7 @@ export class GamePlay {
 		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
 		var elem = this._dom.query('li[id*=combine_' + result + ']');
 
-		this.renderer.setText(elem, 'O');
+		// this.renderer.setText(elem, 'o');
 		this.renderer.setElementClass(elem, 'o-text', true);
 		this.currentGameConfig.currentGame.stepsPlayed++;
 		this.getGameStatus(false);
