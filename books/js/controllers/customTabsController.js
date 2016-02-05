@@ -9,5 +9,5 @@ booksApp.controller('customTabs', function($scope) {
 				$scope.activeTab = key;
 			}
 		});
-	}
+	};
 });
