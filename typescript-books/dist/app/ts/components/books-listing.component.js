@@ -132,7 +132,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
                 };
                 BooksListing = __decorate([
                     core_1.Component({
-                        selector: 'home',
+                        selector: 'BooksListing',
                         providers: [http_1.HTTP_PROVIDERS, api_service_1.api, localStorage_service_1.LocalStorage, utils_service_1.Utils],
                         directives: [router_1.ROUTER_DIRECTIVES, collapse_title_directive_1.CollapseTitle],
                         templateUrl: settings_1._settings.buildPath + 'booksListing.template.html'

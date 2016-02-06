@@ -72,16 +72,17 @@ System.register(['angular2/core', 'angular2/router', '../helpers/settings', '../
                     }
                 };
                 AppHeader.prototype.headerFunc = function ($event, funcName) {
+                    console.log('headerFunc: ', funcName);
                     this[funcName]($event);
                 };
                 AppHeader.prototype.goBack = function ($event) {
                     this.utils.log('goBack');
-                    this.router.navigate(['./Home']);
+                    this.router.navigate(['./BooksListing']);
                 };
                 AppHeader.prototype.resetApp = function ($event) {
                     this.utils.log('resetApp');
                     this.LS.resetStorage();
-                    this.router.navigate(['./Home']);
+                    this.router.navigate(['./BooksListing']);
                 };
                 AppHeader = __decorate([
                     core_1.Component({

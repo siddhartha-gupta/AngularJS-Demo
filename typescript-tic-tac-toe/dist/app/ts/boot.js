@@ -22,7 +22,7 @@ System.register(['angular2/platform/browser', 'angular2/core', 'angular2/router'
                 current_game_config_service_1 = current_game_config_service_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.App, [browser_1.ELEMENT_PROBE_PROVIDERS, generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, core_1.provide(router_1.APP_BASE_HREF, { useValue: '/' })]).catch(console.error);
+            browser_1.bootstrap(app_component_1.App, [router_1.ROUTER_PROVIDERS, browser_1.ELEMENT_PROBE_PROVIDERS, generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, core_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy }), core_1.provide(router_1.APP_BASE_HREF, { useValue: '/' })]).catch(console.error);
         }
     }
 });

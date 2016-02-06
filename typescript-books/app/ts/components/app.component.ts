@@ -16,10 +16,10 @@ import { _settings } from '../helpers/settings'
 })
 
 @RouteConfig([
-	{ path: '', as: 'Home', component: BooksListing },
-	{ path: '/book', as: 'Book', component: BookDetail }
+	{ path: '', as: 'BooksListing', component: BooksListing },
+	{ path: '/book', as: 'BookDetail', component: BookDetail }
 ])
 
 export class App {
-	constructor() {}
+	constructor() { }
 }

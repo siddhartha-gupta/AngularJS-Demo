@@ -61,17 +61,18 @@ export class AppHeader {
 	}
 
 	headerFunc($event: Event, funcName: string) {
+		console.log('headerFunc: ', funcName);
 		this[funcName]($event);
 	}
 
 	goBack($event: Event) {
 		this.utils.log('goBack');
-		this.router.navigate(['./Home']);
+		this.router.navigate(['./BooksListing']);
 	}
 
 	resetApp($event: Event) {
 		this.utils.log('resetApp');
 		this.LS.resetStorage();
-		this.router.navigate(['./Home']);
+		this.router.navigate(['./BooksListing']);
 	}
 }

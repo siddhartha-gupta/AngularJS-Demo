@@ -12,7 +12,7 @@ import {LocalStorage} from '../services/localStorage.service'
 import {Utils} from '../services/utils.service'
 
 @Component({
-	selector: 'home',
+	selector: 'BooksListing',
 	providers: [HTTP_PROVIDERS, api, LocalStorage, Utils],
 	directives: [ROUTER_DIRECTIVES, CollapseTitle],
 	templateUrl: _settings.buildPath + 'booksListing.template.html'

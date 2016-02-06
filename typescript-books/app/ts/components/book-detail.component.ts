@@ -9,7 +9,7 @@ import {api} from '../services/api.service'
 import { _settings } from '../helpers/settings'
 
 @Component({
-	selector: 'Book',
+	selector: 'BookDetail',
 	providers: [HTTP_PROVIDERS, api],
 	directives: [ROUTER_DIRECTIVES, Links, GenericInfo],
 	templateUrl: _settings.buildPath + 'bookDetail.template.html'

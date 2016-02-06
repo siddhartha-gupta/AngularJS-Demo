@@ -42,8 +42,8 @@ System.register(['angular2/core', 'angular2/router', './header.component', './bo
                         directives: [header_component_1.AppHeader, router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        { path: '', as: 'Home', component: books_listing_component_1.BooksListing },
-                        { path: '/book', as: 'Book', component: book_detail_component_1.BookDetail }
+                        { path: '', as: 'BooksListing', component: books_listing_component_1.BooksListing },
+                        { path: '/book', as: 'BookDetail', component: book_detail_component_1.BookDetail }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], App);

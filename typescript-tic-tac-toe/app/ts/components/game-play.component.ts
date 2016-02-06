@@ -1,5 +1,6 @@
 import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
+import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import { _settings } from '../settings'
 import { Winner } from '../directives/winner.directive'
@@ -11,9 +12,9 @@ import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 
 @Component({
-	selector: 'game-play-grid',
+	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
-	directives: [Winner],
+	directives: [ROUTER_DIRECTIVES, Winner],
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 

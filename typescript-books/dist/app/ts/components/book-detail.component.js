@@ -48,7 +48,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', '../direct
                 };
                 BookDetail = __decorate([
                     core_1.Component({
-                        selector: 'Book',
+                        selector: 'BookDetail',
                         providers: [http_1.HTTP_PROVIDERS, api_service_1.api],
                         directives: [router_1.ROUTER_DIRECTIVES, links_directive_1.Links, generic_info_directive_1.GenericInfo],
                         templateUrl: settings_1._settings.buildPath + 'bookDetail.template.html'

@@ -19,6 +19,7 @@
   "files": [
     "app/ts/components/app.component.ts",
     "app/ts/components/header.component.ts",
+    "app/ts/components/home.component.ts",
     "app/ts/components/game-play.component.ts",
     "app/ts/components/game-score.component.ts",
     "app/ts/components/game-level.component.ts",
