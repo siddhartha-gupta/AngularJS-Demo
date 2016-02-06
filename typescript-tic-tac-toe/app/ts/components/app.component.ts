@@ -6,7 +6,6 @@ import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
 import {GameScore} from './game-score.component'
-import {GameLevel} from './game-level.component'
 
 import {_settings} from '../settings'
 
@@ -14,11 +13,11 @@ import {_settings} from '../settings'
 	selector: 'game-app',
 	templateUrl: _settings.templatePath.component + 'app.template.html',
 	providers: [Home, GamePlay],
-	directives: [AppHeader, GameScore, GameLevel, ROUTER_DIRECTIVES]
+	directives: [AppHeader, GameScore, ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-		{ path: '', as: 'Home', component: Home },
+	{ path: '', as: 'Home', component: Home },
 	{ path: '/gameplay', as: 'GamePlay', component: GamePlay }
 ])
 

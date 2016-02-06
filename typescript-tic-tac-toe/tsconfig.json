@@ -22,7 +22,6 @@
     "app/ts/components/home.component.ts",
     "app/ts/components/game-play.component.ts",
     "app/ts/components/game-score.component.ts",
-    "app/ts/components/game-level.component.ts",
     "app/ts/directives/winner.directive.ts",
     "app/ts/services/utils.service.ts",
     "app/ts/services/generic-config.service.ts",
