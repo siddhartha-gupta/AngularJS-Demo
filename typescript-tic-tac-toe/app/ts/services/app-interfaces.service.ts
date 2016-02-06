@@ -21,3 +21,14 @@ export interface GenericConfigInterface {
 				};
 	gridComputationLen: number
 }
+
+export interface homeModelInterface {
+	gameLevel: number;
+	firstChance: number;
+}
+
+export interface initSetupInterface {
+	value: number;
+	text: string;
+	cssClass: string;
+}

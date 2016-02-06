@@ -1,12 +1,20 @@
 <div class="game-level">
 	<form action="">
-		<div class="selected-level">Select difficulty</div>
+		<!-- <div class="selected-level">Select difficulty</div> -->
 		<div class="level-group">
-			<span class="level-radio" *ngFor="#item of radioItems">
-				<input [id]="item.text" type="radio" name="gameLevel" (click)="genericConfig.config.gameLevel = item.value" [checked]="item.value === genericConfig.config.gameLevel">
-				<label [attr.for]="item.text">{{item.text}}</label>
+			<div class="level-radio" *ngFor="#item of gameLevels">
+				<input [id]="item.text" type="radio" name="gameLevel" (click)="model.gameLevel = item.value" [checked]="model.gameLevel === item.value">
+				<label [attr.for]="item.text" class="btn btn-group btn-group-justified" [ngClass]="item.cssClass">{{item.text}}</label>
+			</div>
+		</div>
+		<!-- <br /> -->
+		<!-- <br /> -->
+		<div class="level-group">
+			<span class="level-radio" *ngFor="#item of gameStarter">
+				<input [id]="item.text" type="radio" name="playerstarts" (click)="model.firstChance = item.value" [checked]="model.firstChance === item.value">
+				<label [attr.for]="item.text" class="btn btn-group btn-group-justified" [ngClass]="item.cssClass">{{item.text}}</label>
 			</span>
 		</div>
-		
 	</form>
 </div>
+<div class="row reset-container text-center"><a href="#" id="start-game" class="btn btn-lg btn-default" (click)="startGame($event)">Start Game</a></div>
