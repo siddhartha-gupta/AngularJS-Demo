@@ -214,34 +214,42 @@ body {
   color: #5bc0de;
 }
 
-.level-radio input[type="radio"]:checked + label {
+.level-radio input[type="radio"]:checked + label, .level-radio input[type="radio"]:hover + label:hover {
 	font-weight: bold;
 	color: #fff;
 }
 
-.level-radio input[type="radio"]:checked + label.btn-primary {
+.level-radio input[type="radio"]:checked + label.btn-primary, .level-radio label.btn-primary:hover {
   background-color: #286090;
   border-color: #204d74;
 }
 
-.level-radio input[type="radio"]:checked + label.btn-success {
+.level-radio input[type="radio"]:checked + label.btn-success, .level-radio label.btn-success:hover {
 	background-color: #449d44;
 	border-color: #398439;
 }
 
-.level-radio input[type="radio"]:checked + label.btn-warning {
+.level-radio input[type="radio"]:checked + label.btn-warning, .level-radio label.btn-warning:hover {
   background-color: #ec971f;
   border-color: #d58512;
 }
 
-.level-radio input[type="radio"]:checked + label.btn-danger {
+.level-radio input[type="radio"]:checked + label.btn-danger, .level-radio label.btn-danger:hover {
   background-color: #c9302c;
   border-color: #ac2925;
 }
 
-.level-radio input[type="radio"]:checked + label.btn-info {
+.level-radio input[type="radio"]:checked + label.btn-info, .level-radio label.btn-info:hover {
   background-color: #31b0d5;
   border-color: #269abc;
+}
+
+.start-game-btn:hover,
+.start-game-btn:active,
+.start-game-btn:active:hover {
+	background-color: #286090;
+	border-color: #204d74;
+	color: #fff;
 }
 
 .game-level .selected-level {
