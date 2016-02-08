@@ -19,6 +19,7 @@ import { _settings } from '../settings'
 })
 
 export class GamePlay {
+	gameInProgress: Boolean = false;
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
 		customEventService.onHeaderClicked.subscribe(data => this.onHeaderClicked(data));
 
@@ -31,6 +32,7 @@ export class GamePlay {
 	}
 
 	startGame() {
+		this.gameInProgress = true;
 		this.currentGameConfig.initDefaultConfig();
 		this.drawGrid();
 	}
@@ -143,15 +145,15 @@ export class GamePlay {
 			case 'gameWon':
 				this.genericConfig.config.playGame = false;
 				if (isHuman) {
-					this.showModalDialogue('Player won the match');
+					this.showModalDialogue('Player won the match', false);
 				} else {
-					this.showModalDialogue('Computer won the match');
+					this.showModalDialogue('Computer won the match', false);
 				}
 				break;
 
 			case 'gameDraw':
 				this.genericConfig.config.playGame = false;
-				this.showModalDialogue('Match Drawn!');
+				this.showModalDialogue('Match Drawn!', false);
 				break;
 
 			case 'makeAIMove':
@@ -181,20 +183,28 @@ export class GamePlay {
 					break;
 
 				case 'right':
-					this.showModalDialogue('test');
+					this.showModalDialogue('test', this.gameInProgress);
 					break;
 			}
 		}
 	}
 
-	showModalDialogue(text: string) {
+	showModalDialogue(text: string, gameInProgress: Boolean) {
 		this.utils.log('showModalDialogue: ', text);
+		this.gameInProgress = gameInProgress;
 
 		this.genericConfig.config.modalDialogue = {
 			isVisible: true,
 			title: 'Match result',
-			body: text
+			body: text,
+			showBtn2: !this.gameInProgress
 		};
+	}
+
+	onModalClose() {
+		if (!this.gameInProgress) {
+			this.startGame();
+		}
 	}
 
 	goToHome() {

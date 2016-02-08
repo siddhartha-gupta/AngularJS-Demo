@@ -17,6 +17,7 @@ export interface GenericConfigInterface {
 		isVisible: Boolean;
 		title: string;
 		body: string;
+		showBtn2: Boolean;
 	};
 	gameScore: {
 		'totalGames': number;

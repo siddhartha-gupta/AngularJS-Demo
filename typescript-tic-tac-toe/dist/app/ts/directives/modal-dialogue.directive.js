@@ -51,7 +51,8 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                     this.genericConfig.config.modalDialogue = {
                         isVisible: false,
                         title: '',
-                        body: ''
+                        body: '',
+                        showBtn2: false
                     };
                 };
                 __decorate([

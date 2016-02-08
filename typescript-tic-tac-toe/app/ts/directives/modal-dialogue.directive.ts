@@ -42,7 +42,8 @@ export class ModalDialouge {
 		this.genericConfig.config.modalDialogue = {
 			isVisible: false,
 			title: '',
-			body: ''
+			body: '',
+			showBtn2: false
 		};
 	}
 }

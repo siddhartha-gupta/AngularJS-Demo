@@ -59,6 +59,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this._dom = _dom;
                     this.router = router;
                     this.customEventService = customEventService;
+                    this.gameInProgress = false;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
@@ -67,6 +68,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.startGame();
                 };
                 GamePlay.prototype.startGame = function () {
+                    this.gameInProgress = true;
                     this.currentGameConfig.initDefaultConfig();
                     this.drawGrid();
                 };
@@ -161,15 +163,15 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         case 'gameWon':
                             this.genericConfig.config.playGame = false;
                             if (isHuman) {
-                                this.showModalDialogue('Player won the match');
+                                this.showModalDialogue('Player won the match', false);
                             }
                             else {
-                                this.showModalDialogue('Computer won the match');
+                                this.showModalDialogue('Computer won the match', false);
                             }
                             break;
                         case 'gameDraw':
                             this.genericConfig.config.playGame = false;
-                            this.showModalDialogue('Match Drawn!');
+                            this.showModalDialogue('Match Drawn!', false);
                             break;
                         case 'makeAIMove':
                             this.makeAIMove();
@@ -192,18 +194,25 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                                 this.goToHome();
                                 break;
                             case 'right':
-                                this.showModalDialogue('test');
+                                this.showModalDialogue('test', this.gameInProgress);
                                 break;
                         }
                     }
                 };
-                GamePlay.prototype.showModalDialogue = function (text) {
+                GamePlay.prototype.showModalDialogue = function (text, gameInProgress) {
                     this.utils.log('showModalDialogue: ', text);
+                    this.gameInProgress = gameInProgress;
                     this.genericConfig.config.modalDialogue = {
                         isVisible: true,
                         title: 'Match result',
-                        body: text
+                        body: text,
+                        showBtn2: !this.gameInProgress
                     };
+                };
+                GamePlay.prototype.onModalClose = function () {
+                    if (!this.gameInProgress) {
+                        this.startGame();
+                    }
                 };
                 GamePlay.prototype.goToHome = function () {
                     console.log('goToHome');
