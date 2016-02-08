@@ -3,7 +3,7 @@ import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import { _settings } from '../settings'
-import { Winner } from '../directives/winner.directive'
+import { ModalDialouge } from '../directives/modal-dialogue.directive'
 
 import { GenericConfig } from '../services/generic-config.service'
 import { CurrentGameConfig } from '../services/current-game-config.service'
@@ -14,18 +14,13 @@ import { Utils } from '../services/utils.service'
 @Component({
 	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, Winner],
+	directives: [ROUTER_DIRECTIVES, ModalDialouge],
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 
 export class GamePlay {
-	winnerText: string;
-	displayWinnerText: Boolean;
-
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter) {
-		this.winnerText = '';
-		this.displayWinnerText = false;
-
+	that = this;
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter,, private router: Router) {
 		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
 	}
@@ -147,34 +142,20 @@ export class GamePlay {
 			case 'gameWon':
 				this.genericConfig.config.playGame = false;
 				if (isHuman) {
-					this.showWinnerText('Player won the match');
+					this.showModalDialogue('Player won the match');
 				} else {
-					this.showWinnerText('Computer won the match');
+					this.showModalDialogue('Computer won the match');
 				}
 				break;
 
 			case 'gameDraw':
 				this.genericConfig.config.playGame = false;
-				this.showWinnerText('Match Drawn!');
+				this.showModalDialogue('Match Drawn!');
 				break;
 
 			case 'makeAIMove':
 				this.makeAIMove();
 		}
-	}
-
-	showWinnerText(text: string) {
-		this.utils.log('showWinnerText: ', text);
-
-		this.winnerText = text;
-		this.displayWinnerText = true;
-
-		setTimeout(() => {
-			this.displayWinnerText = false;
-			this.winnerText = '';
-			this.genericConfig.config.playGame = true;
-			this.startGame();
-		}, 2000);
 	}
 
 	domCleanUp() {
@@ -188,5 +169,22 @@ export class GamePlay {
 			}
 		}
 		this._dom.setInnerHTML(elem, '');
+	}
+
+	showModalDialogue(text: string) {
+		this.utils.log('showModalDialogue: ', text);
+
+		this.genericConfig.config.modalDialogue = {
+			isVisible: true,
+			title: 'Match result',
+			body: text
+		};
+	}
+
+	goToHome() {
+		console.log('goToHome');
+		debugger;
+
+		this.router.navigate(['Home']);
 	}
 }

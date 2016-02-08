@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../settings', '../directives/winner.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../settings', '../directives/modal-dialogue.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, settings_1, winner_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
+    var core_1, browser_1, router_1, settings_1, modal_dialogue_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
     var GamePlay;
     return {
         setters:[
@@ -24,8 +24,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             },
-            function (winner_directive_1_1) {
-                winner_directive_1 = winner_directive_1_1;
+            function (modal_dialogue_directive_1_1) {
+                modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
             },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
@@ -44,7 +44,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom, router) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
@@ -53,8 +53,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
-                    this.winnerText = '';
-                    this.displayWinnerText = false;
+                    this.router = router;
+                    this.that = this;
                     this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
                 }
@@ -156,31 +156,19 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         case 'gameWon':
                             this.genericConfig.config.playGame = false;
                             if (isHuman) {
-                                this.showWinnerText('Player won the match');
+                                this.showModalDialogue('Player won the match');
                             }
                             else {
-                                this.showWinnerText('Computer won the match');
+                                this.showModalDialogue('Computer won the match');
                             }
                             break;
                         case 'gameDraw':
                             this.genericConfig.config.playGame = false;
-                            this.showWinnerText('Match Drawn!');
+                            this.showModalDialogue('Match Drawn!');
                             break;
                         case 'makeAIMove':
                             this.makeAIMove();
                     }
-                };
-                GamePlay.prototype.showWinnerText = function (text) {
-                    var _this = this;
-                    this.utils.log('showWinnerText: ', text);
-                    this.winnerText = text;
-                    this.displayWinnerText = true;
-                    setTimeout(function () {
-                        _this.displayWinnerText = false;
-                        _this.winnerText = '';
-                        _this.genericConfig.config.playGame = true;
-                        _this.startGame();
-                    }, 2000);
                 };
                 GamePlay.prototype.domCleanUp = function () {
                     var elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
@@ -191,14 +179,27 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                     this._dom.setInnerHTML(elem, '');
                 };
+                GamePlay.prototype.showModalDialogue = function (text) {
+                    this.utils.log('showModalDialogue: ', text);
+                    this.genericConfig.config.modalDialogue = {
+                        isVisible: true,
+                        title: 'Match result',
+                        body: text
+                    };
+                };
+                GamePlay.prototype.goToHome = function () {
+                    console.log('goToHome');
+                    debugger;
+                    this.router.navigate(['Home']);
+                };
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'GamePlay',
                         providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
-                        directives: [router_1.ROUTER_DIRECTIVES, winner_directive_1.Winner],
+                        directives: [router_1.ROUTER_DIRECTIVES, modal_dialogue_directive_1.ModalDialouge],
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router])
                 ], GamePlay);
                 return GamePlay;
             })();

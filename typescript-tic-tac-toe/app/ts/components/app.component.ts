@@ -5,7 +5,6 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2
 import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
-import {GameScore} from './game-score.component'
 
 import {_settings} from '../settings'
 
@@ -13,7 +12,7 @@ import {_settings} from '../settings'
 	selector: 'game-app',
 	templateUrl: _settings.templatePath.component + 'app.template.html',
 	providers: [Home, GamePlay],
-	directives: [AppHeader, GameScore, ROUTER_DIRECTIVES]
+	directives: [AppHeader, ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([

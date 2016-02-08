@@ -1,0 +1,26 @@
+<!-- <strong>{{text}}</strong> -->
+<div id="myModal" class="modal modal-dialog-custom" [style.display]="genericConfig.config.modalDialogue.isVisible  ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal($event)">&times;</button>
+                <h4 class="modal-title">{{genericConfig.config.modalDialogue.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div>{{genericConfig.config.modalDialogue.body}}</div>
+                <div class="row stats-container">
+                    <div>Score Card</div>
+                    <div class="group-title">Total: {{genericConfig.config.gameScore.totalGames}}</div>
+                    <div class="group-title">Draws: {{genericConfig.config.gameScore.draws}}</div>
+                    <div class="group-title">Player won: {{genericConfig.config.gameScore.playerWins}}</div>
+                    <div class="group-title">Computer won: {{genericConfig.config.gameScore.computerWins}}</div>
+                </div>
+                <p class="text-warning"><small>Going to main menu will reset the game.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="mainMenu($event)">Main menu</button>
+                <button type="button" class="btn btn-primary">Play again</button>
+            </div>
+        </div>
+    </div>
+</div>

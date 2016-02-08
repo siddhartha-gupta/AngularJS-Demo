@@ -1,6 +1,4 @@
 <div id="container">
-	<span *ngIf="displayWinnerText" class="winner-text">
-		<winner-text [text]="winnerText"></winner-text>
-	</span>
 	<ul id="game-grid"></ul>
 </div>
+<modal-dialogue (btn1Callback)="goToHome()"></modal-dialogue>
