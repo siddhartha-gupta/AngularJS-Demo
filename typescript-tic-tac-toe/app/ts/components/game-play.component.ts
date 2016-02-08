@@ -26,7 +26,7 @@ export class GamePlay {
 
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
 
-		customEventService.onHeaderClicked.subscribe(data => this.onHeaderClicked(data));
+		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		this.modalDialogue = {
 			isVisible: false,
 			title: '',
@@ -87,13 +87,14 @@ export class GamePlay {
 
 		this.utils.log('onBlockClick');
 		if (this.genericConfig.config.playGame) {
-			let cellnum: number = parseInt(event.target.getAttribute('data-cellnum'), 10);
+			let target = <HTMLInputElement>event.target,
+				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
 
 			if (!this.currentGameConfig.currentGame.isWon) {
 				this.utils.log(this.currentGameConfig.currentGame.moves);
 				this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
 				if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-					this.renderer.setElementClass(event.target, 'x-text', true);
+					this.renderer.setElementClass(target, 'x-text', true);
 
 					this.currentGameConfig.currentGame.moves[cellnum] = 1;
 					this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;

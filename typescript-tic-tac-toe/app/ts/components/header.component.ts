@@ -30,7 +30,7 @@ export class AppHeader {
 		};
 
 		this.heading = 'Tic Tac Toe';
-		customEventService.onRouteChange.subscribe(val => this.onRouteChange(val));
+		customEventService.onRouteChange.subscribe((val: string) => this.onRouteChange(val));
 	}
 
 	onRouteChange(val: string) {

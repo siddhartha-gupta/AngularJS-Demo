@@ -107,12 +107,12 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                     this.utils.log('onBlockClick');
                     if (this.genericConfig.config.playGame) {
-                        var cellnum = parseInt(event.target.getAttribute('data-cellnum'), 10);
+                        var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
                         if (!this.currentGameConfig.currentGame.isWon) {
                             this.utils.log(this.currentGameConfig.currentGame.moves);
                             this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
                             if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-                                this.renderer.setElementClass(event.target, 'x-text', true);
+                                this.renderer.setElementClass(target, 'x-text', true);
                                 this.currentGameConfig.currentGame.moves[cellnum] = 1;
                                 this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
                                 this.currentGameConfig.currentGame.stepsPlayed++;
