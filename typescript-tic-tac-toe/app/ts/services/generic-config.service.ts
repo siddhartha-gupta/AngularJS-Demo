@@ -30,7 +30,8 @@ export class GenericConfig {
 				modalDialogue: {
 					isVisible: false,
 					title: '',
-					body: ''
+					body: '',
+					showBtn2: false
 				},
 				gameScore: {
 					'totalGames': 0,

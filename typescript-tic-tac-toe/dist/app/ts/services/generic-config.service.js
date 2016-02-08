@@ -41,7 +41,8 @@ System.register(['angular2/core'], function(exports_1) {
                         modalDialogue: {
                             isVisible: false,
                             title: '',
-                            body: ''
+                            body: '',
+                            showBtn2: false
                         },
                         gameScore: {
                             'totalGames': 0,
