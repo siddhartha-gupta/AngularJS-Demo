@@ -27,12 +27,12 @@ export class GenericConfig {
 				choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
 				corners: [11, 13, 31, 33],
 				playerstarts: true,
-				modalDialogue: {
+				/*modalDialogue: {
 					isVisible: false,
 					title: '',
 					body: '',
 					showBtn2: false
-				},
+				},*/
 				gameScore: {
 					'totalGames': 0,
 					'draws': 0,

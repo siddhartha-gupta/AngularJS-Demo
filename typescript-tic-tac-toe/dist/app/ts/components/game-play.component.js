@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/event-pub-sub.service', '../directives/modal-dialogue.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, event_pub_sub_service_1, modal_dialogue_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -21,11 +21,11 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (event_pub_sub_service_1_1) {
-                event_pub_sub_service_1 = event_pub_sub_service_1_1;
-            },
             function (modal_dialogue_directive_1_1) {
                 modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
+            },
+            function (event_pub_sub_service_1_1) {
+                event_pub_sub_service_1 = event_pub_sub_service_1_1;
             },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
@@ -61,6 +61,12 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.customEventService = customEventService;
                     this.gameInProgress = false;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
+                    this.modalDialogue = {
+                        isVisible: false,
+                        title: '',
+                        body: '',
+                        showBtn2: false
+                    };
                     this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
                 }
@@ -68,6 +74,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.startGame();
                 };
                 GamePlay.prototype.startGame = function () {
+                    this.resetModalConfig();
                     this.gameInProgress = true;
                     this.currentGameConfig.initDefaultConfig();
                     this.drawGrid();
@@ -202,7 +209,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay.prototype.showModalDialogue = function (text, gameInProgress) {
                     this.utils.log('showModalDialogue: ', text);
                     this.gameInProgress = gameInProgress;
-                    this.genericConfig.config.modalDialogue = {
+                    this.modalDialogue = {
                         isVisible: true,
                         title: 'Match result',
                         body: text,
@@ -210,13 +217,23 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     };
                 };
                 GamePlay.prototype.onModalClose = function () {
+                    this.resetModalConfig();
                     if (!this.gameInProgress) {
                         this.startGame();
                     }
                 };
                 GamePlay.prototype.goToHome = function () {
+                    this.resetModalConfig();
                     console.log('goToHome');
                     this.router.navigate(['Home']);
+                };
+                GamePlay.prototype.resetModalConfig = function () {
+                    this.modalDialogue = {
+                        isVisible: false,
+                        title: '',
+                        body: '',
+                        showBtn2: false
+                    };
                 };
                 GamePlay = __decorate([
                     core_1.Component({

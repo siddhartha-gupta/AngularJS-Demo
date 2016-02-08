@@ -2,14 +2,16 @@ import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
-import {CustomEventService} from '../services/event-pub-sub.service'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
+import {CustomEventService} from '../services/event-pub-sub.service'
+import {ModalDialogueInterface} from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
 import { CurrentGameConfig } from '../services/current-game-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'
 import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 import { _settings } from '../settings'
+
 
 @Component({
 	selector: 'GamePlay',
@@ -20,8 +22,17 @@ import { _settings } from '../settings'
 
 export class GamePlay {
 	gameInProgress: Boolean = false;
+	modalDialogue: ModalDialogueInterface;
+
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
+
 		customEventService.onHeaderClicked.subscribe(data => this.onHeaderClicked(data));
+		this.modalDialogue = {
+			isVisible: false,
+			title: '',
+			body: '',
+			showBtn2: false
+		};
 
 		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
@@ -32,6 +43,7 @@ export class GamePlay {
 	}
 
 	startGame() {
+		this.resetModalConfig();
 		this.gameInProgress = true;
 		this.currentGameConfig.initDefaultConfig();
 		this.drawGrid();
@@ -193,7 +205,7 @@ export class GamePlay {
 		this.utils.log('showModalDialogue: ', text);
 		this.gameInProgress = gameInProgress;
 
-		this.genericConfig.config.modalDialogue = {
+		this.modalDialogue = {
 			isVisible: true,
 			title: 'Match result',
 			body: text,
@@ -202,13 +214,24 @@ export class GamePlay {
 	}
 
 	onModalClose() {
+		this.resetModalConfig();
 		if (!this.gameInProgress) {
 			this.startGame();
 		}
 	}
 
 	goToHome() {
+		this.resetModalConfig();
 		console.log('goToHome');
 		this.router.navigate(['Home']);
+	}
+
+	resetModalConfig() {
+		this.modalDialogue = {
+			isVisible: false,
+			title: '',
+			body: '',
+			showBtn2: false
+		};
 	}
 }

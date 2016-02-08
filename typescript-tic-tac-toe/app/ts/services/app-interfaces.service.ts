@@ -13,12 +13,12 @@ export interface GenericConfigInterface {
 	choices: Array<number>;
 	corners: Array<number>;
 	playerstarts: Boolean;
-	modalDialogue: {
+	/*modalDialogue: {
 		isVisible: Boolean;
 		title: string;
 		body: string;
 		showBtn2: Boolean;
-	};
+	};*/
 	gameScore: {
 		'totalGames': number;
 		'draws': number;
@@ -44,3 +44,10 @@ export interface headerInterface {
 	btnType: string;
 	showBtn: Boolean;
 }
+
+export interface ModalDialogueInterface {
+	isVisible: Boolean;
+	title: string;
+	body: string;
+	showBtn2: Boolean;
+};

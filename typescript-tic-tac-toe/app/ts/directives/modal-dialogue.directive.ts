@@ -4,6 +4,7 @@ import { GenericConfig } from '../services/generic-config.service'
 
 @Component({
 	selector: 'modal-dialogue, [modal-dialogue]',
+	inputs: ['isVisible', 'text', 'body', 'showBtn2'],
 	templateUrl: _settings.templatePath.directive + 'modal-dialogue.template.html'
 })
 
@@ -18,7 +19,6 @@ export class ModalDialouge {
 		event.preventDefault();
 		event.stopPropagation();
 
-		this.resetModalConfig();
 		this.btn1Callback.emit(event);
 	}
 
@@ -26,7 +26,6 @@ export class ModalDialouge {
 		event.preventDefault();
 		event.stopPropagation();
 
-		this.resetModalConfig();
 		this.btn2Callback.emit(event);
 	}
 
@@ -34,16 +33,6 @@ export class ModalDialouge {
 		event.preventDefault();
 		event.stopPropagation();
 
-		this.resetModalConfig();
 		this.closeBtnCallback.emit(event);
-	}
-
-	resetModalConfig() {
-		this.genericConfig.config.modalDialogue = {
-			isVisible: false,
-			title: '',
-			body: '',
-			showBtn2: false
-		};
 	}
 }
