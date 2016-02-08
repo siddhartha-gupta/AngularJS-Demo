@@ -7,7 +7,7 @@ import {_settings} from '../settings'
 
 @Component({
 	selector: 'app-header',
-	providers: [Utils, CustomEventService],
+	providers: [Utils],
 	templateUrl: _settings.templatePath.component + 'header.template.html'
 })
 
@@ -31,11 +31,6 @@ export class AppHeader {
 
 		this.heading = 'Tic Tac Toe';
 		customEventService.onRouteChange.subscribe(val => this.onRouteChange(val));
-		this.customEventService.onHeaderClicked.subscribe(data => this.test1(data));
-	}
-
-	test1(data: any) {
-		console.log('from header: ', data);
 	}
 
 	onRouteChange(val: string) {

@@ -20,19 +20,10 @@ import { _settings } from '../settings'
 
 export class GamePlay {
 	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
-		this.customEventService.onHeaderClicked.subscribe(data => this.test1(data));
-		this.customEventService.onRouteChange.subscribe(val => this.test(val));
+		customEventService.onHeaderClicked.subscribe(data => this.onHeaderClicked(data));
 
 		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
-	}
-
-	test() {
-		console.log('test from gamePlay');
-	}
-
-	test1(data: string) {
-		console.log('from gamePlay test1: ', data);
 	}
 
 	ngOnInit() {
@@ -181,6 +172,21 @@ export class GamePlay {
 		this._dom.setInnerHTML(elem, '');
 	}
 
+	onHeaderClicked(data: any) {
+		console.log('from gamePlay test1: ', data);
+		if (data.routeName.indexOf('gameplay') >= 0) {
+			switch (data.btnType) {
+				case 'left':
+					this.goToHome();
+					break;
+
+				case 'right':
+					this.showModalDialogue('test');
+					break;
+			}
+		}
+	}
+
 	showModalDialogue(text: string) {
 		this.utils.log('showModalDialogue: ', text);
 
@@ -193,8 +199,6 @@ export class GamePlay {
 
 	goToHome() {
 		console.log('goToHome');
-		debugger;
-
 		this.router.navigate(['Home']);
 	}
 }

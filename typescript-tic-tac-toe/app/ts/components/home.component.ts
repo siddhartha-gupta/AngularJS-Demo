@@ -2,6 +2,7 @@ import {Component} from 'angular2/core'
 import {NgClass} from 'angular2/common'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
+import {CustomEventService} from '../services/event-pub-sub.service'
 import { _settings } from '../settings'
 import { GenericConfig } from '../services/generic-config.service'
 import { homeModelInterface, initSetupInterface } from '../services/app-interfaces.service'
@@ -17,7 +18,7 @@ export class Home {
 	gameLevels: initSetupInterface[] = [];
 	gameStarter: initSetupInterface[] = [];
 
-	constructor(private genericConfig: GenericConfig, private router: Router) {
+	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService) {
 		this.gameLevels = [{
 			'value': 1,
 			'text': 'Easy',

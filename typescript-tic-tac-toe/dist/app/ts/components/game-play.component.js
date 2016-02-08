@@ -59,17 +59,10 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this._dom = _dom;
                     this.router = router;
                     this.customEventService = customEventService;
-                    this.customEventService.onHeaderClicked.subscribe(function (data) { return _this.test1(data); });
-                    this.customEventService.onRouteChange.subscribe(function (val) { return _this.test(val); });
+                    customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
                 }
-                GamePlay.prototype.test = function () {
-                    console.log('test from gamePlay');
-                };
-                GamePlay.prototype.test1 = function (data) {
-                    console.log('from gamePlay test1: ', data);
-                };
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame();
                 };
@@ -191,6 +184,19 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                     this._dom.setInnerHTML(elem, '');
                 };
+                GamePlay.prototype.onHeaderClicked = function (data) {
+                    console.log('from gamePlay test1: ', data);
+                    if (data.routeName.indexOf('gameplay') >= 0) {
+                        switch (data.btnType) {
+                            case 'left':
+                                this.goToHome();
+                                break;
+                            case 'right':
+                                this.showModalDialogue('test');
+                                break;
+                        }
+                    }
+                };
                 GamePlay.prototype.showModalDialogue = function (text) {
                     this.utils.log('showModalDialogue: ', text);
                     this.genericConfig.config.modalDialogue = {
@@ -201,7 +207,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 };
                 GamePlay.prototype.goToHome = function () {
                     console.log('goToHome');
-                    debugger;
                     this.router.navigate(['Home']);
                 };
                 GamePlay = __decorate([

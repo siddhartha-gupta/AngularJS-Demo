@@ -3,8 +3,8 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Locati
 
 @Injectable()
 export class CustomEventService {
-	public onRouteChange: EventEmitter<any> = new EventEmitter();
-	public onHeaderClicked: EventEmitter<any> = new EventEmitter();
+	public onRouteChange: EventEmitter<string> = new EventEmitter();
+	public onHeaderClicked: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));

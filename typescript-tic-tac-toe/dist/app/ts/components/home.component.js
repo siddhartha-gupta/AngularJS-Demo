@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../settings', '../services/generic-config.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/event-pub-sub.service', '../settings', '../services/generic-config.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../sett
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, settings_1, generic_config_service_1;
+    var core_1, common_1, router_1, event_pub_sub_service_1, settings_1, generic_config_service_1;
     var Home;
     return {
         setters:[
@@ -21,6 +21,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../sett
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (event_pub_sub_service_1_1) {
+                event_pub_sub_service_1 = event_pub_sub_service_1_1;
+            },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             },
@@ -29,9 +32,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../sett
             }],
         execute: function() {
             Home = (function () {
-                function Home(genericConfig, router) {
+                function Home(genericConfig, router, customEventService) {
                     this.genericConfig = genericConfig;
                     this.router = router;
+                    this.customEventService = customEventService;
                     this.gameLevels = [];
                     this.gameStarter = [];
                     this.gameLevels = [{
@@ -79,7 +83,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../sett
                         directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass],
                         templateUrl: settings_1._settings.templatePath.component + 'home.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, router_1.Router])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, router_1.Router, event_pub_sub_service_1.CustomEventService])
                 ], Home);
                 return Home;
             })();

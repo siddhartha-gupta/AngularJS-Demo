@@ -42,11 +42,7 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                     };
                     this.heading = 'Tic Tac Toe';
                     customEventService.onRouteChange.subscribe(function (val) { return _this.onRouteChange(val); });
-                    this.customEventService.onHeaderClicked.subscribe(function (data) { return _this.test1(data); });
                 }
-                AppHeader.prototype.test1 = function (data) {
-                    console.log('from header: ', data);
-                };
                 AppHeader.prototype.onRouteChange = function (val) {
                     this.utils.log('onRouteChange, log from header: ', val);
                     var routeName = val.match(/[^?]*/i)[0];
@@ -69,7 +65,7 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                 AppHeader = __decorate([
                     core_1.Component({
                         selector: 'app-header',
-                        providers: [utils_service_1.Utils, event_pub_sub_service_1.CustomEventService],
+                        providers: [utils_service_1.Utils],
                         templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 
                     __metadata('design:paramtypes', [utils_service_1.Utils, event_pub_sub_service_1.CustomEventService])
