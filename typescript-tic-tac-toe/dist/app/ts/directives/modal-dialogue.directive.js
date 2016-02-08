@@ -59,7 +59,7 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                 ModalDialouge = __decorate([
                     core_1.Component({
                         selector: 'modal-dialogue, [modal-dialogue]',
-                        inputs: ['isVisible', 'text', 'body', 'showBtn2'],
+                        inputs: ['isVisible', 'title', 'body', 'showBtn2'],
                         templateUrl: settings_1._settings.templatePath.directive + 'modal-dialogue.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig])

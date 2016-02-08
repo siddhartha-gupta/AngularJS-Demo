@@ -195,7 +195,7 @@ export class GamePlay {
 					break;
 
 				case 'right':
-					this.showModalDialogue('test', this.gameInProgress);
+					this.showModalDialogue('Current Scorecard', this.gameInProgress);
 					break;
 			}
 		}
@@ -207,7 +207,7 @@ export class GamePlay {
 
 		this.modalDialogue = {
 			isVisible: true,
-			title: 'Match result',
+			title: 'Game Status',
 			body: text,
 			showBtn2: !this.gameInProgress
 		};

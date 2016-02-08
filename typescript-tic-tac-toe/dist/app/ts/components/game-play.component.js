@@ -201,7 +201,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                                 this.goToHome();
                                 break;
                             case 'right':
-                                this.showModalDialogue('test', this.gameInProgress);
+                                this.showModalDialogue('Current Scorecard', this.gameInProgress);
                                 break;
                         }
                     }
@@ -211,7 +211,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.gameInProgress = gameInProgress;
                     this.modalDialogue = {
                         isVisible: true,
-                        title: 'Match result',
+                        title: 'Game Status',
                         body: text,
                         showBtn2: !this.gameInProgress
                     };
