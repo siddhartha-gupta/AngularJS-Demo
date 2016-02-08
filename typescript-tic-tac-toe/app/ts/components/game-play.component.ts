@@ -2,14 +2,14 @@ import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
-import { _settings } from '../settings'
+import {CustomEventService} from '../services/event-pub-sub.service'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
-
 import { GenericConfig } from '../services/generic-config.service'
 import { CurrentGameConfig } from '../services/current-game-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'
 import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
+import { _settings } from '../settings'
 
 @Component({
 	selector: 'GamePlay',
@@ -19,10 +19,20 @@ import { Utils } from '../services/utils.service'
 })
 
 export class GamePlay {
-	that = this;
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter,, private router: Router) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
+		this.customEventService.onHeaderClicked.subscribe(data => this.test1(data));
+		this.customEventService.onRouteChange.subscribe(val => this.test(val));
+
 		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
+	}
+
+	test() {
+		console.log('test from gamePlay');
+	}
+
+	test1(data: string) {
+		console.log('from gamePlay test1: ', data);
 	}
 
 	ngOnInit() {

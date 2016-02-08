@@ -23,6 +23,7 @@
     "app/ts/components/game-play.component.ts",
     "app/ts/directives/modal-dialogue.directive.ts",
     "app/ts/services/utils.service.ts",
+    "app/ts/services/event-pub-sub.service.ts",
     "app/ts/services/generic-config.service.ts",
     "app/ts/services/current-game-config.service.ts",
     "app/ts/services/ai-gamePlay.service.ts",

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../settings', '../directives/modal-dialogue.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/event-pub-sub.service', '../directives/modal-dialogue.directive', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, settings_1, modal_dialogue_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1;
+    var core_1, browser_1, router_1, event_pub_sub_service_1, modal_dialogue_directive_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -21,8 +21,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (settings_1_1) {
-                settings_1 = settings_1_1;
+            function (event_pub_sub_service_1_1) {
+                event_pub_sub_service_1 = event_pub_sub_service_1_1;
             },
             function (modal_dialogue_directive_1_1) {
                 modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
@@ -41,10 +41,14 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             },
             function (utils_service_1_1) {
                 utils_service_1 = utils_service_1_1;
+            },
+            function (settings_1_1) {
+                settings_1 = settings_1_1;
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom, router) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom, router, customEventService) {
+                    var _this = this;
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
@@ -54,10 +58,18 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.renderer = renderer;
                     this._dom = _dom;
                     this.router = router;
-                    this.that = this;
+                    this.customEventService = customEventService;
+                    this.customEventService.onHeaderClicked.subscribe(function (data) { return _this.test1(data); });
+                    this.customEventService.onRouteChange.subscribe(function (val) { return _this.test(val); });
                     this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
                 }
+                GamePlay.prototype.test = function () {
+                    console.log('test from gamePlay');
+                };
+                GamePlay.prototype.test1 = function (data) {
+                    console.log('from gamePlay test1: ', data);
+                };
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame();
                 };
@@ -199,7 +211,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         directives: [router_1.ROUTER_DIRECTIVES, modal_dialogue_directive_1.ModalDialouge],
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService])
                 ], GamePlay);
                 return GamePlay;
             })();

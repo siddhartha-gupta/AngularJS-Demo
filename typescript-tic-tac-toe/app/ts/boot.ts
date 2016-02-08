@@ -3,7 +3,8 @@ import {provide} from 'angular2/core'
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from 'angular2/router'
 import 'rxjs/Rx'
 import {App} from './components/app.component'
+import {CustomEventService} from './services/event-pub-sub.service'
 import { GenericConfig } from './services/generic-config.service'
 import { CurrentGameConfig } from './services/current-game-config.service'
 
-bootstrap(App, [ROUTER_PROVIDERS, ELEMENT_PROBE_PROVIDERS, GenericConfig, CurrentGameConfig, provide(LocationStrategy, { useClass: HashLocationStrategy }), provide(APP_BASE_HREF, { useValue: '/' })]).catch(console.error);
+bootstrap(App, [ROUTER_PROVIDERS, ELEMENT_PROBE_PROVIDERS, CustomEventService, GenericConfig, CurrentGameConfig, provide(LocationStrategy, { useClass: HashLocationStrategy }), provide(APP_BASE_HREF, { useValue: '/' })]).catch(console.error);

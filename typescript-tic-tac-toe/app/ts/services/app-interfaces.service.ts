@@ -37,3 +37,9 @@ export interface initSetupInterface {
 	text: string;
 	cssClass: string;
 }
+
+export interface headerInterface {
+	text: string;
+	btnType: string;
+	showBtn: Boolean;
+}

@@ -1,7 +1,5 @@
-<div id="header" class="page-header" ng-controller="headerController">
-	<div class="row">
-		<div class="col-md-12">
-			<h2 class="text-center">Tic tac toe</h2>
-		</div>
-	</div>
-</div>
+<header>
+	<span *ngIf="headerLeftButton.showBtn" class="left" (click)="headerFunc($event, headerLeftButton.btnType)">{{headerLeftButton.text}}</span>
+	<h2>{{heading}}</h2>
+	<span *ngIf="headerLeftButton.showBtn" class="right" (click)="headerFunc($event, headerRightButton.btnType)">{{headerRightButton.text}}</span>
+</header>
