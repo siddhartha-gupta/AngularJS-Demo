@@ -26,32 +26,49 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                 function ModalDialouge(genericConfig) {
                     this.genericConfig = genericConfig;
                     this.btn1Callback = new core_1.EventEmitter();
+                    this.btn2Callback = new core_1.EventEmitter();
+                    this.closeBtnCallback = new core_1.EventEmitter();
                 }
                 ModalDialouge.prototype.mainMenu = function (event) {
                     event.preventDefault();
                     event.stopPropagation();
-                    this.hideModal();
+                    this.resetModalConfig();
+                    this.btn1Callback.emit(event);
+                };
+                ModalDialouge.prototype.playAgain = function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.resetModalConfig();
+                    this.btn2Callback.emit(event);
                 };
                 ModalDialouge.prototype.hideModal = function (event) {
-                    if (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.resetModalConfig();
+                    this.closeBtnCallback.emit(event);
+                };
+                ModalDialouge.prototype.resetModalConfig = function () {
                     this.genericConfig.config.modalDialogue = {
                         isVisible: false,
                         title: '',
                         body: ''
                     };
-                    this.btn1Callback.emit(event);
                 };
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], ModalDialouge.prototype, "btn1Callback", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], ModalDialouge.prototype, "btn2Callback", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], ModalDialouge.prototype, "closeBtnCallback", void 0);
                 ModalDialouge = __decorate([
                     core_1.Component({
                         selector: 'modal-dialogue, [modal-dialogue]',
-                        // outputs: ['btn1Callback', 'btn2Callback'],
                         templateUrl: settings_1._settings.templatePath.directive + 'modal-dialogue.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig])
