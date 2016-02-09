@@ -31,7 +31,8 @@ gulp.task('copyLibs', ['clean'], function() {
 			'node_modules/rxjs/bundles/Rx.js',
 			'node_modules/angular2/bundles/angular2.dev.js',
 			'node_modules/angular2/bundles/router.dev.js',
-			'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js'
+			'node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js',
+			'node_modules/socket.io/node_modules/socket.io-client/socket.io.js'
 		])
 		.pipe(gulp.dest('dist/lib'))
 });

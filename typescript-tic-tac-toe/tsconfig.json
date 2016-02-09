@@ -29,6 +29,7 @@
     "app/ts/services/ai-gamePlay.service.ts",
     "app/ts/services/game-status.service.ts",
     "app/ts/services/app-interfaces.service.ts",
+    "app/ts/services/server-communicator.service.ts",
     "app/ts/settings.ts",
     "app/ts/boot.ts"
   ],

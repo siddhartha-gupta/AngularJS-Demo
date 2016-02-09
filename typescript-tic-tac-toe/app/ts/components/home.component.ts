@@ -2,7 +2,8 @@ import {Component} from 'angular2/core'
 import {NgClass} from 'angular2/common'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
-import {CustomEventService} from '../services/event-pub-sub.service'
+import { ServerCommunicator } from '../services/server-communicator.service'
+import { CustomEventService } from '../services/event-pub-sub.service'
 import { _settings } from '../settings'
 import { GenericConfig } from '../services/generic-config.service'
 import { homeModelInterface, initSetupInterface } from '../services/app-interfaces.service'
@@ -19,7 +20,7 @@ export class Home {
 	gameLevels: initSetupInterface[] = [];
 	gameStarter: initSetupInterface[] = [];
 
-	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService) {
+	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator) {
 		this.gameLevels = [{
 			'value': 1,
 			'text': 'Easy',
@@ -64,4 +65,9 @@ export class Home {
 		console.log('startGame: ', this.genericConfig.config);
 		this.router.navigate(['GamePlay']);
 	}
+
+	/*testServer() {
+		this.serverCommunicator.initSocket('test@test.com', 'test1@test.com');
+		this.serverCommunicator.msgSender('test');
+	}*/
 }
