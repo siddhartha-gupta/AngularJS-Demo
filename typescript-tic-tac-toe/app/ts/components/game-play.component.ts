@@ -1,4 +1,4 @@
-import {Component, View, OnInit, ElementRef, Renderer} from 'angular2/core'
+import {Component, View, OnInit, ElementRef, Renderer, ViewEncapsulation} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
@@ -18,6 +18,7 @@ import { _settings } from '../settings'
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
 	directives: [ROUTER_DIRECTIVES, ModalDialouge],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
+	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 

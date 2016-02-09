@@ -241,6 +241,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
                         directives: [router_1.ROUTER_DIRECTIVES, modal_dialogue_directive_1.ModalDialouge],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
+                        // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService])
