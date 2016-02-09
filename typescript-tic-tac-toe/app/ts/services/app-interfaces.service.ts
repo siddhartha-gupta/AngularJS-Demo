@@ -19,12 +19,16 @@ export interface GenericConfigInterface {
 		'playerWins': number;
 		'computerWins': number;
 	};
-	gridComputationLen: number
+	gridComputationLen: number;
+	multiPlayer: Boolean;
 }
 
 export interface homeModelInterface {
 	gameLevel: number;
+	opponent: number;
 	firstChance: number;
+	userEmail: string;
+	username: string;
 }
 
 export interface initSetupInterface {

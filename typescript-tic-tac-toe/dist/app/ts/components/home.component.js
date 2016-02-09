@@ -36,12 +36,21 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
         execute: function() {
             Home = (function () {
                 function Home(genericConfig, router, customEventService, serverCommunicator) {
+                    var _this = this;
                     this.genericConfig = genericConfig;
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
                     this.gameLevels = [];
+                    this.opponentOptions = [];
                     this.gameStarter = [];
+                    this.model = {
+                        gameLevel: 2,
+                        opponent: 2,
+                        firstChance: 1,
+                        userEmail: '',
+                        username: ''
+                    };
                     this.gameLevels = [{
                             'value': 1,
                             'text': 'Easy',
@@ -57,6 +66,16 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             'text': 'Expert',
                             'cssClass': 'btn-danger'
                         }];
+                    this.opponentOptions = [{
+                            'value': 1,
+                            'text': 'vs Computer',
+                            'cssClass': 'btn-info'
+                        },
+                        {
+                            'value': 2,
+                            'text': 'Multi Player',
+                            'cssClass': 'btn-primary'
+                        }];
                     this.gameStarter = [{
                             'value': 1,
                             'text': 'You',
@@ -67,19 +86,37 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             'text': 'Computer',
                             'cssClass': 'btn-primary'
                         }];
-                    this.model = {
-                        gameLevel: 2,
-                        firstChance: 1
-                    };
+                    customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                 }
+                Home.prototype.onHeaderClicked = function (data) {
+                    if (data.routeName === '') {
+                        switch (data.btnType) {
+                            case 'left':
+                                break;
+                            case 'right':
+                                this.startGame();
+                                break;
+                        }
+                    }
+                };
                 Home.prototype.startGame = function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log('startGame: ', this.model);
-                    this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
-                    this.genericConfig.config.gameLevel = this.model.gameLevel;
-                    console.log('startGame: ', this.genericConfig.config);
-                    this.router.navigate(['GamePlay']);
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (this.model.opponent === 2) {
+                        this.serverCommunicator.initSocket();
+                        this.serverCommunicator.sender = this.model.userEmail;
+                        this.serverCommunicator.msgSender('register-email', {
+                            emailId: this.model.userEmail,
+                            username: this.model.username
+                        });
+                    }
+                    else {
+                        this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
+                        this.genericConfig.config.gameLevel = this.model.gameLevel;
+                        this.router.navigate(['GamePlay']);
+                    }
                 };
                 Home = __decorate([
                     core_1.Component({

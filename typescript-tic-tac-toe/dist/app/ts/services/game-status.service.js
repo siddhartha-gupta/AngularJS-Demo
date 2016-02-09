@@ -46,7 +46,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                             this.onGameDraw();
                             return 'gameDraw';
                         }
-                        else if (isHuman) {
+                        else if (isHuman && !this.genericConfig.config.multiPlayer) {
                             console.log('makeAIMove: ', isHuman);
                             return 'makeAIMove';
                         }

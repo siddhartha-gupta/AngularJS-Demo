@@ -18,19 +18,19 @@ export class AppHeader {
 	heading: string;
 
 	constructor(private utils: Utils, private customEventService: CustomEventService) {
+		this.heading = 'Tic Tac Toe'
 		this.headerLeftButton = {
-			'btnType': 'left',
-			'text': 'Main Menu',
+			'btnType': '',
+			'text': '',
 			'showBtn': false
 		};
 
 		this.headerRightButton = {
 			'btnType': 'right',
-			'text': 'Status',
-			'showBtn': false
+			'text': 'Start game',
+			'showBtn': true
 		};
 
-		this.heading = 'Tic Tac Toe';
 		customEventService.onRouteChange.subscribe((val: string) => this.onRouteChange(val));
 	}
 
@@ -41,15 +41,41 @@ export class AppHeader {
 
 		switch (routeName) {
 			case 'gameplay':
-				this.headerLeftButton.showBtn = true;
-				this.headerRightButton.showBtn = true;
+				this.gamePlayHeaderBtns();
 				break;
 
 			default:
-				this.headerLeftButton.showBtn = false;
-				this.headerRightButton.showBtn = false;
+				this.homeHeaderBtns();
 				break;
 		}
+	}
+
+	homeHeaderBtns() {
+		this.headerLeftButton = {
+			'btnType': '',
+			'text': '',
+			'showBtn': false
+		};
+
+		this.headerRightButton = {
+			'btnType': 'right',
+			'text': 'Start game',
+			'showBtn': true
+		};
+	}
+
+	gamePlayHeaderBtns() {
+		this.headerLeftButton = {
+			'btnType': 'left',
+			'text': 'Main Menu',
+			'showBtn': true
+		};
+
+		this.headerRightButton = {
+			'btnType': 'right',
+			'text': 'Status',
+			'showBtn': true
+		};
 	}
 
 	headerFunc(event: Event, btnType: string) {

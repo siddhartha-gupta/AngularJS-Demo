@@ -21,27 +21,37 @@ System.register(['angular2/core'], function(exports_1) {
                     this.sender = null;
                     this.recipient = null;
                 }
-                ServerCommunicator.prototype.initSocket = function (username, recipient) {
+                ServerCommunicator.prototype.initSocket = function () {
                     this.socket = io.connect('http://localhost:5000');
-                    console.log(this.socket);
-                    this.sender = username;
-                    this.recipient = recipient;
+                    this.msgReceiver();
+                };
+                ServerCommunicator.prototype.msgSender = function (identifier, data) {
+                    var recipient = this.recipient;
+                    this.socket.emit(identifier, data);
+                    /*
+                    register-email
+                    add-recipient
+                    send-message
+            
                     this.socket.emit("create-join-room", {
                         "username": username,
                         "recipient": recipient
                     });
-                    this.msgReceiver();
-                };
-                ServerCommunicator.prototype.msgSender = function (content) {
-                    var recipient = this.recipient;
+            
                     this.socket.emit("private-message", {
                         "recipient": recipient,
                         "content": content
-                    });
+                    });*/
                 };
                 ServerCommunicator.prototype.msgReceiver = function () {
                     this.socket.on("add-message", function (data) {
                         console.log('add-message:', data);
+                    });
+                    this.socket.on('email-registered', function (data) {
+                        console.log('email-registered:', data);
+                    });
+                    this.socket.on('current-players-list', function (data) {
+                        console.log('email-registered:', data);
                     });
                 };
                 ServerCommunicator = __decorate([

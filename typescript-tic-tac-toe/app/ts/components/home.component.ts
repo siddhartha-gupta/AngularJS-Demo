@@ -18,9 +18,19 @@ import { homeModelInterface, initSetupInterface } from '../services/app-interfac
 export class Home {
 	model: homeModelInterface;
 	gameLevels: initSetupInterface[] = [];
+	opponentOptions: initSetupInterface[] = [];
 	gameStarter: initSetupInterface[] = [];
 
 	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator) {
+
+		this.model = {
+			gameLevel: 2,
+			opponent: 2,
+			firstChance: 1,
+			userEmail: '',
+			username: ''
+		};
+
 		this.gameLevels = [{
 			'value': 1,
 			'text': 'Easy',
@@ -37,6 +47,17 @@ export class Home {
 				'cssClass': 'btn-danger'
 			}];
 
+		this.opponentOptions = [{
+			'value': 1,
+			'text': 'vs Computer',
+			'cssClass': 'btn-info'
+		},
+			{
+				'value': 2,
+				'text': 'Multi Player',
+				'cssClass': 'btn-primary'
+			}];
+
 		this.gameStarter = [{
 			'value': 1,
 			'text': 'You',
@@ -48,26 +69,39 @@ export class Home {
 				'cssClass': 'btn-primary'
 			}];
 
-		this.model = {
-			gameLevel: 2,
-			firstChance: 1
+		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
+	}
+
+	onHeaderClicked(data: any) {
+		if (data.routeName === '') {
+			switch (data.btnType) {
+				case 'left':
+					break;
+
+				case 'right':
+					this.startGame();
+					break;
+			}
 		}
 	}
 
-	startGame(event: Event) {
-		event.preventDefault();
-		event.stopPropagation();
+	startGame(event?: Event) {
+		if (event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 
-		console.log('startGame: ', this.model);
-		this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
-		this.genericConfig.config.gameLevel = this.model.gameLevel;
-
-		console.log('startGame: ', this.genericConfig.config);
-		this.router.navigate(['GamePlay']);
+		if (this.model.opponent === 2) {
+			this.serverCommunicator.initSocket();
+			this.serverCommunicator.sender = this.model.userEmail;
+			this.serverCommunicator.msgSender('register-email', {
+				emailId: this.model.userEmail,
+				username: this.model.username
+			});
+		} else {
+			this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
+			this.genericConfig.config.gameLevel = this.model.gameLevel;
+			this.router.navigate(['GamePlay']);
+		}
 	}
-
-	/*testServer() {
-		this.serverCommunicator.initSocket('test@test.com', 'test1@test.com');
-		this.serverCommunicator.msgSender('test');
-	}*/
 }

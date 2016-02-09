@@ -12,7 +12,6 @@ import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 import { _settings } from '../settings'
 
-
 @Component({
 	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
@@ -76,7 +75,7 @@ export class GamePlay {
 			}
 		}
 
-		if (!this.genericConfig.config.playerstarts) {
+		if (!this.genericConfig.config.playerstarts && !this.genericConfig.config.multiPlayer) {
 			this.makeAIMove();
 		}
 	}
@@ -161,7 +160,6 @@ export class GamePlay {
 	}
 
 	onHeaderClicked(data: any) {
-		console.log('from gamePlay test1: ', data);
 		if (data.routeName.indexOf('gameplay') >= 0) {
 			switch (data.btnType) {
 				case 'left':

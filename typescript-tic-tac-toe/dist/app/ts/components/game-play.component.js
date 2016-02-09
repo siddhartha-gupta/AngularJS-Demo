@@ -95,7 +95,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
                         }
                     }
-                    if (!this.genericConfig.config.playerstarts) {
+                    if (!this.genericConfig.config.playerstarts && !this.genericConfig.config.multiPlayer) {
                         this.makeAIMove();
                     }
                 };
@@ -165,7 +165,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this._dom.setInnerHTML(elem, '');
                 };
                 GamePlay.prototype.onHeaderClicked = function (data) {
-                    console.log('from gamePlay test1: ', data);
                     if (data.routeName.indexOf('gameplay') >= 0) {
                         switch (data.btnType) {
                             case 'left':

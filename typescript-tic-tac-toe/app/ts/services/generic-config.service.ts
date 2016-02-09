@@ -33,7 +33,8 @@ export class GenericConfig {
 					'playerWins': 0,
 					'computerWins': 0,
 				},
-				gridComputationLen: 0
+				gridComputationLen: 0,
+				multiPlayer: false
 			};
 
 		this.config.gridComputationLen = (this.config.gridSize * this.config.gridSize) - 1;
