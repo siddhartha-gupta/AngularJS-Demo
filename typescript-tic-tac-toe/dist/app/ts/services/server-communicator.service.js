@@ -51,7 +51,7 @@ System.register(['angular2/core'], function(exports_1) {
                         console.log('email-registered:', data);
                     });
                     this.socket.on('current-players-list', function (data) {
-                        console.log('email-registered:', data);
+                        console.log('current-players-list:', data);
                     });
                 };
                 ServerCommunicator = __decorate([

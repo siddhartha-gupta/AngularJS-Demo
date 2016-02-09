@@ -98,6 +98,8 @@ export class Home {
 				emailId: this.model.userEmail,
 				username: this.model.username
 			});
+
+			this.router.navigate(['PlayersList']);
 		} else {
 			this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
 			this.genericConfig.config.gameLevel = this.model.gameLevel;

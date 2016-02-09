@@ -165,7 +165,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this._dom.setInnerHTML(elem, '');
                 };
                 GamePlay.prototype.onHeaderClicked = function (data) {
-                    if (data.routeName.indexOf('gameplay') >= 0) {
+                    if (data.routeName === '/gameplay') {
                         switch (data.btnType) {
                             case 'left':
                                 this.goToHome();

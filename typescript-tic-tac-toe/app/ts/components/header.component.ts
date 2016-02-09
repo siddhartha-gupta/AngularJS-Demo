@@ -44,6 +44,10 @@ export class AppHeader {
 				this.gamePlayHeaderBtns();
 				break;
 
+			case 'playerslist':
+				this.playersListHeaderBtns();
+				break;
+
 			default:
 				this.homeHeaderBtns();
 				break;
@@ -55,6 +59,20 @@ export class AppHeader {
 			'btnType': '',
 			'text': '',
 			'showBtn': false
+		};
+
+		this.headerRightButton = {
+			'btnType': 'right',
+			'text': 'Start game',
+			'showBtn': true
+		};
+	}
+
+	playersListHeaderBtns() {
+		this.headerLeftButton = {
+			'btnType': 'left',
+			'text': 'Main Menu',
+			'showBtn': true
 		};
 
 		this.headerRightButton = {

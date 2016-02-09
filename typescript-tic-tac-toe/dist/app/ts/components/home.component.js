@@ -111,6 +111,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             emailId: this.model.userEmail,
                             username: this.model.username
                         });
+                        this.router.navigate(['PlayersList']);
                     }
                     else {
                         this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;

@@ -160,7 +160,7 @@ export class GamePlay {
 	}
 
 	onHeaderClicked(data: any) {
-		if (data.routeName.indexOf('gameplay') >= 0) {
+		if (data.routeName === '/gameplay') {
 			switch (data.btnType) {
 				case 'left':
 					this.goToHome();

@@ -50,6 +50,9 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                         case 'gameplay':
                             this.gamePlayHeaderBtns();
                             break;
+                        case 'playerslist':
+                            this.playersListHeaderBtns();
+                            break;
                         default:
                             this.homeHeaderBtns();
                             break;
@@ -60,6 +63,18 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                         'btnType': '',
                         'text': '',
                         'showBtn': false
+                    };
+                    this.headerRightButton = {
+                        'btnType': 'right',
+                        'text': 'Start game',
+                        'showBtn': true
+                    };
+                };
+                AppHeader.prototype.playersListHeaderBtns = function () {
+                    this.headerLeftButton = {
+                        'btnType': 'left',
+                        'text': 'Main Menu',
+                        'showBtn': true
                     };
                     this.headerRightButton = {
                         'btnType': 'right',

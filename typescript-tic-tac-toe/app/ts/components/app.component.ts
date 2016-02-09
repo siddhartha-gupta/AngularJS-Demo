@@ -5,6 +5,7 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2
 import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
+import {PlayersList} from './players-list.component'
 import {_settings} from '../settings'
 
 @Component({
@@ -16,6 +17,7 @@ import {_settings} from '../settings'
 
 @RouteConfig([
 	{ path: '', as: 'Home', component: Home },
+	{ path: '/playerslist', as: 'PlayersList', component: PlayersList },
 	{ path: '/gameplay', as: 'GamePlay', component: GamePlay }
 ])
 

@@ -20,6 +20,7 @@
     "app/ts/components/app.component.ts",
     "app/ts/components/header.component.ts",
     "app/ts/components/home.component.ts",
+    "app/ts/components/players-list.component.ts",
     "app/ts/components/game-play.component.ts",
     "app/ts/directives/modal-dialogue.directive.ts",
     "app/ts/services/utils.service.ts",

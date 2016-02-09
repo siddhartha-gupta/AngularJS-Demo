@@ -48,7 +48,7 @@ export class ServerCommunicator {
 		});
 
 		this.socket.on('current-players-list', (data: any) => {
-			console.log('email-registered:', data)
+			console.log('current-players-list:', data)
 		});
 	}
 }
