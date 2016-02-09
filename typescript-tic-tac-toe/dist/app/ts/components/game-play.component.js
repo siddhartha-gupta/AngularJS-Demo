@@ -47,14 +47,13 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, elementRef, renderer, _dom, router, customEventService) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService) {
                     var _this = this;
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
                     this.gameStatus = gameStatus;
                     this.utils = utils;
-                    this.elementRef = elementRef;
                     this.renderer = renderer;
                     this._dom = _dom;
                     this.router = router;
@@ -125,36 +124,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
-                    this.utils.log('makeAIMove');
-                    var result = 0;
-                    // check if ai can win
-                    result = this.aiGamePlay.chooseMove(true);
-                    // check move to prevent ai loss
-                    if (this.genericConfig.config.gameLevel > 1) {
-                        if (!result || result === 0) {
-                            result = this.aiGamePlay.chooseMove(false);
-                        }
-                        else {
-                            this.utils.log('winning move is possible: ', result);
-                        }
-                    }
-                    // check best possible move for ai
-                    if (this.genericConfig.config.gameLevel > 2) {
-                        if (!result || result === 0) {
-                            result = this.aiGamePlay.seekBestMove();
-                        }
-                        else {
-                            this.utils.log('move to prevent defeat: ', result);
-                        }
-                    }
-                    if (!result || result == 0 || result <= 10) {
-                        result = this.aiGamePlay.makeRandomMove();
-                        this.utils.log('making random move: ', result);
-                    }
-                    else {
-                        this.utils.log('best move available: ', result);
-                    }
-                    this.utils.log('result: ', result);
+                    var result = this.aiGamePlay.makeAIMove();
+                    this.utils.log('makeAIMove, result: ', result);
                     this.currentGameConfig.currentGame.moves[result] = 2;
                     this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
                     var elem = this._dom.query('li[id*=combine_' + result + ']');
@@ -244,7 +215,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.ElementRef, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService])
                 ], GamePlay);
                 return GamePlay;
             })();

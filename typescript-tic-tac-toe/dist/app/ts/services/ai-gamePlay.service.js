@@ -1,4 +1,4 @@
-System.register(['angular2/core', './generic-config.service', './current-game-config.service'], function(exports_1) {
+System.register(['angular2/core', './generic-config.service', './current-game-config.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, generic_config_service_1, current_game_config_service_1;
+    var core_1, generic_config_service_1, current_game_config_service_1, utils_service_1;
     var AIGamePlay;
     return {
         setters:[
@@ -20,13 +20,48 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
             },
             function (current_game_config_service_1_1) {
                 current_game_config_service_1 = current_game_config_service_1_1;
+            },
+            function (utils_service_1_1) {
+                utils_service_1 = utils_service_1_1;
             }],
         execute: function() {
             AIGamePlay = (function () {
-                function AIGamePlay(genericConfig, currentGameConfig) {
+                function AIGamePlay(genericConfig, currentGameConfig, utils) {
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
+                    this.utils = utils;
                 }
+                AIGamePlay.prototype.makeAIMove = function () {
+                    var result = 0;
+                    // check if ai can win
+                    result = this.chooseMove(true);
+                    // check move to prevent ai loss
+                    if (this.genericConfig.config.gameLevel > 1) {
+                        if (!result || result === 0) {
+                            result = this.chooseMove(false);
+                        }
+                        else {
+                            this.utils.log('winning move is possible: ', result);
+                        }
+                    }
+                    // check best possible move for ai
+                    if (this.genericConfig.config.gameLevel > 2) {
+                        if (!result || result === 0) {
+                            result = this.seekBestMove();
+                        }
+                        else {
+                            this.utils.log('move to prevent defeat: ', result);
+                        }
+                    }
+                    if (!result || result == 0 || result <= 10) {
+                        result = this.makeRandomMove();
+                        this.utils.log('making random move: ', result);
+                    }
+                    else {
+                        this.utils.log('best move available: ', result);
+                    }
+                    return result;
+                };
                 AIGamePlay.prototype.chooseMove = function (istowin) {
                     var gridValue = (istowin) ? 2 : 1, result;
                     for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
@@ -181,7 +216,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                 };
                 AIGamePlay = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, utils_service_1.Utils])
                 ], AIGamePlay);
                 return AIGamePlay;
             })();

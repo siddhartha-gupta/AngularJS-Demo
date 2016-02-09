@@ -1,13 +1,47 @@
 import {Injectable} from 'angular2/core'
 import { GenericConfig } from './generic-config.service'
 import { CurrentGameConfig } from './current-game-config.service'
+import { Utils } from '../services/utils.service'
 
 @Injectable()
 export class AIGamePlay {
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig) { }
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, private utils: Utils) { }
 
 	private aiThinking: Number;
 	private cachedNextMove: any;
+
+	makeAIMove() {
+		let result: number = 0;
+
+		// check if ai can win
+		result = this.chooseMove(true);
+
+		// check move to prevent ai loss
+		if (this.genericConfig.config.gameLevel > 1) {
+			if (!result || result === 0) {
+				result = this.chooseMove(false);
+			} else {
+				this.utils.log('winning move is possible: ', result);
+			}
+		}
+
+		// check best possible move for ai
+		if (this.genericConfig.config.gameLevel > 2) {
+			if (!result || result === 0) {
+				result = this.seekBestMove();
+			} else {
+				this.utils.log('move to prevent defeat: ', result);
+			}
+		}
+
+		if (!result || result == 0 || result <= 10) {
+			result = this.makeRandomMove();
+			this.utils.log('making random move: ', result);
+		} else {
+			this.utils.log('best move available: ', result);
+		}
+		return result;
+	}
 
 	chooseMove(istowin?: Boolean) {
 		let gridValue = (istowin) ? 2 : 1,

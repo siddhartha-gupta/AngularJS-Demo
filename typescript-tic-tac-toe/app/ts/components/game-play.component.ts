@@ -1,4 +1,4 @@
-import {Component, View, OnInit, ElementRef, Renderer, ViewEncapsulation} from 'angular2/core'
+import {Component, View, OnInit, Renderer, ViewEncapsulation} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
@@ -26,7 +26,7 @@ export class GamePlay {
 	gameInProgress: Boolean = false;
 	modalDialogue: ModalDialogueInterface;
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public elementRef: ElementRef, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		this.modalDialogue = {
@@ -110,37 +110,8 @@ export class GamePlay {
 	}
 
 	makeAIMove() {
-		this.utils.log('makeAIMove');
-		let result: number = 0;
-
-		// check if ai can win
-		result = this.aiGamePlay.chooseMove(true);
-
-		// check move to prevent ai loss
-		if (this.genericConfig.config.gameLevel > 1) {
-			if (!result || result === 0) {
-				result = this.aiGamePlay.chooseMove(false);
-			} else {
-				this.utils.log('winning move is possible: ', result);
-			}
-		}
-
-		// check best possible move for ai
-		if (this.genericConfig.config.gameLevel > 2) {
-			if (!result || result === 0) {
-				result = this.aiGamePlay.seekBestMove();
-			} else {
-				this.utils.log('move to prevent defeat: ', result);
-			}
-		}
-
-		if (!result || result == 0 || result <= 10) {
-			result = this.aiGamePlay.makeRandomMove();
-			this.utils.log('making random move: ', result);
-		} else {
-			this.utils.log('best move available: ', result);
-		}
-		this.utils.log('result: ', result);
+		let result: number = this.aiGamePlay.makeAIMove();
+		this.utils.log('makeAIMove, result: ', result);
 
 		this.currentGameConfig.currentGame.moves[result] = 2;
 		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
