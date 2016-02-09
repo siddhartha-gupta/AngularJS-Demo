@@ -37,7 +37,7 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                     };
                     this.headerRightButton = {
                         'btnType': 'right',
-                        'text': 'Scorecard',
+                        'text': 'Status',
                         'showBtn': false
                     };
                     this.heading = 'Tic Tac Toe';

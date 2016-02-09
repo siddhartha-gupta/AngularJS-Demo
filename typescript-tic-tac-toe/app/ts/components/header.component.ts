@@ -26,7 +26,7 @@ export class AppHeader {
 
 		this.headerRightButton = {
 			'btnType': 'right',
-			'text': 'Scorecard',
+			'text': 'Status',
 			'showBtn': false
 		};
 

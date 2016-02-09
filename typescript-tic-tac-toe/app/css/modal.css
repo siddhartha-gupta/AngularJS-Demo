@@ -1,13 +1,12 @@
 .modal-dialog-custom {
 	display:  block;
 	background: rgba(0, 0, 0, 0.6);
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .stats-container {
-	width: calc(100% - 12px);
-	margin: 10px auto 15px;
-	float: left;
-	padding: 10px;
+	width: 100%;
+	margin: 15px auto;
 	position: relative;
 }
 
@@ -18,17 +17,21 @@
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
-	/*border-right: 1px solid #ddd;*/
 }
 
 .group-title {
-	/*border-bottom: 1px solid #ddd;*/
-	/*background: #F3F3F3;*/
-	padding: 5px 0;
+	padding: 5px 10px;
+	border-top: 1px solid #ddd;
 }
 
-.stats-text {
-	padding: 5px 0;
-	display: block;
-	font-size: 16px;
+.row div:nth-child(even){
+  background-color: #fff;
+}
+.row div:nth-child(odd){
+  background-color: #f9f9f9;
+}
+
+.text-warning {
+	margin: 0;
+	color: #D80707;
 }
