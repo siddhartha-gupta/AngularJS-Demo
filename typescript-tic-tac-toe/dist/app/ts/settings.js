@@ -7,7 +7,8 @@ System.register([], function(exports_1) {
                 templatePath: {
                     'directive': 'app/templates/directives/',
                     'component': 'app/templates/components/'
-                }
+                },
+                cssPath: 'app/css/'
             });
         }
     }

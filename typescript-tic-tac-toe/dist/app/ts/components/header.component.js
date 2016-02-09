@@ -66,6 +66,7 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                     core_1.Component({
                         selector: 'app-header',
                         providers: [utils_service_1.Utils],
+                        styleUrls: [settings_1._settings.cssPath + 'header.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 
                     __metadata('design:paramtypes', [utils_service_1.Utils, event_pub_sub_service_1.CustomEventService])

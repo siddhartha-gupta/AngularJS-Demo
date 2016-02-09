@@ -5,7 +5,6 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2
 import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
-
 import {_settings} from '../settings'
 
 @Component({

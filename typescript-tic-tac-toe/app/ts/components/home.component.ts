@@ -10,6 +10,7 @@ import { homeModelInterface, initSetupInterface } from '../services/app-interfac
 @Component({
 	selector: 'Home',
 	directives: [ROUTER_DIRECTIVES, NgClass],
+	styleUrls: [_settings.cssPath + 'home.css'],
 	templateUrl: _settings.templatePath.component + 'home.template.html'
 })
 

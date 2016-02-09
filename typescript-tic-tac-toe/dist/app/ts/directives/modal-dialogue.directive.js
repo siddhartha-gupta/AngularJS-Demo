@@ -60,6 +60,7 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                     core_1.Component({
                         selector: 'modal-dialogue, [modal-dialogue]',
                         inputs: ['isVisible', 'title', 'body', 'showBtn2'],
+                        styleUrls: [settings_1._settings.cssPath + 'modal.css'],
                         templateUrl: settings_1._settings.templatePath.directive + 'modal-dialogue.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig])

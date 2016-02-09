@@ -17,6 +17,7 @@ import { _settings } from '../settings'
 	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
 	directives: [ROUTER_DIRECTIVES, ModalDialouge],
+	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 

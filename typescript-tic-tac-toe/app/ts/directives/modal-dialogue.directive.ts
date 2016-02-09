@@ -5,6 +5,7 @@ import { GenericConfig } from '../services/generic-config.service'
 @Component({
 	selector: 'modal-dialogue, [modal-dialogue]',
 	inputs: ['isVisible', 'title', 'body', 'showBtn2'],
+	styleUrls: [_settings.cssPath + 'modal.css'],
 	templateUrl: _settings.templatePath.directive + 'modal-dialogue.template.html'
 })
 

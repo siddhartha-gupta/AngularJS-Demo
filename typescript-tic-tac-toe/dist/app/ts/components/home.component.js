@@ -81,6 +81,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     core_1.Component({
                         selector: 'Home',
                         directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass],
+                        styleUrls: [settings_1._settings.cssPath + 'home.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'home.template.html'
                     }), 
                     __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, router_1.Router, event_pub_sub_service_1.CustomEventService])

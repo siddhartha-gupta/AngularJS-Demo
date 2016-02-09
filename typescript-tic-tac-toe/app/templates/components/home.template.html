@@ -1,12 +1,14 @@
 <div class="game-level">
 	<form action="">
 		<div class="level-group">
+			<div class="heading">Difficulty</div>
 			<div class="level-radio" *ngFor="#item of gameLevels">
 				<input [id]="item.text" type="radio" name="gameLevel" (click)="model.gameLevel = item.value" [checked]="model.gameLevel === item.value">
 				<label [attr.for]="item.text" class="btn btn-group btn-group-justified" [ngClass]="item.cssClass">{{item.text}}</label>
 			</div>
 		</div>
 		<div class="level-group">
+			<div class="heading">First move</div>
 			<span class="level-radio" *ngFor="#item of gameStarter">
 				<input [id]="item.text" type="radio" name="playerstarts" (click)="model.firstChance = item.value" [checked]="model.firstChance === item.value">
 				<label [attr.for]="item.text" class="btn btn-group btn-group-justified" [ngClass]="item.cssClass">{{item.text}}</label>
