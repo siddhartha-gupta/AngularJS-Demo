@@ -1,6 +1,9 @@
 <div>
 	<div class="row stats-container" *ngIf="playersList && playersList.length > 0">
-		<div *ngFor="#key of playersList" class="group-title" (click)="onRecipientSelected($event, key.emailId)">{{key.username}} - {{key.emailId}}</div>
+		<div *ngFor="#key of playersList" class="group-title" (click)="onRecipientSelected($event, key.emailId)">
+			<span class="tickmark">&#10004;</span>
+			{{key.username}} - {{key.emailId}}
+		</div>
 	</div>
 	<div *ngIf="!playersList || playersList.length === 0">
 		<span>Currently no players available</span>
