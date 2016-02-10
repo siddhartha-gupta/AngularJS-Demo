@@ -1,8 +1,9 @@
 import {Injectable} from 'angular2/core'
+import { GenericConfig } from '../services/generic-config.service'
 
 @Injectable()
 export class Utils {
-	constructor() { }
+	constructor(private genericConfig: GenericConfig) { }
 
 	getDataType(obj: any) {
 		return ({}).toString.call(obj).toLowerCase();
@@ -33,6 +34,26 @@ export class Utils {
 				}
 		}
 		return isNull;
+	}
+
+	getHoverClass() {
+		let className: string = 'player1';
+		if (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) {
+			className = 'player2';
+		}
+		return className;
+	}
+
+	canPlay() {
+		if (this.genericConfig.config.multiPlayer) {
+			if (this.genericConfig.multiPlayerConfig.playerTurn && this.genericConfig.config.playGame) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return this.genericConfig.config.playGame
+		}
 	}
 
 	log(...msg: any[]) {

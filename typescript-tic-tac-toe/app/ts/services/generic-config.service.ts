@@ -75,4 +75,10 @@ export class GenericConfig {
 	updateConfig(rootKey: string, subKey: string, value: any) {
 
 	}
+
+	updateCurrentGameConfig(block: number, player: number) {
+		this.currentGame.moves[block] = player;
+		this.currentGame.movesIndex[this.currentGame.stepsPlayed] = block;
+		this.currentGame.stepsPlayed++;
+	}
 }

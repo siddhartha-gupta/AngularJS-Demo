@@ -58,20 +58,14 @@ export class GamePlay {
 		this.drawGrid();
 	}
 
-	getHoverClass() {
-		let className: string = 'player1';
-		if (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) {
-			className = 'player2';
-		}
-		return className;
-	}
+	
 
 	drawGrid() {
 		let gridCell: Array<any> = [],
 			elem = this._dom.query('ul[id*=game-grid]'),
 			liElem = this._dom.querySelectorAll(elem, 'li'),
 			that = this,
-			hoverClass = this.getHoverClass();
+			hoverClass = this.utils.getHoverClass();
 
 		this.domCleanUp();
 		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
@@ -104,7 +98,7 @@ export class GamePlay {
 		}
 
 		this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
-		if (this.canPlay()) {
+		if (this.utils.canPlay()) {
 			let target = <HTMLInputElement>event.target,
 				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
 
@@ -112,10 +106,7 @@ export class GamePlay {
 				this.utils.log(this.genericConfig.currentGame.moves);
 				this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
 				if (this.genericConfig.currentGame.moves[cellnum] === 0) {
-					this.genericConfig.currentGame.moves[cellnum] = 1;
-					this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = cellnum;
-					this.genericConfig.currentGame.stepsPlayed++;
-
+					this.genericConfig.updateCurrentGameConfig(cellnum, 1);
 					this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
 					this.getGameStatus(true, cellnum);
 					this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
@@ -125,18 +116,6 @@ export class GamePlay {
 			}
 		} else {
 			console.log('not allowed to play for now');
-		}
-	}
-
-	canPlay() {
-		if (this.genericConfig.config.multiPlayer) {
-			if (this.genericConfig.multiPlayerConfig.playerTurn && this.genericConfig.config.playGame) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return this.genericConfig.config.playGame
 		}
 	}
 
@@ -166,11 +145,7 @@ export class GamePlay {
 				elem: HTMLInputElement = this._dom.query('li[id*=combine_' + result + ']');
 
 			this.utils.log('makeAIMove, result: ', result);
-
-			this.genericConfig.currentGame.moves[result] = 2;
-			this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-			this.genericConfig.currentGame.stepsPlayed++;
-
+			this.genericConfig.updateCurrentGameConfig(result, 2);
 			this.setClass(elem, false, 'o');
 			this.getGameStatus(false, result);
 		}
@@ -186,10 +161,7 @@ export class GamePlay {
 
 		this.utils.log('make multiPlayer move, result: ', result);
 
-		this.genericConfig.currentGame.moves[result] = 2;
-		this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-		this.genericConfig.currentGame.stepsPlayed++;
-
+		this.genericConfig.updateCurrentGameConfig(result, 2);
 		this.setClass(elem, true, data.symbol);
 		this.getGameStatus(false, result);
 		this.genericConfig.multiPlayerConfig.playerTurn = true;

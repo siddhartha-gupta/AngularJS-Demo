@@ -77,15 +77,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.genericConfig.initCurrentGameConfig();
                     this.drawGrid();
                 };
-                GamePlay.prototype.getHoverClass = function () {
-                    var className = 'player1';
-                    if (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) {
-                        className = 'player2';
-                    }
-                    return className;
-                };
                 GamePlay.prototype.drawGrid = function () {
-                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this, hoverClass = this.getHoverClass();
+                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this, hoverClass = this.utils.getHoverClass();
                     this.domCleanUp();
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
@@ -111,15 +104,13 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         event.stopPropagation();
                     }
                     this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
-                    if (this.canPlay()) {
+                    if (this.utils.canPlay()) {
                         var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
                         if (!this.genericConfig.currentGame.isWon) {
                             this.utils.log(this.genericConfig.currentGame.moves);
                             this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
                             if (this.genericConfig.currentGame.moves[cellnum] === 0) {
-                                this.genericConfig.currentGame.moves[cellnum] = 1;
-                                this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = cellnum;
-                                this.genericConfig.currentGame.stepsPlayed++;
+                                this.genericConfig.updateCurrentGameConfig(cellnum, 1);
                                 this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
                                 this.getGameStatus(true, cellnum);
                                 this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
@@ -131,19 +122,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                     else {
                         console.log('not allowed to play for now');
-                    }
-                };
-                GamePlay.prototype.canPlay = function () {
-                    if (this.genericConfig.config.multiPlayer) {
-                        if (this.genericConfig.multiPlayerConfig.playerTurn && this.genericConfig.config.playGame) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    else {
-                        return this.genericConfig.config.playGame;
                     }
                 };
                 GamePlay.prototype.setClass = function (target, isHuman, symbol) {
@@ -168,9 +146,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     if (!this.genericConfig.config.multiPlayer) {
                         var result = this.aiGamePlay.makeAIMove(), elem = this._dom.query('li[id*=combine_' + result + ']');
                         this.utils.log('makeAIMove, result: ', result);
-                        this.genericConfig.currentGame.moves[result] = 2;
-                        this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-                        this.genericConfig.currentGame.stepsPlayed++;
+                        this.genericConfig.updateCurrentGameConfig(result, 2);
                         this.setClass(elem, false, 'o');
                         this.getGameStatus(false, result);
                     }
@@ -182,9 +158,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay.prototype.onMoveReceived = function (data) {
                     var result = parseInt(data.move), elem = this._dom.query('li[id*=combine_' + result + ']');
                     this.utils.log('make multiPlayer move, result: ', result);
-                    this.genericConfig.currentGame.moves[result] = 2;
-                    this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-                    this.genericConfig.currentGame.stepsPlayed++;
+                    this.genericConfig.updateCurrentGameConfig(result, 2);
                     this.setClass(elem, true, data.symbol);
                     this.getGameStatus(false, result);
                     this.genericConfig.multiPlayerConfig.playerTurn = true;

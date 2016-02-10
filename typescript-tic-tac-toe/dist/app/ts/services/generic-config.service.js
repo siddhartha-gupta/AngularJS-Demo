@@ -73,6 +73,11 @@ System.register(['angular2/core'], function(exports_1) {
                 };
                 GenericConfig.prototype.updateConfig = function (rootKey, subKey, value) {
                 };
+                GenericConfig.prototype.updateCurrentGameConfig = function (block, player) {
+                    this.currentGame.moves[block] = player;
+                    this.currentGame.movesIndex[this.currentGame.stepsPlayed] = block;
+                    this.currentGame.stepsPlayed++;
+                };
                 GenericConfig = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
