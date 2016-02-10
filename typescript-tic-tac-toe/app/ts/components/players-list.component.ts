@@ -4,9 +4,10 @@ import {NgClass} from 'angular2/common'
 
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
-import { _settings } from '../settings'
 import { GenericConfig } from '../services/generic-config.service'
 import { homeModelInterface, initSetupInterface } from '../services/app-interfaces.service'
+import { Utils } from '../services/utils.service'
+import { _settings } from '../settings'
 
 @Component({
 	selector: 'PlayersList',
@@ -22,7 +23,8 @@ export class PlayersList {
 		private router: Router,
 		private customEventService: CustomEventService,
 		private serverCommunicator: ServerCommunicator,
-		private genericConfig: GenericConfig
+		private genericConfig: GenericConfig,
+		private utils: Utils
 	) {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
@@ -50,7 +52,6 @@ export class PlayersList {
 	}
 
 	onHeaderClicked(data: any) {
-		console.log('onHeaderClicked: ', data);
 		if (data.routeName === '/playerslist') {
 			switch (data.btnType) {
 				case 'left':
@@ -73,7 +74,7 @@ export class PlayersList {
 	}
 
 	onRecipientSelected(event: Event, recipientId: string) {
-		console.log('onRecipientSelected, recipientId: ', recipientId);
+		this.utils.log('onRecipientSelected, recipientId: ', recipientId);
 
 		this.genericConfig.multiPlayerConfig.playerTurn = true;
 		this.genericConfig.multiPlayerConfig.player1 = true;

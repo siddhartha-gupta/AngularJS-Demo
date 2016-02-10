@@ -24,7 +24,6 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                     this.genericConfig = genericConfig;
                 }
                 GameStatus.prototype.checkGameEnd = function (isHuman) {
-                    console.log('checkGameEnd: ', isHuman);
                     var gridValue = (isHuman) ? 1 : 2;
                     for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
                         var n1 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
@@ -43,13 +42,11 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                             return 'gameDraw';
                         }
                         else if (!this.genericConfig.config.multiPlayer && isHuman) {
-                            console.log('makeAIMove: ', isHuman);
                             return 'makeAIMove';
                         }
                     }
                 };
                 GameStatus.prototype.onGameWon = function (isHuman) {
-                    console.log('onGameWon: ', isHuman);
                     this.genericConfig.config.playGame = false;
                     if (isHuman) {
                         this.genericConfig.gameScore.totalGames += 1;

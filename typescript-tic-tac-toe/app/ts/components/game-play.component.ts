@@ -14,7 +14,7 @@ import { _settings } from '../settings'
 
 @Component({
 	selector: 'GamePlay',
-	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
+	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
 	directives: [ROUTER_DIRECTIVES, ModalDialouge],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
@@ -53,7 +53,7 @@ export class GamePlay {
 	}
 
 	startGame(restart: Boolean) {
-		console.log('startGame, restart: ', restart);
+		this.utils.log('startGame, restart: ', restart);
 		if (restart && this.genericConfig.config.multiPlayer) {
 			this.serverCommunicator.msgSender('restart-game', {
 				recipient: this.genericConfig.multiPlayerConfig.recipient
@@ -128,7 +128,7 @@ export class GamePlay {
 				}
 			}
 		} else {
-			console.log('not allowed to play for now');
+			this.utils.log('not allowed to play for now');
 		}
 	}
 
@@ -256,14 +256,13 @@ export class GamePlay {
 	onModalClose() {
 		this.resetModalConfig();
 		if (!this.genericConfig.config.playGame) {
-			console.llog('calling startGame with true');
 			this.startGame(true);
 		}
 	}
 
 	goToHome() {
 		this.resetModalConfig();
-		console.log('goToHome');
+		this.utils.log('goToHome');
 		this.router.navigate(['Home']);
 	}
 

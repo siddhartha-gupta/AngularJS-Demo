@@ -7,7 +7,6 @@ import {_settings} from '../settings'
 
 @Component({
 	selector: 'app-header',
-	providers: [Utils],
 	styleUrls: [_settings.cssPath + 'header.css'],
 	templateUrl: _settings.templatePath.component + 'header.template.html'
 })

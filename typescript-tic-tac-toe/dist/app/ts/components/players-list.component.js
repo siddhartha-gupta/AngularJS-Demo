@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/common', '../services/server-communicator.service', '../services/event-pub-sub.service', '../settings', '../services/generic-config.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/common', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, server_communicator_service_1, event_pub_sub_service_1, settings_1, generic_config_service_1;
+    var core_1, router_1, common_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
     var PlayersList;
     return {
         setters:[
@@ -27,20 +27,24 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
             function (event_pub_sub_service_1_1) {
                 event_pub_sub_service_1 = event_pub_sub_service_1_1;
             },
-            function (settings_1_1) {
-                settings_1 = settings_1_1;
-            },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
+            },
+            function (utils_service_1_1) {
+                utils_service_1 = utils_service_1_1;
+            },
+            function (settings_1_1) {
+                settings_1 = settings_1_1;
             }],
         execute: function() {
             PlayersList = (function () {
-                function PlayersList(router, customEventService, serverCommunicator, genericConfig) {
+                function PlayersList(router, customEventService, serverCommunicator, genericConfig, utils) {
                     var _this = this;
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
                     this.genericConfig = genericConfig;
+                    this.utils = utils;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onRecipientAdded.subscribe(function (data) { return _this.onRecipientAdded(data); });
@@ -62,7 +66,6 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.playersList = tempList;
                 };
                 PlayersList.prototype.onHeaderClicked = function (data) {
-                    console.log('onHeaderClicked: ', data);
                     if (data.routeName === '/playerslist') {
                         switch (data.btnType) {
                             case 'left':
@@ -81,7 +84,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.router.navigate(['GamePlay']);
                 };
                 PlayersList.prototype.onRecipientSelected = function (event, recipientId) {
-                    console.log('onRecipientSelected, recipientId: ', recipientId);
+                    this.utils.log('onRecipientSelected, recipientId: ', recipientId);
                     this.genericConfig.multiPlayerConfig.playerTurn = true;
                     this.genericConfig.multiPlayerConfig.player1 = true;
                     this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
@@ -102,7 +105,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                         styleUrls: [settings_1._settings.cssPath + 'player-list.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'player-list.template.html'
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, generic_config_service_1.GenericConfig])
+                    __metadata('design:paramtypes', [router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, generic_config_service_1.GenericConfig, utils_service_1.Utils])
                 ], PlayersList);
                 return PlayersList;
             })();

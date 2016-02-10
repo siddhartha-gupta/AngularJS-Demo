@@ -6,7 +6,6 @@ export class GameStatus {
 	constructor(public genericConfig: GenericConfig) { }
 
 	checkGameEnd(isHuman?: Boolean) {
-		console.log('checkGameEnd: ', isHuman);
 		let gridValue = (isHuman) ? 1 : 2;
 
 		for (let n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
@@ -28,14 +27,12 @@ export class GameStatus {
 				this.onGameDraw();
 				return 'gameDraw';
 			} else if (!this.genericConfig.config.multiPlayer && isHuman) {
-				console.log('makeAIMove: ', isHuman);
 				return 'makeAIMove';
 			}
 		}
 	}
 
 	onGameWon(isHuman?: Boolean) {
-		console.log('onGameWon: ', isHuman);
 		this.genericConfig.config.playGame = false;
 		if (isHuman) {
 			this.genericConfig.gameScore.totalGames += 1;

@@ -102,7 +102,6 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                 AppHeader = __decorate([
                     core_1.Component({
                         selector: 'app-header',
-                        providers: [utils_service_1.Utils],
                         styleUrls: [settings_1._settings.cssPath + 'header.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 

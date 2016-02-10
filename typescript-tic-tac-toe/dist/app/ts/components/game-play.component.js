@@ -73,7 +73,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.startGame(false);
                 };
                 GamePlay.prototype.startGame = function (restart) {
-                    console.log('startGame, restart: ', restart);
+                    this.utils.log('startGame, restart: ', restart);
                     if (restart && this.genericConfig.config.multiPlayer) {
                         this.serverCommunicator.msgSender('restart-game', {
                             recipient: this.genericConfig.multiPlayerConfig.recipient
@@ -134,7 +134,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         }
                     }
                     else {
-                        console.log('not allowed to play for now');
+                        this.utils.log('not allowed to play for now');
                     }
                 };
                 GamePlay.prototype.setClass = function (target, isHuman, symbol) {
@@ -240,13 +240,12 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay.prototype.onModalClose = function () {
                     this.resetModalConfig();
                     if (!this.genericConfig.config.playGame) {
-                        console.llog('calling startGame with true');
                         this.startGame(true);
                     }
                 };
                 GamePlay.prototype.goToHome = function () {
                     this.resetModalConfig();
-                    console.log('goToHome');
+                    this.utils.log('goToHome');
                     this.router.navigate(['Home']);
                 };
                 GamePlay.prototype.resetModalConfig = function () {
@@ -260,7 +259,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'GamePlay',
-                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, browser_1.BrowserDomAdapter],
+                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter],
                         directives: [router_1.ROUTER_DIRECTIVES, modal_dialogue_directive_1.ModalDialouge],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
                         // encapsulation: ViewEncapsulation.Native,
