@@ -2,6 +2,7 @@ import {Component, View, OnInit, Renderer, ViewEncapsulation} from 'angular2/cor
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
+import { ServerCommunicator } from '../services/server-communicator.service'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
@@ -25,9 +26,10 @@ export class GamePlay {
 	gameInProgress: Boolean = false;
 	modalDialogue: ModalDialogueInterface;
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
+	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator) {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
+		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
 		this.modalDialogue = {
 			isVisible: false,
 			title: '',
@@ -100,7 +102,7 @@ export class GamePlay {
 					this.currentGameConfig.currentGame.moves[cellnum] = 1;
 					this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
 					this.currentGameConfig.currentGame.stepsPlayed++;
-					this.getGameStatus(true);
+					this.getGameStatus(true, cellnum);
 				} else {
 					alert('You cannot move here!');
 				}
@@ -119,11 +121,24 @@ export class GamePlay {
 
 			this.renderer.setElementClass(elem, 'o-text', true);
 			this.currentGameConfig.currentGame.stepsPlayed++;
-			this.getGameStatus(false);	
+			this.getGameStatus(false, result);
 		}
 	}
 
-	getGameStatus(isHuman: Boolean) {
+	onMoveReceived(data: string) {
+		let result: number = parseInt(data);
+		this.utils.log('make multiPlayer move, result: ', result);
+
+		this.currentGameConfig.currentGame.moves[result] = 2;
+		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+		var elem = this._dom.query('li[id*=combine_' + result + ']');
+
+		this.renderer.setElementClass(elem, 'o-text', true);
+		this.currentGameConfig.currentGame.stepsPlayed++;
+		this.getGameStatus(false, result);
+	}
+
+	getGameStatus(isHuman: Boolean, move: number) {
 		this.utils.log('getGameStatus: ', isHuman);
 		let status: string = this.gameStatus.checkGameEnd(isHuman);
 
@@ -143,9 +158,21 @@ export class GamePlay {
 				this.showModalDialogue('Match Drawn!', false);
 				break;
 
+			case 'sendMoveToSever':
+				this.sendMoveToSever(move);
+				break;
+
 			case 'makeAIMove':
 				this.makeAIMove();
+				break;
 		}
+	}
+
+	sendMoveToSever(move: number) {
+		this.serverCommunicator.msgSender('send-message', {
+			recipient: this.genericConfig.config.recipient,
+			msg: move
+		});
 	}
 
 	domCleanUp() {

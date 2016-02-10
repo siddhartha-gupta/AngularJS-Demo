@@ -28,6 +28,9 @@ export class GameStatus {
 			if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
 				this.onGameDraw();
 				return 'gameDraw';
+			} else if (this.genericConfig.config.multiPlayer) {
+				console.log('makeAIMove: ', isHuman);
+				return 'sendMoveToSever';
 			} else if (isHuman) {
 				console.log('makeAIMove: ', isHuman);
 				return 'makeAIMove';

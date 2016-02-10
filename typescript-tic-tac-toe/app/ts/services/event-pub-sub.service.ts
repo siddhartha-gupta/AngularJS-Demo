@@ -7,6 +7,7 @@ export class CustomEventService {
 	public onHeaderClicked: EventEmitter<Object> = new EventEmitter();
 	public onPlayersListReceived: EventEmitter<Object> = new EventEmitter();
 	public onRecipientAdded: EventEmitter<Object> = new EventEmitter();
+	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));
@@ -33,5 +34,9 @@ export class CustomEventService {
 
 	recipientAdded(data: any) {
 		this.onRecipientAdded.emit(data);
+	}
+
+	moveReceived(data: any) {
+		this.onMoveReceived.emit(data);
 	}
 }

@@ -41,15 +41,15 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('send-message', function(data) {
-		console.log("time to send private-message: ", data);
+		console.log("time to send msg: ", data);
 		console.log("clients: ", clients);
 
 		if (clients[data.recipient]) {
-			io.sockets.connected[clients[data.recipient].socket].emit("add-message", data);
+			io.sockets.connected[clients[data.recipient].socket].emit('send-message-resp', data.msg);
 		} else {
 			console.log("User does not exist: " + data.recipient);
 		}
-		socket.emit('send-message-resp', resp);
+		// socket.emit('send-message-resp', resp);
 	});
 
 	//Removing the socket on disconnect

@@ -107,6 +107,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     if (this.model.opponent === 2) {
                         this.genericConfig.config.emailId = this.model.userEmail;
                         this.genericConfig.config.username = this.model.username;
+                        this.genericConfig.config.multiPlayer = true;
                         this.serverCommunicator.initSocket();
                         this.serverCommunicator.sender = this.model.userEmail;
                         this.serverCommunicator.msgSender('register-email', {

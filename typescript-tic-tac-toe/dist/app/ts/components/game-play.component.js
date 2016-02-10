@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, server_communicator_service_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (server_communicator_service_1_1) {
+                server_communicator_service_1 = server_communicator_service_1_1;
             },
             function (modal_dialogue_directive_1_1) {
                 modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
@@ -47,7 +50,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService) {
+                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator) {
                     var _this = this;
                     this.genericConfig = genericConfig;
                     this.currentGameConfig = currentGameConfig;
@@ -58,8 +61,10 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this._dom = _dom;
                     this.router = router;
                     this.customEventService = customEventService;
+                    this.serverCommunicator = serverCommunicator;
                     this.gameInProgress = false;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
+                    customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     this.modalDialogue = {
                         isVisible: false,
                         title: '',
@@ -115,7 +120,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                                 this.currentGameConfig.currentGame.moves[cellnum] = 1;
                                 this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
                                 this.currentGameConfig.currentGame.stepsPlayed++;
-                                this.getGameStatus(true);
+                                this.getGameStatus(true, cellnum);
                             }
                             else {
                                 alert('You cannot move here!');
@@ -132,10 +137,20 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         var elem = this._dom.query('li[id*=combine_' + result + ']');
                         this.renderer.setElementClass(elem, 'o-text', true);
                         this.currentGameConfig.currentGame.stepsPlayed++;
-                        this.getGameStatus(false);
+                        this.getGameStatus(false, result);
                     }
                 };
-                GamePlay.prototype.getGameStatus = function (isHuman) {
+                GamePlay.prototype.onMoveReceived = function (data) {
+                    var result = parseInt(data);
+                    this.utils.log('make multiPlayer move, result: ', result);
+                    this.currentGameConfig.currentGame.moves[result] = 2;
+                    this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+                    var elem = this._dom.query('li[id*=combine_' + result + ']');
+                    this.renderer.setElementClass(elem, 'o-text', true);
+                    this.currentGameConfig.currentGame.stepsPlayed++;
+                    this.getGameStatus(false, result);
+                };
+                GamePlay.prototype.getGameStatus = function (isHuman, move) {
                     this.utils.log('getGameStatus: ', isHuman);
                     var status = this.gameStatus.checkGameEnd(isHuman);
                     this.utils.log(status);
@@ -153,9 +168,19 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.genericConfig.config.playGame = false;
                             this.showModalDialogue('Match Drawn!', false);
                             break;
+                        case 'sendMoveToSever':
+                            this.sendMoveToSever(move);
+                            break;
                         case 'makeAIMove':
                             this.makeAIMove();
+                            break;
                     }
+                };
+                GamePlay.prototype.sendMoveToSever = function (move) {
+                    this.serverCommunicator.msgSender('send-message', {
+                        recipient: this.genericConfig.config.recipient,
+                        msg: move
+                    });
                 };
                 GamePlay.prototype.domCleanUp = function () {
                     var elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
@@ -216,7 +241,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
                 ], GamePlay);
                 return GamePlay;
             })();

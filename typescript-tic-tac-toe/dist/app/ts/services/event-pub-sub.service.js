@@ -28,6 +28,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onHeaderClicked = new core_1.EventEmitter();
                     this.onPlayersListReceived = new core_1.EventEmitter();
                     this.onRecipientAdded = new core_1.EventEmitter();
+                    this.onMoveReceived = new core_1.EventEmitter();
                     router.subscribe(function (val) { return _this.routeChangeEmitter(val); });
                 }
                 CustomEventService.prototype.routeChangeEmitter = function (val) {
@@ -47,6 +48,9 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 };
                 CustomEventService.prototype.recipientAdded = function (data) {
                     this.onRecipientAdded.emit(data);
+                };
+                CustomEventService.prototype.moveReceived = function (data) {
+                    this.onMoveReceived.emit(data);
                 };
                 CustomEventService = __decorate([
                     core_1.Injectable(), 

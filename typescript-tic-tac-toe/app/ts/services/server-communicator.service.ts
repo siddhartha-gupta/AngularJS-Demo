@@ -30,14 +30,14 @@ export class ServerCommunicator {
 		console.log('msgSender: ', this.socket);
 		this.socket.emit(identifier, data);
 		/*
-		this.socket.emit("create-join-room", {
-			"username": username,
-			"recipient": recipient
+		this.socket.emit('create-join-room', {
+			'username': username,
+			'recipient': recipient
 		});
 
-		this.socket.emit("private-message", {
-			"recipient": recipient,
-			"content": content
+		this.socket.emit('private-message', {
+			'recipient': recipient,
+			'content': content
 		});*/
 	}
 
@@ -56,13 +56,14 @@ export class ServerCommunicator {
 			this.customEventService.playersListReceived(data);
 		});
 
-		this.socket.on("add-recipient-resp", (data: any) => {
+		this.socket.on('add-recipient-resp', (data: any) => {
 			console.log('add-recipient-resp:', data);
 			this.customEventService.recipientAdded(data);
 		});
 
-		this.socket.on("add-message", (data: any) => {
-			console.log('add-message:', data);
+		this.socket.on('send-message-resp', (data:any) => {
+			console.log(data);
+			this.customEventService.moveReceived(data);
 		});
 	}
 }

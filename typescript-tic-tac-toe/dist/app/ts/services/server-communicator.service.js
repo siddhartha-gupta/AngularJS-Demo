@@ -38,14 +38,14 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                     console.log('msgSender: ', this.socket);
                     this.socket.emit(identifier, data);
                     /*
-                    this.socket.emit("create-join-room", {
-                        "username": username,
-                        "recipient": recipient
+                    this.socket.emit('create-join-room', {
+                        'username': username,
+                        'recipient': recipient
                     });
             
-                    this.socket.emit("private-message", {
-                        "recipient": recipient,
-                        "content": content
+                    this.socket.emit('private-message', {
+                        'recipient': recipient,
+                        'content': content
                     });*/
                 };
                 ServerCommunicator.prototype.msgReceiver = function () {
@@ -61,12 +61,13 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                         console.log('current-players-list:', _this.playersList);
                         _this.customEventService.playersListReceived(data);
                     });
-                    this.socket.on("add-recipient-resp", function (data) {
+                    this.socket.on('add-recipient-resp', function (data) {
                         console.log('add-recipient-resp:', data);
                         _this.customEventService.recipientAdded(data);
                     });
-                    this.socket.on("add-message", function (data) {
-                        console.log('add-message:', data);
+                    this.socket.on('send-message-resp', function (data) {
+                        console.log(data);
+                        _this.customEventService.moveReceived(data);
                     });
                 };
                 ServerCommunicator = __decorate([
