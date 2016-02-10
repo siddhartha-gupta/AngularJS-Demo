@@ -42,11 +42,7 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                             this.onGameDraw();
                             return 'gameDraw';
                         }
-                        else if (this.genericConfig.config.multiPlayer) {
-                            console.log('makeAIMove: ', isHuman);
-                            return 'sendMoveToSever';
-                        }
-                        else if (isHuman) {
+                        else if (!this.genericConfig.config.multiPlayer && isHuman) {
                             console.log('makeAIMove: ', isHuman);
                             return 'makeAIMove';
                         }
@@ -54,6 +50,7 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                 };
                 GameStatus.prototype.onGameWon = function (isHuman) {
                     console.log('onGameWon: ', isHuman);
+                    this.genericConfig.config.playGame = false;
                     if (isHuman) {
                         this.genericConfig.gameScore.totalGames += 1;
                         this.genericConfig.gameScore.playerWins += 1;
@@ -66,6 +63,7 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                     }
                 };
                 GameStatus.prototype.onGameDraw = function () {
+                    this.genericConfig.config.playGame = false;
                     this.genericConfig.gameScore.totalGames += 1;
                     this.genericConfig.gameScore.draws += 1;
                     this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;

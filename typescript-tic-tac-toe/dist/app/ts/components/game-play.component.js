@@ -169,7 +169,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.utils.log(status);
                     switch (status) {
                         case 'gameWon':
-                            this.genericConfig.config.playGame = false;
                             if (isHuman) {
                                 this.showModalDialogue('Player won the match');
                             }
@@ -178,7 +177,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             }
                             break;
                         case 'gameDraw':
-                            this.genericConfig.config.playGame = false;
                             this.showModalDialogue('Match Drawn!');
                             break;
                         case 'makeAIMove':

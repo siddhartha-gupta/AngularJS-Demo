@@ -174,7 +174,6 @@ export class GamePlay {
 		this.utils.log(status);
 		switch (status) {
 			case 'gameWon':
-				this.genericConfig.config.playGame = false;
 				if (isHuman) {
 					this.showModalDialogue('Player won the match');
 				} else {
@@ -183,7 +182,6 @@ export class GamePlay {
 				break;
 
 			case 'gameDraw':
-				this.genericConfig.config.playGame = false;
 				this.showModalDialogue('Match Drawn!');
 				break;
 

@@ -27,10 +27,7 @@ export class GameStatus {
 			if (this.genericConfig.currentGame.stepsPlayed > 8) {
 				this.onGameDraw();
 				return 'gameDraw';
-			} else if (this.genericConfig.config.multiPlayer) {
-				console.log('makeAIMove: ', isHuman);
-				return 'sendMoveToSever';
-			} else if (isHuman) {
+			} else if (!this.genericConfig.config.multiPlayer && isHuman) {
 				console.log('makeAIMove: ', isHuman);
 				return 'makeAIMove';
 			}
@@ -39,6 +36,7 @@ export class GameStatus {
 
 	onGameWon(isHuman?: Boolean) {
 		console.log('onGameWon: ', isHuman);
+		this.genericConfig.config.playGame = false;
 		if (isHuman) {
 			this.genericConfig.gameScore.totalGames += 1;
 			this.genericConfig.gameScore.playerWins += 1;
@@ -51,6 +49,7 @@ export class GameStatus {
 	}
 
 	onGameDraw() {
+		this.genericConfig.config.playGame = false;
 		this.genericConfig.gameScore.totalGames += 1;
 		this.genericConfig.gameScore.draws += 1;
 		this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
