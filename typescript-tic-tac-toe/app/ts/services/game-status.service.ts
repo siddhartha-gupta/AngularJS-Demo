@@ -40,11 +40,21 @@ export class GameStatus {
 		if (isHuman) {
 			this.genericConfig.gameScore.totalGames += 1;
 			this.genericConfig.gameScore.playerWins += 1;
-			this.genericConfig.computerConfig.playerstarts = true;
+
+			if (this.genericConfig.config.multiPlayer) {
+				this.genericConfig.multiPlayerConfig.playerTurn = true;	
+			} else {
+				this.genericConfig.computerConfig.playerstarts = true;
+			}
 		} else {
 			this.genericConfig.gameScore.totalGames += 1;
 			this.genericConfig.gameScore.computerWins += 1;
-			this.genericConfig.computerConfig.playerstarts = false;
+
+			if (this.genericConfig.config.multiPlayer) {
+				this.genericConfig.multiPlayerConfig.playerTurn = false;
+			} else {
+				this.genericConfig.computerConfig.playerstarts = false;
+			}
 		}
 	}
 
@@ -52,6 +62,11 @@ export class GameStatus {
 		this.genericConfig.config.playGame = false;
 		this.genericConfig.gameScore.totalGames += 1;
 		this.genericConfig.gameScore.draws += 1;
-		this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
+
+		if (this.genericConfig.config.multiPlayer) {
+			this.genericConfig.multiPlayerConfig.playerTurn = !this.genericConfig.multiPlayerConfig.playerTurn;
+		} else {
+			this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
+		}
 	}
 }

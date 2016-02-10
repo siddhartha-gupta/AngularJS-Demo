@@ -110,10 +110,10 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.utils.log(this.genericConfig.currentGame.moves);
                             this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
                             if (this.genericConfig.currentGame.moves[cellnum] === 0) {
+                                this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
                                 this.genericConfig.updateCurrentGameConfig(cellnum, 1);
                                 this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
                                 this.getGameStatus(true, cellnum);
-                                this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
                             }
                             else {
                                 alert('You cannot move here!');
