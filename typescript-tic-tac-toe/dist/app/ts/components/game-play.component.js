@@ -159,6 +159,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.genericConfig.config.playGame = false;
                             if (isHuman) {
                                 this.showModalDialogue('Player won the match', false);
+                                this.sendMoveToSever(move);
                             }
                             else {
                                 this.showModalDialogue('Computer won the match', false);
@@ -167,6 +168,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         case 'gameDraw':
                             this.genericConfig.config.playGame = false;
                             this.showModalDialogue('Match Drawn!', false);
+                            this.sendMoveToSever(move);
                             break;
                         case 'sendMoveToSever':
                             if (isHuman) {

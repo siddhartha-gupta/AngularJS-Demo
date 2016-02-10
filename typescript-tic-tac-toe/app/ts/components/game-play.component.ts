@@ -148,6 +148,7 @@ export class GamePlay {
 				this.genericConfig.config.playGame = false;
 				if (isHuman) {
 					this.showModalDialogue('Player won the match', false);
+					this.sendMoveToSever(move);
 				} else {
 					this.showModalDialogue('Computer won the match', false);
 				}
@@ -156,6 +157,7 @@ export class GamePlay {
 			case 'gameDraw':
 				this.genericConfig.config.playGame = false;
 				this.showModalDialogue('Match Drawn!', false);
+				this.sendMoveToSever(move);
 				break;
 
 			case 'sendMoveToSever':
