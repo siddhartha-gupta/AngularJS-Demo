@@ -45,16 +45,18 @@ System.register(['angular2/core'], function(exports_1) {
                         username: '',
                         recipient: '',
                         player1: false,
+                        playerTurn: false,
+                        playerSymbol: 'o'
                     };
                     this.computerConfig = {
                         gameLevel: 2,
                         playerstarts: true
                     };
                     this.gameScore = {
-                        'totalGames': 0,
-                        'draws': 0,
-                        'playerWins': 0,
-                        'computerWins': 0,
+                        totalGames: 0,
+                        draws: 0,
+                        playerWins: 0,
+                        computerWins: 0,
                     };
                     this.initCurrentGameConfig();
                 };

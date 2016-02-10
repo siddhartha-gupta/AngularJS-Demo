@@ -34,7 +34,7 @@ export class PlayersList {
 
 	onPlayersListReceived(data?: any) {
 		let list: Array<any> = [],
-			tempList: Array<any> = [],
+			tempList: Array<any> = [];
 
 		if (data) {
 			list = data;
@@ -75,7 +75,10 @@ export class PlayersList {
 	onRecipientSelected(event: Event, recipientId: string) {
 		console.log('onRecipientSelected, recipientId: ', recipientId);
 
+		this.genericConfig.multiPlayerConfig.playerTurn = true;
 		this.genericConfig.multiPlayerConfig.player1 = true;
+		this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
+
 		this.serverCommunicator.msgSender('add-recipient', {
 			emailId: this.genericConfig.multiPlayerConfig.emailId,
 			recipient: recipientId
@@ -86,8 +89,6 @@ export class PlayersList {
 
 	onRecipientAdded(data: any) {
 		this.genericConfig.multiPlayerConfig.recipient = data;
-		this.genericConfig.multiPlayerConfig.player1 = false;
-
 		this.router.navigate(['GamePlay']);
 	}
 }

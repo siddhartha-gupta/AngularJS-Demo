@@ -82,7 +82,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                 };
                 PlayersList.prototype.onRecipientSelected = function (event, recipientId) {
                     console.log('onRecipientSelected, recipientId: ', recipientId);
+                    this.genericConfig.multiPlayerConfig.playerTurn = true;
                     this.genericConfig.multiPlayerConfig.player1 = true;
+                    this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
                     this.serverCommunicator.msgSender('add-recipient', {
                         emailId: this.genericConfig.multiPlayerConfig.emailId,
                         recipient: recipientId
@@ -91,7 +93,6 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                 };
                 PlayersList.prototype.onRecipientAdded = function (data) {
                     this.genericConfig.multiPlayerConfig.recipient = data;
-                    this.genericConfig.multiPlayerConfig.player1 = false;
                     this.router.navigate(['GamePlay']);
                 };
                 PlayersList = __decorate([

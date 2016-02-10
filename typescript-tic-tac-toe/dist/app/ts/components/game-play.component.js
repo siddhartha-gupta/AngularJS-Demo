@@ -77,13 +77,20 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.genericConfig.initCurrentGameConfig();
                     this.drawGrid();
                 };
+                GamePlay.prototype.getHoverClass = function () {
+                    var className = 'player1';
+                    if (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) {
+                        className = 'player2';
+                    }
+                    return className;
+                };
                 GamePlay.prototype.drawGrid = function () {
-                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
+                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this, hoverClass = this.getHoverClass();
                     this.domCleanUp();
                     for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
-                            gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
+                            gridCell.push('<li class="' + hoverClass + '" data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
                             this.genericConfig.currentGame.moves[combinedId] = 0;
                         }
                     }
@@ -104,45 +111,83 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         event.stopPropagation();
                     }
                     this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
-                    if (this.genericConfig.config.playGame) {
+                    if (this.canPlay()) {
                         var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
                         if (!this.genericConfig.currentGame.isWon) {
                             this.utils.log(this.genericConfig.currentGame.moves);
                             this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
                             if (this.genericConfig.currentGame.moves[cellnum] === 0) {
-                                this.renderer.setElementClass(target, 'x-text', true);
                                 this.genericConfig.currentGame.moves[cellnum] = 1;
                                 this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = cellnum;
                                 this.genericConfig.currentGame.stepsPlayed++;
+                                this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
                                 this.getGameStatus(true, cellnum);
+                                this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
                             }
                             else {
                                 alert('You cannot move here!');
                             }
                         }
                     }
+                    else {
+                        console.log('not allowed to play for now');
+                    }
                 };
+                GamePlay.prototype.canPlay = function () {
+                    if (this.genericConfig.config.multiPlayer) {
+                        if (this.genericConfig.multiPlayerConfig.playerTurn && this.genericConfig.config.playGame) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return this.genericConfig.config.playGame;
+                    }
+                };
+                GamePlay.prototype.setClass = function (target, isHuman, symbol) {
+                    switch (isHuman) {
+                        case true:
+                            if (this.genericConfig.config.multiPlayer) {
+                                this.renderer.setElementClass(target, symbol + '-text', true);
+                            }
+                            else {
+                                this.renderer.setElementClass(target, 'x-text', true);
+                            }
+                            break;
+                        case false:
+                            this.renderer.setElementClass(target, 'o-text', true);
+                    }
+                };
+                /*
+                * While playing with computer
+                * we make use of below function
+                */
                 GamePlay.prototype.makeAIMove = function () {
                     if (!this.genericConfig.config.multiPlayer) {
-                        var result = this.aiGamePlay.makeAIMove();
+                        var result = this.aiGamePlay.makeAIMove(), elem = this._dom.query('li[id*=combine_' + result + ']');
                         this.utils.log('makeAIMove, result: ', result);
                         this.genericConfig.currentGame.moves[result] = 2;
                         this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-                        var elem = this._dom.query('li[id*=combine_' + result + ']');
-                        this.renderer.setElementClass(elem, 'o-text', true);
                         this.genericConfig.currentGame.stepsPlayed++;
+                        this.setClass(elem, false, 'o');
                         this.getGameStatus(false, result);
                     }
                 };
+                /*
+                * While playing in multiplayer mode
+                * we make use of below function
+                */
                 GamePlay.prototype.onMoveReceived = function (data) {
-                    var result = parseInt(data);
+                    var result = parseInt(data.move), elem = this._dom.query('li[id*=combine_' + result + ']');
                     this.utils.log('make multiPlayer move, result: ', result);
                     this.genericConfig.currentGame.moves[result] = 2;
                     this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
-                    var elem = this._dom.query('li[id*=combine_' + result + ']');
-                    this.renderer.setElementClass(elem, 'o-text', true);
                     this.genericConfig.currentGame.stepsPlayed++;
+                    this.setClass(elem, true, data.symbol);
                     this.getGameStatus(false, result);
+                    this.genericConfig.multiPlayerConfig.playerTurn = true;
                 };
                 GamePlay.prototype.getGameStatus = function (isHuman, move) {
                     this.utils.log('getGameStatus: ', isHuman);
@@ -153,7 +198,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.genericConfig.config.playGame = false;
                             if (isHuman) {
                                 this.showModalDialogue('Player won the match');
-                                this.sendMoveToSever(move);
                             }
                             else {
                                 this.showModalDialogue('Computer won the match');
@@ -162,23 +206,21 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         case 'gameDraw':
                             this.genericConfig.config.playGame = false;
                             this.showModalDialogue('Match Drawn!');
-                            this.sendMoveToSever(move);
-                            break;
-                        case 'sendMoveToSever':
-                            if (isHuman) {
-                                this.sendMoveToSever(move);
-                            }
                             break;
                         case 'makeAIMove':
                             this.makeAIMove();
                             break;
                     }
                 };
-                GamePlay.prototype.sendMoveToSever = function (move) {
-                    this.serverCommunicator.msgSender('send-message', {
-                        recipient: this.genericConfig.multiPlayerConfig.recipient,
-                        msg: move
-                    });
+                GamePlay.prototype.sendMoveToSever = function (move, symbol) {
+                    if (this.genericConfig.config.multiPlayer) {
+                        this.genericConfig.multiPlayerConfig.playerTurn = false;
+                        this.serverCommunicator.msgSender('send-message', {
+                            recipient: this.genericConfig.multiPlayerConfig.recipient,
+                            move: move,
+                            symbol: symbol
+                        });
+                    }
                 };
                 GamePlay.prototype.domCleanUp = function () {
                     var elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;

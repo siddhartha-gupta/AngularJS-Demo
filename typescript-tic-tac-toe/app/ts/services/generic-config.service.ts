@@ -40,6 +40,8 @@ export class GenericConfig {
 			username: '',
 			recipient: '',
 			player1: false,
+			playerTurn: false,
+			playerSymbol: 'o'
 		};
 
 		this.computerConfig = {
@@ -48,10 +50,10 @@ export class GenericConfig {
 		};
 
 		this.gameScore = {
-			'totalGames': 0,
-			'draws': 0,
-			'playerWins': 0,
-			'computerWins': 0,
+			totalGames: 0,
+			draws: 0,
+			playerWins: 0,
+			computerWins: 0,
 		};
 
 		this.initCurrentGameConfig();

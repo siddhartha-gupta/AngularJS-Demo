@@ -101,6 +101,9 @@ export class Home {
 
 			this.genericConfig.multiPlayerConfig.emailId = this.model.userEmail;
 			this.genericConfig.multiPlayerConfig.username = this.model.username;
+			this.genericConfig.multiPlayerConfig.player1 = false;
+			this.genericConfig.multiPlayerConfig.playerSymbol = 'o';
+			this.genericConfig.multiPlayerConfig.playerTurn = false;
 
 			this.serverCommunicator.initSocket();
 			this.serverCommunicator.sender = this.model.userEmail;

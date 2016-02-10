@@ -108,6 +108,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         this.genericConfig.config.multiPlayer = true;
                         this.genericConfig.multiPlayerConfig.emailId = this.model.userEmail;
                         this.genericConfig.multiPlayerConfig.username = this.model.username;
+                        this.genericConfig.multiPlayerConfig.player1 = false;
+                        this.genericConfig.multiPlayerConfig.playerSymbol = 'o';
+                        this.genericConfig.multiPlayerConfig.playerTurn = false;
                         this.serverCommunicator.initSocket();
                         this.serverCommunicator.sender = this.model.userEmail;
                         this.serverCommunicator.msgSender('register-email', {

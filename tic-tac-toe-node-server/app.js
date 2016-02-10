@@ -89,11 +89,14 @@ function addRecipient(data) {
 }
 
 function sendMessage(data) {
-	console.log("time to send msg: ", data);
+	console.log("time to send move: ", data);
 
 	if (clients[data.recipient]) {
 		console.log('sending to: ', clients[data.recipient]);
-		io.sockets.connected[clients[data.recipient].socket].emit('send-message-resp', data.msg);
+		io.sockets.connected[clients[data.recipient].socket].emit('send-message-resp', {
+			move: data.move,
+			symbol: data.symbol
+		});
 	} else {
 		console.log("User does not exist: " + data.recipient);
 	}

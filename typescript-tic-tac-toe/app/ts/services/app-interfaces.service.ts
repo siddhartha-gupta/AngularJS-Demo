@@ -13,6 +13,8 @@ export interface multiPlayerConfigInterface {
 	username: string;
 	recipient: string;
 	player1: Boolean;
+	playerTurn: Boolean;
+	playerSymbol: string;
 }
 
 export interface computerConfigInterface {

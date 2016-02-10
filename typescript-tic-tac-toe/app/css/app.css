@@ -50,8 +50,12 @@ body {
 	border: 1px solid #3d4250;
 }
 
-#game-grid li:not(.x-text):not(.o-text):hover:after {
+#game-grid li.player1:not(.x-text):not(.o-text):hover:after {
 	content: '\0078';
+}
+
+#game-grid li.player2:not(.x-text):not(.o-text):hover:after {
+	content: '\006F';
 }
 
 #game-grid .o-text {
