@@ -26,7 +26,7 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                     this.recipient = null;
                 }
                 ServerCommunicator.prototype.initSocket = function () {
-                    this.socket = io.connect('http://localhost:5000');
+                    this.socket = io.connect('http://10.4.3.88:5000');
                     this.msgReceiver();
                     console.log('this.socket: ', this.socket);
                 };

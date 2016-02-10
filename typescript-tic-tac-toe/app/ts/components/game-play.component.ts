@@ -173,9 +173,9 @@ export class GamePlay {
 		switch (status) {
 			case 'gameWon':
 				if (isHuman) {
-					this.showModalDialogue('Player won the match');
+					this.showModalDialogue('You won the match');
 				} else {
-					this.showModalDialogue('Computer won the match');
+					this.showModalDialogue('Your opponent won the match');
 				}
 				break;
 
