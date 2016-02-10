@@ -55,19 +55,19 @@ System.register(['angular2/core', './generic-config.service'], function(exports_
                 GameStatus.prototype.onGameWon = function (isHuman) {
                     console.log('onGameWon: ', isHuman);
                     if (isHuman) {
-                        this.genericConfig.config.gameScore.totalGames += 1;
-                        this.genericConfig.config.gameScore.playerWins += 1;
+                        this.genericConfig.gameScore.totalGames += 1;
+                        this.genericConfig.gameScore.playerWins += 1;
                         this.genericConfig.computerConfig.playerstarts = true;
                     }
                     else {
-                        this.genericConfig.config.gameScore.totalGames += 1;
-                        this.genericConfig.config.gameScore.computerWins += 1;
+                        this.genericConfig.gameScore.totalGames += 1;
+                        this.genericConfig.gameScore.computerWins += 1;
                         this.genericConfig.computerConfig.playerstarts = false;
                     }
                 };
                 GameStatus.prototype.onGameDraw = function () {
-                    this.genericConfig.config.gameScore.totalGames += 1;
-                    this.genericConfig.config.gameScore.draws += 1;
+                    this.genericConfig.gameScore.totalGames += 1;
+                    this.genericConfig.gameScore.draws += 1;
                     this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
                 };
                 GameStatus = __decorate([

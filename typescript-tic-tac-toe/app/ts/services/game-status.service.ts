@@ -40,19 +40,19 @@ export class GameStatus {
 	onGameWon(isHuman?: Boolean) {
 		console.log('onGameWon: ', isHuman);
 		if (isHuman) {
-			this.genericConfig.config.gameScore.totalGames += 1;
-			this.genericConfig.config.gameScore.playerWins += 1;
+			this.genericConfig.gameScore.totalGames += 1;
+			this.genericConfig.gameScore.playerWins += 1;
 			this.genericConfig.computerConfig.playerstarts = true;
 		} else {
-			this.genericConfig.config.gameScore.totalGames += 1;
-			this.genericConfig.config.gameScore.computerWins += 1;
+			this.genericConfig.gameScore.totalGames += 1;
+			this.genericConfig.gameScore.computerWins += 1;
 			this.genericConfig.computerConfig.playerstarts = false;
 		}
 	}
 
 	onGameDraw() {
-		this.genericConfig.config.gameScore.totalGames += 1;
-		this.genericConfig.config.gameScore.draws += 1;
+		this.genericConfig.gameScore.totalGames += 1;
+		this.genericConfig.gameScore.draws += 1;
 		this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
 	}
 }

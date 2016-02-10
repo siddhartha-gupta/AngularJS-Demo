@@ -36,12 +36,6 @@ System.register(['angular2/core'], function(exports_1) {
                         ],
                         choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
                         corners: [11, 13, 31, 33],
-                        gameScore: {
-                            'totalGames': 0,
-                            'draws': 0,
-                            'playerWins': 0,
-                            'computerWins': 0,
-                        },
                         gridComputationLen: 0,
                         multiPlayer: false
                     };
@@ -56,6 +50,12 @@ System.register(['angular2/core'], function(exports_1) {
                         gameLevel: 2,
                         playerstarts: true
                     };
+                    this.gameScore = {
+                        'totalGames': 0,
+                        'draws': 0,
+                        'playerWins': 0,
+                        'computerWins': 0,
+                    };
                     this.initCurrentGameConfig();
                 };
                 GenericConfig.prototype.initCurrentGameConfig = function () {
@@ -68,6 +68,8 @@ System.register(['angular2/core'], function(exports_1) {
                     for (var i = 0; i <= this.config.gridComputationLen; i++) {
                         this.currentGame.movesIndex[i] = 0;
                     }
+                };
+                GenericConfig.prototype.updateConfig = function (rootKey, subKey, value) {
                 };
                 GenericConfig = __decorate([
                     core_1.Injectable(), 

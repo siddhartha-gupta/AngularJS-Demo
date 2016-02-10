@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core'
-import {GenericConfigInterface, multiPlayerConfigInterface, computerConfigInterface, CurrentGameConfigInterface} from '../services/app-interfaces.service'
+import {GenericConfigInterface, multiPlayerConfigInterface, computerConfigInterface, gameScoreInterface, CurrentGameConfigInterface} from '../services/app-interfaces.service'
 
 @Injectable()
 export class GenericConfig {
 	public config: GenericConfigInterface;
 	public multiPlayerConfig: multiPlayerConfigInterface;
 	public computerConfig: computerConfigInterface;
+	public gameScore: gameScoreInterface;
 	public currentGame: CurrentGameConfigInterface;
 
 	constructor() {
@@ -28,12 +29,6 @@ export class GenericConfig {
 			],
 			choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
 			corners: [11, 13, 31, 33],
-			gameScore: {
-				'totalGames': 0,
-				'draws': 0,
-				'playerWins': 0,
-				'computerWins': 0,
-			},
 			gridComputationLen: 0,
 			multiPlayer: false
 		};
@@ -52,6 +47,13 @@ export class GenericConfig {
 			playerstarts: true
 		};
 
+		this.gameScore = {
+			'totalGames': 0,
+			'draws': 0,
+			'playerWins': 0,
+			'computerWins': 0,
+		};
+
 		this.initCurrentGameConfig();
 	}
 
@@ -66,5 +68,9 @@ export class GenericConfig {
 		for (let i = 0; i <= this.config.gridComputationLen; i++) {
 			this.currentGame.movesIndex[i] = 0;
 		}
+	}
+
+	updateConfig(rootKey: string, subKey: string, value: any) {
+
 	}
 }

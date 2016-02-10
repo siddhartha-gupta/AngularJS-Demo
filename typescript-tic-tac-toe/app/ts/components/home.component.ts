@@ -30,7 +30,7 @@ export class Home {
 
 		this.model = {
 			gameLevel: 2,
-			opponent: 1,
+			opponent: 2,
 			firstChance: 1,
 			userEmail: '',
 			username: ''

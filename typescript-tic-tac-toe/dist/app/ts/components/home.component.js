@@ -46,7 +46,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.gameStarter = [];
                     this.model = {
                         gameLevel: 2,
-                        opponent: 1,
+                        opponent: 2,
                         firstChance: 1,
                         userEmail: '',
                         username: ''

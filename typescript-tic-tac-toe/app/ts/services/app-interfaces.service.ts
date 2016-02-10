@@ -1,23 +1,9 @@
-export interface CurrentGameConfigInterface {
-	isWon: Boolean;
-	moves: Array<any>;
-	stepsPlayed: number;
-	movesIndex: Array<any>;
-}
-
 export interface GenericConfigInterface {
 	gridSize: number;
 	playGame: Boolean;
 	ways: Array<Array<any>>;
 	choices: Array<number>;
 	corners: Array<number>;
-	
-	gameScore: {
-		'totalGames': number;
-		'draws': number;
-		'playerWins': number;
-		'computerWins': number;
-	};
 	gridComputationLen: number;
 	multiPlayer: Boolean;
 }
@@ -32,6 +18,20 @@ export interface multiPlayerConfigInterface {
 export interface computerConfigInterface {
 	gameLevel: number;
 	playerstarts: Boolean;
+}
+
+export interface gameScoreInterface {
+	totalGames: number;
+	draws: number;
+	playerWins: number;
+	computerWins: number;
+}
+
+export interface CurrentGameConfigInterface {
+	isWon: Boolean;
+	moves: Array<any>;
+	stepsPlayed: number;
+	movesIndex: Array<any>;
 }
 
 export interface homeModelInterface {

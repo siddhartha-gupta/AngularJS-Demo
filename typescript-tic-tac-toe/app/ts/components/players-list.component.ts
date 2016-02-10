@@ -70,17 +70,19 @@ export class PlayersList {
 	onRecipientSelected(event: Event, recipientId: string) {
 		console.log('onRecipientSelected, recipientId: ', recipientId);
 
+		this.genericConfig.multiPlayerConfig.player1 = true;
 		this.serverCommunicator.msgSender('add-recipient', {
 			emailId: this.genericConfig.multiPlayerConfig.emailId,
 			recipient: recipientId
 		});
 
-		this.genericConfig.multiPlayerConfig.player1 = true;
 		this.onRecipientAdded(recipientId);
 	}
 
 	onRecipientAdded(data: any) {
 		this.genericConfig.multiPlayerConfig.recipient = data;
+		this.genericConfig.multiPlayerConfig.player1 = false;
+
 		this.router.navigate(['GamePlay']);
 	}
 }
