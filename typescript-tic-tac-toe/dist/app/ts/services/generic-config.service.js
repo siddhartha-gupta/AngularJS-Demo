@@ -22,6 +22,7 @@ System.register(['angular2/core'], function(exports_1) {
                 }
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
+                        appStarted: false,
                         emailId: '',
                         username: '',
                         recipient: '',

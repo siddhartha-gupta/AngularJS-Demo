@@ -11,6 +11,7 @@ export class GenericConfig {
 
 	initDefaultConfig() {
 		this.config = {
+			appStarted: false,
 			emailId: '',
 			username: '',
 			recipient: '',

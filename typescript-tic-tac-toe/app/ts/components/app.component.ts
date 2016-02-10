@@ -1,11 +1,13 @@
 import {Component, View, OnInit} from 'angular2/core'
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap'
-import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2/router'
+import {Router, RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
 import {PlayersList} from './players-list.component'
+import { GenericConfig } from '../services/generic-config.service'
+import {CustomEventService} from '../services/event-pub-sub.service'
 import {_settings} from '../settings'
 
 @Component({
@@ -22,7 +24,13 @@ import {_settings} from '../settings'
 ])
 
 export class App {
-	constructor() {
-		console.log('app class');
+	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService) {
+		console.log('app class, appStarted: ', this.genericConfig.config.appStarted);
+		// customEventService.onRouteChange.subscribe((val: string) => this.onRouteChange(val));
+		/*if (this.genericConfig.config.appStarted) {
+			this.router.navigate(['Home']);
+		} else {
+			this.genericConfig.config.appStarted = true;
+		}*/
 	}
 }

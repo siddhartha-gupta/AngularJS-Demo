@@ -169,7 +169,9 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.showModalDialogue('Match Drawn!', false);
                             break;
                         case 'sendMoveToSever':
-                            this.sendMoveToSever(move);
+                            if (isHuman) {
+                                this.sendMoveToSever(move);
+                            }
                             break;
                         case 'makeAIMove':
                             this.makeAIMove();

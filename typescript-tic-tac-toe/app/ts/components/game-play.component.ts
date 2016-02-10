@@ -159,7 +159,9 @@ export class GamePlay {
 				break;
 
 			case 'sendMoveToSever':
-				this.sendMoveToSever(move);
+				if (isHuman) {
+					this.sendMoveToSever(move);
+				}
 				break;
 
 			case 'makeAIMove':

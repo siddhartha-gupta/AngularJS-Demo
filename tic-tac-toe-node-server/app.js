@@ -45,11 +45,11 @@ io.sockets.on('connection', function(socket) {
 		console.log("clients: ", clients);
 
 		if (clients[data.recipient]) {
+			console.log('sending to: ', clients[data.recipient]);
 			io.sockets.connected[clients[data.recipient].socket].emit('send-message-resp', data.msg);
 		} else {
 			console.log("User does not exist: " + data.recipient);
 		}
-		// socket.emit('send-message-resp', resp);
 	});
 
 	//Removing the socket on disconnect

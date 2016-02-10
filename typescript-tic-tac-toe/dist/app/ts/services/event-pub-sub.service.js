@@ -50,6 +50,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onRecipientAdded.emit(data);
                 };
                 CustomEventService.prototype.moveReceived = function (data) {
+                    console.log('moveReceived: ', data);
                     this.onMoveReceived.emit(data);
                 };
                 CustomEventService = __decorate([

@@ -37,6 +37,7 @@ export class CustomEventService {
 	}
 
 	moveReceived(data: any) {
+		console.log('moveReceived: ', data);
 		this.onMoveReceived.emit(data);
 	}
 }

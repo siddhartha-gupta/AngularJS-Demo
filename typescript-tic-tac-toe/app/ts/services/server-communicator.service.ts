@@ -62,7 +62,7 @@ export class ServerCommunicator {
 		});
 
 		this.socket.on('send-message-resp', (data:any) => {
-			console.log(data);
+			console.log('send-message-resp: ',data);
 			this.customEventService.moveReceived(data);
 		});
 	}

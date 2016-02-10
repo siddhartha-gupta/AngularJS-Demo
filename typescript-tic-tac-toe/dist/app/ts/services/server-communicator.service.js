@@ -66,7 +66,7 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                         _this.customEventService.recipientAdded(data);
                     });
                     this.socket.on('send-message-resp', function (data) {
-                        console.log(data);
+                        console.log('send-message-resp: ', data);
                         _this.customEventService.moveReceived(data);
                     });
                 };

@@ -6,6 +6,7 @@ export interface CurrentGameConfigInterface {
 }
 
 export interface GenericConfigInterface {
+	appStarted: Boolean;
 	emailId: string;
 	username: string;
 	recipient: string;
