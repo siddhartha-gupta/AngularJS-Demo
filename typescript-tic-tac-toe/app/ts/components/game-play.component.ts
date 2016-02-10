@@ -7,7 +7,6 @@ import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
-import { CurrentGameConfig } from '../services/current-game-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'
 import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
@@ -28,7 +27,6 @@ export class GamePlay {
 
 	constructor(
 		public genericConfig: GenericConfig,
-		public currentGameConfig: CurrentGameConfig,
 		public aiGamePlay: AIGamePlay,
 		public gameStatus: GameStatus,
 		public utils: Utils,
@@ -47,8 +45,6 @@ export class GamePlay {
 			body: '',
 			showBtn2: false
 		};
-
-		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
 	}
 
@@ -59,7 +55,7 @@ export class GamePlay {
 	startGame() {
 		this.resetModalConfig();
 		this.genericConfig.config.playGame = true;
-		this.currentGameConfig.initDefaultConfig();
+		this.genericConfig.initCurrentGameConfig();
 		this.drawGrid();
 	}
 
@@ -76,7 +72,7 @@ export class GamePlay {
 					combinedId = i.toString() + j.toString();
 
 				gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
-				this.currentGameConfig.currentGame.moves[combinedId] = 0;
+				this.genericConfig.currentGame.moves[combinedId] = 0;
 			}
 		}
 		this._dom.setInnerHTML(elem, gridCell.join(''));
@@ -104,15 +100,15 @@ export class GamePlay {
 			let target = <HTMLInputElement>event.target,
 				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
 
-			if (!this.currentGameConfig.currentGame.isWon) {
-				this.utils.log(this.currentGameConfig.currentGame.moves);
-				this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
-				if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
+			if (!this.genericConfig.currentGame.isWon) {
+				this.utils.log(this.genericConfig.currentGame.moves);
+				this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
+				if (this.genericConfig.currentGame.moves[cellnum] === 0) {
 					this.renderer.setElementClass(target, 'x-text', true);
 
-					this.currentGameConfig.currentGame.moves[cellnum] = 1;
-					this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
-					this.currentGameConfig.currentGame.stepsPlayed++;
+					this.genericConfig.currentGame.moves[cellnum] = 1;
+					this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = cellnum;
+					this.genericConfig.currentGame.stepsPlayed++;
 					this.getGameStatus(true, cellnum);
 				} else {
 					alert('You cannot move here!');
@@ -126,12 +122,12 @@ export class GamePlay {
 			let result: number = this.aiGamePlay.makeAIMove();
 			this.utils.log('makeAIMove, result: ', result);
 
-			this.currentGameConfig.currentGame.moves[result] = 2;
-			this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+			this.genericConfig.currentGame.moves[result] = 2;
+			this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
 			var elem = this._dom.query('li[id*=combine_' + result + ']');
 
 			this.renderer.setElementClass(elem, 'o-text', true);
-			this.currentGameConfig.currentGame.stepsPlayed++;
+			this.genericConfig.currentGame.stepsPlayed++;
 			this.getGameStatus(false, result);
 		}
 	}
@@ -140,12 +136,12 @@ export class GamePlay {
 		let result: number = parseInt(data);
 		this.utils.log('make multiPlayer move, result: ', result);
 
-		this.currentGameConfig.currentGame.moves[result] = 2;
-		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+		this.genericConfig.currentGame.moves[result] = 2;
+		this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
 		var elem = this._dom.query('li[id*=combine_' + result + ']');
 
 		this.renderer.setElementClass(elem, 'o-text', true);
-		this.currentGameConfig.currentGame.stepsPlayed++;
+		this.genericConfig.currentGame.stepsPlayed++;
 		this.getGameStatus(false, result);
 	}
 

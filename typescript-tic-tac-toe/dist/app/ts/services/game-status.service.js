@@ -1,4 +1,4 @@
-System.register(['angular2/core', './generic-config.service', './current-game-config.service'], function(exports_1) {
+System.register(['angular2/core', './generic-config.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, generic_config_service_1, current_game_config_service_1;
+    var core_1, generic_config_service_1;
     var GameStatus;
     return {
         setters:[
@@ -17,32 +17,28 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
             },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
-            },
-            function (current_game_config_service_1_1) {
-                current_game_config_service_1 = current_game_config_service_1_1;
             }],
         execute: function() {
             GameStatus = (function () {
-                function GameStatus(genericConfig, currentGameConfig) {
+                function GameStatus(genericConfig) {
                     this.genericConfig = genericConfig;
-                    this.currentGameConfig = currentGameConfig;
                 }
                 GameStatus.prototype.checkGameEnd = function (isHuman) {
                     console.log('checkGameEnd: ', isHuman);
                     var gridValue = (isHuman) ? 1 : 2;
                     for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
-                        var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
+                        var n1 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
                         if ((n1 == gridValue) && (n2 == gridValue) && (n3 == gridValue)) {
-                            this.currentGameConfig.currentGame.isWon = true;
+                            this.genericConfig.currentGame.isWon = true;
                             break;
                         }
                     }
-                    if (this.currentGameConfig.currentGame.isWon) {
+                    if (this.genericConfig.currentGame.isWon) {
                         this.onGameWon(isHuman);
                         return 'gameWon';
                     }
                     else {
-                        if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
+                        if (this.genericConfig.currentGame.stepsPlayed > 8) {
                             this.onGameDraw();
                             return 'gameDraw';
                         }
@@ -76,7 +72,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                 };
                 GameStatus = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig])
                 ], GameStatus);
                 return GameStatus;
             })();

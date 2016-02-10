@@ -56,6 +56,18 @@ System.register(['angular2/core'], function(exports_1) {
                         gameLevel: 2,
                         playerstarts: true
                     };
+                    this.initCurrentGameConfig();
+                };
+                GenericConfig.prototype.initCurrentGameConfig = function () {
+                    this.currentGame = {
+                        isWon: false,
+                        moves: [],
+                        stepsPlayed: 0,
+                        movesIndex: []
+                    };
+                    for (var i = 0; i <= this.config.gridComputationLen; i++) {
+                        this.currentGame.movesIndex[i] = 0;
+                    }
                 };
                 GenericConfig = __decorate([
                     core_1.Injectable(), 

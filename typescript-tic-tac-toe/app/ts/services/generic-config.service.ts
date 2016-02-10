@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core'
-import {GenericConfigInterface, multiPlayerConfigInterface, computerConfigInterface} from '../services/app-interfaces.service'
+import {GenericConfigInterface, multiPlayerConfigInterface, computerConfigInterface, CurrentGameConfigInterface} from '../services/app-interfaces.service'
 
 @Injectable()
 export class GenericConfig {
 	public config: GenericConfigInterface;
 	public multiPlayerConfig: multiPlayerConfigInterface;
 	public computerConfig: computerConfigInterface;
+	public currentGame: CurrentGameConfigInterface;
 
 	constructor() {
 		this.initDefaultConfig();
@@ -50,5 +51,20 @@ export class GenericConfig {
 			gameLevel: 2,
 			playerstarts: true
 		};
+
+		this.initCurrentGameConfig();
+	}
+
+	initCurrentGameConfig() {
+		this.currentGame = {
+			isWon: false,
+			moves: [],
+			stepsPlayed: 0,
+			movesIndex: []
+		};
+
+		for (let i = 0; i <= this.config.gridComputationLen; i++) {
+			this.currentGame.movesIndex[i] = 0;
+		}
 	}
 }

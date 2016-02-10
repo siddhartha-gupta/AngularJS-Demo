@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/current-game-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, server_communicator_service_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, current_game_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, server_communicator_service_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -33,9 +33,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
             },
-            function (current_game_config_service_1_1) {
-                current_game_config_service_1 = current_game_config_service_1_1;
-            },
             function (ai_gamePlay_service_1_1) {
                 ai_gamePlay_service_1 = ai_gamePlay_service_1_1;
             },
@@ -50,10 +47,9 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, currentGameConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator) {
+                function GamePlay(genericConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator) {
                     var _this = this;
                     this.genericConfig = genericConfig;
-                    this.currentGameConfig = currentGameConfig;
                     this.aiGamePlay = aiGamePlay;
                     this.gameStatus = gameStatus;
                     this.utils = utils;
@@ -71,7 +67,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         body: '',
                         showBtn2: false
                     };
-                    this.utils.log(this.currentGameConfig);
                     this.utils.log(this.genericConfig);
                 }
                 GamePlay.prototype.ngOnInit = function () {
@@ -80,7 +75,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay.prototype.startGame = function () {
                     this.resetModalConfig();
                     this.genericConfig.config.playGame = true;
-                    this.currentGameConfig.initDefaultConfig();
+                    this.genericConfig.initCurrentGameConfig();
                     this.drawGrid();
                 };
                 GamePlay.prototype.drawGrid = function () {
@@ -90,7 +85,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         for (var j = 1; j <= len; j += 1) {
                             var idAttr = [], combinedId = i.toString() + j.toString();
                             gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
-                            this.currentGameConfig.currentGame.moves[combinedId] = 0;
+                            this.genericConfig.currentGame.moves[combinedId] = 0;
                         }
                     }
                     this._dom.setInnerHTML(elem, gridCell.join(''));
@@ -112,14 +107,14 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
                     if (this.genericConfig.config.playGame) {
                         var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
-                        if (!this.currentGameConfig.currentGame.isWon) {
-                            this.utils.log(this.currentGameConfig.currentGame.moves);
-                            this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
-                            if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
+                        if (!this.genericConfig.currentGame.isWon) {
+                            this.utils.log(this.genericConfig.currentGame.moves);
+                            this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
+                            if (this.genericConfig.currentGame.moves[cellnum] === 0) {
                                 this.renderer.setElementClass(target, 'x-text', true);
-                                this.currentGameConfig.currentGame.moves[cellnum] = 1;
-                                this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
-                                this.currentGameConfig.currentGame.stepsPlayed++;
+                                this.genericConfig.currentGame.moves[cellnum] = 1;
+                                this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = cellnum;
+                                this.genericConfig.currentGame.stepsPlayed++;
                                 this.getGameStatus(true, cellnum);
                             }
                             else {
@@ -132,22 +127,22 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     if (!this.genericConfig.config.multiPlayer) {
                         var result = this.aiGamePlay.makeAIMove();
                         this.utils.log('makeAIMove, result: ', result);
-                        this.currentGameConfig.currentGame.moves[result] = 2;
-                        this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+                        this.genericConfig.currentGame.moves[result] = 2;
+                        this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
                         var elem = this._dom.query('li[id*=combine_' + result + ']');
                         this.renderer.setElementClass(elem, 'o-text', true);
-                        this.currentGameConfig.currentGame.stepsPlayed++;
+                        this.genericConfig.currentGame.stepsPlayed++;
                         this.getGameStatus(false, result);
                     }
                 };
                 GamePlay.prototype.onMoveReceived = function (data) {
                     var result = parseInt(data);
                     this.utils.log('make multiPlayer move, result: ', result);
-                    this.currentGameConfig.currentGame.moves[result] = 2;
-                    this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+                    this.genericConfig.currentGame.moves[result] = 2;
+                    this.genericConfig.currentGame.movesIndex[this.genericConfig.currentGame.stepsPlayed] = result;
                     var elem = this._dom.query('li[id*=combine_' + result + ']');
                     this.renderer.setElementClass(elem, 'o-text', true);
-                    this.currentGameConfig.currentGame.stepsPlayed++;
+                    this.genericConfig.currentGame.stepsPlayed++;
                     this.getGameStatus(false, result);
                 };
                 GamePlay.prototype.getGameStatus = function (isHuman, move) {
@@ -244,7 +239,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
                 ], GamePlay);
                 return GamePlay;
             })();

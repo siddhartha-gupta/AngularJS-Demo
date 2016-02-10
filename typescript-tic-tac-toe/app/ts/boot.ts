@@ -6,6 +6,5 @@ import {App} from './components/app.component'
 import {CustomEventService} from './services/event-pub-sub.service'
 import {ServerCommunicator} from './services/server-communicator.service'
 import { GenericConfig } from './services/generic-config.service'
-import { CurrentGameConfig } from './services/current-game-config.service'
 
-bootstrap(App, [ROUTER_PROVIDERS, ELEMENT_PROBE_PROVIDERS, CustomEventService, ServerCommunicator, GenericConfig, CurrentGameConfig, provide(LocationStrategy, { useClass: HashLocationStrategy }), provide(APP_BASE_HREF, { useValue: '/' })]).catch(console.error);
+bootstrap(App, [ROUTER_PROVIDERS, ELEMENT_PROBE_PROVIDERS, CustomEventService, ServerCommunicator, GenericConfig, provide(LocationStrategy, { useClass: HashLocationStrategy }), provide(APP_BASE_HREF, { useValue: '/' })]).catch(console.error);

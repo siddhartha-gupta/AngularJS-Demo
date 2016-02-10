@@ -26,7 +26,6 @@
     "app/ts/services/utils.service.ts",
     "app/ts/services/event-pub-sub.service.ts",
     "app/ts/services/generic-config.service.ts",
-    "app/ts/services/current-game-config.service.ts",
     "app/ts/services/ai-gamePlay.service.ts",
     "app/ts/services/game-status.service.ts",
     "app/ts/services/app-interfaces.service.ts",

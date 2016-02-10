@@ -1,4 +1,4 @@
-System.register(['angular2/core', './generic-config.service', './current-game-config.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', './generic-config.service', '../services/utils.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, generic_config_service_1, current_game_config_service_1, utils_service_1;
+    var core_1, generic_config_service_1, utils_service_1;
     var AIGamePlay;
     return {
         setters:[
@@ -18,17 +18,13 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
             },
-            function (current_game_config_service_1_1) {
-                current_game_config_service_1 = current_game_config_service_1_1;
-            },
             function (utils_service_1_1) {
                 utils_service_1 = utils_service_1_1;
             }],
         execute: function() {
             AIGamePlay = (function () {
-                function AIGamePlay(genericConfig, currentGameConfig, utils) {
+                function AIGamePlay(genericConfig, utils) {
                     this.genericConfig = genericConfig;
-                    this.currentGameConfig = currentGameConfig;
                     this.utils = utils;
                 }
                 AIGamePlay.prototype.makeAIMove = function () {
@@ -65,7 +61,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                 AIGamePlay.prototype.chooseMove = function (istowin) {
                     var gridValue = (istowin) ? 2 : 1, result;
                     for (var n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
-                        var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
+                        var n1 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][1]], n2 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][2]], n3 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
                         if ((n1 == gridValue) && (n2 == gridValue) && (n3 === 0)) {
                             result = this.genericConfig.config.ways[n][3];
                             break;
@@ -82,8 +78,8 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                     return result;
                 };
                 AIGamePlay.prototype.seekBestMove = function () {
-                    var moveIndex0 = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10), moveIndex1 = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10), moveIndex2 = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10), moveIndex3 = parseInt(this.currentGameConfig.currentGame.movesIndex[3], 10), result, dlta, randomPosition = [];
-                    switch (this.currentGameConfig.currentGame.stepsPlayed) {
+                    var moveIndex0 = parseInt(this.genericConfig.currentGame.movesIndex[0], 10), moveIndex1 = parseInt(this.genericConfig.currentGame.movesIndex[1], 10), moveIndex2 = parseInt(this.genericConfig.currentGame.movesIndex[2], 10), moveIndex3 = parseInt(this.genericConfig.currentGame.movesIndex[3], 10), result, dlta, randomPosition = [];
+                    switch (this.genericConfig.currentGame.stepsPlayed) {
                         case 0:
                             result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
                             if (result == 22) {
@@ -168,7 +164,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                         case 4:
                             if (this.aiThinking == 22) {
                                 for (var i = 0; i < 4; i++) {
-                                    if (this.currentGameConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
+                                    if (this.genericConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
                                         result = this.genericConfig.config.corners[i];
                                     }
                                 }
@@ -197,7 +193,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                     var result;
                     do {
                         result = this.genericConfig.config.choices[Math.floor(Math.random() * 9)];
-                    } while (this.currentGameConfig.currentGame.moves[result] !== 0);
+                    } while (this.genericConfig.currentGame.moves[result] !== 0);
                     return result;
                 };
                 AIGamePlay.prototype.chooseCorner = function (choice) {
@@ -206,7 +202,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                         case 'blank':
                             do {
                                 result = this.genericConfig.config.corners[Math.floor(Math.random() * 4)];
-                            } while (this.currentGameConfig.currentGame.moves[result] !== 0);
+                            } while (this.genericConfig.currentGame.moves[result] !== 0);
                             break;
                         case 'noPrefrence':
                             result = this.genericConfig.config.corners[Math.floor(Math.random() * 4)];
@@ -216,7 +212,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                 };
                 AIGamePlay = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, current_game_config_service_1.CurrentGameConfig, utils_service_1.Utils])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, utils_service_1.Utils])
                 ], AIGamePlay);
                 return AIGamePlay;
             })();
