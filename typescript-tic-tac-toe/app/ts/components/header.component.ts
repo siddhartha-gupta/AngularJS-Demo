@@ -17,7 +17,11 @@ export class AppHeader {
 	headerRightButton: headerInterface;
 	heading: string;
 
-	constructor(private utils: Utils, private customEventService: CustomEventService) {
+	constructor(
+		private utils: Utils,
+		private customEventService: CustomEventService
+	) {
+
 		this.heading = 'Tic Tac Toe'
 		this.headerLeftButton = {
 			'btnType': '',

@@ -22,7 +22,6 @@ import { _settings } from '../settings'
 })
 
 export class GamePlay {
-	gameInProgress: Boolean = false;
 	modalDialogue: ModalDialogueInterface;
 
 	constructor(

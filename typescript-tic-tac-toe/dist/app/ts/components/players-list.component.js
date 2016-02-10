@@ -41,7 +41,6 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
                     this.genericConfig = genericConfig;
-                    console.log('constructor called');
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onRecipientAdded.subscribe(function (data) { return _this.onRecipientAdded(data); });

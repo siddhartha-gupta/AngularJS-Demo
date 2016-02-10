@@ -18,8 +18,13 @@ import { homeModelInterface, initSetupInterface } from '../services/app-interfac
 export class PlayersList {
 	private playersList: Array<any>;
 
-	constructor(private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator, private genericConfig: GenericConfig) {
-		console.log('constructor called');
+	constructor(
+		private router: Router,
+		private customEventService: CustomEventService,
+		private serverCommunicator: ServerCommunicator,
+		private genericConfig: GenericConfig
+	) {
+
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
 		customEventService.onRecipientAdded.subscribe((data: any) => this.onRecipientAdded(data));

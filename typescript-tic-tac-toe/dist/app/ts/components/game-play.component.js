@@ -58,7 +58,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
-                    this.gameInProgress = false;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     this.modalDialogue = {
