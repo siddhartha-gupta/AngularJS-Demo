@@ -6,6 +6,9 @@ export interface CurrentGameConfigInterface {
 }
 
 export interface GenericConfigInterface {
+	emailId: string;
+	username: string;
+	recipient: string;
 	gridSize: number;
 	gameLevel: number;
 	playGame: Boolean;

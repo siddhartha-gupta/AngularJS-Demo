@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/core'
+import { CustomEventService } from '../services/event-pub-sub.service'
 
 declare var io: any;
 
@@ -7,8 +8,9 @@ export class ServerCommunicator {
 	private socket: any;
 	public sender: string;
 	public recipient: string;
+	public playersList: Array<any>;
 
-	constructor() {
+	constructor(private customEventService: CustomEventService) {
 		this.sender = null;
 		this.recipient = null;
 	}
@@ -16,17 +18,18 @@ export class ServerCommunicator {
 	initSocket() {
 		this.socket = io.connect('http://localhost:5000');
 		this.msgReceiver();
+		console.log('this.socket: ', this.socket);
 	}
 
-	msgSender(identifier: string, data: Object) {
+	msgSender(identifier: string, data?: Object) {
+		if (!this.socket) {
+			this.initSocket();
+		}
 		let recipient = this.recipient;
 
+		console.log('msgSender: ', this.socket);
 		this.socket.emit(identifier, data);
 		/*
-		register-email
-		add-recipient
-		send-message
-
 		this.socket.emit("create-join-room", {
 			"username": username,
 			"recipient": recipient
@@ -39,16 +42,27 @@ export class ServerCommunicator {
 	}
 
 	msgReceiver() {
-		this.socket.on("add-message", (data: any) => {
-			console.log('add-message:', data)
-		});
+		// register-email
+		// add-recipient
+		// send-message
 
 		this.socket.on('email-registered', (data: any) => {
-			console.log('email-registered:', data)
+			console.log('email-registered:', data);
 		});
 
 		this.socket.on('current-players-list', (data: any) => {
-			console.log('current-players-list:', data)
+			this.playersList = data;
+			console.log('current-players-list:', this.playersList);
+			this.customEventService.playersListReceived(data);
+		});
+
+		this.socket.on("add-recipient-resp", (data: any) => {
+			console.log('add-recipient-resp:', data);
+			this.customEventService.recipientAdded(data);
+		});
+
+		this.socket.on("add-message", (data: any) => {
+			console.log('add-message:', data);
 		});
 	}
 }

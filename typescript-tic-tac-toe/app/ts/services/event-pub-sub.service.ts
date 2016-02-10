@@ -5,6 +5,8 @@ import {RouteConfig, RouterLink, RouterOutlet, ROUTER_DIRECTIVES, Router, Locati
 export class CustomEventService {
 	public onRouteChange: EventEmitter<string> = new EventEmitter();
 	public onHeaderClicked: EventEmitter<Object> = new EventEmitter();
+	public onPlayersListReceived: EventEmitter<Object> = new EventEmitter();
+	public onRecipientAdded: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));
@@ -23,5 +25,13 @@ export class CustomEventService {
 			routeName: this.location.path()
 		});
 		// this.onRouteChange.emit('gameplay');
+	}
+
+	playersListReceived(data: any) {
+		this.onPlayersListReceived.emit(data);
+	}
+
+	recipientAdded(data: any) {
+		this.onRecipientAdded.emit(data);
 	}
 }

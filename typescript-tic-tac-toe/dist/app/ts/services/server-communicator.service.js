@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', '../services/event-pub-sub.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,31 +8,36 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, event_pub_sub_service_1;
     var ServerCommunicator;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (event_pub_sub_service_1_1) {
+                event_pub_sub_service_1 = event_pub_sub_service_1_1;
             }],
         execute: function() {
             ServerCommunicator = (function () {
-                function ServerCommunicator() {
+                function ServerCommunicator(customEventService) {
+                    this.customEventService = customEventService;
                     this.sender = null;
                     this.recipient = null;
                 }
                 ServerCommunicator.prototype.initSocket = function () {
                     this.socket = io.connect('http://localhost:5000');
                     this.msgReceiver();
+                    console.log('this.socket: ', this.socket);
                 };
                 ServerCommunicator.prototype.msgSender = function (identifier, data) {
+                    if (!this.socket) {
+                        this.initSocket();
+                    }
                     var recipient = this.recipient;
+                    console.log('msgSender: ', this.socket);
                     this.socket.emit(identifier, data);
                     /*
-                    register-email
-                    add-recipient
-                    send-message
-            
                     this.socket.emit("create-join-room", {
                         "username": username,
                         "recipient": recipient
@@ -44,19 +49,29 @@ System.register(['angular2/core'], function(exports_1) {
                     });*/
                 };
                 ServerCommunicator.prototype.msgReceiver = function () {
-                    this.socket.on("add-message", function (data) {
-                        console.log('add-message:', data);
-                    });
+                    // register-email
+                    // add-recipient
+                    // send-message
+                    var _this = this;
                     this.socket.on('email-registered', function (data) {
                         console.log('email-registered:', data);
                     });
                     this.socket.on('current-players-list', function (data) {
-                        console.log('current-players-list:', data);
+                        _this.playersList = data;
+                        console.log('current-players-list:', _this.playersList);
+                        _this.customEventService.playersListReceived(data);
+                    });
+                    this.socket.on("add-recipient-resp", function (data) {
+                        console.log('add-recipient-resp:', data);
+                        _this.customEventService.recipientAdded(data);
+                    });
+                    this.socket.on("add-message", function (data) {
+                        console.log('add-message:', data);
                     });
                 };
                 ServerCommunicator = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [event_pub_sub_service_1.CustomEventService])
                 ], ServerCommunicator);
                 return ServerCommunicator;
             })();

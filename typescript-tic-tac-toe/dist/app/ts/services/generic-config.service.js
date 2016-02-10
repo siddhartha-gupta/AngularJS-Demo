@@ -22,6 +22,9 @@ System.register(['angular2/core'], function(exports_1) {
                 }
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
+                        emailId: '',
+                        username: '',
+                        recipient: '',
                         gridSize: 3,
                         gameLevel: 2,
                         playGame: true,

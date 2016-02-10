@@ -95,7 +95,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
                         }
                     }
-                    if (!this.genericConfig.config.playerstarts && !this.genericConfig.config.multiPlayer) {
+                    if (!this.genericConfig.config.playerstarts) {
                         this.makeAIMove();
                     }
                 };
@@ -124,14 +124,16 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     }
                 };
                 GamePlay.prototype.makeAIMove = function () {
-                    var result = this.aiGamePlay.makeAIMove();
-                    this.utils.log('makeAIMove, result: ', result);
-                    this.currentGameConfig.currentGame.moves[result] = 2;
-                    this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-                    var elem = this._dom.query('li[id*=combine_' + result + ']');
-                    this.renderer.setElementClass(elem, 'o-text', true);
-                    this.currentGameConfig.currentGame.stepsPlayed++;
-                    this.getGameStatus(false);
+                    if (!this.genericConfig.config.multiPlayer) {
+                        var result = this.aiGamePlay.makeAIMove();
+                        this.utils.log('makeAIMove, result: ', result);
+                        this.currentGameConfig.currentGame.moves[result] = 2;
+                        this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+                        var elem = this._dom.query('li[id*=combine_' + result + ']');
+                        this.renderer.setElementClass(elem, 'o-text', true);
+                        this.currentGameConfig.currentGame.stepsPlayed++;
+                        this.getGameStatus(false);
+                    }
                 };
                 GamePlay.prototype.getGameStatus = function (isHuman) {
                     this.utils.log('getGameStatus: ', isHuman);

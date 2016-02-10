@@ -75,7 +75,7 @@ export class GamePlay {
 			}
 		}
 
-		if (!this.genericConfig.config.playerstarts && !this.genericConfig.config.multiPlayer) {
+		if (!this.genericConfig.config.playerstarts) {
 			this.makeAIMove();
 		}
 	}
@@ -109,16 +109,18 @@ export class GamePlay {
 	}
 
 	makeAIMove() {
-		let result: number = this.aiGamePlay.makeAIMove();
-		this.utils.log('makeAIMove, result: ', result);
+		if (!this.genericConfig.config.multiPlayer) {
+			let result: number = this.aiGamePlay.makeAIMove();
+			this.utils.log('makeAIMove, result: ', result);
 
-		this.currentGameConfig.currentGame.moves[result] = 2;
-		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-		var elem = this._dom.query('li[id*=combine_' + result + ']');
+			this.currentGameConfig.currentGame.moves[result] = 2;
+			this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
+			var elem = this._dom.query('li[id*=combine_' + result + ']');
 
-		this.renderer.setElementClass(elem, 'o-text', true);
-		this.currentGameConfig.currentGame.stepsPlayed++;
-		this.getGameStatus(false);
+			this.renderer.setElementClass(elem, 'o-text', true);
+			this.currentGameConfig.currentGame.stepsPlayed++;
+			this.getGameStatus(false);	
+		}
 	}
 
 	getGameStatus(isHuman: Boolean) {

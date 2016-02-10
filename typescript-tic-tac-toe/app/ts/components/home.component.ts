@@ -92,8 +92,12 @@ export class Home {
 		}
 
 		if (this.model.opponent === 2) {
+			this.genericConfig.config.emailId = this.model.userEmail;
+			this.genericConfig.config.username = this.model.username;
+
 			this.serverCommunicator.initSocket();
 			this.serverCommunicator.sender = this.model.userEmail;
+
 			this.serverCommunicator.msgSender('register-email', {
 				emailId: this.model.userEmail,
 				username: this.model.username
