@@ -29,19 +29,17 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onPlayersListReceived = new core_1.EventEmitter();
                     this.onRecipientAdded = new core_1.EventEmitter();
                     this.onMoveReceived = new core_1.EventEmitter();
+                    this.onRestartGame = new core_1.EventEmitter();
                     router.subscribe(function (val) { return _this.routeChangeEmitter(val); });
                 }
                 CustomEventService.prototype.routeChangeEmitter = function (val) {
                     this.onRouteChange.emit(val);
                 };
                 CustomEventService.prototype.headerBtnClicked = function (btnType) {
-                    console.log('event pub-sub headerBtnClicked: ', btnType);
-                    // console.log(this.onHeaderClicked);
                     this.onHeaderClicked.emit({
                         btnType: btnType,
                         routeName: this.location.path()
                     });
-                    // this.onRouteChange.emit('gameplay');
                 };
                 CustomEventService.prototype.playersListReceived = function (data) {
                     this.onPlayersListReceived.emit(data);
@@ -52,6 +50,10 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 CustomEventService.prototype.moveReceived = function (data) {
                     console.log('moveReceived: ', data);
                     this.onMoveReceived.emit(data);
+                };
+                CustomEventService.prototype.restartGame = function (data) {
+                    console.log('restartGame: ', data);
+                    this.onRestartGame.emit(data);
                 };
                 CustomEventService = __decorate([
                     core_1.Injectable(), 

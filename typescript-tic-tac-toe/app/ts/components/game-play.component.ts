@@ -38,6 +38,7 @@ export class GamePlay {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
+		customEventService.onRestartGame.subscribe((data: any) => this.restartGame());
 		this.modalDialogue = {
 			isVisible: false,
 			title: '',
@@ -48,10 +49,24 @@ export class GamePlay {
 	}
 
 	ngOnInit() {
-		this.startGame();
+		this.startGame(false);
 	}
 
-	startGame() {
+	startGame(restart: Boolean) {
+		console.log('startGame, restart: ', restart);
+		if (restart && this.genericConfig.config.multiPlayer) {
+			this.serverCommunicator.msgSender('restart-game', {
+				recipient: this.genericConfig.multiPlayerConfig.recipient
+			});
+		}
+
+		this.resetModalConfig();
+		this.genericConfig.config.playGame = true;
+		this.genericConfig.initCurrentGameConfig();
+		this.drawGrid();
+	}
+
+	restartGame() {
 		this.resetModalConfig();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();
@@ -241,7 +256,8 @@ export class GamePlay {
 	onModalClose() {
 		this.resetModalConfig();
 		if (!this.genericConfig.config.playGame) {
-			this.startGame();
+			console.llog('calling startGame with true');
+			this.startGame(true);
 		}
 	}
 

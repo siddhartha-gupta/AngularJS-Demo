@@ -66,6 +66,7 @@ gulp.task('tsconfig-glob', function() {
 // Run browsersync for development
 gulp.task('serve', ['build'], function() {
 	browserSync({
+		ghostMode: false,
 		server: {
 			baseDir: 'dist'
 		}

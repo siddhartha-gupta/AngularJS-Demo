@@ -60,6 +60,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.serverCommunicator = serverCommunicator;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
+                    customEventService.onRestartGame.subscribe(function (data) { return _this.restartGame(); });
                     this.modalDialogue = {
                         isVisible: false,
                         title: '',
@@ -69,9 +70,21 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.utils.log(this.genericConfig);
                 }
                 GamePlay.prototype.ngOnInit = function () {
-                    this.startGame();
+                    this.startGame(false);
                 };
-                GamePlay.prototype.startGame = function () {
+                GamePlay.prototype.startGame = function (restart) {
+                    console.log('startGame, restart: ', restart);
+                    if (restart && this.genericConfig.config.multiPlayer) {
+                        this.serverCommunicator.msgSender('restart-game', {
+                            recipient: this.genericConfig.multiPlayerConfig.recipient
+                        });
+                    }
+                    this.resetModalConfig();
+                    this.genericConfig.config.playGame = true;
+                    this.genericConfig.initCurrentGameConfig();
+                    this.drawGrid();
+                };
+                GamePlay.prototype.restartGame = function () {
                     this.resetModalConfig();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();
@@ -227,7 +240,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 GamePlay.prototype.onModalClose = function () {
                     this.resetModalConfig();
                     if (!this.genericConfig.config.playGame) {
-                        this.startGame();
+                        console.llog('calling startGame with true');
+                        this.startGame(true);
                     }
                 };
                 GamePlay.prototype.goToHome = function () {

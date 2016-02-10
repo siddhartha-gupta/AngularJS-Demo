@@ -29,23 +29,9 @@ export class ServerCommunicator {
 
 		console.log('msgSender: ', this.socket);
 		this.socket.emit(identifier, data);
-		/*
-		this.socket.emit('create-join-room', {
-			'username': username,
-			'recipient': recipient
-		});
-
-		this.socket.emit('private-message', {
-			'recipient': recipient,
-			'content': content
-		});*/
 	}
 
 	msgReceiver() {
-		// register-email
-		// add-recipient
-		// send-message
-
 		this.socket.on('email-registered', (data: any) => {
 			console.log('email-registered:', data);
 		});
@@ -61,9 +47,14 @@ export class ServerCommunicator {
 			this.customEventService.recipientAdded(data);
 		});
 
-		this.socket.on('send-message-resp', (data:any) => {
-			console.log('send-message-resp: ',data);
+		this.socket.on('send-message-resp', (data: any) => {
+			console.log('send-message-resp: ', data);
 			this.customEventService.moveReceived(data);
+		});
+
+		this.socket.on('restart-game-resp', (data: any) => {
+			console.log('restart-game-resp: ', data);
+			this.customEventService.restartGame(data);
 		});
 	}
 }

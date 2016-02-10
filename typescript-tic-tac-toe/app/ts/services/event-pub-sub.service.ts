@@ -8,6 +8,7 @@ export class CustomEventService {
 	public onPlayersListReceived: EventEmitter<Object> = new EventEmitter();
 	public onRecipientAdded: EventEmitter<Object> = new EventEmitter();
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
+	public onRestartGame: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));
@@ -18,14 +19,10 @@ export class CustomEventService {
 	}
 
 	headerBtnClicked(btnType: string) {
-		console.log('event pub-sub headerBtnClicked: ', btnType);
-		// console.log(this.onHeaderClicked);
-
 		this.onHeaderClicked.emit({
 			btnType: btnType,
 			routeName: this.location.path()
 		});
-		// this.onRouteChange.emit('gameplay');
 	}
 
 	playersListReceived(data: any) {
@@ -39,5 +36,10 @@ export class CustomEventService {
 	moveReceived(data: any) {
 		console.log('moveReceived: ', data);
 		this.onMoveReceived.emit(data);
+	}
+
+	restartGame(data: any) {
+		console.log('restartGame: ', data);
+		this.onRestartGame.emit(data);
 	}
 }

@@ -1,4 +1,4 @@
 <div id="container">
 	<ul id="game-grid"></ul>
 </div>
-<modal-dialogue [isVisible]="modalDialogue.isVisible" [title]="modalDialogue.title" [body]="modalDialogue.body" [showBtn2]="modalDialogue.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="startGame()" (closeBtnCallback)="onModalClose()"></modal-dialogue>
+<modal-dialogue [isVisible]="modalDialogue.isVisible" [title]="modalDialogue.title" [body]="modalDialogue.body" [showBtn2]="modalDialogue.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="startGame(true)" (closeBtnCallback)="onModalClose()"></modal-dialogue>

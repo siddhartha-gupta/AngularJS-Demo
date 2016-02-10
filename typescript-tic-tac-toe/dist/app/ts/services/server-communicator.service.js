@@ -37,21 +37,8 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                     var recipient = this.recipient;
                     console.log('msgSender: ', this.socket);
                     this.socket.emit(identifier, data);
-                    /*
-                    this.socket.emit('create-join-room', {
-                        'username': username,
-                        'recipient': recipient
-                    });
-            
-                    this.socket.emit('private-message', {
-                        'recipient': recipient,
-                        'content': content
-                    });*/
                 };
                 ServerCommunicator.prototype.msgReceiver = function () {
-                    // register-email
-                    // add-recipient
-                    // send-message
                     var _this = this;
                     this.socket.on('email-registered', function (data) {
                         console.log('email-registered:', data);
@@ -68,6 +55,10 @@ System.register(['angular2/core', '../services/event-pub-sub.service'], function
                     this.socket.on('send-message-resp', function (data) {
                         console.log('send-message-resp: ', data);
                         _this.customEventService.moveReceived(data);
+                    });
+                    this.socket.on('restart-game-resp', function (data) {
+                        console.log('restart-game-resp: ', data);
+                        _this.customEventService.restartGame(data);
                     });
                 };
                 ServerCommunicator = __decorate([
