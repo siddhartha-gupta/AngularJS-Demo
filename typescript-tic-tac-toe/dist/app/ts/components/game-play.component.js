@@ -79,7 +79,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 };
                 GamePlay.prototype.startGame = function () {
                     this.resetModalConfig();
-                    this.gameInProgress = true;
+                    this.genericConfig.config.playGame = true;
                     this.currentGameConfig.initDefaultConfig();
                     this.drawGrid();
                 };
@@ -100,7 +100,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
                         }
                     }
-                    if (!this.genericConfig.config.playerstarts) {
+                    if (!this.genericConfig.computerConfig.playerstarts) {
                         this.makeAIMove();
                     }
                 };
@@ -109,7 +109,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    this.utils.log('onBlockClick');
+                    this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
                     if (this.genericConfig.config.playGame) {
                         var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
                         if (!this.currentGameConfig.currentGame.isWon) {
@@ -158,16 +158,16 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         case 'gameWon':
                             this.genericConfig.config.playGame = false;
                             if (isHuman) {
-                                this.showModalDialogue('Player won the match', false);
+                                this.showModalDialogue('Player won the match');
                                 this.sendMoveToSever(move);
                             }
                             else {
-                                this.showModalDialogue('Computer won the match', false);
+                                this.showModalDialogue('Computer won the match');
                             }
                             break;
                         case 'gameDraw':
                             this.genericConfig.config.playGame = false;
-                            this.showModalDialogue('Match Drawn!', false);
+                            this.showModalDialogue('Match Drawn!');
                             this.sendMoveToSever(move);
                             break;
                         case 'sendMoveToSever':
@@ -182,7 +182,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 };
                 GamePlay.prototype.sendMoveToSever = function (move) {
                     this.serverCommunicator.msgSender('send-message', {
-                        recipient: this.genericConfig.config.recipient,
+                        recipient: this.genericConfig.multiPlayerConfig.recipient,
                         msg: move
                     });
                 };
@@ -202,24 +202,23 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                                 this.goToHome();
                                 break;
                             case 'right':
-                                this.showModalDialogue('Current Scorecard', this.gameInProgress);
+                                this.showModalDialogue('Current Scorecard');
                                 break;
                         }
                     }
                 };
-                GamePlay.prototype.showModalDialogue = function (text, gameInProgress) {
+                GamePlay.prototype.showModalDialogue = function (text) {
                     this.utils.log('showModalDialogue: ', text);
-                    this.gameInProgress = gameInProgress;
                     this.modalDialogue = {
                         isVisible: true,
                         title: 'Game Status',
                         body: text,
-                        showBtn2: !this.gameInProgress
+                        showBtn2: !this.genericConfig.config.playGame
                     };
                 };
                 GamePlay.prototype.onModalClose = function () {
                     this.resetModalConfig();
-                    if (!this.gameInProgress) {
+                    if (!this.genericConfig.config.playGame) {
                         this.startGame();
                     }
                 };

@@ -37,7 +37,7 @@ export class PlayersList {
 			list = this.serverCommunicator.playersList;
 		}
 		for (let i = 0, len = list.length; i < len; i++) {
-			if (list[i].emailId !== this.genericConfig.config.emailId) {
+			if (list[i].emailId !== this.genericConfig.multiPlayerConfig.emailId) {
 				tempList.push(list[i]);
 			}
 		}
@@ -68,18 +68,19 @@ export class PlayersList {
 	}
 
 	onRecipientSelected(event: Event, recipientId: string) {
-		console.log('onRecipientSelected');
+		console.log('onRecipientSelected, recipientId: ', recipientId);
+
 		this.serverCommunicator.msgSender('add-recipient', {
-			emailId: this.genericConfig.config.emailId,
+			emailId: this.genericConfig.multiPlayerConfig.emailId,
 			recipient: recipientId
 		});
+
+		this.genericConfig.multiPlayerConfig.player1 = true;
 		this.onRecipientAdded(recipientId);
-		// this.genericConfig.config.recipient = recipientId;
-		// this.router.navigate(['GamePlay']);
 	}
 
 	onRecipientAdded(data: any) {
-		this.genericConfig.config.recipient = data;
+		this.genericConfig.multiPlayerConfig.recipient = data;
 		this.router.navigate(['GamePlay']);
 	}
 }

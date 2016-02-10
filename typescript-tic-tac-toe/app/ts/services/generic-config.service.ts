@@ -1,9 +1,11 @@
 import {Injectable} from 'angular2/core'
-import {GenericConfigInterface} from '../services/app-interfaces.service'
+import {GenericConfigInterface, multiPlayerConfigInterface, computerConfigInterface} from '../services/app-interfaces.service'
 
 @Injectable()
 export class GenericConfig {
 	public config: GenericConfigInterface;
+	public multiPlayerConfig: multiPlayerConfigInterface;
+	public computerConfig: computerConfigInterface;
 
 	constructor() {
 		this.initDefaultConfig();
@@ -11,12 +13,7 @@ export class GenericConfig {
 
 	initDefaultConfig() {
 		this.config = {
-			appStarted: false,
-			emailId: '',
-			username: '',
-			recipient: '',
 			gridSize: 3,
-			gameLevel: 2,
 			playGame: true,
 			ways: [
 				[0, 11, 12, 13],
@@ -30,7 +27,6 @@ export class GenericConfig {
 			],
 			choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
 			corners: [11, 13, 31, 33],
-			playerstarts: true,
 			gameScore: {
 				'totalGames': 0,
 				'draws': 0,
@@ -42,5 +38,17 @@ export class GenericConfig {
 		};
 
 		this.config.gridComputationLen = (this.config.gridSize * this.config.gridSize) - 1;
+
+		this.multiPlayerConfig = {
+			emailId: '',
+			username: '',
+			recipient: '',
+			player1: false,
+		};
+
+		this.computerConfig = {
+			gameLevel: 2,
+			playerstarts: true
+		};
 	}
 }

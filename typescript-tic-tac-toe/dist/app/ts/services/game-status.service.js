@@ -61,18 +61,18 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                     if (isHuman) {
                         this.genericConfig.config.gameScore.totalGames += 1;
                         this.genericConfig.config.gameScore.playerWins += 1;
-                        this.genericConfig.config.playerstarts = true;
+                        this.genericConfig.computerConfig.playerstarts = true;
                     }
                     else {
                         this.genericConfig.config.gameScore.totalGames += 1;
                         this.genericConfig.config.gameScore.computerWins += 1;
-                        this.genericConfig.config.playerstarts = false;
+                        this.genericConfig.computerConfig.playerstarts = false;
                     }
                 };
                 GameStatus.prototype.onGameDraw = function () {
                     this.genericConfig.config.gameScore.totalGames += 1;
                     this.genericConfig.config.gameScore.draws += 1;
-                    this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
+                    this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
                 };
                 GameStatus = __decorate([
                     core_1.Injectable(), 

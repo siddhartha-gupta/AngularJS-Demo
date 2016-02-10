@@ -43,17 +43,17 @@ export class GameStatus {
 		if (isHuman) {
 			this.genericConfig.config.gameScore.totalGames += 1;
 			this.genericConfig.config.gameScore.playerWins += 1;
-			this.genericConfig.config.playerstarts = true;
+			this.genericConfig.computerConfig.playerstarts = true;
 		} else {
 			this.genericConfig.config.gameScore.totalGames += 1;
 			this.genericConfig.config.gameScore.computerWins += 1;
-			this.genericConfig.config.playerstarts = false;
+			this.genericConfig.computerConfig.playerstarts = false;
 		}
 	}
 
 	onGameDraw() {
 		this.genericConfig.config.gameScore.totalGames += 1;
 		this.genericConfig.config.gameScore.draws += 1;
-		this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
+		this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
 	}
 }

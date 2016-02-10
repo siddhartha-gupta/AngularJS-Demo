@@ -105,9 +105,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         event.stopPropagation();
                     }
                     if (this.model.opponent === 2) {
-                        this.genericConfig.config.emailId = this.model.userEmail;
-                        this.genericConfig.config.username = this.model.username;
                         this.genericConfig.config.multiPlayer = true;
+                        this.genericConfig.multiPlayerConfig.emailId = this.model.userEmail;
+                        this.genericConfig.multiPlayerConfig.username = this.model.username;
                         this.serverCommunicator.initSocket();
                         this.serverCommunicator.sender = this.model.userEmail;
                         this.serverCommunicator.msgSender('register-email', {
@@ -117,8 +117,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         this.router.navigate(['PlayersList']);
                     }
                     else {
-                        this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
-                        this.genericConfig.config.gameLevel = this.model.gameLevel;
+                        this.genericConfig.config.multiPlayer = false;
+                        this.genericConfig.computerConfig.playerstarts = (this.model.firstChance === 1) ? true : false;
+                        this.genericConfig.computerConfig.gameLevel = this.model.gameLevel;
                         this.router.navigate(['GamePlay']);
                     }
                 };

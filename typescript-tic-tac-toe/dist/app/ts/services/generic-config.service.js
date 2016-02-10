@@ -22,12 +22,7 @@ System.register(['angular2/core'], function(exports_1) {
                 }
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
-                        appStarted: false,
-                        emailId: '',
-                        username: '',
-                        recipient: '',
                         gridSize: 3,
-                        gameLevel: 2,
                         playGame: true,
                         ways: [
                             [0, 11, 12, 13],
@@ -41,7 +36,6 @@ System.register(['angular2/core'], function(exports_1) {
                         ],
                         choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
                         corners: [11, 13, 31, 33],
-                        playerstarts: true,
                         gameScore: {
                             'totalGames': 0,
                             'draws': 0,
@@ -52,6 +46,16 @@ System.register(['angular2/core'], function(exports_1) {
                         multiPlayer: false
                     };
                     this.config.gridComputationLen = (this.config.gridSize * this.config.gridSize) - 1;
+                    this.multiPlayerConfig = {
+                        emailId: '',
+                        username: '',
+                        recipient: '',
+                        player1: false,
+                    };
+                    this.computerConfig = {
+                        gameLevel: 2,
+                        playerstarts: true
+                    };
                 };
                 GenericConfig = __decorate([
                     core_1.Injectable(), 

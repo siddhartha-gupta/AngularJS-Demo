@@ -36,7 +36,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                     // check if ai can win
                     result = this.chooseMove(true);
                     // check move to prevent ai loss
-                    if (this.genericConfig.config.gameLevel > 1) {
+                    if (this.genericConfig.computerConfig.gameLevel > 1) {
                         if (!result || result === 0) {
                             result = this.chooseMove(false);
                         }
@@ -45,7 +45,7 @@ System.register(['angular2/core', './generic-config.service', './current-game-co
                         }
                     }
                     // check best possible move for ai
-                    if (this.genericConfig.config.gameLevel > 2) {
+                    if (this.genericConfig.computerConfig.gameLevel > 2) {
                         if (!result || result === 0) {
                             result = this.seekBestMove();
                         }

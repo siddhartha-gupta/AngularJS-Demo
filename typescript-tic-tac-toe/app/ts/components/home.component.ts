@@ -21,7 +21,12 @@ export class Home {
 	opponentOptions: initSetupInterface[] = [];
 	gameStarter: initSetupInterface[] = [];
 
-	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator) {
+	constructor(
+		private genericConfig: GenericConfig,
+		private router: Router,
+		private customEventService: CustomEventService,
+		private serverCommunicator: ServerCommunicator
+	) {
 
 		this.model = {
 			gameLevel: 2,
@@ -92,9 +97,10 @@ export class Home {
 		}
 
 		if (this.model.opponent === 2) {
-			this.genericConfig.config.emailId = this.model.userEmail;
-			this.genericConfig.config.username = this.model.username;
 			this.genericConfig.config.multiPlayer = true;
+
+			this.genericConfig.multiPlayerConfig.emailId = this.model.userEmail;
+			this.genericConfig.multiPlayerConfig.username = this.model.username;
 
 			this.serverCommunicator.initSocket();
 			this.serverCommunicator.sender = this.model.userEmail;
@@ -106,8 +112,9 @@ export class Home {
 
 			this.router.navigate(['PlayersList']);
 		} else {
-			this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
-			this.genericConfig.config.gameLevel = this.model.gameLevel;
+			this.genericConfig.config.multiPlayer = false;
+			this.genericConfig.computerConfig.playerstarts = (this.model.firstChance === 1) ? true : false;
+			this.genericConfig.computerConfig.gameLevel = this.model.gameLevel;
 			this.router.navigate(['GamePlay']);
 		}
 	}

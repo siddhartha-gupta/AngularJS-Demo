@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './header.component', './home.component', './game-play.component', './players-list.component', '../services/generic-config.service', '../services/event-pub-sub.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './header.component', './home.component', './game-play.component', './players-list.component', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, header_component_1, home_component_1, game_play_component_1, players_list_component_1, generic_config_service_1, event_pub_sub_service_1, settings_1;
+    var core_1, router_1, header_component_1, home_component_1, game_play_component_1, players_list_component_1, settings_1;
     var App;
     return {
         setters:[
@@ -30,28 +30,12 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
             function (players_list_component_1_1) {
                 players_list_component_1 = players_list_component_1_1;
             },
-            function (generic_config_service_1_1) {
-                generic_config_service_1 = generic_config_service_1_1;
-            },
-            function (event_pub_sub_service_1_1) {
-                event_pub_sub_service_1 = event_pub_sub_service_1_1;
-            },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             }],
         execute: function() {
             App = (function () {
-                function App(genericConfig, router, customEventService) {
-                    this.genericConfig = genericConfig;
-                    this.router = router;
-                    this.customEventService = customEventService;
-                    console.log('app class, appStarted: ', this.genericConfig.config.appStarted);
-                    // customEventService.onRouteChange.subscribe((val: string) => this.onRouteChange(val));
-                    /*if (this.genericConfig.config.appStarted) {
-                        this.router.navigate(['Home']);
-                    } else {
-                        this.genericConfig.config.appStarted = true;
-                    }*/
+                function App() {
                 }
                 App = __decorate([
                     core_1.Component({
@@ -65,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
                         { path: '/playerslist', as: 'PlayersList', component: players_list_component_1.PlayersList },
                         { path: '/gameplay', as: 'GamePlay', component: game_play_component_1.GamePlay }
                     ]), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, router_1.Router, event_pub_sub_service_1.CustomEventService])
+                    __metadata('design:paramtypes', [])
                 ], App);
                 return App;
             })();

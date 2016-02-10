@@ -26,7 +26,18 @@ export class GamePlay {
 	gameInProgress: Boolean = false;
 	modalDialogue: ModalDialogueInterface;
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService, private serverCommunicator: ServerCommunicator) {
+	constructor(
+		public genericConfig: GenericConfig,
+		public currentGameConfig: CurrentGameConfig,
+		public aiGamePlay: AIGamePlay,
+		public gameStatus: GameStatus,
+		public utils: Utils,
+		public renderer: Renderer,
+		private _dom: BrowserDomAdapter,
+		private router: Router,
+		private customEventService: CustomEventService,
+		private serverCommunicator: ServerCommunicator
+	) {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
@@ -47,7 +58,7 @@ export class GamePlay {
 
 	startGame() {
 		this.resetModalConfig();
-		this.gameInProgress = true;
+		this.genericConfig.config.playGame = true;
 		this.currentGameConfig.initDefaultConfig();
 		this.drawGrid();
 	}
@@ -77,7 +88,7 @@ export class GamePlay {
 			}
 		}
 
-		if (!this.genericConfig.config.playerstarts) {
+		if (!this.genericConfig.computerConfig.playerstarts) {
 			this.makeAIMove();
 		}
 	}
@@ -88,7 +99,7 @@ export class GamePlay {
 			event.stopPropagation();
 		}
 
-		this.utils.log('onBlockClick');
+		this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
 		if (this.genericConfig.config.playGame) {
 			let target = <HTMLInputElement>event.target,
 				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
@@ -147,16 +158,16 @@ export class GamePlay {
 			case 'gameWon':
 				this.genericConfig.config.playGame = false;
 				if (isHuman) {
-					this.showModalDialogue('Player won the match', false);
+					this.showModalDialogue('Player won the match');
 					this.sendMoveToSever(move);
 				} else {
-					this.showModalDialogue('Computer won the match', false);
+					this.showModalDialogue('Computer won the match');
 				}
 				break;
 
 			case 'gameDraw':
 				this.genericConfig.config.playGame = false;
-				this.showModalDialogue('Match Drawn!', false);
+				this.showModalDialogue('Match Drawn!');
 				this.sendMoveToSever(move);
 				break;
 
@@ -174,7 +185,7 @@ export class GamePlay {
 
 	sendMoveToSever(move: number) {
 		this.serverCommunicator.msgSender('send-message', {
-			recipient: this.genericConfig.config.recipient,
+			recipient: this.genericConfig.multiPlayerConfig.recipient,
 			msg: move
 		});
 	}
@@ -200,27 +211,26 @@ export class GamePlay {
 					break;
 
 				case 'right':
-					this.showModalDialogue('Current Scorecard', this.gameInProgress);
+					this.showModalDialogue('Current Scorecard');
 					break;
 			}
 		}
 	}
 
-	showModalDialogue(text: string, gameInProgress: Boolean) {
+	showModalDialogue(text: string) {
 		this.utils.log('showModalDialogue: ', text);
-		this.gameInProgress = gameInProgress;
 
 		this.modalDialogue = {
 			isVisible: true,
 			title: 'Game Status',
 			body: text,
-			showBtn2: !this.gameInProgress
+			showBtn2: !this.genericConfig.config.playGame
 		};
 	}
 
 	onModalClose() {
 		this.resetModalConfig();
-		if (!this.gameInProgress) {
+		if (!this.genericConfig.config.playGame) {
 			this.startGame();
 		}
 	}

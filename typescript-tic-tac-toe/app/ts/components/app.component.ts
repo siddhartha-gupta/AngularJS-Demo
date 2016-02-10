@@ -6,8 +6,6 @@ import {AppHeader} from './header.component'
 import {Home} from './home.component'
 import {GamePlay} from './game-play.component'
 import {PlayersList} from './players-list.component'
-import { GenericConfig } from '../services/generic-config.service'
-import {CustomEventService} from '../services/event-pub-sub.service'
 import {_settings} from '../settings'
 
 @Component({
@@ -24,13 +22,5 @@ import {_settings} from '../settings'
 ])
 
 export class App {
-	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService) {
-		console.log('app class, appStarted: ', this.genericConfig.config.appStarted);
-		// customEventService.onRouteChange.subscribe((val: string) => this.onRouteChange(val));
-		/*if (this.genericConfig.config.appStarted) {
-			this.router.navigate(['Home']);
-		} else {
-			this.genericConfig.config.appStarted = true;
-		}*/
-	}
+	constructor() {	}
 }

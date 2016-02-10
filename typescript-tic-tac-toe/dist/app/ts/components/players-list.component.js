@@ -56,7 +56,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                         list = this.serverCommunicator.playersList;
                     }
                     for (var i = 0, len = list.length; i < len; i++) {
-                        if (list[i].emailId !== this.genericConfig.config.emailId) {
+                        if (list[i].emailId !== this.genericConfig.multiPlayerConfig.emailId) {
                             tempList.push(list[i]);
                         }
                     }
@@ -82,17 +82,16 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.router.navigate(['GamePlay']);
                 };
                 PlayersList.prototype.onRecipientSelected = function (event, recipientId) {
-                    console.log('onRecipientSelected');
+                    console.log('onRecipientSelected, recipientId: ', recipientId);
                     this.serverCommunicator.msgSender('add-recipient', {
-                        emailId: this.genericConfig.config.emailId,
+                        emailId: this.genericConfig.multiPlayerConfig.emailId,
                         recipient: recipientId
                     });
+                    this.genericConfig.multiPlayerConfig.player1 = true;
                     this.onRecipientAdded(recipientId);
-                    // this.genericConfig.config.recipient = recipientId;
-                    // this.router.navigate(['GamePlay']);
                 };
                 PlayersList.prototype.onRecipientAdded = function (data) {
-                    this.genericConfig.config.recipient = data;
+                    this.genericConfig.multiPlayerConfig.recipient = data;
                     this.router.navigate(['GamePlay']);
                 };
                 PlayersList = __decorate([

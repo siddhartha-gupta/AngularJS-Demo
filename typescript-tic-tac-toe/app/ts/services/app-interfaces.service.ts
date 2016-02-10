@@ -6,17 +6,12 @@ export interface CurrentGameConfigInterface {
 }
 
 export interface GenericConfigInterface {
-	appStarted: Boolean;
-	emailId: string;
-	username: string;
-	recipient: string;
 	gridSize: number;
-	gameLevel: number;
 	playGame: Boolean;
 	ways: Array<Array<any>>;
 	choices: Array<number>;
 	corners: Array<number>;
-	playerstarts: Boolean;
+	
 	gameScore: {
 		'totalGames': number;
 		'draws': number;
@@ -25,6 +20,18 @@ export interface GenericConfigInterface {
 	};
 	gridComputationLen: number;
 	multiPlayer: Boolean;
+}
+
+export interface multiPlayerConfigInterface {
+	emailId: string;
+	username: string;
+	recipient: string;
+	player1: Boolean;
+}
+
+export interface computerConfigInterface {
+	gameLevel: number;
+	playerstarts: Boolean;
 }
 
 export interface homeModelInterface {
