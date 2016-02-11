@@ -25,6 +25,7 @@
     "app/ts/directives/score-card.directive.ts",
     "app/ts/directives/modal-dialogue.directive.ts",
     "app/ts/services/utils.service.ts",
+    "app/ts/services/invite-handler.service.ts",
     "app/ts/services/event-pub-sub.service.ts",
     "app/ts/services/generic-config.service.ts",
     "app/ts/services/ai-gamePlay.service.ts",
