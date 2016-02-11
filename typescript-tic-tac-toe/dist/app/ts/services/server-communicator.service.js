@@ -30,7 +30,7 @@ System.register(['angular2/core', '../services/event-pub-sub.service', '../servi
                     this.recipient = null;
                 }
                 ServerCommunicator.prototype.initSocket = function () {
-                    this.socket = io.connect('http://10.4.3.88:5000');
+                    this.socket = io.connect('http://localhost:5000');
                     this.msgReceiver();
                 };
                 ServerCommunicator.prototype.msgSender = function (identifier, data) {
@@ -42,15 +42,15 @@ System.register(['angular2/core', '../services/event-pub-sub.service', '../servi
                 };
                 ServerCommunicator.prototype.msgReceiver = function () {
                     var _this = this;
-                    this.socket.on('email-registered', function (data) {
-                        _this.utils.log('email-registered:', data);
+                    this.socket.on('register-email-resp', function (data) {
+                        _this.utils.log('register-email-resp:', data);
                     });
-                    this.socket.on('current-players-list', function (data) {
+                    this.socket.on('current-players-list-resp', function (data) {
                         _this.playersList = data;
                         _this.customEventService.playersListReceived(data);
                     });
-                    this.socket.on('add-recipient-resp', function (data) {
-                        _this.customEventService.recipientAdded(data);
+                    this.socket.on('invite-request', function (data) {
+                        _this.customEventService.inviteRequest(data);
                     });
                     this.socket.on('send-message-resp', function (data) {
                         _this.customEventService.moveReceived(data);

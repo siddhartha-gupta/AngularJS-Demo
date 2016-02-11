@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, server_communicator_service_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, server_communicator_service_1, score_card_directive_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             },
             function (server_communicator_service_1_1) {
                 server_communicator_service_1 = server_communicator_service_1_1;
+            },
+            function (score_card_directive_1_1) {
+                score_card_directive_1 = score_card_directive_1_1;
             },
             function (modal_dialogue_directive_1_1) {
                 modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
@@ -61,7 +64,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     customEventService.onRestartGame.subscribe(function (data) { return _this.restartGame(); });
-                    this.modalDialogue = {
+                    this.scoreCardConfig = {
                         isVisible: false,
                         title: '',
                         body: '',
@@ -79,13 +82,13 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             recipient: this.genericConfig.multiPlayerConfig.recipient
                         });
                     }
-                    this.resetModalConfig();
+                    this.resetScoreCard();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();
                     this.drawGrid();
                 };
                 GamePlay.prototype.restartGame = function () {
-                    this.resetModalConfig();
+                    this.resetScoreCard();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();
                     this.drawGrid();
@@ -183,14 +186,14 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     switch (status) {
                         case 'gameWon':
                             if (isHuman) {
-                                this.showModalDialogue('You won the match');
+                                this.showScoreCard('You won the match');
                             }
                             else {
-                                this.showModalDialogue('Your opponent won the match');
+                                this.showScoreCard('Your opponent won the match');
                             }
                             break;
                         case 'gameDraw':
-                            this.showModalDialogue('Match Drawn!');
+                            this.showScoreCard('Match Drawn!');
                             break;
                         case 'makeAIMove':
                             this.makeAIMove();
@@ -223,33 +226,33 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                                 this.goToHome();
                                 break;
                             case 'right':
-                                this.showModalDialogue('Current Scorecard');
+                                this.showScoreCard('Current Scorecard');
                                 break;
                         }
                     }
                 };
-                GamePlay.prototype.showModalDialogue = function (text) {
-                    this.utils.log('showModalDialogue: ', text);
-                    this.modalDialogue = {
+                GamePlay.prototype.showScoreCard = function (text) {
+                    this.utils.log('showScoreCard: ', text);
+                    this.scoreCardConfig = {
                         isVisible: true,
                         title: 'Game Status',
                         body: text,
                         showBtn2: !this.genericConfig.config.playGame
                     };
                 };
-                GamePlay.prototype.onModalClose = function () {
-                    this.resetModalConfig();
+                GamePlay.prototype.hideScoreCard = function () {
+                    this.resetScoreCard();
                     if (!this.genericConfig.config.playGame) {
                         this.startGame(true);
                     }
                 };
                 GamePlay.prototype.goToHome = function () {
-                    this.resetModalConfig();
+                    this.resetScoreCard();
                     this.utils.log('goToHome');
                     this.router.navigate(['Home']);
                 };
-                GamePlay.prototype.resetModalConfig = function () {
-                    this.modalDialogue = {
+                GamePlay.prototype.resetScoreCard = function () {
+                    this.scoreCardConfig = {
                         isVisible: false,
                         title: '',
                         body: '',
@@ -260,7 +263,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     core_1.Component({
                         selector: 'GamePlay',
                         providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter],
-                        directives: [router_1.ROUTER_DIRECTIVES, modal_dialogue_directive_1.ModalDialouge],
+                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'

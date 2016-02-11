@@ -47,11 +47,14 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.utils = utils;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
-                    customEventService.onRecipientAdded.subscribe(function (data) { return _this.onRecipientAdded(data); });
+                    customEventService.onInviteRequest.subscribe(function (data) { return _this.onInviteRequest(data); });
+                    customEventService.onInviteAccepted.subscribe(function (data) { return _this.onInviteAccepted(data); });
+                    customEventService.onInviteRejected.subscribe(function (data) { return _this.onInviteRejected(data); });
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
                 PlayersList.prototype.onPlayersListReceived = function (data) {
                     var list = [], tempList = [];
+                    console.log('on playersList: ', data);
                     if (data) {
                         list = data;
                     }
@@ -85,18 +88,24 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                 };
                 PlayersList.prototype.onRecipientSelected = function (event, recipientId) {
                     this.utils.log('onRecipientSelected, recipientId: ', recipientId);
-                    this.genericConfig.multiPlayerConfig.playerTurn = true;
-                    this.genericConfig.multiPlayerConfig.player1 = true;
-                    this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
-                    this.serverCommunicator.msgSender('add-recipient', {
+                    this.serverCommunicator.msgSender('send-invite', {
                         emailId: this.genericConfig.multiPlayerConfig.emailId,
                         recipient: recipientId
                     });
-                    this.onRecipientAdded(recipientId);
                 };
-                PlayersList.prototype.onRecipientAdded = function (data) {
+                PlayersList.prototype.onInviteRequest = function (data) {
+                    console.log('onInviteRequest, show some pop up over here: ', data);
+                };
+                PlayersList.prototype.onInviteAccepted = function (data) {
+                    console.log('onInviteAccepted: ', data);
+                    this.genericConfig.multiPlayerConfig.playerTurn = true;
+                    this.genericConfig.multiPlayerConfig.player1 = true;
+                    this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
                     this.genericConfig.multiPlayerConfig.recipient = data;
                     this.router.navigate(['GamePlay']);
+                };
+                PlayersList.prototype.onInviteRejected = function (data) {
+                    console.log('onInviteRejected: ', data);
                 };
                 PlayersList = __decorate([
                     core_1.Component({

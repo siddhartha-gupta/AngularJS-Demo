@@ -29,7 +29,9 @@ export class PlayersList {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
-		customEventService.onRecipientAdded.subscribe((data: any) => this.onRecipientAdded(data));
+		customEventService.onInviteRequest.subscribe((data: any) => this.onInviteRequest(data));
+		customEventService.onInviteAccepted.subscribe((data: any) => this.onInviteAccepted(data));
+		customEventService.onInviteRejected.subscribe((data: any) => this.onInviteRejected(data));
 
 		this.serverCommunicator.msgSender('get-players-list', {});
 	}
@@ -38,6 +40,7 @@ export class PlayersList {
 		let list: Array<any> = [],
 			tempList: Array<any> = [];
 
+		console.log('on playersList: ', data);
 		if (data) {
 			list = data;
 		} else {
@@ -76,20 +79,26 @@ export class PlayersList {
 	onRecipientSelected(event: Event, recipientId: string) {
 		this.utils.log('onRecipientSelected, recipientId: ', recipientId);
 
-		this.genericConfig.multiPlayerConfig.playerTurn = true;
-		this.genericConfig.multiPlayerConfig.player1 = true;
-		this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
-
-		this.serverCommunicator.msgSender('add-recipient', {
+		this.serverCommunicator.msgSender('send-invite', {
 			emailId: this.genericConfig.multiPlayerConfig.emailId,
 			recipient: recipientId
 		});
-
-		this.onRecipientAdded(recipientId);
 	}
 
-	onRecipientAdded(data: any) {
+	onInviteRequest(data: any) {
+		console.log('onInviteRequest, show some pop up over here: ', data);
+	}
+
+	onInviteAccepted(data: any) {
+		console.log('onInviteAccepted: ', data);
+		this.genericConfig.multiPlayerConfig.playerTurn = true;
+		this.genericConfig.multiPlayerConfig.player1 = true;
+		this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
 		this.genericConfig.multiPlayerConfig.recipient = data;
 		this.router.navigate(['GamePlay']);
+	}
+
+	onInviteRejected(data: any) {
+		console.log('onInviteRejected: ', data);
 	}
 }

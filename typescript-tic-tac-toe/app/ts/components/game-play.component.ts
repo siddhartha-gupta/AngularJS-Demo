@@ -3,6 +3,7 @@ import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import { ServerCommunicator } from '../services/server-communicator.service'
+import { ScoreCard } from '../directives/score-card.directive'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
@@ -15,14 +16,14 @@ import { _settings } from '../settings'
 @Component({
 	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, ModalDialouge],
+	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 
 export class GamePlay {
-	modalDialogue: ModalDialogueInterface;
+	scoreCardConfig: ModalDialogueInterface;
 
 	constructor(
 		public genericConfig: GenericConfig,
@@ -39,7 +40,7 @@ export class GamePlay {
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
 		customEventService.onRestartGame.subscribe((data: any) => this.restartGame());
-		this.modalDialogue = {
+		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',
 			body: '',
@@ -60,14 +61,14 @@ export class GamePlay {
 			});
 		}
 
-		this.resetModalConfig();
+		this.resetScoreCard();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();
 		this.drawGrid();
 	}
 
 	restartGame() {
-		this.resetModalConfig();
+		this.resetScoreCard();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();
 		this.drawGrid();
@@ -188,14 +189,14 @@ export class GamePlay {
 		switch (status) {
 			case 'gameWon':
 				if (isHuman) {
-					this.showModalDialogue('You won the match');
+					this.showScoreCard('You won the match');
 				} else {
-					this.showModalDialogue('Your opponent won the match');
+					this.showScoreCard('Your opponent won the match');
 				}
 				break;
 
 			case 'gameDraw':
-				this.showModalDialogue('Match Drawn!');
+				this.showScoreCard('Match Drawn!');
 				break;
 
 			case 'makeAIMove':
@@ -236,16 +237,16 @@ export class GamePlay {
 					break;
 
 				case 'right':
-					this.showModalDialogue('Current Scorecard');
+					this.showScoreCard('Current Scorecard');
 					break;
 			}
 		}
 	}
 
-	showModalDialogue(text: string) {
-		this.utils.log('showModalDialogue: ', text);
+	showScoreCard(text: string) {
+		this.utils.log('showScoreCard: ', text);
 
-		this.modalDialogue = {
+		this.scoreCardConfig = {
 			isVisible: true,
 			title: 'Game Status',
 			body: text,
@@ -253,21 +254,21 @@ export class GamePlay {
 		};
 	}
 
-	onModalClose() {
-		this.resetModalConfig();
+	hideScoreCard() {
+		this.resetScoreCard();
 		if (!this.genericConfig.config.playGame) {
 			this.startGame(true);
 		}
 	}
 
 	goToHome() {
-		this.resetModalConfig();
+		this.resetScoreCard();
 		this.utils.log('goToHome');
 		this.router.navigate(['Home']);
 	}
 
-	resetModalConfig() {
-		this.modalDialogue = {
+	resetScoreCard() {
+		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',
 			body: '',

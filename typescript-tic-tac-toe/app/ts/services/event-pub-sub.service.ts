@@ -6,7 +6,9 @@ export class CustomEventService {
 	public onRouteChange: EventEmitter<string> = new EventEmitter();
 	public onHeaderClicked: EventEmitter<Object> = new EventEmitter();
 	public onPlayersListReceived: EventEmitter<Object> = new EventEmitter();
-	public onRecipientAdded: EventEmitter<Object> = new EventEmitter();
+	public onInviteRequest: EventEmitter<Object> = new EventEmitter();
+	public onInviteAccepted: EventEmitter<Object> = new EventEmitter();
+	public onInviteRejected: EventEmitter<Object> = new EventEmitter();
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
 	public onRestartGame: EventEmitter<Object> = new EventEmitter();
 
@@ -29,8 +31,16 @@ export class CustomEventService {
 		this.onPlayersListReceived.emit(data);
 	}
 
-	recipientAdded(data: any) {
-		this.onRecipientAdded.emit(data);
+	inviteRequest(data: any) {
+		this.onInviteRequest.emit(data);
+	}
+
+	inviteAccepted(data: any) {
+		this.onInviteAccepted.emit(data);
+	}
+
+	inviteRejected(data: any) {
+		this.onInviteRejected.emit(data);
 	}
 
 	moveReceived(data: any) {

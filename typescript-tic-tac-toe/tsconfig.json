@@ -22,6 +22,7 @@
     "app/ts/components/home.component.ts",
     "app/ts/components/players-list.component.ts",
     "app/ts/components/game-play.component.ts",
+    "app/ts/directives/score-card.directive.ts",
     "app/ts/directives/modal-dialogue.directive.ts",
     "app/ts/services/utils.service.ts",
     "app/ts/services/event-pub-sub.service.ts",

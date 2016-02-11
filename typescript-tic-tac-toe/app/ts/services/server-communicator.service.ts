@@ -20,7 +20,7 @@ export class ServerCommunicator {
 	}
 
 	initSocket() {
-		this.socket = io.connect('http://10.4.3.88:5000');
+		this.socket = io.connect('http://localhost:5000');
 		this.msgReceiver();
 	}
 
@@ -33,17 +33,17 @@ export class ServerCommunicator {
 	}
 
 	msgReceiver() {
-		this.socket.on('email-registered', (data: any) => {
-			this.utils.log('email-registered:', data);
+		this.socket.on('register-email-resp', (data: any) => {
+			this.utils.log('register-email-resp:', data);
 		});
 
-		this.socket.on('current-players-list', (data: any) => {
+		this.socket.on('current-players-list-resp', (data: any) => {
 			this.playersList = data;
 			this.customEventService.playersListReceived(data);
 		});
 
-		this.socket.on('add-recipient-resp', (data: any) => {
-			this.customEventService.recipientAdded(data);
+		this.socket.on('invite-request', (data: any) => {
+			this.customEventService.inviteRequest(data);
 		});
 
 		this.socket.on('send-message-resp', (data: any) => {
