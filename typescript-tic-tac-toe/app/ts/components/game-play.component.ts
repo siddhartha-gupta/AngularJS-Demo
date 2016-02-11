@@ -4,7 +4,6 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { ScoreCard } from '../directives/score-card.directive'
-import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
@@ -16,7 +15,7 @@ import { _settings } from '../settings'
 @Component({
 	selector: 'GamePlay',
 	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge],
+	directives: [ROUTER_DIRECTIVES, ScoreCard],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
@@ -40,6 +39,7 @@ export class GamePlay {
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
 		customEventService.onRestartGame.subscribe((data: any) => this.restartGame());
+
 		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',

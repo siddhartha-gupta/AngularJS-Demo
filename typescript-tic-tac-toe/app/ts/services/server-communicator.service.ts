@@ -42,8 +42,12 @@ export class ServerCommunicator {
 			this.customEventService.playersListReceived(data);
 		});
 
-		this.socket.on('invite-request', (data: any) => {
+		this.socket.on('invite-request-received', (data: any) => {
 			this.customEventService.inviteRequest(data);
+		});
+
+		this.socket.on('invite-action-resp', (data: any) => {
+			this.customEventService.inviteAction(data);
 		});
 
 		this.socket.on('send-message-resp', (data: any) => {

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../services/server-communicator.service', '../directives/score-card.directive', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, server_communicator_service_1, score_card_directive_1, modal_dialogue_directive_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, server_communicator_service_1, score_card_directive_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -26,9 +26,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             },
             function (score_card_directive_1_1) {
                 score_card_directive_1 = score_card_directive_1_1;
-            },
-            function (modal_dialogue_directive_1_1) {
-                modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
             },
             function (event_pub_sub_service_1_1) {
                 event_pub_sub_service_1 = event_pub_sub_service_1_1;
@@ -263,7 +260,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     core_1.Component({
                         selector: 'GamePlay',
                         providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter],
-                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge],
+                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'

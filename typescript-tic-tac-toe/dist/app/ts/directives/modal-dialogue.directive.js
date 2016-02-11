@@ -29,17 +29,17 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                     this.btn2Callback = new core_1.EventEmitter();
                     this.closeBtnCallback = new core_1.EventEmitter();
                 }
-                ModalDialouge.prototype.mainMenu = function (event) {
+                ModalDialouge.prototype.btn1Clicked = function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     this.btn1Callback.emit(event);
                 };
-                ModalDialouge.prototype.playAgain = function (event) {
+                ModalDialouge.prototype.btn2Clicked = function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     this.btn2Callback.emit(event);
                 };
-                ModalDialouge.prototype.hideModal = function (event) {
+                ModalDialouge.prototype.closeBtnClicked = function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     this.closeBtnCallback.emit(event);
@@ -59,7 +59,7 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                 ModalDialouge = __decorate([
                     core_1.Component({
                         selector: 'modal-dialogue, [modal-dialogue]',
-                        inputs: ['isVisible', 'title', 'body', 'showBtn2'],
+                        inputs: ['isVisible', 'title', 'body', 'btn1Txt', 'btn2Txt', 'showBtn2'],
                         styleUrls: [settings_1._settings.cssPath + 'modal.css'],
                         templateUrl: settings_1._settings.templatePath.directive + 'modal-dialogue.template.html'
                     }), 

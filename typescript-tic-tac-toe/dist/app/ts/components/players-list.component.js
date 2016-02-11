@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/common', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/common', '../directives/modal-dialogue.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
+    var core_1, router_1, common_1, modal_dialogue_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
     var PlayersList;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
             },
             function (common_1_1) {
                 common_1 = common_1_1;
+            },
+            function (modal_dialogue_directive_1_1) {
+                modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
             },
             function (server_communicator_service_1_1) {
                 server_communicator_service_1 = server_communicator_service_1_1;
@@ -50,6 +53,16 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     customEventService.onInviteRequest.subscribe(function (data) { return _this.onInviteRequest(data); });
                     customEventService.onInviteAccepted.subscribe(function (data) { return _this.onInviteAccepted(data); });
                     customEventService.onInviteRejected.subscribe(function (data) { return _this.onInviteRejected(data); });
+                    customEventService.onInviteAction.subscribe(function (data) { return _this.onInviteAction(data); });
+                    this.requestRecipient = '';
+                    this.modalDialogue = {
+                        isVisible: false,
+                        title: '',
+                        body: '',
+                        btn1Txt: '',
+                        btn2Txt: '',
+                        showBtn2: false
+                    };
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
                 PlayersList.prototype.onPlayersListReceived = function (data) {
@@ -90,27 +103,74 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../serv
                     this.utils.log('onRecipientSelected, recipientId: ', recipientId);
                     this.serverCommunicator.msgSender('send-invite', {
                         emailId: this.genericConfig.multiPlayerConfig.emailId,
+                        username: this.genericConfig.multiPlayerConfig.username,
                         recipient: recipientId
                     });
                 };
                 PlayersList.prototype.onInviteRequest = function (data) {
                     console.log('onInviteRequest, show some pop up over here: ', data);
+                    this.modalDialogue = {
+                        isVisible: true,
+                        title: 'Game invite request',
+                        body: 'Invited to play a match from: ' + data.username + ' - ' + data.email,
+                        btn1Txt: 'Reject',
+                        btn2Txt: 'Accept',
+                        showBtn2: true
+                    };
+                    this.requestRecipient = data.emailId;
                 };
-                PlayersList.prototype.onInviteAccepted = function (data) {
-                    console.log('onInviteAccepted: ', data);
-                    this.genericConfig.multiPlayerConfig.playerTurn = true;
-                    this.genericConfig.multiPlayerConfig.player1 = true;
-                    this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
-                    this.genericConfig.multiPlayerConfig.recipient = data;
+                PlayersList.prototype.requestAccepted = function () {
+                    console.log('requestAccepted');
+                    this.genericConfig.multiPlayerConfig.playerTurn = false;
+                    this.genericConfig.multiPlayerConfig.player1 = false;
+                    this.genericConfig.multiPlayerConfig.playerSymbol = 'o';
+                    this.genericConfig.multiPlayerConfig.recipient = this.requestRecipient;
+                    this.serverCommunicator.msgSender('invite-action', {
+                        emailId: this.genericConfig.multiPlayerConfig.emailId,
+                        recipient: this.requestRecipient,
+                        accepted: true
+                    });
+                    this.resetModalConfig();
                     this.router.navigate(['GamePlay']);
                 };
-                PlayersList.prototype.onInviteRejected = function (data) {
-                    console.log('onInviteRejected: ', data);
+                PlayersList.prototype.requestRejected = function () {
+                    console.log('requestRejected');
+                    this.serverCommunicator.msgSender('invite-action', {
+                        emailId: this.genericConfig.multiPlayerConfig.emailId,
+                        recipient: this.requestRecipient,
+                        accepted: false
+                    });
+                    this.resetModalConfig();
+                };
+                PlayersList.prototype.onInviteAction = function (data) {
+                    console.log('onInviteAction, data: ', data, ' :typeof(data): ', typeof (data));
+                    if (data.accepted) {
+                        console.log('onInviteAccepted');
+                        this.genericConfig.multiPlayerConfig.playerTurn = true;
+                        this.genericConfig.multiPlayerConfig.player1 = true;
+                        this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
+                        this.genericConfig.multiPlayerConfig.recipient = data.recipient;
+                        this.router.navigate(['GamePlay']);
+                    }
+                    else {
+                        console.log('onInviteRejected');
+                    }
+                };
+                PlayersList.prototype.resetModalConfig = function () {
+                    this.modalDialogue = {
+                        isVisible: false,
+                        title: '',
+                        body: '',
+                        btn1Txt: '',
+                        btn2Txt: '',
+                        showBtn2: false
+                    };
+                    this.requestRecipient = '';
                 };
                 PlayersList = __decorate([
                     core_1.Component({
                         selector: 'PlayersList',
-                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass],
+                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass, modal_dialogue_directive_1.ModalDialouge],
                         styleUrls: [settings_1._settings.cssPath + 'player-list.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'player-list.template.html'
                     }), 

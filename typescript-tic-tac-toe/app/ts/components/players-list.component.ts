@@ -2,6 +2,8 @@ import {Component} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {NgClass} from 'angular2/common'
 
+import { ModalDialouge } from '../directives/modal-dialogue.directive'
+import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { GenericConfig } from '../services/generic-config.service'
@@ -11,13 +13,15 @@ import { _settings } from '../settings'
 
 @Component({
 	selector: 'PlayersList',
-	directives: [ROUTER_DIRECTIVES, NgClass],
+	directives: [ROUTER_DIRECTIVES, NgClass, ModalDialouge],
 	styleUrls: [_settings.cssPath + 'player-list.css'],
 	templateUrl: _settings.templatePath.component + 'player-list.template.html'
 })
 
 export class PlayersList {
 	private playersList: Array<any>;
+	modalDialogue: ModalDialogueInterface;
+	requestRecipient: string;
 
 	constructor(
 		private router: Router,
@@ -32,6 +36,17 @@ export class PlayersList {
 		customEventService.onInviteRequest.subscribe((data: any) => this.onInviteRequest(data));
 		customEventService.onInviteAccepted.subscribe((data: any) => this.onInviteAccepted(data));
 		customEventService.onInviteRejected.subscribe((data: any) => this.onInviteRejected(data));
+		customEventService.onInviteAction.subscribe((data: any) => this.onInviteAction(data));
+
+		this.requestRecipient = '';
+		this.modalDialogue = {
+			isVisible: false,
+			title: '',
+			body: '',
+			btn1Txt: '',
+			btn2Txt: '',
+			showBtn2: false
+		};
 
 		this.serverCommunicator.msgSender('get-players-list', {});
 	}
@@ -81,24 +96,78 @@ export class PlayersList {
 
 		this.serverCommunicator.msgSender('send-invite', {
 			emailId: this.genericConfig.multiPlayerConfig.emailId,
+			username: this.genericConfig.multiPlayerConfig.username,
 			recipient: recipientId
 		});
 	}
 
 	onInviteRequest(data: any) {
 		console.log('onInviteRequest, show some pop up over here: ', data);
+		this.modalDialogue = {
+			isVisible: true,
+			title: 'Game invite request',
+			body: 'Invited to play a match from: ' + data.username + ' - ' + data.email,
+			btn1Txt: 'Reject',
+			btn2Txt: 'Accept',
+			showBtn2: true
+		};
+		this.requestRecipient = data.emailId;
 	}
 
-	onInviteAccepted(data: any) {
-		console.log('onInviteAccepted: ', data);
-		this.genericConfig.multiPlayerConfig.playerTurn = true;
-		this.genericConfig.multiPlayerConfig.player1 = true;
-		this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
-		this.genericConfig.multiPlayerConfig.recipient = data;
+	requestAccepted() {
+		console.log('requestAccepted');
+
+		this.genericConfig.multiPlayerConfig.playerTurn = false;
+		this.genericConfig.multiPlayerConfig.player1 = false;
+		this.genericConfig.multiPlayerConfig.playerSymbol = 'o';
+		this.genericConfig.multiPlayerConfig.recipient = this.requestRecipient;
+
+		this.serverCommunicator.msgSender('invite-action', {
+			emailId: this.genericConfig.multiPlayerConfig.emailId,
+			recipient: this.requestRecipient,
+			accepted: true
+		});
+		this.resetModalConfig();
+
 		this.router.navigate(['GamePlay']);
 	}
 
-	onInviteRejected(data: any) {
-		console.log('onInviteRejected: ', data);
+	requestRejected() {
+		console.log('requestRejected');
+
+		this.serverCommunicator.msgSender('invite-action', {
+			emailId: this.genericConfig.multiPlayerConfig.emailId,
+			recipient: this.requestRecipient,
+			accepted: false
+		});
+		this.resetModalConfig();
+	}
+
+	onInviteAction(data: any) {
+		console.log('onInviteAction, data: ', data, ' :typeof(data): ', typeof (data));
+
+		if(data.accepted) {
+			console.log('onInviteAccepted');
+
+			this.genericConfig.multiPlayerConfig.playerTurn = true;
+			this.genericConfig.multiPlayerConfig.player1 = true;
+			this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
+			this.genericConfig.multiPlayerConfig.recipient = data.recipient;
+			this.router.navigate(['GamePlay']);
+		} else {
+			console.log('onInviteRejected');
+		}
+	}
+
+	resetModalConfig() {
+		this.modalDialogue = {
+			isVisible: false,
+			title: '',
+			body: '',
+			btn1Txt: '',
+			btn2Txt: '',
+			showBtn2: false
+		};
+		this.requestRecipient = '';
 	}
 }

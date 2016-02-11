@@ -9,6 +9,7 @@ export class CustomEventService {
 	public onInviteRequest: EventEmitter<Object> = new EventEmitter();
 	public onInviteAccepted: EventEmitter<Object> = new EventEmitter();
 	public onInviteRejected: EventEmitter<Object> = new EventEmitter();
+	public onInviteAction: EventEmitter<Object> = new EventEmitter();
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
 	public onRestartGame: EventEmitter<Object> = new EventEmitter();
 
@@ -41,6 +42,10 @@ export class CustomEventService {
 
 	inviteRejected(data: any) {
 		this.onInviteRejected.emit(data);
+	}
+
+	inviteAction(data: any) {
+		this.onInviteAction.emit(data);
 	}
 
 	moveReceived(data: any) {

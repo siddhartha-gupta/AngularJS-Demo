@@ -49,8 +49,11 @@ System.register(['angular2/core', '../services/event-pub-sub.service', '../servi
                         _this.playersList = data;
                         _this.customEventService.playersListReceived(data);
                     });
-                    this.socket.on('invite-request', function (data) {
+                    this.socket.on('invite-request-received', function (data) {
                         _this.customEventService.inviteRequest(data);
+                    });
+                    this.socket.on('invite-action-resp', function (data) {
+                        _this.customEventService.inviteAction(data);
                     });
                     this.socket.on('send-message-resp', function (data) {
                         _this.customEventService.moveReceived(data);
