@@ -9,4 +9,4 @@
 		<span>Currently no players available</span>
 	</div>
 </div>
-<modal-dialogue [isVisible]="modalDialogue.isVisible" [title]="modalDialogue.title" [body]="modalDialogue.body" [showBtn2]="modalDialogue.showBtn2" [btn1Txt]="modalDialogue.btn1Txt" [btn2Txt]="modalDialogue.btn2Txt" (btn1Callback)="requestRejected()" (btn2Callback)="requestAccepted()" (closeBtnCallback)="requestRejected()"></modal-dialogue>
+<modal-dialogue [isVisible]="modalDialogue.isVisible" [title]="modalDialogue.title" [body]="modalDialogue.body" [showBtn2]="modalDialogue.showBtn2" [btn1Txt]="modalDialogue.btn1Txt" [btn2Txt]="modalDialogue.btn2Txt" (btn1Callback)="modalDialogue.btn1Callback()" (btn2Callback)="modalDialogue.btn2Callback()" (closeBtnCallback)="modalDialogue.closeBtnCallback()"></modal-dialogue>

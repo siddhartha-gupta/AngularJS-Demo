@@ -51,8 +51,6 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onInviteRequest.subscribe(function (data) { return _this.onInviteRequest(data); });
-                    customEventService.onInviteAccepted.subscribe(function (data) { return _this.onInviteAccepted(data); });
-                    customEventService.onInviteRejected.subscribe(function (data) { return _this.onInviteRejected(data); });
                     customEventService.onInviteAction.subscribe(function (data) { return _this.onInviteAction(data); });
                     this.requestRecipient = '';
                     this.modalDialogue = {
@@ -61,7 +59,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                         body: '',
                         btn1Txt: '',
                         btn2Txt: '',
-                        showBtn2: false
+                        showBtn2: false,
+                        btn1Callback: function () { },
+                        btn2Callback: function () { },
+                        closeBtnCallback: function () { }
                     };
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
@@ -81,6 +82,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     }
                     this.playersList = tempList;
                 };
+                /*
+                * Functions to handler
+                * Click on headers for current component
+                */
                 PlayersList.prototype.onHeaderClicked = function (data) {
                     if (data.routeName === '/playerslist') {
                         switch (data.btnType) {
@@ -99,6 +104,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                 PlayersList.prototype.startGame = function () {
                     this.router.navigate(['GamePlay']);
                 };
+                /*
+                * Function to send invite to some user
+                * for game play
+                */
                 PlayersList.prototype.onRecipientSelected = function (event, recipientId) {
                     this.utils.log('onRecipientSelected, recipientId: ', recipientId);
                     this.serverCommunicator.msgSender('send-invite', {
@@ -107,15 +116,22 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                         recipient: recipientId
                     });
                 };
+                /*
+                * Functions to handle invite
+                * and send acceptance or rejection
+                */
                 PlayersList.prototype.onInviteRequest = function (data) {
                     console.log('onInviteRequest, show some pop up over here: ', data);
                     this.modalDialogue = {
                         isVisible: true,
                         title: 'Game invite request',
-                        body: 'Invited to play a match from: ' + data.username + ' - ' + data.email,
+                        body: 'Invited to play a match from: ' + data.username + ' - ' + data.emailId,
                         btn1Txt: 'Reject',
                         btn2Txt: 'Accept',
-                        showBtn2: true
+                        showBtn2: true,
+                        btn1Callback: this.requestRejected.bind(this),
+                        btn2Callback: this.requestAccepted.bind(this),
+                        closeBtnCallback: this.requestRejected.bind(this)
                     };
                     this.requestRecipient = data.emailId;
                 };
@@ -134,7 +150,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     this.router.navigate(['GamePlay']);
                 };
                 PlayersList.prototype.requestRejected = function () {
-                    console.log('requestRejected');
+                    console.log('requestRejected: ', this);
                     this.serverCommunicator.msgSender('invite-action', {
                         emailId: this.genericConfig.multiPlayerConfig.emailId,
                         recipient: this.requestRecipient,
@@ -142,6 +158,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     });
                     this.resetModalConfig();
                 };
+                /*
+                * Function to handle user response
+                * i.e whether user has accepted the invite or not
+                */
                 PlayersList.prototype.onInviteAction = function (data) {
                     console.log('onInviteAction, data: ', data, ' :typeof(data): ', typeof (data));
                     if (data.accepted) {
@@ -154,6 +174,16 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     }
                     else {
                         console.log('onInviteRejected');
+                        this.modalDialogue = {
+                            isVisible: true,
+                            title: 'Game invite response',
+                            body: 'It looks like user has declined the game play request',
+                            btn1Txt: 'Ok',
+                            btn2Txt: '',
+                            showBtn2: false,
+                            btn1Callback: this.resetModalConfig.bind(this),
+                            closeBtnCallback: this.resetModalConfig.bind(this)
+                        };
                     }
                 };
                 PlayersList.prototype.resetModalConfig = function () {
@@ -163,7 +193,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                         body: '',
                         btn1Txt: '',
                         btn2Txt: '',
-                        showBtn2: false
+                        showBtn2: false,
+                        btn1Callback: function () { },
+                        btn2Callback: function () { },
+                        closeBtnCallback: function () { }
                     };
                     this.requestRecipient = '';
                 };

@@ -63,4 +63,7 @@ export interface ModalDialogueInterface {
 	btn1Txt?: string,
 	btn2Txt?: string,
 	showBtn2: Boolean;
+	btn1Callback?: Function;
+	btn2Callback?: Function;
+	closeBtnCallback?: Function;
 };

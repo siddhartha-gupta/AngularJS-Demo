@@ -28,8 +28,6 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onHeaderClicked = new core_1.EventEmitter();
                     this.onPlayersListReceived = new core_1.EventEmitter();
                     this.onInviteRequest = new core_1.EventEmitter();
-                    this.onInviteAccepted = new core_1.EventEmitter();
-                    this.onInviteRejected = new core_1.EventEmitter();
                     this.onInviteAction = new core_1.EventEmitter();
                     this.onMoveReceived = new core_1.EventEmitter();
                     this.onRestartGame = new core_1.EventEmitter();
@@ -49,12 +47,6 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 };
                 CustomEventService.prototype.inviteRequest = function (data) {
                     this.onInviteRequest.emit(data);
-                };
-                CustomEventService.prototype.inviteAccepted = function (data) {
-                    this.onInviteAccepted.emit(data);
-                };
-                CustomEventService.prototype.inviteRejected = function (data) {
-                    this.onInviteRejected.emit(data);
                 };
                 CustomEventService.prototype.inviteAction = function (data) {
                     this.onInviteAction.emit(data);

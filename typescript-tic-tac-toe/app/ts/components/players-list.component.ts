@@ -34,8 +34,6 @@ export class PlayersList {
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
 		customEventService.onInviteRequest.subscribe((data: any) => this.onInviteRequest(data));
-		customEventService.onInviteAccepted.subscribe((data: any) => this.onInviteAccepted(data));
-		customEventService.onInviteRejected.subscribe((data: any) => this.onInviteRejected(data));
 		customEventService.onInviteAction.subscribe((data: any) => this.onInviteAction(data));
 
 		this.requestRecipient = '';
@@ -45,7 +43,10 @@ export class PlayersList {
 			body: '',
 			btn1Txt: '',
 			btn2Txt: '',
-			showBtn2: false
+			showBtn2: false,
+			btn1Callback: function() { },
+			btn2Callback: function() { },
+			closeBtnCallback: function() { }
 		};
 
 		this.serverCommunicator.msgSender('get-players-list', {});
@@ -69,6 +70,10 @@ export class PlayersList {
 		this.playersList = tempList;
 	}
 
+	/*
+	* Functions to handler
+	* Click on headers for current component
+	*/
 	onHeaderClicked(data: any) {
 		if (data.routeName === '/playerslist') {
 			switch (data.btnType) {
@@ -91,6 +96,10 @@ export class PlayersList {
 		this.router.navigate(['GamePlay']);
 	}
 
+	/*
+	* Function to send invite to some user
+	* for game play
+	*/
 	onRecipientSelected(event: Event, recipientId: string) {
 		this.utils.log('onRecipientSelected, recipientId: ', recipientId);
 
@@ -101,15 +110,22 @@ export class PlayersList {
 		});
 	}
 
+	/*
+	* Functions to handle invite
+	* and send acceptance or rejection
+	*/
 	onInviteRequest(data: any) {
 		console.log('onInviteRequest, show some pop up over here: ', data);
 		this.modalDialogue = {
 			isVisible: true,
 			title: 'Game invite request',
-			body: 'Invited to play a match from: ' + data.username + ' - ' + data.email,
+			body: 'Invited to play a match from: ' + data.username + ' - ' + data.emailId,
 			btn1Txt: 'Reject',
 			btn2Txt: 'Accept',
-			showBtn2: true
+			showBtn2: true,
+			btn1Callback: this.requestRejected.bind(this),
+			btn2Callback: this.requestAccepted.bind(this),
+			closeBtnCallback: this.requestRejected.bind(this)
 		};
 		this.requestRecipient = data.emailId;
 	}
@@ -133,7 +149,7 @@ export class PlayersList {
 	}
 
 	requestRejected() {
-		console.log('requestRejected');
+		console.log('requestRejected: ', this);
 
 		this.serverCommunicator.msgSender('invite-action', {
 			emailId: this.genericConfig.multiPlayerConfig.emailId,
@@ -143,10 +159,14 @@ export class PlayersList {
 		this.resetModalConfig();
 	}
 
+	/*
+	* Function to handle user response
+	* i.e whether user has accepted the invite or not
+	*/
 	onInviteAction(data: any) {
 		console.log('onInviteAction, data: ', data, ' :typeof(data): ', typeof (data));
 
-		if(data.accepted) {
+		if (data.accepted) {
 			console.log('onInviteAccepted');
 
 			this.genericConfig.multiPlayerConfig.playerTurn = true;
@@ -156,6 +176,16 @@ export class PlayersList {
 			this.router.navigate(['GamePlay']);
 		} else {
 			console.log('onInviteRejected');
+			this.modalDialogue = {
+				isVisible: true,
+				title: 'Game invite response',
+				body: 'It looks like user has declined the game play request',
+				btn1Txt: 'Ok',
+				btn2Txt: '',
+				showBtn2: false,
+				btn1Callback: this.resetModalConfig.bind(this),
+				closeBtnCallback: this.resetModalConfig.bind(this)
+			};
 		}
 	}
 
@@ -166,7 +196,10 @@ export class PlayersList {
 			body: '',
 			btn1Txt: '',
 			btn2Txt: '',
-			showBtn2: false
+			showBtn2: false,
+			btn1Callback: function() { },
+			btn2Callback: function() { },
+			closeBtnCallback: function() { }
 		};
 		this.requestRecipient = '';
 	}
