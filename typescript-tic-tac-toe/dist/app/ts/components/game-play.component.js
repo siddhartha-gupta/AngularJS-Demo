@@ -70,6 +70,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     customEventService.onReMatchRequest.subscribe(function (data) { return _this.onReMatchRequest(); });
                     customEventService.onStartGame.subscribe(function (data) { return _this.restartGame(); });
                     customEventService.onSendingInvite.subscribe(function (data) { return _this.onSendingInvite(); });
+                    customEventService.onEndGame.subscribe(function (data) { return _this.goToHome(); });
                     this.showLoader = false;
                     this.scoreCardConfig = {
                         isVisible: false,

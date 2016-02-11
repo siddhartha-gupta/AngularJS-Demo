@@ -56,6 +56,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onStartGame.subscribe(function (data) { return _this.onStartGame(); });
                     customEventService.onSendingInvite.subscribe(function (data) { return _this.onSendingInvite(); });
+                    customEventService.onEndGame.subscribe(function (data) { return _this.endGame(); });
                     this.showLoader = false;
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
@@ -98,6 +99,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                 };
                 PlayersList.prototype.goToHome = function () {
                     this.router.navigate(['Home']);
+                };
+                PlayersList.prototype.endGame = function () {
+                    this.showLoader = false;
                 };
                 PlayersList = __decorate([
                     core_1.Component({

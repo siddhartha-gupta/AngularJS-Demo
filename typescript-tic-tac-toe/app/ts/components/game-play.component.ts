@@ -45,8 +45,9 @@ export class GamePlay {
 		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest()); 
 		customEventService.onStartGame.subscribe((data: any) => this.restartGame());
 		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
+		customEventService.onEndGame.subscribe((data: any) => this.goToHome());
+		
 		this.showLoader = false;
-
 		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',

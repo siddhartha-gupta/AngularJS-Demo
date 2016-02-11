@@ -113,6 +113,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                         accepted: false
                     });
                     this.resetModalConfig();
+                    this.customEventService.endGame();
                 };
                 /*
                 * Function to handle user response
@@ -140,6 +141,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                             btn1Callback: this.resetModalConfig.bind(this),
                             closeBtnCallback: this.resetModalConfig.bind(this)
                         };
+                        this.customEventService.endGame();
                     }
                 };
                 InviteHandler.prototype.resetModalConfig = function () {

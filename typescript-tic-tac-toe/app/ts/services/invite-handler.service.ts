@@ -104,6 +104,7 @@ export class InviteHandler {
 			accepted: false
 		});
 		this.resetModalConfig();
+		this.customEventService.endGame();
 	}
 
 	/*
@@ -133,6 +134,7 @@ export class InviteHandler {
 				btn1Callback: this.resetModalConfig.bind(this),
 				closeBtnCallback: this.resetModalConfig.bind(this)
 			};
+			this.customEventService.endGame();
 		}
 	}
 

@@ -33,6 +33,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onMoveReceived = new core_1.EventEmitter();
                     this.onReMatchRequest = new core_1.EventEmitter();
                     this.onStartGame = new core_1.EventEmitter();
+                    this.onEndGame = new core_1.EventEmitter();
                     router.subscribe(function (val) { return _this.routeChangeEmitter(val); });
                 }
                 CustomEventService.prototype.routeChangeEmitter = function (val) {
@@ -64,6 +65,9 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 };
                 CustomEventService.prototype.startGame = function () {
                     this.onStartGame.emit(null);
+                };
+                CustomEventService.prototype.endGame = function () {
+                    this.onEndGame.emit(null);
                 };
                 CustomEventService = __decorate([
                     core_1.Injectable(), 

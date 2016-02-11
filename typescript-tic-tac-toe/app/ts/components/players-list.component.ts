@@ -34,6 +34,7 @@ export class PlayersList {
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
 		customEventService.onStartGame.subscribe((data: any) => this.onStartGame());
 		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
+		customEventService.onEndGame.subscribe((data: any) => this.endGame());
 
 		this.showLoader = false;
 		this.serverCommunicator.msgSender('get-players-list', {});
@@ -84,5 +85,9 @@ export class PlayersList {
 
 	goToHome() {
 		this.router.navigate(['Home']);
+	}
+
+	endGame() {
+		this.showLoader = false;
 	}
 }

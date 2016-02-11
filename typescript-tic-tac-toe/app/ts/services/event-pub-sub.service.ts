@@ -12,6 +12,7 @@ export class CustomEventService {
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
 	public onReMatchRequest: EventEmitter<Object> = new EventEmitter(); 
 	public onStartGame: EventEmitter<Object> = new EventEmitter();
+	public onEndGame: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));
@@ -54,5 +55,9 @@ export class CustomEventService {
 
 	startGame() {
 		this.onStartGame.emit(null);
+	}
+
+	endGame() {
+		this.onEndGame.emit(null);	
 	}
 }
