@@ -82,7 +82,6 @@ export class PlayersList {
 					break;
 
 				case 'right':
-					this.startGame();
 					break;
 			}
 		}
@@ -90,10 +89,6 @@ export class PlayersList {
 
 	goToHome() {
 		this.router.navigate(['Home']);
-	}
-
-	startGame() {
-		this.router.navigate(['GamePlay']);
 	}
 
 	/*

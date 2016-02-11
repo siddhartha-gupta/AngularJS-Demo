@@ -80,8 +80,8 @@ export class AppHeader {
 
 		this.headerRightButton = {
 			'btnType': 'right',
-			'text': 'Start game',
-			'showBtn': true
+			'text': '',
+			'showBtn': false
 		};
 	}
 

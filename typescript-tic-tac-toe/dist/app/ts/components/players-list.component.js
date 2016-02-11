@@ -93,16 +93,12 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                                 this.goToHome();
                                 break;
                             case 'right':
-                                this.startGame();
                                 break;
                         }
                     }
                 };
                 PlayersList.prototype.goToHome = function () {
                     this.router.navigate(['Home']);
-                };
-                PlayersList.prototype.startGame = function () {
-                    this.router.navigate(['GamePlay']);
                 };
                 /*
                 * Function to send invite to some user
