@@ -5,6 +5,8 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { ScoreCard } from '../directives/score-card.directive'
 import { CustomEventService } from '../services/event-pub-sub.service'
+import { ModalDialouge } from '../directives/modal-dialogue.directive'
+import { InviteHandler } from '../services/invite-handler.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'
@@ -14,8 +16,8 @@ import { _settings } from '../settings'
 
 @Component({
 	selector: 'GamePlay',
-	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, ScoreCard],
+	providers: [AIGamePlay, GameStatus, BrowserDomAdapter, InviteHandler],
+	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
@@ -33,12 +35,14 @@ export class GamePlay {
 		private _dom: BrowserDomAdapter,
 		private router: Router,
 		private customEventService: CustomEventService,
-		private serverCommunicator: ServerCommunicator
+		private serverCommunicator: ServerCommunicator,
+		private inviteHandler: InviteHandler
 	) {
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
-		customEventService.onRestartGame.subscribe((data: any) => this.restartGame());
+		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest()); 
+		customEventService.onStartGame.subscribe((data: any) => this.restartGame());
 
 		this.scoreCardConfig = {
 			isVisible: false,
@@ -254,9 +258,18 @@ export class GamePlay {
 		};
 	}
 
-	hideScoreCard() {
+	playAgain() {
 		this.resetScoreCard();
-		if (!this.genericConfig.config.playGame) {
+		this.inviteHandler.onRecipientSelected(null, this.genericConfig.multiPlayerConfig.recipient); 
+	}
+
+	onReMatchRequest() {
+		this.hideScoreCard(true);
+	}
+
+	hideScoreCard(noRestart?:Boolean) {
+		this.resetScoreCard();
+		if (!this.genericConfig.config.playGame && !noRestart) {
 			this.startGame(true);
 		}
 	}

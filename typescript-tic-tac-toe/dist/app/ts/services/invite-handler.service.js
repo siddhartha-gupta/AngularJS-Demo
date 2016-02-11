@@ -59,6 +59,10 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                 * for game play
                 */
                 InviteHandler.prototype.onRecipientSelected = function (event, recipientId) {
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
                     this.utils.log('onRecipientSelected, recipientId: ', recipientId);
                     this.serverCommunicator.msgSender('send-invite', {
                         emailId: this.genericConfig.multiPlayerConfig.emailId,
@@ -72,6 +76,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                 */
                 InviteHandler.prototype.onInviteRequest = function (data) {
                     console.log('onInviteRequest, show some pop up over here: ', data);
+                    this.customEventService.reMatchRequest();
                     this.modalDialogue = {
                         isVisible: true,
                         title: 'Game invite request',
@@ -97,7 +102,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                         accepted: true
                     });
                     this.resetModalConfig();
-                    this.router.navigate(['GamePlay']);
+                    this.customEventService.startGame();
                 };
                 InviteHandler.prototype.requestRejected = function () {
                     console.log('requestRejected: ', this);
@@ -120,7 +125,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                         this.genericConfig.multiPlayerConfig.player1 = true;
                         this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
                         this.genericConfig.multiPlayerConfig.recipient = data.recipient;
-                        this.router.navigate(['GamePlay']);
+                        this.customEventService.startGame();
                     }
                     else {
                         console.log('onInviteRejected');

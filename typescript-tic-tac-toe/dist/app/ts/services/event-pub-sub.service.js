@@ -30,7 +30,8 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.onInviteRequest = new core_1.EventEmitter();
                     this.onInviteAction = new core_1.EventEmitter();
                     this.onMoveReceived = new core_1.EventEmitter();
-                    this.onRestartGame = new core_1.EventEmitter();
+                    this.onReMatchRequest = new core_1.EventEmitter();
+                    this.onStartGame = new core_1.EventEmitter();
                     router.subscribe(function (val) { return _this.routeChangeEmitter(val); });
                 }
                 CustomEventService.prototype.routeChangeEmitter = function (val) {
@@ -54,8 +55,11 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 CustomEventService.prototype.moveReceived = function (data) {
                     this.onMoveReceived.emit(data);
                 };
-                CustomEventService.prototype.restartGame = function (data) {
-                    this.onRestartGame.emit(data);
+                CustomEventService.prototype.reMatchRequest = function () {
+                    this.onReMatchRequest.emit(null);
+                };
+                CustomEventService.prototype.startGame = function () {
+                    this.onStartGame.emit(null);
                 };
                 CustomEventService = __decorate([
                     core_1.Injectable(), 

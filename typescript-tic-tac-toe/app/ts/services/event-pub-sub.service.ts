@@ -9,7 +9,8 @@ export class CustomEventService {
 	public onInviteRequest: EventEmitter<Object> = new EventEmitter();
 	public onInviteAction: EventEmitter<Object> = new EventEmitter();
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
-	public onRestartGame: EventEmitter<Object> = new EventEmitter();
+	public onReMatchRequest: EventEmitter<Object> = new EventEmitter(); 
+	public onStartGame: EventEmitter<Object> = new EventEmitter();
 
 	constructor(private router: Router, private location: Location) {
 		router.subscribe((val) => this.routeChangeEmitter(val));
@@ -42,7 +43,11 @@ export class CustomEventService {
 		this.onMoveReceived.emit(data);
 	}
 
-	restartGame(data: any) {
-		this.onRestartGame.emit(data);
+	reMatchRequest() {
+		this.onReMatchRequest.emit(null);
+	}
+
+	startGame() {
+		this.onStartGame.emit(null);
 	}
 }

@@ -4,7 +4,6 @@ import {NgClass} from 'angular2/common'
 
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { InviteHandler } from '../services/invite-handler.service'
-import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { GenericConfig } from '../services/generic-config.service'
@@ -30,10 +29,15 @@ export class PlayersList {
 		private utils: Utils,
 		private inviteHandler: InviteHandler
 	) {
-
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
+		customEventService.onStartGame.subscribe((data: any) => this.onStartGame());
+
 		this.serverCommunicator.msgSender('get-players-list', {});
+	}
+
+	onStartGame() {
+		this.router.navigate(['GamePlay']);
 	}
 
 	onPlayersListReceived(data?: any) {

@@ -54,8 +54,12 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     this.inviteHandler = inviteHandler;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
+                    customEventService.onStartGame.subscribe(function (data) { return _this.onStartGame(); });
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
+                PlayersList.prototype.onStartGame = function () {
+                    this.router.navigate(['GamePlay']);
+                };
                 PlayersList.prototype.onPlayersListReceived = function (data) {
                     var list = [], tempList = [];
                     console.log('on playersList: ', data);

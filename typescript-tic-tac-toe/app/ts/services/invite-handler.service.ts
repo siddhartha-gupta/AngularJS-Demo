@@ -41,6 +41,10 @@ export class InviteHandler {
 	* for game play
 	*/
 	onRecipientSelected(event: Event, recipientId: string) {
+		if(event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 		this.utils.log('onRecipientSelected, recipientId: ', recipientId);
 
 		this.serverCommunicator.msgSender('send-invite', {
@@ -56,6 +60,8 @@ export class InviteHandler {
 	*/
 	onInviteRequest(data: any) {
 		console.log('onInviteRequest, show some pop up over here: ', data);
+
+		this.customEventService.reMatchRequest();
 		this.modalDialogue = {
 			isVisible: true,
 			title: 'Game invite request',
@@ -84,8 +90,7 @@ export class InviteHandler {
 			accepted: true
 		});
 		this.resetModalConfig();
-
-		this.router.navigate(['GamePlay']);
+		this.customEventService.startGame();
 	}
 
 	requestRejected() {
@@ -113,7 +118,7 @@ export class InviteHandler {
 			this.genericConfig.multiPlayerConfig.player1 = true;
 			this.genericConfig.multiPlayerConfig.playerSymbol = 'x';
 			this.genericConfig.multiPlayerConfig.recipient = data.recipient;
-			this.router.navigate(['GamePlay']);
+			this.customEventService.startGame();
 		} else {
 			console.log('onInviteRejected');
 			this.modalDialogue = {
