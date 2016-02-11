@@ -94,7 +94,7 @@ export class AppHeader {
 
 		this.headerRightButton = {
 			'btnType': 'right',
-			'text': 'Status',
+			'text': 'Info',
 			'showBtn': true
 		};
 	}

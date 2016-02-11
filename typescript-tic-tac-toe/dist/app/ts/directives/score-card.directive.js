@@ -28,6 +28,14 @@ System.register(['angular2/core', '../settings', '../services/generic-config.ser
                     this.btn1Callback = new core_1.EventEmitter();
                     this.btn2Callback = new core_1.EventEmitter();
                     this.closeBtnCallback = new core_1.EventEmitter();
+                    var opponent = (this.genericConfig.config.multiPlayer) ? this.genericConfig.multiPlayerConfig.recipient : 'Computer';
+                    var symbol = (this.genericConfig.config.multiPlayer) ? this.genericConfig.multiPlayerConfig.playerSymbol : 'x';
+                    var chance = (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) ? 'Second' : 'First';
+                    this.model = {
+                        'opponent': opponent,
+                        'symbol': symbol,
+                        'chance': chance
+                    };
                 }
                 ScoreCard.prototype.mainMenu = function (event) {
                     event.preventDefault();

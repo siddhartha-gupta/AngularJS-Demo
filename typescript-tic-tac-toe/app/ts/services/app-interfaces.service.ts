@@ -66,4 +66,10 @@ export interface ModalDialogueInterface {
 	btn1Callback?: Function;
 	btn2Callback?: Function;
 	closeBtnCallback?: Function;
-};
+}
+
+export interface ScorecardModelInterface {
+	opponent: string;
+	symbol: string;
+	chance: string;
+}
