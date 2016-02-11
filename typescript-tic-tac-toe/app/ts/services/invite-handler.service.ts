@@ -52,6 +52,8 @@ export class InviteHandler {
 			username: this.genericConfig.multiPlayerConfig.username,
 			recipient: recipientId
 		});
+
+		this.customEventService.sendingInvite();
 	}
 
 	/*

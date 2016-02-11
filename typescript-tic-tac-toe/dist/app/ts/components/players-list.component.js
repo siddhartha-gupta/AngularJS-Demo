@@ -55,10 +55,15 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onStartGame.subscribe(function (data) { return _this.onStartGame(); });
+                    customEventService.onSendingInvite.subscribe(function (data) { return _this.onSendingInvite(); });
+                    this.showLoader = false;
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
                 PlayersList.prototype.onStartGame = function () {
                     this.router.navigate(['GamePlay']);
+                };
+                PlayersList.prototype.onSendingInvite = function () {
+                    this.showLoader = true;
                 };
                 PlayersList.prototype.onPlayersListReceived = function (data) {
                     var list = [], tempList = [];

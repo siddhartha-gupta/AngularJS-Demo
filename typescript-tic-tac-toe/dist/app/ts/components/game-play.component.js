@@ -69,6 +69,8 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     customEventService.onReMatchRequest.subscribe(function (data) { return _this.onReMatchRequest(); });
                     customEventService.onStartGame.subscribe(function (data) { return _this.restartGame(); });
+                    customEventService.onSendingInvite.subscribe(function (data) { return _this.onSendingInvite(); });
+                    this.showLoader = false;
                     this.scoreCardConfig = {
                         isVisible: false,
                         title: '',
@@ -79,6 +81,9 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 }
                 GamePlay.prototype.ngOnInit = function () {
                     this.startGame(false);
+                };
+                GamePlay.prototype.onSendingInvite = function () {
+                    this.showLoader = true;
                 };
                 GamePlay.prototype.startGame = function (restart) {
                     this.utils.log('startGame, restart: ', restart);
@@ -93,6 +98,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.drawGrid();
                 };
                 GamePlay.prototype.restartGame = function () {
+                    this.showLoader = false;
                     this.resetScoreCard();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();

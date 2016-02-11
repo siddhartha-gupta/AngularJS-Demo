@@ -55,7 +55,7 @@ export class ServerCommunicator {
 		});
 
 		this.socket.on('restart-game-resp', (data: any) => {
-			this.customEventService.restartGame(data);
+			this.customEventService.startGame();
 		});
 	}
 }

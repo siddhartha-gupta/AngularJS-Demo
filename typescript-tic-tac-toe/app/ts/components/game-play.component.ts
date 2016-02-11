@@ -25,6 +25,7 @@ import { _settings } from '../settings'
 
 export class GamePlay {
 	scoreCardConfig: ModalDialogueInterface;
+	showLoader: Boolean;
 
 	constructor(
 		public genericConfig: GenericConfig,
@@ -43,6 +44,8 @@ export class GamePlay {
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
 		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest()); 
 		customEventService.onStartGame.subscribe((data: any) => this.restartGame());
+		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
+		this.showLoader = false;
 
 		this.scoreCardConfig = {
 			isVisible: false,
@@ -55,6 +58,10 @@ export class GamePlay {
 
 	ngOnInit() {
 		this.startGame(false);
+	}
+
+	onSendingInvite() {
+		this.showLoader = true;
 	}
 
 	startGame(restart: Boolean) {
@@ -72,6 +79,7 @@ export class GamePlay {
 	}
 
 	restartGame() {
+		this.showLoader = false;
 		this.resetScoreCard();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();

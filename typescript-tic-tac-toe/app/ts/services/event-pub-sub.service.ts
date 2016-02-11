@@ -6,6 +6,7 @@ export class CustomEventService {
 	public onRouteChange: EventEmitter<string> = new EventEmitter();
 	public onHeaderClicked: EventEmitter<Object> = new EventEmitter();
 	public onPlayersListReceived: EventEmitter<Object> = new EventEmitter();
+	public onSendingInvite: EventEmitter<Object> = new EventEmitter();
 	public onInviteRequest: EventEmitter<Object> = new EventEmitter();
 	public onInviteAction: EventEmitter<Object> = new EventEmitter();
 	public onMoveReceived: EventEmitter<Object> = new EventEmitter();
@@ -29,6 +30,10 @@ export class CustomEventService {
 
 	playersListReceived(data: any) {
 		this.onPlayersListReceived.emit(data);
+	}
+
+	sendingInvite() {
+		this.onSendingInvite.emit(null);
 	}
 
 	inviteRequest(data: any) {

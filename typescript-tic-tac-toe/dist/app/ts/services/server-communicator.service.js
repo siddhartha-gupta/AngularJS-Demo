@@ -59,7 +59,7 @@ System.register(['angular2/core', '../services/event-pub-sub.service', '../servi
                         _this.customEventService.moveReceived(data);
                     });
                     this.socket.on('restart-game-resp', function (data) {
-                        _this.customEventService.restartGame(data);
+                        _this.customEventService.startGame();
                     });
                 };
                 ServerCommunicator = __decorate([

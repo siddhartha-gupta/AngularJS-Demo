@@ -20,6 +20,7 @@ import { _settings } from '../settings'
 
 export class PlayersList {
 	private playersList: Array<any>;
+	showLoader: Boolean;
 
 	constructor(
 		private router: Router,
@@ -32,12 +33,18 @@ export class PlayersList {
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
 		customEventService.onStartGame.subscribe((data: any) => this.onStartGame());
+		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
 
+		this.showLoader = false;
 		this.serverCommunicator.msgSender('get-players-list', {});
 	}
 
 	onStartGame() {
 		this.router.navigate(['GamePlay']);
+	}
+
+	onSendingInvite() {
+		this.showLoader = true;
 	}
 
 	onPlayersListReceived(data?: any) {

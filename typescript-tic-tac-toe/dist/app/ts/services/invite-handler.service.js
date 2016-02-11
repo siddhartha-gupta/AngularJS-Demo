@@ -69,6 +69,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                         username: this.genericConfig.multiPlayerConfig.username,
                         recipient: recipientId
                     });
+                    this.customEventService.sendingInvite();
                 };
                 /*
                 * Functions to handle invite
