@@ -3,6 +3,8 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {NgClass} from 'angular2/common'
 
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
+import { Spinner } from '../directives/spinner.directive'
+
 import { InviteHandler } from '../services/invite-handler.service'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
@@ -13,7 +15,7 @@ import { _settings } from '../settings'
 @Component({
 	selector: 'PlayersList',
 	providers: [InviteHandler],
-	directives: [ROUTER_DIRECTIVES, NgClass, ModalDialouge],
+	directives: [ROUTER_DIRECTIVES, NgClass, ModalDialouge, Spinner],
 	styleUrls: [_settings.cssPath + 'player-list.css'],
 	templateUrl: _settings.templatePath.component + 'player-list.template.html'
 })

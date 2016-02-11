@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/common', '../directives/modal-dialogue.directive', '../services/invite-handler.service', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/common', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../services/invite-handler.service', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, modal_dialogue_directive_1, invite_handler_service_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
+    var core_1, router_1, common_1, modal_dialogue_directive_1, spinner_directive_1, invite_handler_service_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
     var PlayersList;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
             },
             function (modal_dialogue_directive_1_1) {
                 modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
+            },
+            function (spinner_directive_1_1) {
+                spinner_directive_1 = spinner_directive_1_1;
             },
             function (invite_handler_service_1_1) {
                 invite_handler_service_1 = invite_handler_service_1_1;
@@ -107,7 +110,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     core_1.Component({
                         selector: 'PlayersList',
                         providers: [invite_handler_service_1.InviteHandler],
-                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass, modal_dialogue_directive_1.ModalDialouge],
+                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner],
                         styleUrls: [settings_1._settings.cssPath + 'player-list.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'player-list.template.html'
                     }), 
