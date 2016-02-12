@@ -23,7 +23,6 @@ System.register(['angular2/core'], function(exports_1) {
                 GenericConfig.prototype.initDefaultConfig = function () {
                     this.config = {
                         gridSize: 3,
-                        gameLevel: 2,
                         playGame: true,
                         ways: [
                             [0, 11, 12, 13],
@@ -37,16 +36,47 @@ System.register(['angular2/core'], function(exports_1) {
                         ],
                         choices: [11, 12, 13, 21, 22, 23, 31, 32, 33],
                         corners: [11, 13, 31, 33],
-                        playerstarts: true,
-                        gameScore: {
-                            'totalGames': 0,
-                            'draws': 0,
-                            'playerWins': 0,
-                            'computerWins': 0,
-                        },
-                        gridComputationLen: 0
+                        gridComputationLen: 0,
+                        multiPlayer: false
                     };
                     this.config.gridComputationLen = (this.config.gridSize * this.config.gridSize) - 1;
+                    this.multiPlayerConfig = {
+                        emailId: '',
+                        username: '',
+                        recipient: '',
+                        player1: false,
+                        playerTurn: false,
+                        playerSymbol: 'o'
+                    };
+                    this.computerConfig = {
+                        gameLevel: 2,
+                        playerstarts: true
+                    };
+                    this.gameScore = {
+                        totalGames: 0,
+                        draws: 0,
+                        playerWins: 0,
+                        computerWins: 0,
+                    };
+                    this.initCurrentGameConfig();
+                };
+                GenericConfig.prototype.initCurrentGameConfig = function () {
+                    this.currentGame = {
+                        isWon: false,
+                        moves: [],
+                        stepsPlayed: 0,
+                        movesIndex: []
+                    };
+                    for (var i = 0; i <= this.config.gridComputationLen; i++) {
+                        this.currentGame.movesIndex[i] = 0;
+                    }
+                };
+                GenericConfig.prototype.updateConfig = function (rootKey, subKey, value) {
+                };
+                GenericConfig.prototype.updateCurrentGameConfig = function (block, player) {
+                    this.currentGame.moves[block] = player;
+                    this.currentGame.movesIndex[this.currentGame.stepsPlayed] = block;
+                    this.currentGame.stepsPlayed++;
                 };
                 GenericConfig = __decorate([
                     core_1.Injectable(), 

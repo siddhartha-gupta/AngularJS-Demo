@@ -2,7 +2,8 @@ import {Component} from 'angular2/core'
 import {NgClass} from 'angular2/common'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
-import {CustomEventService} from '../services/event-pub-sub.service'
+import { ServerCommunicator } from '../services/server-communicator.service'
+import { CustomEventService } from '../services/event-pub-sub.service'
 import { _settings } from '../settings'
 import { GenericConfig } from '../services/generic-config.service'
 import { homeModelInterface, initSetupInterface } from '../services/app-interfaces.service'
@@ -17,9 +18,24 @@ import { homeModelInterface, initSetupInterface } from '../services/app-interfac
 export class Home {
 	model: homeModelInterface;
 	gameLevels: initSetupInterface[] = [];
+	opponentOptions: initSetupInterface[] = [];
 	gameStarter: initSetupInterface[] = [];
 
-	constructor(private genericConfig: GenericConfig, private router: Router, private customEventService: CustomEventService) {
+	constructor(
+		private genericConfig: GenericConfig,
+		private router: Router,
+		private customEventService: CustomEventService,
+		private serverCommunicator: ServerCommunicator
+	) {
+
+		this.model = {
+			gameLevel: 2,
+			opponent: 2,
+			firstChance: 1,
+			userEmail: '',
+			username: ''
+		};
+
 		this.gameLevels = [{
 			'value': 1,
 			'text': 'Easy',
@@ -36,6 +52,17 @@ export class Home {
 				'cssClass': 'btn-danger'
 			}];
 
+		this.opponentOptions = [{
+			'value': 1,
+			'text': 'vs Computer',
+			'cssClass': 'btn-info'
+		},
+			{
+				'value': 2,
+				'text': 'Multi Player',
+				'cssClass': 'btn-primary'
+			}];
+
 		this.gameStarter = [{
 			'value': 1,
 			'text': 'You',
@@ -47,21 +74,51 @@ export class Home {
 				'cssClass': 'btn-primary'
 			}];
 
-		this.model = {
-			gameLevel: 2,
-			firstChance: 1
+		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
+	}
+
+	onHeaderClicked(data: any) {
+		if (data.routeName === '') {
+			switch (data.btnType) {
+				case 'left':
+					break;
+
+				case 'right':
+					this.startGame();
+					break;
+			}
 		}
 	}
 
-	startGame(event: Event) {
-		event.preventDefault();
-		event.stopPropagation();
+	startGame(event?: Event) {
+		if (event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 
-		console.log('startGame: ', this.model);
-		this.genericConfig.config.playerstarts = (this.model.firstChance === 1) ? true : false;
-		this.genericConfig.config.gameLevel = this.model.gameLevel;
+		if (this.model.opponent === 2) {
+			this.genericConfig.config.multiPlayer = true;
 
-		console.log('startGame: ', this.genericConfig.config);
-		this.router.navigate(['GamePlay']);
+			this.genericConfig.multiPlayerConfig.emailId = this.model.userEmail;
+			this.genericConfig.multiPlayerConfig.username = this.model.username;
+			this.genericConfig.multiPlayerConfig.player1 = false;
+			this.genericConfig.multiPlayerConfig.playerSymbol = 'o';
+			this.genericConfig.multiPlayerConfig.playerTurn = false;
+
+			this.serverCommunicator.initSocket();
+			this.serverCommunicator.sender = this.model.userEmail;
+
+			this.serverCommunicator.msgSender('register-email', {
+				emailId: this.model.userEmail,
+				username: this.model.username
+			});
+
+			this.router.navigate(['PlayersList']);
+		} else {
+			this.genericConfig.config.multiPlayer = false;
+			this.genericConfig.computerConfig.playerstarts = (this.model.firstChance === 1) ? true : false;
+			this.genericConfig.computerConfig.gameLevel = this.model.gameLevel;
+			this.router.navigate(['GamePlay']);
+		}
 	}
 }

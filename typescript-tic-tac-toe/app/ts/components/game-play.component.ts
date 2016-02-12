@@ -1,207 +1,206 @@
-import {Component, View, OnInit, Renderer, ViewEncapsulation} from 'angular2/core'
-import {BrowserDomAdapter} from 'angular2/platform/browser'
+import {Component, ViewChild, OnInit} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
+import { GameGrid } from '../directives/game-grid.directive'
+import { ScoreCard } from '../directives/score-card.directive'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
+import { Spinner } from '../directives/spinner.directive'
+import { InviteHandler } from '../directives/invite-handler.directive'
+
+import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
-import { CurrentGameConfig } from '../services/current-game-config.service'
-import { AIGamePlay } from '../services/ai-gamePlay.service'
 import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 import { _settings } from '../settings'
 
-
 @Component({
 	selector: 'GamePlay',
-	providers: [AIGamePlay, GameStatus, Utils, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, ModalDialouge],
+	providers: [GameStatus],
+	directives: [ROUTER_DIRECTIVES, GameGrid, ScoreCard, ModalDialouge, Spinner, InviteHandler],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
 })
 
 export class GamePlay {
-	gameInProgress: Boolean = false;
-	modalDialogue: ModalDialogueInterface;
+	scoreCardConfig: ModalDialogueInterface;
+	showLoader: Boolean;
+	@ViewChild(InviteHandler) inviteHandler: InviteHandler;
+	@ViewChild(GameGrid) gameGrid: GameGrid;
 
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, public aiGamePlay: AIGamePlay, public gameStatus: GameStatus, public utils: Utils, public renderer: Renderer, private _dom: BrowserDomAdapter, private router: Router, private customEventService: CustomEventService) {
-
+	constructor(
+		public genericConfig: GenericConfig,
+		public gameStatus: GameStatus,
+		public utils: Utils,
+		private router: Router,
+		private customEventService: CustomEventService,
+		private serverCommunicator: ServerCommunicator
+	) {
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
-		this.modalDialogue = {
+		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
+		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest());
+		customEventService.onStartGame.subscribe((data: any) => this.restartGame());
+		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
+		customEventService.onEndGame.subscribe((data: any) => this.goToHome());
+
+		this.showLoader = false;
+		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',
 			body: '',
 			showBtn2: false
 		};
-
-		this.utils.log(this.currentGameConfig);
 		this.utils.log(this.genericConfig);
 	}
 
 	ngOnInit() {
-		this.startGame();
+		this.startGame(false);
 	}
 
-	startGame() {
-		this.resetModalConfig();
-		this.gameInProgress = true;
-		this.currentGameConfig.initDefaultConfig();
-		this.drawGrid();
+	onSendingInvite() {
+		this.showLoader = true;
 	}
 
-	drawGrid() {
-		let gridCell: Array<any> = [],
-			elem = this._dom.query('ul[id*=game-grid]'),
-			liElem = this._dom.querySelectorAll(elem, 'li'),
-			that = this;
-
-		this.domCleanUp();
-		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
-			for (let j = 1; j <= len; j += 1) {
-				let idAttr: Array<any> = [],
-					combinedId = i.toString() + j.toString();
-
-				gridCell.push('<li data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
-				this.currentGameConfig.currentGame.moves[combinedId] = 0;
-			}
-		}
-		this._dom.setInnerHTML(elem, gridCell.join(''));
-
-		liElem = this._dom.querySelectorAll(elem, 'li');
-		if (!this.utils.isNullUndefined(liElem)) {
-			for (let i = 0, len = liElem.length; i < len; i++) {
-				this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
-			}
+	startGame(restart: Boolean) {
+		this.utils.log('startGame, restart: ', restart);
+		if (restart && this.genericConfig.config.multiPlayer) {
+			this.serverCommunicator.msgSender('restart-game', {
+				recipient: this.genericConfig.multiPlayerConfig.recipient
+			});
 		}
 
-		if (!this.genericConfig.config.playerstarts) {
-			this.makeAIMove();
-		}
+		this.resetScoreCard();
+		this.genericConfig.config.playGame = true;
+		this.genericConfig.initCurrentGameConfig();
+		this.gameGrid.drawGrid();
 	}
 
-	onBlockClick(event: Event) {
-		if (event) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-
-		this.utils.log('onBlockClick');
-		if (this.genericConfig.config.playGame) {
-			let target = <HTMLInputElement>event.target,
-				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
-
-			if (!this.currentGameConfig.currentGame.isWon) {
-				this.utils.log(this.currentGameConfig.currentGame.moves);
-				this.utils.log('cellnum: ', cellnum, ' :move: ', this.currentGameConfig.currentGame.moves[cellnum]);
-				if (this.currentGameConfig.currentGame.moves[cellnum] === 0) {
-					this.renderer.setElementClass(target, 'x-text', true);
-
-					this.currentGameConfig.currentGame.moves[cellnum] = 1;
-					this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = cellnum;
-					this.currentGameConfig.currentGame.stepsPlayed++;
-					this.getGameStatus(true);
-				} else {
-					alert('You cannot move here!');
-				}
-			}
-		}
+	restartGame() {
+		this.showLoader = false;
+		this.resetScoreCard();
+		this.genericConfig.config.playGame = true;
+		this.genericConfig.initCurrentGameConfig();
+		this.gameGrid.drawGrid();
 	}
 
-	makeAIMove() {
-		let result: number = this.aiGamePlay.makeAIMove();
-		this.utils.log('makeAIMove, result: ', result);
-
-		this.currentGameConfig.currentGame.moves[result] = 2;
-		this.currentGameConfig.currentGame.movesIndex[this.currentGameConfig.currentGame.stepsPlayed] = result;
-		var elem = this._dom.query('li[id*=combine_' + result + ']');
-
-		this.renderer.setElementClass(elem, 'o-text', true);
-		this.currentGameConfig.currentGame.stepsPlayed++;
-		this.getGameStatus(false);
+	onBlockClick(data: any) {
+		this.sendMoveToSever(data.cellnum, data.playerSymbol);
+		this.genericConfig.updateCurrentGameConfig(data.cellnum, 1);
+		this.getGameStatus(true, data.cellnum);
 	}
 
-	getGameStatus(isHuman: Boolean) {
+	/*
+	* While playing with computer
+	* we make use of below function
+	*/
+	makeAIMove(result: number) {
+		this.getGameStatus(false, result);
+	}
+
+	/*
+	* While playing in multiplayer mode
+	* we make use of below function
+	*/
+	onMoveReceived(data: any) {
+		let result: number = parseInt(data.move);
+
+		this.utils.log('make multiPlayer move, result: ', result);
+		this.gameGrid.onMoveReceived({
+			result: result,
+			symbol: data.symbol
+		});
+
+		this.genericConfig.updateCurrentGameConfig(result, 2);
+		this.getGameStatus(false, result);
+		this.genericConfig.multiPlayerConfig.playerTurn = true;
+	}
+
+	getGameStatus(isHuman: Boolean, move: number) {
 		this.utils.log('getGameStatus: ', isHuman);
 		let status: string = this.gameStatus.checkGameEnd(isHuman);
 
 		this.utils.log(status);
 		switch (status) {
 			case 'gameWon':
-				this.genericConfig.config.playGame = false;
 				if (isHuman) {
-					this.showModalDialogue('Player won the match', false);
+					this.showScoreCard('You won the match');
 				} else {
-					this.showModalDialogue('Computer won the match', false);
+					this.showScoreCard('Your opponent won the match');
 				}
 				break;
 
 			case 'gameDraw':
-				this.genericConfig.config.playGame = false;
-				this.showModalDialogue('Match Drawn!', false);
+				this.showScoreCard('Match Drawn!');
 				break;
 
 			case 'makeAIMove':
-				this.makeAIMove();
+				this.gameGrid.makeAIMove();
+				break;
 		}
 	}
 
-	domCleanUp() {
-		let elem = this._dom.query('ul[id*=game-grid]'),
-			liElem = this._dom.querySelectorAll(elem, 'li'),
-			that = this;
-
-		if (liElem) {
-			for (let i = 0, len = liElem.length; i < length; i += 1) {
-				liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
-			}
+	sendMoveToSever(move: number, symbol: string) {
+		if (this.genericConfig.config.multiPlayer) {
+			this.genericConfig.multiPlayerConfig.playerTurn = false;
+			this.serverCommunicator.msgSender('send-message', {
+				recipient: this.genericConfig.multiPlayerConfig.recipient,
+				move: move,
+				symbol: symbol
+			});
 		}
-		this._dom.setInnerHTML(elem, '');
 	}
 
 	onHeaderClicked(data: any) {
-		console.log('from gamePlay test1: ', data);
-		if (data.routeName.indexOf('gameplay') >= 0) {
+		if (data.routeName === '/gameplay') {
 			switch (data.btnType) {
 				case 'left':
 					this.goToHome();
 					break;
 
 				case 'right':
-					this.showModalDialogue('Current Scorecard', this.gameInProgress);
+					this.showScoreCard('Current Scorecard');
 					break;
 			}
 		}
 	}
 
-	showModalDialogue(text: string, gameInProgress: Boolean) {
-		this.utils.log('showModalDialogue: ', text);
-		this.gameInProgress = gameInProgress;
+	showScoreCard(text: string) {
+		this.utils.log('showScoreCard: ', text);
 
-		this.modalDialogue = {
+		this.scoreCardConfig = {
 			isVisible: true,
 			title: 'Game Status',
 			body: text,
-			showBtn2: !this.gameInProgress
+			showBtn2: !this.genericConfig.config.playGame
 		};
 	}
 
-	onModalClose() {
-		this.resetModalConfig();
-		if (!this.gameInProgress) {
-			this.startGame();
+	playAgain() {
+		this.resetScoreCard();
+		this.inviteHandler.onRecipientSelected(null, this.genericConfig.multiPlayerConfig.recipient);
+	}
+
+	onReMatchRequest() {
+		this.hideScoreCard(true);
+	}
+
+	hideScoreCard(noRestart?: Boolean) {
+		this.resetScoreCard();
+		if (!this.genericConfig.config.playGame && !noRestart) {
+			this.startGame(true);
 		}
 	}
 
 	goToHome() {
-		this.resetModalConfig();
-		console.log('goToHome');
+		this.resetScoreCard();
+		this.utils.log('goToHome');
 		this.router.navigate(['Home']);
 	}
 
-	resetModalConfig() {
-		this.modalDialogue = {
+	resetScoreCard() {
+		this.scoreCardConfig = {
 			isVisible: false,
 			title: '',
 			body: '',

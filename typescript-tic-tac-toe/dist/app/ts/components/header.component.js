@@ -30,17 +30,17 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                     var _this = this;
                     this.utils = utils;
                     this.customEventService = customEventService;
+                    this.heading = 'Tic Tac Toe';
                     this.headerLeftButton = {
-                        'btnType': 'left',
-                        'text': 'Main Menu',
+                        'btnType': '',
+                        'text': '',
                         'showBtn': false
                     };
                     this.headerRightButton = {
                         'btnType': 'right',
-                        'text': 'Status',
-                        'showBtn': false
+                        'text': 'Start game',
+                        'showBtn': true
                     };
-                    this.heading = 'Tic Tac Toe';
                     customEventService.onRouteChange.subscribe(function (val) { return _this.onRouteChange(val); });
                 }
                 AppHeader.prototype.onRouteChange = function (val) {
@@ -48,14 +48,51 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                     var routeName = val.match(/[^?]*/i)[0];
                     switch (routeName) {
                         case 'gameplay':
-                            this.headerLeftButton.showBtn = true;
-                            this.headerRightButton.showBtn = true;
+                            this.gamePlayHeaderBtns();
+                            break;
+                        case 'playerslist':
+                            this.playersListHeaderBtns();
                             break;
                         default:
-                            this.headerLeftButton.showBtn = false;
-                            this.headerRightButton.showBtn = false;
+                            this.homeHeaderBtns();
                             break;
                     }
+                };
+                AppHeader.prototype.homeHeaderBtns = function () {
+                    this.headerLeftButton = {
+                        'btnType': '',
+                        'text': '',
+                        'showBtn': false
+                    };
+                    this.headerRightButton = {
+                        'btnType': 'right',
+                        'text': 'Start game',
+                        'showBtn': true
+                    };
+                };
+                AppHeader.prototype.playersListHeaderBtns = function () {
+                    this.headerLeftButton = {
+                        'btnType': 'left',
+                        'text': 'Main Menu',
+                        'showBtn': true
+                    };
+                    this.headerRightButton = {
+                        'btnType': 'right',
+                        'text': '',
+                        'showBtn': false
+                    };
+                };
+                AppHeader.prototype.gamePlayHeaderBtns = function () {
+                    this.headerLeftButton = {
+                        'btnType': 'left',
+                        'text': 'Main Menu',
+                        'showBtn': true
+                    };
+                    this.headerRightButton = {
+                        'btnType': 'right',
+                        'text': 'Info',
+                        'showBtn': true
+                    };
                 };
                 AppHeader.prototype.headerFunc = function (event, btnType) {
                     event.preventDefault();
@@ -65,7 +102,6 @@ System.register(['angular2/core', '../services/utils.service', '../services/even
                 AppHeader = __decorate([
                     core_1.Component({
                         selector: 'app-header',
-                        providers: [utils_service_1.Utils],
                         styleUrls: [settings_1._settings.cssPath + 'header.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'header.template.html'
                     }), 

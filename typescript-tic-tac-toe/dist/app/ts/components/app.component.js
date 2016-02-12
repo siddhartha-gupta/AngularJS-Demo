@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './header.component', './home.component', './game-play.component', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './header.component', './home.component', './game-play.component', './players-list.component', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, header_component_1, home_component_1, game_play_component_1, settings_1;
+    var core_1, router_1, header_component_1, home_component_1, game_play_component_1, players_list_component_1, settings_1;
     var App;
     return {
         setters:[
@@ -27,13 +27,15 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
             function (game_play_component_1_1) {
                 game_play_component_1 = game_play_component_1_1;
             },
+            function (players_list_component_1_1) {
+                players_list_component_1 = players_list_component_1_1;
+            },
             function (settings_1_1) {
                 settings_1 = settings_1_1;
             }],
         execute: function() {
             App = (function () {
                 function App() {
-                    console.log('app class');
                 }
                 App = __decorate([
                     core_1.Component({
@@ -44,6 +46,7 @@ System.register(['angular2/core', 'angular2/router', './header.component', './ho
                     }),
                     router_1.RouteConfig([
                         { path: '', as: 'Home', component: home_component_1.Home },
+                        { path: '/playerslist', as: 'PlayersList', component: players_list_component_1.PlayersList },
                         { path: '/gameplay', as: 'GamePlay', component: game_play_component_1.GamePlay }
                     ]), 
                     __metadata('design:paramtypes', [])

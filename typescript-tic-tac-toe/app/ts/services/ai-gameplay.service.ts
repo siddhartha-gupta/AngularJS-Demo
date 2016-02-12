@@ -1,11 +1,10 @@
 import {Injectable} from 'angular2/core'
 import { GenericConfig } from './generic-config.service'
-import { CurrentGameConfig } from './current-game-config.service'
 import { Utils } from '../services/utils.service'
 
 @Injectable()
 export class AIGamePlay {
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig, private utils: Utils) { }
+	constructor(public genericConfig: GenericConfig, private utils: Utils) { }
 
 	private aiThinking: Number;
 	private cachedNextMove: any;
@@ -17,7 +16,7 @@ export class AIGamePlay {
 		result = this.chooseMove(true);
 
 		// check move to prevent ai loss
-		if (this.genericConfig.config.gameLevel > 1) {
+		if (this.genericConfig.computerConfig.gameLevel > 1) {
 			if (!result || result === 0) {
 				result = this.chooseMove(false);
 			} else {
@@ -26,7 +25,7 @@ export class AIGamePlay {
 		}
 
 		// check best possible move for ai
-		if (this.genericConfig.config.gameLevel > 2) {
+		if (this.genericConfig.computerConfig.gameLevel > 2) {
 			if (!result || result === 0) {
 				result = this.seekBestMove();
 			} else {
@@ -48,9 +47,9 @@ export class AIGamePlay {
 			result: any;
 
 		for (let n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
-			var n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]],
-				n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]],
-				n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
+			var n1 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][1]],
+				n2 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][2]],
+				n3 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
 
 			if ((n1 == gridValue) && (n2 == gridValue) && (n3 === 0)) {
 				result = this.genericConfig.config.ways[n][3];
@@ -69,15 +68,15 @@ export class AIGamePlay {
 	}
 
 	seekBestMove() {
-		let moveIndex0: number = parseInt(this.currentGameConfig.currentGame.movesIndex[0], 10),
-			moveIndex1: number = parseInt(this.currentGameConfig.currentGame.movesIndex[1], 10),
-			moveIndex2: number = parseInt(this.currentGameConfig.currentGame.movesIndex[2], 10),
-			moveIndex3: number = parseInt(this.currentGameConfig.currentGame.movesIndex[3], 10),
+		let moveIndex0: number = parseInt(this.genericConfig.currentGame.movesIndex[0], 10),
+			moveIndex1: number = parseInt(this.genericConfig.currentGame.movesIndex[1], 10),
+			moveIndex2: number = parseInt(this.genericConfig.currentGame.movesIndex[2], 10),
+			moveIndex3: number = parseInt(this.genericConfig.currentGame.movesIndex[3], 10),
 			result: number,
 			dlta: number,
 			randomPosition: Array<number> = [];
 
-		switch (this.currentGameConfig.currentGame.stepsPlayed) {
+		switch (this.genericConfig.currentGame.stepsPlayed) {
 			case 0:
 				result = this.genericConfig.config.choices[2 * Math.floor(Math.random() * 5)];
 
@@ -144,7 +143,7 @@ export class AIGamePlay {
 						dlta = 22 - moveIndex2;
 						result = 22 + (10 / dlta);
 						this.cachedNextMove = result + dlta;
-						console.log('cachedNextMove: ', this.cachedNextMove);
+						this.utils.log('cachedNextMove: ', this.cachedNextMove);
 					} else {
 						dlta = 22 - moveIndex0;
 						randomPosition.push(moveIndex0 + (10 / dlta));
@@ -158,7 +157,7 @@ export class AIGamePlay {
 			case 4:
 				if (this.aiThinking == 22) {
 					for (let i = 0; i < 4; i++) {
-						if (this.currentGameConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
+						if (this.genericConfig.currentGame.moves[this.genericConfig.config.corners[i]] === 0) {
 							result = this.genericConfig.config.corners[i];
 						}
 					}
@@ -179,7 +178,7 @@ export class AIGamePlay {
 				}
 				break;
 		}
-		console.log('playerStartsGame: ', result);
+		this.utils.log('playerStartsGame: ', result);
 		return result;
 	}
 
@@ -188,7 +187,7 @@ export class AIGamePlay {
 
 		do {
 			result = this.genericConfig.config.choices[Math.floor(Math.random() * 9)];
-		} while (this.currentGameConfig.currentGame.moves[result] !== 0);
+		} while (this.genericConfig.currentGame.moves[result] !== 0);
 
 		return result;
 	}
@@ -200,7 +199,7 @@ export class AIGamePlay {
 			case 'blank':
 				do {
 					result = this.genericConfig.config.corners[Math.floor(Math.random() * 4)];
-				} while (this.currentGameConfig.currentGame.moves[result] !== 0);
+				} while (this.genericConfig.currentGame.moves[result] !== 0);
 				break;
 
 			case 'noPrefrence':

@@ -4,7 +4,7 @@ import { GenericConfig } from '../services/generic-config.service'
 
 @Component({
 	selector: 'modal-dialogue, [modal-dialogue]',
-	inputs: ['isVisible', 'title', 'body', 'showBtn2'],
+	inputs: ['isVisible', 'title', 'body', 'btn1Txt', 'btn2Txt', 'showBtn2'],
 	styleUrls: [_settings.cssPath + 'modal.css'],
 	templateUrl: _settings.templatePath.directive + 'modal-dialogue.template.html'
 })
@@ -16,21 +16,21 @@ export class ModalDialouge {
 
 	constructor(private genericConfig: GenericConfig) { }
 
-	mainMenu(event: Event) {
+	btn1Clicked(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
 
 		this.btn1Callback.emit(event);
 	}
 
-	playAgain(event: Event) {
+	btn2Clicked(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
 
 		this.btn2Callback.emit(event);
 	}
 
-	hideModal(event?: Event) {
+	closeBtnClicked(event?: Event) {
 		event.preventDefault();
 		event.stopPropagation();
 

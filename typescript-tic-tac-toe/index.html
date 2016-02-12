@@ -14,6 +14,7 @@
     <script src="lib/angular2.dev.js"></script>
     <script src="lib/router.dev.js"></script>
     <script src="lib/ng2-bootstrap.min.js"></script>
+    <script src="lib/socket.io.js"></script>
     <link href="app/css/bootstrap.min.css" rel="stylesheet">
     <link href="app/css/app.css" rel="stylesheet">
 
@@ -24,7 +25,10 @@
           app: {
             format: 'register',
             defaultExtension: 'js'
-          }
+          },
+          /*paths: {
+            underscore: 'lib/underscore.js'
+          }*/
         }
       });
       System.import('app/ts/boot').then(null, console.error.bind(console));
@@ -37,5 +41,4 @@
     </div>
   </body>
   <body>
-
 </html>

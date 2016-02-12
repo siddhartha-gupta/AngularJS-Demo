@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', '../services/generic-config.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,16 +8,20 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, generic_config_service_1;
     var Utils;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (generic_config_service_1_1) {
+                generic_config_service_1 = generic_config_service_1_1;
             }],
         execute: function() {
             Utils = (function () {
-                function Utils() {
+                function Utils(genericConfig) {
+                    this.genericConfig = genericConfig;
                 }
                 Utils.prototype.getDataType = function (obj) {
                     return ({}).toString.call(obj).toLowerCase();
@@ -45,6 +49,26 @@ System.register(['angular2/core'], function(exports_1) {
                     }
                     return isNull;
                 };
+                Utils.prototype.getHoverClass = function () {
+                    var className = 'player1';
+                    if (this.genericConfig.config.multiPlayer && !this.genericConfig.multiPlayerConfig.player1) {
+                        className = 'player2';
+                    }
+                    return className;
+                };
+                Utils.prototype.canPlay = function () {
+                    if (this.genericConfig.config.multiPlayer) {
+                        if (this.genericConfig.multiPlayerConfig.playerTurn && this.genericConfig.config.playGame) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return this.genericConfig.config.playGame;
+                    }
+                };
                 Utils.prototype.log = function () {
                     var msg = [];
                     for (var _i = 0; _i < arguments.length; _i++) {
@@ -54,7 +78,7 @@ System.register(['angular2/core'], function(exports_1) {
                 };
                 Utils = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig])
                 ], Utils);
                 return Utils;
             })();

@@ -1,4 +1,6 @@
 <div id="container">
-	<ul id="game-grid"></ul>
+	<game-grid (onGridElemClick)="onBlockClick()" (onMakeAIMove)="makeAIMove()"></game-grid>
 </div>
-<modal-dialogue [isVisible]="modalDialogue.isVisible" [title]="modalDialogue.title" [body]="modalDialogue.body" [showBtn2]="modalDialogue.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="startGame()" (closeBtnCallback)="onModalClose()"></modal-dialogue>
+<score-card [isVisible]="scoreCardConfig.isVisible" [title]="scoreCardConfig.title" [body]="scoreCardConfig.body" [showBtn2]="scoreCardConfig.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="playAgain()" (closeBtnCallback)="hideScoreCard()"></score-card>
+<invite-handler></invite-handler>
+<spinner [showLoader]="showLoader"></spinner>

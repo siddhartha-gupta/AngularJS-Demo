@@ -1,56 +1,69 @@
 import {Injectable} from 'angular2/core'
 import { GenericConfig } from './generic-config.service'
-import { CurrentGameConfig } from './current-game-config.service'
 
 @Injectable()
 export class GameStatus {
-	constructor(public genericConfig: GenericConfig, public currentGameConfig: CurrentGameConfig) { }
+	constructor(public genericConfig: GenericConfig) { }
 
 	checkGameEnd(isHuman?: Boolean) {
-		console.log('checkGameEnd: ', isHuman);
 		let gridValue = (isHuman) ? 1 : 2;
 
 		for (let n = 0; n < this.genericConfig.config.gridComputationLen; n++) {
-			let n1 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][1]],
-				n2 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][2]],
-				n3 = this.currentGameConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
+			let n1 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][1]],
+				n2 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][2]],
+				n3 = this.genericConfig.currentGame.moves[this.genericConfig.config.ways[n][3]];
 
 			if ((n1 == gridValue) && (n2 == gridValue) && (n3 == gridValue)) {
-				this.currentGameConfig.currentGame.isWon = true;
+				this.genericConfig.currentGame.isWon = true;
 				break;
 			}
 		}
 
-		if (this.currentGameConfig.currentGame.isWon) {
+		if (this.genericConfig.currentGame.isWon) {
 			this.onGameWon(isHuman);
 			return 'gameWon';
 		} else {
-			if (this.currentGameConfig.currentGame.stepsPlayed > 8) {
+			if (this.genericConfig.currentGame.stepsPlayed > 8) {
 				this.onGameDraw();
 				return 'gameDraw';
-			} else if (isHuman) {
-				console.log('makeAIMove: ', isHuman);
+			} else if (!this.genericConfig.config.multiPlayer && isHuman) {
 				return 'makeAIMove';
 			}
 		}
 	}
 
 	onGameWon(isHuman?: Boolean) {
-		console.log('onGameWon: ', isHuman);
+		this.genericConfig.config.playGame = false;
 		if (isHuman) {
-			this.genericConfig.config.gameScore.totalGames += 1;
-			this.genericConfig.config.gameScore.playerWins += 1;
-			this.genericConfig.config.playerstarts = true;
+			this.genericConfig.gameScore.totalGames += 1;
+			this.genericConfig.gameScore.playerWins += 1;
+
+			if (this.genericConfig.config.multiPlayer) {
+				this.genericConfig.multiPlayerConfig.playerTurn = true;	
+			} else {
+				this.genericConfig.computerConfig.playerstarts = true;
+			}
 		} else {
-			this.genericConfig.config.gameScore.totalGames += 1;
-			this.genericConfig.config.gameScore.computerWins += 1;
-			this.genericConfig.config.playerstarts = false;
+			this.genericConfig.gameScore.totalGames += 1;
+			this.genericConfig.gameScore.computerWins += 1;
+
+			if (this.genericConfig.config.multiPlayer) {
+				this.genericConfig.multiPlayerConfig.playerTurn = false;
+			} else {
+				this.genericConfig.computerConfig.playerstarts = false;
+			}
 		}
 	}
 
 	onGameDraw() {
-		this.genericConfig.config.gameScore.totalGames += 1;
-		this.genericConfig.config.gameScore.draws += 1;
-		this.genericConfig.config.playerstarts = !this.genericConfig.config.playerstarts;
+		this.genericConfig.config.playGame = false;
+		this.genericConfig.gameScore.totalGames += 1;
+		this.genericConfig.gameScore.draws += 1;
+
+		if (this.genericConfig.config.multiPlayer) {
+			this.genericConfig.multiPlayerConfig.playerTurn = !this.genericConfig.multiPlayerConfig.playerTurn;
+		} else {
+			this.genericConfig.computerConfig.playerstarts = !this.genericConfig.computerConfig.playerstarts;
+		}
 	}
 }

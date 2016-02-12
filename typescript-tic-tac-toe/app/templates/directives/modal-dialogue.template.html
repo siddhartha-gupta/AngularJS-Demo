@@ -2,22 +2,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal($event)">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeBtnClicked($event)">&times;</button>
                 <h4 class="modal-title">{{title}}</h4>
             </div>
             <div class="modal-body">
                 <div>{{body}}</div>
-                <div class="row stats-container">
-                    <div class="group-title">Total: {{genericConfig.config.gameScore.totalGames}}</div>
-                    <div class="group-title">Draws: {{genericConfig.config.gameScore.draws}}</div>
-                    <div class="group-title">Player won: {{genericConfig.config.gameScore.playerWins}}</div>
-                    <div class="group-title">Computer won: {{genericConfig.config.gameScore.computerWins}}</div>
-                </div>
-                <p class="text-warning"><small>Going to main menu will reset the game.</small></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="mainMenu($event)">Main menu</button>
-                <button *ngIf="showBtn2" type="button" class="btn btn-primary" (click)="playAgain($event)">Play again</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="btn1Clicked($event)">{{btn1Txt}}</button>
+                <button *ngIf="showBtn2" type="button" class="btn btn-primary" (click)="btn2Clicked($event)">{{btn2Txt}}</button>
             </div>
         </div>
     </div>

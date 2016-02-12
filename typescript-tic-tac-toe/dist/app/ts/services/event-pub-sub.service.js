@@ -26,19 +26,48 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                     this.location = location;
                     this.onRouteChange = new core_1.EventEmitter();
                     this.onHeaderClicked = new core_1.EventEmitter();
+                    this.onPlayersListReceived = new core_1.EventEmitter();
+                    this.onSendingInvite = new core_1.EventEmitter();
+                    this.onInviteRequest = new core_1.EventEmitter();
+                    this.onInviteAction = new core_1.EventEmitter();
+                    this.onMoveReceived = new core_1.EventEmitter();
+                    this.onReMatchRequest = new core_1.EventEmitter();
+                    this.onStartGame = new core_1.EventEmitter();
+                    this.onEndGame = new core_1.EventEmitter();
                     router.subscribe(function (val) { return _this.routeChangeEmitter(val); });
                 }
                 CustomEventService.prototype.routeChangeEmitter = function (val) {
                     this.onRouteChange.emit(val);
                 };
                 CustomEventService.prototype.headerBtnClicked = function (btnType) {
-                    console.log('event pub-sub headerBtnClicked: ', btnType);
-                    // console.log(this.onHeaderClicked);
                     this.onHeaderClicked.emit({
                         btnType: btnType,
                         routeName: this.location.path()
                     });
-                    // this.onRouteChange.emit('gameplay');
+                };
+                CustomEventService.prototype.playersListReceived = function (data) {
+                    this.onPlayersListReceived.emit(data);
+                };
+                CustomEventService.prototype.sendingInvite = function () {
+                    this.onSendingInvite.emit(null);
+                };
+                CustomEventService.prototype.inviteRequest = function (data) {
+                    this.onInviteRequest.emit(data);
+                };
+                CustomEventService.prototype.inviteAction = function (data) {
+                    this.onInviteAction.emit(data);
+                };
+                CustomEventService.prototype.moveReceived = function (data) {
+                    this.onMoveReceived.emit(data);
+                };
+                CustomEventService.prototype.reMatchRequest = function () {
+                    this.onReMatchRequest.emit(null);
+                };
+                CustomEventService.prototype.startGame = function () {
+                    this.onStartGame.emit(null);
+                };
+                CustomEventService.prototype.endGame = function () {
+                    this.onEndGame.emit(null);
                 };
                 CustomEventService = __decorate([
                     core_1.Injectable(), 
