@@ -1,6 +1,6 @@
 <div>
 	<div class="row stats-container" *ngIf="playersList && playersList.length > 0">
-		<div *ngFor="#key of playersList" class="group-title" (click)="inviteHandler.onRecipientSelected($event, key.emailId)">
+		<div *ngFor="#key of playersList" class="group-title" (click)="onRecipientSelected($event, key.emailId)">
 			<span class="tickmark">&#10004;</span>
 			{{key.username}} - {{key.emailId}}
 		</div>
@@ -9,5 +9,5 @@
 		<span>Currently no players available</span>
 	</div>
 </div>
-<modal-dialogue [isVisible]="inviteHandler.modalDialogue.isVisible" [title]="inviteHandler.modalDialogue.title" [body]="inviteHandler.modalDialogue.body" [showBtn2]="inviteHandler.modalDialogue.showBtn2" [btn1Txt]="inviteHandler.modalDialogue.btn1Txt" [btn2Txt]="inviteHandler.modalDialogue.btn2Txt" (btn1Callback)="inviteHandler.modalDialogue.btn1Callback()" (btn2Callback)="inviteHandler.modalDialogue.btn2Callback()" (closeBtnCallback)="inviteHandler.modalDialogue.closeBtnCallback()"></modal-dialogue>
+<invite-handler></invite-handler>
 <spinner [showLoader]="showLoader"></spinner>

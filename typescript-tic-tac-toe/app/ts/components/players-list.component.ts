@@ -1,11 +1,10 @@
-import {Component} from 'angular2/core'
+import {Component, ViewChild} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 import {NgClass} from 'angular2/common'
 
-import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { Spinner } from '../directives/spinner.directive'
+import { InviteHandler } from '../directives/invite-handler.directive'
 
-import { InviteHandler } from '../services/invite-handler.service'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { GenericConfig } from '../services/generic-config.service'
@@ -14,8 +13,7 @@ import { _settings } from '../settings'
 
 @Component({
 	selector: 'PlayersList',
-	providers: [InviteHandler],
-	directives: [ROUTER_DIRECTIVES, NgClass, ModalDialouge, Spinner],
+	directives: [ROUTER_DIRECTIVES, NgClass, Spinner, InviteHandler],
 	styleUrls: [_settings.cssPath + 'player-list.css'],
 	templateUrl: _settings.templatePath.component + 'player-list.template.html'
 })
@@ -23,15 +21,16 @@ import { _settings } from '../settings'
 export class PlayersList {
 	private playersList: Array<any>;
 	showLoader: Boolean;
+	@ViewChild(InviteHandler) inviteHandler: InviteHandler;
 
 	constructor(
 		private router: Router,
 		private customEventService: CustomEventService,
 		private serverCommunicator: ServerCommunicator,
 		private genericConfig: GenericConfig,
-		private utils: Utils,
-		private inviteHandler: InviteHandler
+		private utils: Utils
 	) {
+
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onPlayersListReceived.subscribe((data: any) => this.onPlayersListReceived(data));
 		customEventService.onStartGame.subscribe((data: any) => this.onStartGame());
@@ -42,8 +41,16 @@ export class PlayersList {
 		this.serverCommunicator.msgSender('get-players-list', {});
 	}
 
+	ngAfterViewInit() {
+		console.log(this.inviteHandler);
+	}
+
 	onStartGame() {
 		this.router.navigate(['GamePlay']);
+	}
+
+	onRecipientSelected(event: Event, emailId: string) {
+		this.inviteHandler.onRecipientSelected(event, emailId);
 	}
 
 	onSendingInvite() {

@@ -1,14 +1,14 @@
-import {Component, View, OnInit, Renderer, ViewEncapsulation} from 'angular2/core'
+import {Component, ViewChild, OnInit, Renderer} from 'angular2/core'
 import {BrowserDomAdapter} from 'angular2/platform/browser'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
 import { ScoreCard } from '../directives/score-card.directive'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { Spinner } from '../directives/spinner.directive'
+import { InviteHandler } from '../directives/invite-handler.directive'
 
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
-import { InviteHandler } from '../services/invite-handler.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
 import { AIGamePlay } from '../services/ai-gamePlay.service'
@@ -18,8 +18,8 @@ import { _settings } from '../settings'
 
 @Component({
 	selector: 'GamePlay',
-	providers: [AIGamePlay, GameStatus, BrowserDomAdapter, InviteHandler],
-	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge, Spinner],
+	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
+	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge, Spinner, InviteHandler],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
@@ -28,6 +28,7 @@ import { _settings } from '../settings'
 export class GamePlay {
 	scoreCardConfig: ModalDialogueInterface;
 	showLoader: Boolean;
+	@ViewChild(InviteHandler) inviteHandler: InviteHandler;
 
 	constructor(
 		public genericConfig: GenericConfig,
@@ -38,9 +39,9 @@ export class GamePlay {
 		private _dom: BrowserDomAdapter,
 		private router: Router,
 		private customEventService: CustomEventService,
-		private serverCommunicator: ServerCommunicator,
-		private inviteHandler: InviteHandler
+		private serverCommunicator: ServerCommunicator
 	) {
+		@ViewChild('ih') inviteHandler: InviteHandler;
 
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));

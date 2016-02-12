@@ -2,5 +2,5 @@
 	<ul id="game-grid"></ul>
 </div>
 <score-card [isVisible]="scoreCardConfig.isVisible" [title]="scoreCardConfig.title" [body]="scoreCardConfig.body" [showBtn2]="scoreCardConfig.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="playAgain()" (closeBtnCallback)="hideScoreCard()"></score-card>
-<modal-dialogue [isVisible]="inviteHandler.modalDialogue.isVisible" [title]="inviteHandler.modalDialogue.title" [body]="inviteHandler.modalDialogue.body" [showBtn2]="inviteHandler.modalDialogue.showBtn2" [btn1Txt]="inviteHandler.modalDialogue.btn1Txt" [btn2Txt]="inviteHandler.modalDialogue.btn2Txt" (btn1Callback)="inviteHandler.modalDialogue.btn1Callback()" (btn2Callback)="inviteHandler.modalDialogue.btn2Callback()" (closeBtnCallback)="inviteHandler.modalDialogue.closeBtnCallback()"></modal-dialogue>
+<invite-handler></invite-handler>
 <spinner [showLoader]="showLoader"></spinner>

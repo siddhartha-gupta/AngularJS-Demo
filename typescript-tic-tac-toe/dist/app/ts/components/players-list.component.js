@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/common', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../services/invite-handler.service', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/common', '../directives/spinner.directive', '../directives/invite-handler.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, modal_dialogue_directive_1, spinner_directive_1, invite_handler_service_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
+    var core_1, router_1, common_1, spinner_directive_1, invite_handler_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
     var PlayersList;
     return {
         setters:[
@@ -21,14 +21,11 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
             function (common_1_1) {
                 common_1 = common_1_1;
             },
-            function (modal_dialogue_directive_1_1) {
-                modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
-            },
             function (spinner_directive_1_1) {
                 spinner_directive_1 = spinner_directive_1_1;
             },
-            function (invite_handler_service_1_1) {
-                invite_handler_service_1 = invite_handler_service_1_1;
+            function (invite_handler_directive_1_1) {
+                invite_handler_directive_1 = invite_handler_directive_1_1;
             },
             function (server_communicator_service_1_1) {
                 server_communicator_service_1 = server_communicator_service_1_1;
@@ -47,14 +44,13 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
             }],
         execute: function() {
             PlayersList = (function () {
-                function PlayersList(router, customEventService, serverCommunicator, genericConfig, utils, inviteHandler) {
+                function PlayersList(router, customEventService, serverCommunicator, genericConfig, utils) {
                     var _this = this;
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
                     this.genericConfig = genericConfig;
                     this.utils = utils;
-                    this.inviteHandler = inviteHandler;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onPlayersListReceived.subscribe(function (data) { return _this.onPlayersListReceived(data); });
                     customEventService.onStartGame.subscribe(function (data) { return _this.onStartGame(); });
@@ -63,8 +59,14 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                     this.showLoader = false;
                     this.serverCommunicator.msgSender('get-players-list', {});
                 }
+                PlayersList.prototype.ngAfterViewInit = function () {
+                    console.log(this.inviteHandler);
+                };
                 PlayersList.prototype.onStartGame = function () {
                     this.router.navigate(['GamePlay']);
+                };
+                PlayersList.prototype.onRecipientSelected = function (event, emailId) {
+                    this.inviteHandler.onRecipientSelected(event, emailId);
                 };
                 PlayersList.prototype.onSendingInvite = function () {
                     this.showLoader = true;
@@ -106,15 +108,18 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../dire
                 PlayersList.prototype.endGame = function () {
                     this.showLoader = false;
                 };
+                __decorate([
+                    core_1.ViewChild(invite_handler_directive_1.InviteHandler), 
+                    __metadata('design:type', invite_handler_directive_1.InviteHandler)
+                ], PlayersList.prototype, "inviteHandler", void 0);
                 PlayersList = __decorate([
                     core_1.Component({
                         selector: 'PlayersList',
-                        providers: [invite_handler_service_1.InviteHandler],
-                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner],
+                        directives: [router_1.ROUTER_DIRECTIVES, common_1.NgClass, spinner_directive_1.Spinner, invite_handler_directive_1.InviteHandler],
                         styleUrls: [settings_1._settings.cssPath + 'player-list.css'],
                         templateUrl: settings_1._settings.templatePath.component + 'player-list.template.html'
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, generic_config_service_1.GenericConfig, utils_service_1.Utils, invite_handler_service_1.InviteHandler])
+                    __metadata('design:paramtypes', [router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, generic_config_service_1.GenericConfig, utils_service_1.Utils])
                 ], PlayersList);
                 return PlayersList;
             })();

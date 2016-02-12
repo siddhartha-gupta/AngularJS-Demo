@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../directives/modal-dialogue.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1;
+    var core_1, router_1, modal_dialogue_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, utils_service_1, settings_1;
     var InviteHandler;
     return {
         setters:[
@@ -17,6 +17,9 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (modal_dialogue_directive_1_1) {
+                modal_dialogue_directive_1 = modal_dialogue_directive_1_1;
             },
             function (server_communicator_service_1_1) {
                 server_communicator_service_1 = server_communicator_service_1_1;
@@ -29,6 +32,9 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
             },
             function (utils_service_1_1) {
                 utils_service_1 = utils_service_1_1;
+            },
+            function (settings_1_1) {
+                settings_1 = settings_1_1;
             }],
         execute: function() {
             InviteHandler = (function () {
@@ -80,7 +86,7 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                     this.customEventService.reMatchRequest();
                     this.modalDialogue = {
                         isVisible: true,
-                        title: 'Game invite request',
+                        title: 'something request',
                         body: 'Invited to play a match from: ' + data.username + ' - ' + data.emailId,
                         btn1Txt: 'Reject',
                         btn2Txt: 'Accept',
@@ -90,6 +96,8 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                         closeBtnCallback: this.requestRejected.bind(this)
                     };
                     this.requestRecipient = data.emailId;
+                    console.log(this.modalDialogue);
+                    console.log(this.requestRecipient);
                 };
                 InviteHandler.prototype.requestAccepted = function () {
                     console.log('requestAccepted');
@@ -159,7 +167,11 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
                     this.requestRecipient = '';
                 };
                 InviteHandler = __decorate([
-                    core_1.Injectable(), 
+                    core_1.Component({
+                        selector: 'invite-handler, [invite-handler]',
+                        directives: [modal_dialogue_directive_1.ModalDialouge],
+                        templateUrl: settings_1._settings.templatePath.directive + 'invite-handler.template.html'
+                    }), 
                     __metadata('design:paramtypes', [router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, generic_config_service_1.GenericConfig, utils_service_1.Utils])
                 ], InviteHandler);
                 return InviteHandler;
@@ -169,4 +181,4 @@ System.register(['angular2/core', 'angular2/router', '../services/server-communi
     }
 });
 
-//# sourceMappingURL=invite-handler.service.js.map
+//# sourceMappingURL=invite-handler.directive.js.map

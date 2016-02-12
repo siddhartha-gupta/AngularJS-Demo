@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/invite-handler.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../directives/invite-handler.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, score_card_directive_1, modal_dialogue_directive_1, spinner_directive_1, server_communicator_service_1, event_pub_sub_service_1, invite_handler_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, browser_1, router_1, score_card_directive_1, modal_dialogue_directive_1, spinner_directive_1, invite_handler_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
@@ -30,14 +30,14 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (spinner_directive_1_1) {
                 spinner_directive_1 = spinner_directive_1_1;
             },
+            function (invite_handler_directive_1_1) {
+                invite_handler_directive_1 = invite_handler_directive_1_1;
+            },
             function (server_communicator_service_1_1) {
                 server_communicator_service_1 = server_communicator_service_1_1;
             },
             function (event_pub_sub_service_1_1) {
                 event_pub_sub_service_1 = event_pub_sub_service_1_1;
-            },
-            function (invite_handler_service_1_1) {
-                invite_handler_service_1 = invite_handler_service_1_1;
             },
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
@@ -56,7 +56,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator, inviteHandler) {
+                function GamePlay(genericConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator) {
                     var _this = this;
                     this.genericConfig = genericConfig;
                     this.aiGamePlay = aiGamePlay;
@@ -67,7 +67,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
-                    this.inviteHandler = inviteHandler;
+                    inviteHandler: invite_handler_directive_1.InviteHandler;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     customEventService.onReMatchRequest.subscribe(function (data) { return _this.onReMatchRequest(); });
@@ -281,16 +281,20 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                         showBtn2: false
                     };
                 };
+                __decorate([
+                    core_1.ViewChild(invite_handler_directive_1.InviteHandler), 
+                    __metadata('design:type', invite_handler_directive_1.InviteHandler)
+                ], GamePlay.prototype, "inviteHandler", void 0);
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'GamePlay',
-                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter, invite_handler_service_1.InviteHandler],
-                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner],
+                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter],
+                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner, invite_handler_directive_1.InviteHandler],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator, invite_handler_service_1.InviteHandler])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
                 ], GamePlay);
                 return GamePlay;
             })();

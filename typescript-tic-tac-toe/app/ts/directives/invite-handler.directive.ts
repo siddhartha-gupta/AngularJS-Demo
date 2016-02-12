@@ -1,13 +1,20 @@
-import {Injectable} from 'angular2/core'
-
+import {Component, View, OnInit, Output, EventEmitter, Injectable} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
+
+import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { GenericConfig } from '../services/generic-config.service'
 import { Utils } from '../services/utils.service'
+import { _settings } from '../settings'
 
-@Injectable()
+@Component({
+	selector: 'invite-handler, [invite-handler]',
+	directives: [ModalDialouge],
+	templateUrl: _settings.templatePath.directive + 'invite-handler.template.html'
+})
+
 export class InviteHandler {
 	modalDialogue: ModalDialogueInterface;
 	requestRecipient: string;
@@ -41,7 +48,7 @@ export class InviteHandler {
 	* for game play
 	*/
 	onRecipientSelected(event: Event, recipientId: string) {
-		if(event) {
+		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
@@ -66,7 +73,7 @@ export class InviteHandler {
 		this.customEventService.reMatchRequest();
 		this.modalDialogue = {
 			isVisible: true,
-			title: 'Game invite request',
+			title: 'something request',
 			body: 'Invited to play a match from: ' + data.username + ' - ' + data.emailId,
 			btn1Txt: 'Reject',
 			btn2Txt: 'Accept',
@@ -76,6 +83,9 @@ export class InviteHandler {
 			closeBtnCallback: this.requestRejected.bind(this)
 		};
 		this.requestRecipient = data.emailId;
+
+		console.log(this.modalDialogue);
+		console.log(this.requestRecipient);
 	}
 
 	requestAccepted() {
