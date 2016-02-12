@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../directives/invite-handler.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/ai-gamePlay.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../directives/game-grid.directive', '../directives/score-card.directive', '../directives/modal-dialogue.directive', '../directives/spinner.directive', '../directives/invite-handler.directive', '../services/server-communicator.service', '../services/event-pub-sub.service', '../services/generic-config.service', '../services/game-status.service', '../services/utils.service', '../settings'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,18 +8,18 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, browser_1, router_1, score_card_directive_1, modal_dialogue_directive_1, spinner_directive_1, invite_handler_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, ai_gamePlay_service_1, game_status_service_1, utils_service_1, settings_1;
+    var core_1, router_1, game_grid_directive_1, score_card_directive_1, modal_dialogue_directive_1, spinner_directive_1, invite_handler_directive_1, server_communicator_service_1, event_pub_sub_service_1, generic_config_service_1, game_status_service_1, utils_service_1, settings_1;
     var GamePlay;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (browser_1_1) {
-                browser_1 = browser_1_1;
-            },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (game_grid_directive_1_1) {
+                game_grid_directive_1 = game_grid_directive_1_1;
             },
             function (score_card_directive_1_1) {
                 score_card_directive_1 = score_card_directive_1_1;
@@ -42,9 +42,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             function (generic_config_service_1_1) {
                 generic_config_service_1 = generic_config_service_1_1;
             },
-            function (ai_gamePlay_service_1_1) {
-                ai_gamePlay_service_1 = ai_gamePlay_service_1_1;
-            },
             function (game_status_service_1_1) {
                 game_status_service_1 = game_status_service_1_1;
             },
@@ -56,18 +53,14 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
             }],
         execute: function() {
             GamePlay = (function () {
-                function GamePlay(genericConfig, aiGamePlay, gameStatus, utils, renderer, _dom, router, customEventService, serverCommunicator) {
+                function GamePlay(genericConfig, gameStatus, utils, router, customEventService, serverCommunicator) {
                     var _this = this;
                     this.genericConfig = genericConfig;
-                    this.aiGamePlay = aiGamePlay;
                     this.gameStatus = gameStatus;
                     this.utils = utils;
-                    this.renderer = renderer;
-                    this._dom = _dom;
                     this.router = router;
                     this.customEventService = customEventService;
                     this.serverCommunicator = serverCommunicator;
-                    inviteHandler: invite_handler_directive_1.InviteHandler;
                     customEventService.onHeaderClicked.subscribe(function (data) { return _this.onHeaderClicked(data); });
                     customEventService.onMoveReceived.subscribe(function (data) { return _this.onMoveReceived(data); });
                     customEventService.onReMatchRequest.subscribe(function (data) { return _this.onReMatchRequest(); });
@@ -99,98 +92,39 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     this.resetScoreCard();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();
-                    this.drawGrid();
+                    this.gameGrid.drawGrid();
                 };
                 GamePlay.prototype.restartGame = function () {
                     this.showLoader = false;
                     this.resetScoreCard();
                     this.genericConfig.config.playGame = true;
                     this.genericConfig.initCurrentGameConfig();
-                    this.drawGrid();
+                    this.gameGrid.drawGrid();
                 };
-                GamePlay.prototype.drawGrid = function () {
-                    var gridCell = [], elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this, hoverClass = this.utils.getHoverClass();
-                    this.domCleanUp();
-                    for (var i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
-                        for (var j = 1; j <= len; j += 1) {
-                            var idAttr = [], combinedId = i.toString() + j.toString();
-                            gridCell.push('<li class="' + hoverClass + '" data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
-                            this.genericConfig.currentGame.moves[combinedId] = 0;
-                        }
-                    }
-                    this._dom.setInnerHTML(elem, gridCell.join(''));
-                    liElem = this._dom.querySelectorAll(elem, 'li');
-                    if (!this.utils.isNullUndefined(liElem)) {
-                        for (var i = 0, len = liElem.length; i < len; i++) {
-                            this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
-                        }
-                    }
-                    if (!this.genericConfig.computerConfig.playerstarts) {
-                        this.makeAIMove();
-                    }
-                };
-                GamePlay.prototype.onBlockClick = function (event) {
-                    if (event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
-                    if (this.utils.canPlay()) {
-                        var target = event.target, cellnum = parseInt(target.getAttribute('data-cellnum'), 10);
-                        if (!this.genericConfig.currentGame.isWon) {
-                            this.utils.log(this.genericConfig.currentGame.moves);
-                            this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
-                            if (this.genericConfig.currentGame.moves[cellnum] === 0) {
-                                this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
-                                this.genericConfig.updateCurrentGameConfig(cellnum, 1);
-                                this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
-                                this.getGameStatus(true, cellnum);
-                            }
-                            else {
-                                alert('You cannot move here!');
-                            }
-                        }
-                    }
-                    else {
-                        this.utils.log('not allowed to play for now');
-                    }
-                };
-                GamePlay.prototype.setClass = function (target, isHuman, symbol) {
-                    switch (isHuman) {
-                        case true:
-                            if (this.genericConfig.config.multiPlayer) {
-                                this.renderer.setElementClass(target, symbol + '-text', true);
-                            }
-                            else {
-                                this.renderer.setElementClass(target, 'x-text', true);
-                            }
-                            break;
-                        case false:
-                            this.renderer.setElementClass(target, 'o-text', true);
-                    }
+                GamePlay.prototype.onBlockClick = function (data) {
+                    this.sendMoveToSever(data.cellnum, data.playerSymbol);
+                    this.genericConfig.updateCurrentGameConfig(data.cellnum, 1);
+                    this.getGameStatus(true, data.cellnum);
                 };
                 /*
                 * While playing with computer
                 * we make use of below function
                 */
-                GamePlay.prototype.makeAIMove = function () {
-                    if (!this.genericConfig.config.multiPlayer) {
-                        var result = this.aiGamePlay.makeAIMove(), elem = this._dom.query('li[id*=combine_' + result + ']');
-                        this.utils.log('makeAIMove, result: ', result);
-                        this.genericConfig.updateCurrentGameConfig(result, 2);
-                        this.setClass(elem, false, 'o');
-                        this.getGameStatus(false, result);
-                    }
+                GamePlay.prototype.makeAIMove = function (result) {
+                    this.getGameStatus(false, result);
                 };
                 /*
                 * While playing in multiplayer mode
                 * we make use of below function
                 */
                 GamePlay.prototype.onMoveReceived = function (data) {
-                    var result = parseInt(data.move), elem = this._dom.query('li[id*=combine_' + result + ']');
+                    var result = parseInt(data.move);
                     this.utils.log('make multiPlayer move, result: ', result);
+                    this.gameGrid.onMoveReceived({
+                        result: result,
+                        symbol: data.symbol
+                    });
                     this.genericConfig.updateCurrentGameConfig(result, 2);
-                    this.setClass(elem, true, data.symbol);
                     this.getGameStatus(false, result);
                     this.genericConfig.multiPlayerConfig.playerTurn = true;
                 };
@@ -211,7 +145,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             this.showScoreCard('Match Drawn!');
                             break;
                         case 'makeAIMove':
-                            this.makeAIMove();
+                            this.gameGrid.makeAIMove();
                             break;
                     }
                 };
@@ -224,15 +158,6 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                             symbol: symbol
                         });
                     }
-                };
-                GamePlay.prototype.domCleanUp = function () {
-                    var elem = this._dom.query('ul[id*=game-grid]'), liElem = this._dom.querySelectorAll(elem, 'li'), that = this;
-                    if (liElem) {
-                        for (var i = 0, len = liElem.length; i < length; i += 1) {
-                            liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
-                        }
-                    }
-                    this._dom.setInnerHTML(elem, '');
                 };
                 GamePlay.prototype.onHeaderClicked = function (data) {
                     if (data.routeName === '/gameplay') {
@@ -285,16 +210,20 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                     core_1.ViewChild(invite_handler_directive_1.InviteHandler), 
                     __metadata('design:type', invite_handler_directive_1.InviteHandler)
                 ], GamePlay.prototype, "inviteHandler", void 0);
+                __decorate([
+                    core_1.ViewChild(game_grid_directive_1.GameGrid), 
+                    __metadata('design:type', game_grid_directive_1.GameGrid)
+                ], GamePlay.prototype, "gameGrid", void 0);
                 GamePlay = __decorate([
                     core_1.Component({
                         selector: 'GamePlay',
-                        providers: [ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, browser_1.BrowserDomAdapter],
-                        directives: [router_1.ROUTER_DIRECTIVES, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner, invite_handler_directive_1.InviteHandler],
+                        providers: [game_status_service_1.GameStatus],
+                        directives: [router_1.ROUTER_DIRECTIVES, game_grid_directive_1.GameGrid, score_card_directive_1.ScoreCard, modal_dialogue_directive_1.ModalDialouge, spinner_directive_1.Spinner, invite_handler_directive_1.InviteHandler],
                         // styleUrls: [_settings.cssPath + 'gameplay.css'],
                         // encapsulation: ViewEncapsulation.Native,
                         templateUrl: settings_1._settings.templatePath.component + 'gameplay.template.html'
                     }), 
-                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, ai_gamePlay_service_1.AIGamePlay, game_status_service_1.GameStatus, utils_service_1.Utils, core_1.Renderer, browser_1.BrowserDomAdapter, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
+                    __metadata('design:paramtypes', [generic_config_service_1.GenericConfig, game_status_service_1.GameStatus, utils_service_1.Utils, router_1.Router, event_pub_sub_service_1.CustomEventService, server_communicator_service_1.ServerCommunicator])
                 ], GamePlay);
                 return GamePlay;
             })();

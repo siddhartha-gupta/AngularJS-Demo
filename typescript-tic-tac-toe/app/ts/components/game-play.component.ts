@@ -1,7 +1,7 @@
-import {Component, ViewChild, OnInit, Renderer} from 'angular2/core'
-import {BrowserDomAdapter} from 'angular2/platform/browser'
+import {Component, ViewChild, OnInit} from 'angular2/core'
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router'
 
+import { GameGrid } from '../directives/game-grid.directive'
 import { ScoreCard } from '../directives/score-card.directive'
 import { ModalDialouge } from '../directives/modal-dialogue.directive'
 import { Spinner } from '../directives/spinner.directive'
@@ -11,15 +11,14 @@ import { ServerCommunicator } from '../services/server-communicator.service'
 import { CustomEventService } from '../services/event-pub-sub.service'
 import { ModalDialogueInterface } from '../services/app-interfaces.service'
 import { GenericConfig } from '../services/generic-config.service'
-import { AIGamePlay } from '../services/ai-gamePlay.service'
 import { GameStatus } from '../services/game-status.service'
 import { Utils } from '../services/utils.service'
 import { _settings } from '../settings'
 
 @Component({
 	selector: 'GamePlay',
-	providers: [AIGamePlay, GameStatus, BrowserDomAdapter],
-	directives: [ROUTER_DIRECTIVES, ScoreCard, ModalDialouge, Spinner, InviteHandler],
+	providers: [GameStatus],
+	directives: [ROUTER_DIRECTIVES, GameGrid, ScoreCard, ModalDialouge, Spinner, InviteHandler],
 	// styleUrls: [_settings.cssPath + 'gameplay.css'],
 	// encapsulation: ViewEncapsulation.Native,
 	templateUrl: _settings.templatePath.component + 'gameplay.template.html'
@@ -29,27 +28,23 @@ export class GamePlay {
 	scoreCardConfig: ModalDialogueInterface;
 	showLoader: Boolean;
 	@ViewChild(InviteHandler) inviteHandler: InviteHandler;
+	@ViewChild(GameGrid) gameGrid: GameGrid;
 
 	constructor(
 		public genericConfig: GenericConfig,
-		public aiGamePlay: AIGamePlay,
 		public gameStatus: GameStatus,
 		public utils: Utils,
-		public renderer: Renderer,
-		private _dom: BrowserDomAdapter,
 		private router: Router,
 		private customEventService: CustomEventService,
 		private serverCommunicator: ServerCommunicator
 	) {
-		@ViewChild('ih') inviteHandler: InviteHandler;
-
 		customEventService.onHeaderClicked.subscribe((data: any) => this.onHeaderClicked(data));
 		customEventService.onMoveReceived.subscribe((data: any) => this.onMoveReceived(data));
-		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest()); 
+		customEventService.onReMatchRequest.subscribe((data: any) => this.onReMatchRequest());
 		customEventService.onStartGame.subscribe((data: any) => this.restartGame());
 		customEventService.onSendingInvite.subscribe((data: any) => this.onSendingInvite());
 		customEventService.onEndGame.subscribe((data: any) => this.goToHome());
-		
+
 		this.showLoader = false;
 		this.scoreCardConfig = {
 			isVisible: false,
@@ -79,7 +74,7 @@ export class GamePlay {
 		this.resetScoreCard();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();
-		this.drawGrid();
+		this.gameGrid.drawGrid();
 	}
 
 	restartGame() {
@@ -87,98 +82,21 @@ export class GamePlay {
 		this.resetScoreCard();
 		this.genericConfig.config.playGame = true;
 		this.genericConfig.initCurrentGameConfig();
-		this.drawGrid();
+		this.gameGrid.drawGrid();
 	}
 
-	drawGrid() {
-		let gridCell: Array<any> = [],
-			elem = this._dom.query('ul[id*=game-grid]'),
-			liElem = this._dom.querySelectorAll(elem, 'li'),
-			that = this,
-			hoverClass = this.utils.getHoverClass();
-
-		this.domCleanUp();
-		for (let i = 1, len = this.genericConfig.config.gridSize; i <= len; i += 1) {
-			for (let j = 1; j <= len; j += 1) {
-				let idAttr: Array<any> = [],
-					combinedId = i.toString() + j.toString();
-
-				gridCell.push('<li class="' + hoverClass + '" data-cellnum="' + combinedId + '" id="' + 'combine_' + combinedId + '" (click)="onBlockClick()"></li>');
-				this.genericConfig.currentGame.moves[combinedId] = 0;
-			}
-		}
-		this._dom.setInnerHTML(elem, gridCell.join(''));
-
-		liElem = this._dom.querySelectorAll(elem, 'li');
-		if (!this.utils.isNullUndefined(liElem)) {
-			for (let i = 0, len = liElem.length; i < len; i++) {
-				this._dom.on(liElem[i], 'click', that.onBlockClick.bind(that));
-			}
-		}
-
-		if (!this.genericConfig.computerConfig.playerstarts) {
-			this.makeAIMove();
-		}
-	}
-
-	onBlockClick(event: Event) {
-		if (event) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-
-		this.utils.log('onBlockClick: ', this.genericConfig.config.playGame);
-		if (this.utils.canPlay()) {
-			let target = <HTMLInputElement>event.target,
-				cellnum: number = parseInt(target.getAttribute('data-cellnum'), 10);
-
-			if (!this.genericConfig.currentGame.isWon) {
-				this.utils.log(this.genericConfig.currentGame.moves);
-				this.utils.log('cellnum: ', cellnum, ' :move: ', this.genericConfig.currentGame.moves[cellnum]);
-				if (this.genericConfig.currentGame.moves[cellnum] === 0) {
-					this.sendMoveToSever(cellnum, this.genericConfig.multiPlayerConfig.playerSymbol);
-					this.genericConfig.updateCurrentGameConfig(cellnum, 1);
-					this.setClass(target, true, this.genericConfig.multiPlayerConfig.playerSymbol);
-					this.getGameStatus(true, cellnum);
-				} else {
-					alert('You cannot move here!');
-				}
-			}
-		} else {
-			this.utils.log('not allowed to play for now');
-		}
-	}
-
-	setClass(target: HTMLInputElement, isHuman: Boolean, symbol: string) {
-		switch (isHuman) {
-			case true:
-				if (this.genericConfig.config.multiPlayer) {
-					this.renderer.setElementClass(target, symbol + '-text', true);
-				} else {
-					this.renderer.setElementClass(target, 'x-text', true);
-				}
-				break;
-
-			case false:
-				this.renderer.setElementClass(target, 'o-text', true);
-		}
-
+	onBlockClick(data: any) {
+		this.sendMoveToSever(data.cellnum, data.playerSymbol);
+		this.genericConfig.updateCurrentGameConfig(data.cellnum, 1);
+		this.getGameStatus(true, data.cellnum);
 	}
 
 	/*
 	* While playing with computer
 	* we make use of below function
 	*/
-	makeAIMove() {
-		if (!this.genericConfig.config.multiPlayer) {
-			let result: number = this.aiGamePlay.makeAIMove(),
-				elem: HTMLInputElement = this._dom.query('li[id*=combine_' + result + ']');
-
-			this.utils.log('makeAIMove, result: ', result);
-			this.genericConfig.updateCurrentGameConfig(result, 2);
-			this.setClass(elem, false, 'o');
-			this.getGameStatus(false, result);
-		}
+	makeAIMove(result: number) {
+		this.getGameStatus(false, result);
 	}
 
 	/*
@@ -186,13 +104,15 @@ export class GamePlay {
 	* we make use of below function
 	*/
 	onMoveReceived(data: any) {
-		let result: number = parseInt(data.move),
-			elem: HTMLInputElement = this._dom.query('li[id*=combine_' + result + ']');
+		let result: number = parseInt(data.move);
 
 		this.utils.log('make multiPlayer move, result: ', result);
+		this.gameGrid.onMoveReceived({
+			result: result,
+			symbol: data.symbol
+		});
 
 		this.genericConfig.updateCurrentGameConfig(result, 2);
-		this.setClass(elem, true, data.symbol);
 		this.getGameStatus(false, result);
 		this.genericConfig.multiPlayerConfig.playerTurn = true;
 	}
@@ -216,7 +136,7 @@ export class GamePlay {
 				break;
 
 			case 'makeAIMove':
-				this.makeAIMove();
+				this.gameGrid.makeAIMove();
 				break;
 		}
 	}
@@ -230,19 +150,6 @@ export class GamePlay {
 				symbol: symbol
 			});
 		}
-	}
-
-	domCleanUp() {
-		let elem = this._dom.query('ul[id*=game-grid]'),
-			liElem = this._dom.querySelectorAll(elem, 'li'),
-			that = this;
-
-		if (liElem) {
-			for (let i = 0, len = liElem.length; i < length; i += 1) {
-				liElem[i].removeEventListener('click', that.onBlockClick.bind(that), false);
-			}
-		}
-		this._dom.setInnerHTML(elem, '');
 	}
 
 	onHeaderClicked(data: any) {
@@ -272,14 +179,14 @@ export class GamePlay {
 
 	playAgain() {
 		this.resetScoreCard();
-		this.inviteHandler.onRecipientSelected(null, this.genericConfig.multiPlayerConfig.recipient); 
+		this.inviteHandler.onRecipientSelected(null, this.genericConfig.multiPlayerConfig.recipient);
 	}
 
 	onReMatchRequest() {
 		this.hideScoreCard(true);
 	}
 
-	hideScoreCard(noRestart?:Boolean) {
+	hideScoreCard(noRestart?: Boolean) {
 		this.resetScoreCard();
 		if (!this.genericConfig.config.playGame && !noRestart) {
 			this.startGame(true);
