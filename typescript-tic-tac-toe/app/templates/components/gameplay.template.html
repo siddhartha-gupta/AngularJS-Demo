@@ -1,6 +1,0 @@
-<div id="container">
-	<game-grid (onGridElemClick)="onBlockClick()" (onMakeAIMove)="makeAIMove()"></game-grid>
-</div>
-<score-card [isVisible]="scoreCardConfig.isVisible" [title]="scoreCardConfig.title" [body]="scoreCardConfig.body" [showBtn2]="scoreCardConfig.showBtn2" (btn1Callback)="goToHome()" (btn2Callback)="playAgain()" (closeBtnCallback)="hideScoreCard()"></score-card>
-<invite-handler></invite-handler>
-<spinner [showLoader]="showLoader"></spinner>
