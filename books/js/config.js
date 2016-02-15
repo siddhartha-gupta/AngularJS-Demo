@@ -11,7 +11,7 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 
 				if (searchQuery && maxLimit) {
 					return webService.getCall({
-						'url': 'https://www.googleapis.com/books/v1/volumes?q=' + searchQuery + '&maxResults=' + maxLimit + '&orderBy=' + sortOrder
+						'url': 'https://www.googleapis.com/books/v1/volumes?q=' + searchQuery + '&maxResults=' + maxLimit + '&orderBy=' + sortOrder + '&country=IN'
 					});
 				} else {
 					return [];

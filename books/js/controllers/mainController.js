@@ -3,7 +3,7 @@ booksApp.controller('mainController', function mainController($scope, $timeout, 
 
 		searchBooks = function() {
 			_this.currentReq = webService.getCall({
-				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder
+				'url': 'https://www.googleapis.com/books/v1/volumes?q=' + _this.books.searchQuery + '&maxResults=' + _this.books.maxLimit + '&orderBy=' + _this.books.sortOrder + '&country=IN'
 			}).then(function(response) {
 				_this.currentReq = null;
 				processServerData(response.data);
