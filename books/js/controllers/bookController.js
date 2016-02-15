@@ -7,7 +7,7 @@ booksApp.controller('bookController', function bookController($routeParams, webS
 
 	_this.getBooks = function() {
 		webService.getCall({
-			url: 'https://www.googleapis.com/books/v1/volumes/' + _this.bookId + '?projection=full'
+			url: 'https://www.googleapis.com/books/v1/volumes/' + _this.bookId + '?projection=full&country=IN'
 		}).then(function(response) {
 			_this.booksDetails = response.data;
 			$log.log('success: ', _this.booksDetails);

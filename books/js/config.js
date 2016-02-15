@@ -25,7 +25,7 @@ booksApp.config(function($routeProvider, $locationProvider, localStorageServiceP
 		resolve: {
 			serverData: function($route, webService) {
 				return webService.getCall({
-					url: 'https://www.googleapis.com/books/v1/volumes/' + $route.current.params.bookId + '?projection=full'
+					url: 'https://www.googleapis.com/books/v1/volumes/' + $route.current.params.bookId + '?projection=full&country=IN'
 				});
 			}
 		}
