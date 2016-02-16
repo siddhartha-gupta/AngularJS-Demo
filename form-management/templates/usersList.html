@@ -1,0 +1,10 @@
+<div class="container">
+	<div ng-if="usersList && usersList.length > 0">
+		<div ng-repeat="(key, user) in usersList">
+			<span>{{username}} - {{emailId}}</span>
+		</div>
+	</div>
+	<div ng-if="!usersList || usersList.length === 0">
+		<span>No user found</span>
+	</div>
+</div>
