@@ -60,7 +60,7 @@ formApp.factory('headerBtnHandler', function() {
 							'text': 'Back'
 						};
 						headerRightBtn = {
-							'showBtn': true,
+							'showBtn': false,
 							'clickFunc': 'addUser',
 							'text': 'Add user'
 						};

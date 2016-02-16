@@ -1,13 +1,13 @@
 formApp.constant('config', {
 	'serverUrl': 'http://localhost:8080/',
 	'templateUrl': 'templates/'
-}).config(function($routeProvider, $locationProvider, localStorageServiceProvider, config) {
+}).config(function($routeProvider, config) {
 	$routeProvider.when('/userslist', {
 		controller: 'usersListController',
 		controllerAs: 'customController',
 		templateUrl: config.templateUrl + 'usersList.html',
 		resolve: {
-			serverData: function($route, webService, localStorageService, config) {
+			serverData: function($route, webService, config) {
 				return webService.getCall({
 					'url': config.serverUrl + 'getuserslist'
 				});
@@ -20,9 +20,11 @@ formApp.constant('config', {
 	}).otherwise({
 		redirectTo: '/userslist'
 	});
-
-	localStorageServiceProvider.setStorageType('sessionStorage');
 }).run(function($rootScope, $location, headerBtnHandler) {
+	$rootScope.Utils = {
+		keys: Object.keys
+	};
+
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		headerBtnHandler.onRouteChangeStart(next, current);
 	});

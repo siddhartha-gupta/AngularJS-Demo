@@ -1,10 +1,18 @@
 <div class="container">
-	<div ng-if="usersList && usersList.length > 0">
-		<div ng-repeat="(key, user) in usersList">
-			<span>{{username}} - {{emailId}}</span>
+	<div class="row stats-container" ng-if="customController.usersList && Utils.keys(customController.usersList).length > 0">
+		<div class="row group-content" ng-repeat="(key, user) in customController.usersList">
+			<div class="col-xs-1">{{user.location}}</div>
+			<div class="col-xs-3">{{user.firstname}} {{user.lastname}}</div>
+			<div class="col-xs-3">{{user.email}}</div>
+			<div class="col-xs-3">{{user.phonenumber}}</div>
+			<div class="col-xs-2">
+				<span class="editBtn" ng-click="customController.editUserClick(event, key)">Edit</span>
+				<span class="deleteBtn" ng-click="customController.deleteUser(event, key)">Delete</span>
+			</div>
 		</div>
 	</div>
-	<div ng-if="!usersList || usersList.length === 0">
+	<div ng-if="!customController.usersList || Utils.keys(customController.usersList).length === 0">
 		<span>No user found</span>
 	</div>
 </div>
+<modal-dialogue user-id="customController.modalDialogue.userId" is-visible="customController.modalDialogue.isVisible" title="customController.modalDialogue.title" user="customController.modalDialogue.user" hide-modal="customController.hideModal(event)" update-data="customController.updateUserData(data, userId)"></modal-dialogue>

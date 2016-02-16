@@ -2,7 +2,8 @@
 
 formApp.factory('webService', function($http) {
 	var getCall = function(params) {
-			return $http.get(params.url);
+			var config = params.config || {};
+			return $http.get(params.url, config);
 		},
 
 		postCall = function(params) {

@@ -148,3 +148,75 @@ input.ng-invalid.ng-dirty {
 .page-header {
 	border-bottom: none;
 }
+
+.stats-container {
+	width: 94%;
+	margin: 15px auto;
+	position: relative;
+}
+
+.group-title {
+	background-color: #000;
+	color: #fff;
+}
+
+.group-content, .group-title {
+	padding: 5px 15px;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+}
+
+.row .group-content:first-child {
+  margin-top: 20px;
+}
+
+.row .group-content:nth-child(even){
+  background-color: #fff;
+}
+
+.row .group-content:nth-child(odd){
+  background-color: #f9f9f9;
+}
+
+.row .group-content:hover {
+	background-color: #E0E0E0;
+}
+
+.group-content .editBtn, .group-content .deleteBtn {
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.group-content .editBtn {
+	padding-right: 10px;
+	color: #000;
+}
+
+.group-content .deleteBtn {
+	background: #EF2431;
+	color: #fff;
+	border: 1px solid #ff0000;
+	border-radius: 3px;
+	padding: 1px 5px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group input, .form-group select {
+	width: 60%;
+	display: inline-block;
+}
+
+.form-group .tickmark {
+	color: green;
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+.modal-dialog-custom {
+	display:  block;
+	background: rgba(0, 0, 0, 0.6);
+	font-family: Arial, Helvetica, sans-serif;
+}
