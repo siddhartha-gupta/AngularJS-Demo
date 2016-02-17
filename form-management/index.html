@@ -9,10 +9,10 @@
 
 <body ngCloak>
 	<div class="container">
-		<header ng-controller="headerController">
-			<span ng-if="headerLeftButton.showBtn" class="left" ng-click="callFunction($event, headerLeftButton.clickFunc)" ng-bind="::headerLeftButton.text"></span>
-			<h2 ng-bind="::heading"></h2>
-			<span ng-if="headerRightButton.showBtn" class="right" ng-click="callFunction($event, headerRightButton.clickFunc)" ng-bind="::headerRightButton.text"></span>
+		<header ng-controller="headerController as customController">
+			<span ng-if="customController.headerLeftBtn.showBtn" class="left" ng-click="customController.callFunction($event, customController.headerLeftBtn.clickFunc)" ng-bind="::customController.headerLeftBtn.text"></span>
+			<h2 ng-bind="::customController.heading"></h2>
+			<span ng-if="customController.headerRightBtn.showBtn" class="right" ng-click="customController.callFunction($event, customController.headerRightBtn.clickFunc)" ng-bind="::customController.headerRightBtn.text"></span>
 		</header>
 		<div id="content">
 			<div ng-view></div>
@@ -33,7 +33,6 @@
 	<!-- services/factories -->
 	<script type="text/javascript" src="js/factories/shared-service.js"></script>
 	<script type="text/javascript" src="js/factories/webService.js"></script>
-	<script type="text/javascript" src="js/factories/headerBtnHandler.js"></script>
 
 	<!-- controllers -->
 	<script type="text/javascript" src="js/controllers/headerController.js"></script>
