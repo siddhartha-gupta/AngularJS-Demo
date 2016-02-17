@@ -20,20 +20,29 @@ formApp.constant('config', {
 	}).otherwise({
 		redirectTo: '/userslist'
 	});
-}).run(function($rootScope, $location, headerBtnHandler) {
+}).run(function($rootScope, $location, sharedService) {
 	$rootScope.Utils = {
 		keys: Object.keys
 	};
 
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
-		headerBtnHandler.onRouteChangeStart(next, current);
+		sharedService.broadcastEvent('routeChangeStart', {
+			next: next,
+			current: current
+		});
 	});
 
 	$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
-		headerBtnHandler.onRouteChangeSuccess(next, current);
+		sharedService.broadcastEvent('routeChangeSuccess', {
+			next: next,
+			current: current
+		});
 	});
 
 	$rootScope.$on("$routeChangeError", function(event, next, current) {
-		headerBtnHandler.onRouteChangeError(next, current);
+		sharedService.broadcastEvent('routeChangeError', {
+			next: next,
+			current: current
+		});
 	});
 });
