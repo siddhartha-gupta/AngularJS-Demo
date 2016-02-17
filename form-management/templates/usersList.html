@@ -11,8 +11,11 @@
 			</div>
 		</div>
 	</div>
-	<div ng-if="!customController.usersList || Utils.keys(customController.usersList).length === 0">
-		<span>No user found</span>
+	<div class="row stats-container" ng-if="!customController.usersList || Utils.keys(customController.usersList).length === 0">
+		<!-- <span>No user found</span> -->
+		<div class="row group-content">
+			<div class="col-xs-12">No user found</div>
+		</div>
 	</div>
 </div>
 <modal-dialogue user-id="customController.modalDialogue.userId" is-visible="customController.modalDialogue.isVisible" title="customController.modalDialogue.title" user="customController.modalDialogue.user" hide-modal="customController.hideModal(event)" update-data="customController.updateUserData(data, userId)"></modal-dialogue>
