@@ -5,22 +5,26 @@ module formApp {
 		constructor($routeProvider: ng.route.IRouteProvider) {
 			$routeProvider.when("/userslist", {
 				templateUrl: 'templates/usersList.html',
-				controller: 'usersListCtrl',
-				resolve: {
-					serverData: function(apiService) {
-						return apiService.getCall({
-							'url': 'http://localhost:8080/getuserslist'
-						});
-					}
-				}
+				controller: 'usersListCtrl'
 			})
 				.otherwise({ redirectTo: '/userslist' });
 		}
 	}
 	Config.$inject = ['$routeProvider'];
 
-	export var app = angular.module("formApp", ['ngRoute']);
+	export class Constants {
+		static get Default(): any {
+			return {
+				serverUrl: 'http://localhost:8080/',
+				templateUrl: 'templates/'
+			}
+		}
+	}
+
+	export var app = angular.module('formApp', ['ngRoute']);
+
 	app.config(Config);
+	app.constant('appConstant', Constants.Default);
 	app.controller('usersListCtrl', usersListController);
 	app.service('apiService', APIService);
 }

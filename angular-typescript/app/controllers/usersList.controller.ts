@@ -20,6 +20,7 @@ module formApp {
             private apiService: APIService
         ) {
             this.$log.log('constructor called test');
+            this.getUsers();
         }
 
         getUsers() {
