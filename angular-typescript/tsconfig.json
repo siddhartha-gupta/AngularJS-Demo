@@ -8,7 +8,7 @@
     "paths": {
         "inPath": "app/**/*.ts",
         "outDefPath": "dist/definitions/app",
-        "outJsPath": "dist/js/app",
+        "outJsPath": "dist/app",
         "outJsFile": "output.js"
     }
 }

@@ -19,7 +19,7 @@ module formApp {
             private $log: ng.ILogService,
             private apiService: APIService
         ) {
-            this.$log.log('constructor called');
+            this.$log.log('constructor called test');
         }
 
         getUsers() {

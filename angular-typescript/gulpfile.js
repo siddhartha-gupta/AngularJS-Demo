@@ -1,112 +1,80 @@
-'use strict';
+'use strict'
 
 var gulp = require('gulp'),
-	typescript = require('gulp-typescript'),
-	tscConfig = require('./tsconfig.json'),
-	$ = require('gulp-load-plugins')(),
 	del = require('del'),
-	runSequence = require('run-sequence'),
+	typescript = require('gulp-typescript'),
+	concatSourcemap = require('gulp-concat-sourcemap'),
 	eventStream = require('event-stream'),
-	mainBowerFiles = require('main-bower-files');
+	tscConfig = require('./tsconfig.json'),
+	sourcemaps = require('gulp-sourcemaps'),
+	tslint = require('gulp-tslint'),
+	browserSync = require('browser-sync'),
+	reload = browserSync.reload;
 
-gulp.task('styles', function() {
-	return gulp.src('app/styles/app.css')
-		.pipe(gulp.dest('dist/styles'))
+// clean the contents of the distribution directory
+gulp.task('clean', function() {
+	return del('dist/**/*');
 });
 
-// To compile TS to JS
-gulp.task('scripts:app', function() {
+// copy static assets - i.e. non TypeScript compiled source
+gulp.task('copyAssets', ['clean'], function() {
+	return gulp.src(['app/**/*', 'index.html', '!app/**/*.ts'], {
+			base: './'
+		})
+		.pipe(gulp.dest('dist'))
+});
+
+// linting
+gulp.task('tslint', function() {
+	return gulp.src('app/**/*.ts')
+		.pipe(tslint())
+		.pipe(tslint.report('verbose'));
+});
+
+
+// TypeScript compile
+gulp.task('compile', ['clean'], function() {
 	var tsResult = gulp.src(tscConfig.paths.inPath)
-		.pipe($.sourcemaps.init())
-		.pipe($.typescript(tscConfig.compilerOptions, undefined));
+		.pipe(sourcemaps.init())
+		.pipe(typescript(tscConfig.compilerOptions, undefined));
 
 	return eventStream.merge(
 		tsResult.dts.pipe(gulp.dest(tscConfig.paths.outDefPath)),
 		tsResult.js
-		.pipe($.concatSourcemap(tscConfig.paths.outJsFile))
-		.pipe($.sourcemaps.write()) // sourcemaps are added to the .js file
+		.pipe(concatSourcemap(tscConfig.paths.outJsFile))
+		.pipe(sourcemaps.write()) // sourcemaps are added to the .js file
 		.pipe(gulp.dest(tscConfig.paths.outJsPath))
 	);
 });
 
-gulp.task('html', ['styles', 'scripts:app'], function() {
-	return gulp.src('app/*.html')
-		.pipe($.useref.assets())
-		.pipe($.if('**/*.js', $.uglify()))
-		.pipe($.if('**/*.css', $.csso()))
-		.pipe($.useref.restore())
-		.pipe($.useref())
-		.pipe(gulp.dest('dist'))
-		.pipe($.size());
+gulp.task('copyJSLibs', ['clean'], function() {
+	return gulp.src([
+			'bower_components/jquery/dist/jquery.js',
+			'bower_components/bootstrap/dist/js/bootstrap.js',
+			'bower_components/angular/angular.js',
+			'bower_components/angular-route/angular-route.js'
+		])
+		.pipe(gulp.dest('dist/app/lib'))
 });
 
-gulp.task('images', function() {
-	return gulp.src('app/images/**/*')
-		.pipe($.cache($.imagemin({
-			optimizationLevel: 3,
-			progressive: true,
-			interlaced: true
-		})))
-		.pipe(gulp.dest('dist/images'))
-		.pipe($.size());
+gulp.task('copyCSSLibs', ['clean'], function() {
+	return gulp.src([
+			'bower_components/bootstrap/dist/css/bootstrap.css'
+		])
+		.pipe(gulp.dest('dist/app/styles'))
 });
 
-gulp.task('fonts', function() {
-	return gulp.src(mainBowerFiles())
-		.pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-		.pipe($.flatten())
-		.pipe(gulp.dest('dist/fonts'))
-		.pipe($.size());
-});
-
-gulp.task('extras', function() {
-	return gulp.src(
-			['app/*.*', '!app/*.html', '!app/*.ts', '!app/*.config', '!app/*.csproj*'], {
-				dot: true
-			})
-		.pipe(gulp.dest('dist'));
-});
-
-gulp.task('clean', function(cb) {
-	del(['dist'], cb);
-});
-
-gulp.task('build', ['html', 'images', 'fonts', 'extras']);
-
-gulp.task('default', ['clean'], function() {});
-
-gulp.task('connect', function() {
-	$.connect.server({
-		root: ['app', __dirname],
-		port: 9000,
-		livereload: true
+// Run browsersync for development
+gulp.task('serve', ['default'], function() {
+	browserSync({
+		ghostMode: false,
+		server: {
+			baseDir: 'dist/app'
+		}
 	});
+
+	gulp.watch(['app/**/*', 'index.html'], ['buildAndReload']);
 });
 
-gulp.task('serve', ['scripts:app'], function() {
-	runSequence('connect', function() {
-		require('opn')('http://localhost:9000');
-	});
-});
-
-// inject bower components
-gulp.task('wiredep', function() {
-	var wiredep = require('wiredep').stream;
-
-	gulp.src('app/*.html')
-		.pipe(wiredep({
-			directory: 'bower_components'
-		}))
-		.pipe(gulp.dest('app'));
-});
-
-gulp.task('watch', ['serve'], function() {
-	$.watch([
-		'app/*.html',
-		'app/**/*.ts',
-		'app/styles/**/*.css',
-		'app/images/**/*'
-	]).pipe($.connect.reload());
-
-	gulp.watch('bower.json', ['wiredep']);
-});
+gulp.task('buildAndReload', ['default'], reload);
+gulp.task('default', ['compile', 'copyAssets', 'copyJSLibs', 'copyCSSLibs']);
