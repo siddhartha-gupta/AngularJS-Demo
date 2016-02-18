@@ -10,7 +10,7 @@ var mainBowerFiles = require('main-bower-files');
 
 gulp.task('styles', function() {
 	return gulp.src('app/styles/main.css')
-		.pipe(gulp.dest('.tmp/styles'))
+		.pipe(gulp.dest('dist/styles'))
 });
 
 gulp.task('scripts:app', function() {
@@ -27,8 +27,8 @@ function compileAppScripts() {
 	var opt = {
 		tsProject: tsProject,
 		inPath: 'app/**/*.ts',
-		outDefPath: '.tmp/definitions/app',
-		outJsPath: '.tmp/js/app',
+		outDefPath: 'dist/definitions/app',
+		outJsPath: 'dist/js/app',
 		outJsFile: 'output.js'
 	}
 	return compileTS(opt);
@@ -87,7 +87,7 @@ gulp.task('extras', function() {
 });
 
 gulp.task('clean', function(cb) {
-	del(['.tmp', 'dist'], cb);
+	del(['dist'], cb);
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'extras']);

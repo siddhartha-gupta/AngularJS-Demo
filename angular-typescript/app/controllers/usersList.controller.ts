@@ -1,9 +1,9 @@
 ﻿/// <reference path='../_all.ts' />
+
 module formApp {
     'use strict';
 
     export class usersListController {
-        // private todos: TodoItem[];
         private usersList: Object;
 
         public static $inject = [
@@ -19,35 +19,28 @@ module formApp {
             private $log: ng.ILogService,
             private apiService: APIService
         ) {
-            console.log('constructor called');
-            this.getUsers();
+            this.$log.log('constructor called');
         }
 
         getUsers() {
-            console.log('getUsers');
+            this.$log.log('getUsers');
 
             this.apiService.getCall({
                 'url': 'http://localhost:8080/getuserslist'
             })
                 .success((data, status) => this.processServerData(data))
-                .error((data, status) => console.log('err'));
+                .error((data, status) => this.$log.log('err'));
         }
 
         processServerData(data: any) {
-            console.log('processServerData: ', data);
+            this.$log.log('processServerData: ', data);
 
             if (data && Object.keys(data).length > 0) {
-                console.log('adding server data');
+                this.$log.log('adding server data');
                 this.usersList = data;
             } else {
                 this.usersList = {};
             }
         }
     }
-
-    /*export class usersListController {
-        constructor() {
-            console.log('test');
-        }
-    }*/
 } 
