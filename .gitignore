@@ -1,8 +1,2 @@
-typescript1/node_modules/
-typescript2/node_modules/
-typescript-books/node_modules/
-typescript-tic-tac-toe/node_modules/
-
-typescript1/web/
-typescript2/build/
-tic-tac-toe-node-server/node_modules/
+angular-typescript/bower_components/
+angular-typescript/node_modules/
