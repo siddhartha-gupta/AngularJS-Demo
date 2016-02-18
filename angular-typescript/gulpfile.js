@@ -1,52 +1,33 @@
 'use strict';
 
-var gulp = require('gulp');
-
-var $ = require('gulp-load-plugins')();
-var del = require('del');
-var runSequence = require('run-sequence');
-var eventStream = require('event-stream');
-var mainBowerFiles = require('main-bower-files');
+var gulp = require('gulp'),
+	typescript = require('gulp-typescript'),
+	tscConfig = require('./tsconfig.json'),
+	$ = require('gulp-load-plugins')(),
+	del = require('del'),
+	runSequence = require('run-sequence'),
+	eventStream = require('event-stream'),
+	mainBowerFiles = require('main-bower-files');
 
 gulp.task('styles', function() {
-	return gulp.src('app/styles/main.css')
+	return gulp.src('app/styles/app.css')
 		.pipe(gulp.dest('dist/styles'))
 });
 
+// To compile TS to JS
 gulp.task('scripts:app', function() {
-	return compileAppScripts();
-});
+	var tsResult = gulp.src(tscConfig.paths.inPath)
+		.pipe($.sourcemaps.init())
+		.pipe($.typescript(tscConfig.compilerOptions, undefined));
 
-function compileAppScripts() {
-	var tsProject = $.typescript.createProject({
-		target: 'ES5',
-		declarationFiles: true,
-		noExternalResolve: false,
-		sortOutput: true
-	});
-	var opt = {
-		tsProject: tsProject,
-		inPath: 'app/**/*.ts',
-		outDefPath: 'dist/definitions/app',
-		outJsPath: 'dist/js/app',
-		outJsFile: 'output.js'
-	}
-	return compileTS(opt);
-}
-
-function compileTS(opt) {
-	var tsResult = gulp.src(opt.inPath)
-		.pipe($.sourcemaps.init()) // sourcemaps will be generated
-		.pipe($.typescript(opt.tsProject, undefined, $.typescript.reporter.fullReporter(true)));
-
-	return eventStream.merge( // this task is finished when the IO of both operations are done
-		tsResult.dts.pipe(gulp.dest(opt.outDefPath)),
+	return eventStream.merge(
+		tsResult.dts.pipe(gulp.dest(tscConfig.paths.outDefPath)),
 		tsResult.js
-		.pipe($.concatSourcemap(opt.outJsFile))
+		.pipe($.concatSourcemap(tscConfig.paths.outJsFile))
 		.pipe($.sourcemaps.write()) // sourcemaps are added to the .js file
-		.pipe(gulp.dest(opt.outJsPath))
+		.pipe(gulp.dest(tscConfig.paths.outJsPath))
 	);
-}
+});
 
 gulp.task('html', ['styles', 'scripts:app'], function() {
 	return gulp.src('app/*.html')
