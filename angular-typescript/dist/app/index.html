@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="formApp" data-framework="typescript">
+<html ng-app="formApp" data-framework="typescript" ng-strict-di>
 <head>
 	<meta charset="utf-8">
 	<title>angular typescript gulp</title>
@@ -14,9 +14,15 @@
 	</style>
 </head>
 <body>
-	<div>test</div>
-	<div id="content">
-		<div ng-view></div>
+	<div class="container">
+		<header ng-controller="headerController as customController">
+			<span ng-if="customController.headerLeftBtn.showBtn" class="left" ng-click="customController.callFunction($event, customController.headerLeftBtn.clickFunc)" ng-bind="::customController.headerLeftBtn.text"></span>
+			<h2 ng-bind="::customController.heading"></h2>
+			<span ng-if="customController.headerRightBtn.showBtn" class="right" ng-click="customController.callFunction($event, customController.headerRightBtn.clickFunc)" ng-bind="::customController.headerRightBtn.text"></span>
+		</header>
+		<div id="content">
+			<div ng-view></div>
+		</div>
 	</div>
 	<script src="lib/jquery.js"></script>
 	<script src="lib/bootstrap.js"></script>

@@ -1,47 +1,45 @@
 ﻿/// <reference path='../_all.ts' />
 
-module formApp {
-    'use strict';
+module app {
+	'use strict';
 
-    export class usersListController {
-        private usersList: Object;
+	export class usersListController {
+		private usersList: Object;
+		private appConfig: appConfigInterface;
 
-        public static $inject = [
-            '$scope',
-            '$location',
-            '$log',
-            'apiService'
-        ];
+		public static $inject = [
+			'$scope',
+			'$location',
+			'$log',
+			'apiService'
+		];
 
-        constructor(
-            private $scope: ng.IScope,
-            private $location: ng.ILocationService,
-            private $log: ng.ILogService,
-            private apiService: APIService
-        ) {
-            this.$log.log('constructor called test');
-            this.getUsers();
-        }
+		constructor(
+			private $scope: ng.IScope,
+			private $location: ng.ILocationService,
+			private $log: ng.ILogService,
+			private apiService: APIService
+		) {
+			this.appConfig = app.Constants.Default;
+			this.getUsers();
+		}
 
-        getUsers() {
-            this.$log.log('getUsers');
+		getUsers() {
+			this.apiService.getCall({
+				'url': this.appConfig.serverUrl + 'getuserslist'
+			})
+				.success((data, status) => this.processServerData(data))
+				.error((data, status) => this.$log.log('err'));
+		}
 
-            this.apiService.getCall({
-                'url': 'http://localhost:8080/getuserslist'
-            })
-                .success((data, status) => this.processServerData(data))
-                .error((data, status) => this.$log.log('err'));
-        }
+		processServerData(data: any) {
+			this.$log.log('processServerData: ', data);
 
-        processServerData(data: any) {
-            this.$log.log('processServerData: ', data);
-
-            if (data && Object.keys(data).length > 0) {
-                this.$log.log('adding server data');
-                this.usersList = data;
-            } else {
-                this.usersList = {};
-            }
-        }
-    }
+			if (data && Object.keys(data).length > 0) {
+				this.usersList = data;
+			} else {
+				this.usersList = {};
+			}
+		}
+	}
 } 

@@ -1,5 +1,5 @@
 /// <reference path="../_all.d.ts" />
-declare module formApp {
+declare module app {
     class APIService {
         private $http;
         static $inject: string[];

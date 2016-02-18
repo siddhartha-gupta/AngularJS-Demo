@@ -1,6 +1,6 @@
 /// <reference path='../_all.ts' />
 
-module formApp {
+module app {
     'use strict';
 
     export class APIService {
