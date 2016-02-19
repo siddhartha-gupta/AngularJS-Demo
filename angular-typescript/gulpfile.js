@@ -5,10 +5,10 @@ var gulp = require('gulp'),
 	typescript = require('gulp-typescript'),
 	concatSourcemap = require('gulp-concat-sourcemap'),
 	eventStream = require('event-stream'),
-	tscConfig = require('./tsconfig.json'),
 	sourcemaps = require('gulp-sourcemaps'),
 	tslint = require('gulp-tslint'),
 	browserSync = require('browser-sync'),
+	tscConfig = require('./tsconfig.json'),
 	reload = browserSync.reload;
 
 // clean the contents of the distribution directory
@@ -21,7 +21,7 @@ gulp.task('copyAssets', ['clean'], function() {
 	return gulp.src(['app/**/*', 'index.html', '!app/**/*.ts'], {
 			base: './'
 		})
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('dist'));
 });
 
 // linting
@@ -54,14 +54,14 @@ gulp.task('copyJSLibs', ['clean'], function() {
 			'bower_components/angular/angular.js',
 			'bower_components/angular-route/angular-route.js'
 		])
-		.pipe(gulp.dest('dist/app/lib'))
+		.pipe(gulp.dest('dist/app/lib'));
 });
 
 gulp.task('copyCSSLibs', ['clean'], function() {
 	return gulp.src([
 			'bower_components/bootstrap/dist/css/bootstrap.css'
 		])
-		.pipe(gulp.dest('dist/app/styles'))
+		.pipe(gulp.dest('dist/app/styles'));
 });
 
 // Run browsersync for development
