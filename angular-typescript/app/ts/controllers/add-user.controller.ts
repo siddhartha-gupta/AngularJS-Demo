@@ -3,7 +3,7 @@
 module app {
 	'use strict';
 
-	export class AddUserController {
+	export class AddUserController implements AddUserInterface {
 		private validEmail: Boolean;
 		private userdata: UserDataInterface;
 		private appConfig: appConfigInterface;
@@ -36,7 +36,7 @@ module app {
 			};
 		}
 
-		validateEmail = function(val) {
+		validateEmail(val: string) {
 			var emailRegexp = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 			if (val && emailRegexp.test(val)) {
 				this.validEmail = true;
@@ -45,7 +45,7 @@ module app {
 			}
 		}
 
-		addUser = function() {
+		addUser() {
 			this.$log.log('add user: ', this.userdata);
 
 			this.apiService.postCall({
@@ -57,7 +57,7 @@ module app {
 			}).error((response) => {
 				this.$log.log('error: ', response);
 			});
-		};
+		}
 	}
 }
 controllers.controller('AddUserController', app.AddUserController);

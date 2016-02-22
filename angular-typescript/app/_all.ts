@@ -8,6 +8,9 @@
 /// <reference path='ts/config.ts' />
 /// <reference path='ts/route-handler.ts' />
 
+/// <reference path='ts/interfaces/user-list.interface.ts' />
+/// <reference path='ts/interfaces/add-user.interface.ts' />
+
 /// <reference path='ts/interfaces/app-config.interface.ts' />
 /// <reference path='ts/interfaces/user-data.interface.ts' />
 /// <reference path='ts/interfaces/header.interface.ts' />

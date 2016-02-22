@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class UsersListController {
+    class UsersListController implements UsersListInterface {
         private $scope;
         private $location;
         private $log;

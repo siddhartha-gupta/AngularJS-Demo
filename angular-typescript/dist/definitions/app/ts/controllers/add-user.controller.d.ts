@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class AddUserController {
+    class AddUserController implements AddUserInterface {
         private $scope;
         private $location;
         private $log;
@@ -10,7 +10,7 @@ declare module app {
         private appConfig;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $log: ng.ILogService, apiService: APIService);
-        validateEmail: (val: any) => void;
-        addUser: () => void;
+        validateEmail(val: string): void;
+        addUser(): void;
     }
 }

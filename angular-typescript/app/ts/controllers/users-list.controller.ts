@@ -3,7 +3,7 @@
 module app {
 	'use strict';
 
-	export class UsersListController {
+	export class UsersListController implements UsersListInterface {
 		private usersList: Object;
 		private appConfig: appConfigInterface;
 		private modalDialogue: ModalDialogueInterface;
@@ -93,7 +93,7 @@ module app {
 			console.log(this.modalDialogue);
 		}
 
-		clone(obj) {
+		clone(obj: any) {
 			if (obj == null || typeof (obj) != 'object')
 				return obj;
 
