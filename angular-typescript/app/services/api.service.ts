@@ -21,3 +21,4 @@ module app {
         }
     }
 } 
+services.service('APIService', app.APIService);

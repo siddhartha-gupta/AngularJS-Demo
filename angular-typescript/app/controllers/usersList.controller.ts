@@ -3,7 +3,7 @@
 module app {
 	'use strict';
 
-	export class usersListController {
+	export class UsersListController {
 		private usersList: Object;
 		private appConfig: appConfigInterface;
 
@@ -11,7 +11,7 @@ module app {
 			'$scope',
 			'$location',
 			'$log',
-			'apiService'
+			'APIService'
 		];
 
 		constructor(
@@ -43,3 +43,4 @@ module app {
 		}
 	}
 } 
+controllers.controller('UsersListController', app.UsersListController);

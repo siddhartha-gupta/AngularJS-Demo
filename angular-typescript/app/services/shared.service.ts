@@ -13,3 +13,4 @@ module app {
         };
     }
 }
+services.service('SharedService', app.SharedService);

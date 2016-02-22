@@ -3,7 +3,7 @@
 module app {
 	'use strict'
 
-	export class headerController {
+	export class HeaderController {
 		heading: string = 'User management';
 
 		headerLeftBtn: Object = {
@@ -23,7 +23,7 @@ module app {
 			'$location',
 			'$window',
 			'$log',
-			// 'sharedService'
+			'SharedService'
 		];
 
 		constructor(
@@ -31,11 +31,12 @@ module app {
 			private $location: ng.ILocationService,
 			private $window: ng.IWindowService,
 			private $log: ng.ILogService,
-			// private sharedService: SharedService
+			private sharedService: SharedService
 		) {
-			$scope.$on("routeChangeStart", this.onRouteChangeStart);
-			$scope.$on("routeChangeSuccess", this.onRouteChangeSuccess);
-			$scope.$on("routeChangeError", this.onRouteChangeError);
+			console.log(this);
+			$scope.$on("routeChangeStart", this.onRouteChangeStart.bind(this));
+			$scope.$on("routeChangeSuccess", this.onRouteChangeSuccess.bind(this));
+			$scope.$on("routeChangeError", this.onRouteChangeError.bind(this));
 		}
 
 		onRouteChangeStart(event: Event, params: Object) {
@@ -117,6 +118,5 @@ module app {
 			this.$location.path('/userslist').replace();
 		}
 	}
-	console.log('app.formApp: ', app);
-	// app.formApp.controller('headerController', headerController);
 }
+controllers.controller('HeaderController', app.HeaderController);

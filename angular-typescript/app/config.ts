@@ -11,7 +11,7 @@ module app {
 		constructor($routeProvider: ng.route.IRouteProvider) {
 			$routeProvider.when("/userslist", {
 				templateUrl: app.Constants.Default.templateUrl + '/usersList.html',
-				controller: 'usersListCtrl',
+				controller: 'UsersListController',
 				controllerAs: 'customController'
 			})
 				.otherwise({ redirectTo: '/userslist' });

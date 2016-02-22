@@ -2,6 +2,7 @@
 /// <reference path="../bower_components/DefinitelyTyped/angularjs/angular.d.ts" />
 /// <reference path="../bower_components/DefinitelyTyped/angularjs/angular-route.d.ts" />
 /// <reference path="app.d.ts" />
+/// <reference path="modules.d.ts" />
 /// <reference path="constants.d.ts" />
 /// <reference path="interfaces/appConfig.interface.d.ts" />
 /// <reference path="config.d.ts" />

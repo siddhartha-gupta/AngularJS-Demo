@@ -2,6 +2,6 @@
 declare module app {
     class RouteHandler {
         static inject: string[];
-        constructor($rootScope: any, $location: ng.ILocationService);
+        constructor($rootScope: any, $location: ng.ILocationService, sharedService: SharedService);
     }
 }
