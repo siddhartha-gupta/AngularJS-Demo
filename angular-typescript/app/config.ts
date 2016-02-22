@@ -10,11 +10,14 @@ module app {
 
 		constructor($routeProvider: ng.route.IRouteProvider) {
 			$routeProvider.when("/userslist", {
-				templateUrl: app.Constants.Default.templateUrl + '/usersList.html',
+				templateUrl: app.Constants.Default.templateUrl + 'usersList.html',
 				controller: 'UsersListController',
 				controllerAs: 'customController'
-			})
-				.otherwise({ redirectTo: '/userslist' });
+			}).when('/addUser', {
+				controller: 'AddUserController',
+				controllerAs: 'customController',
+				templateUrl: app.Constants.Default.templateUrl + 'addUser.html'
+			}).otherwise({ redirectTo: '/userslist' });
 		}
 	}
 }

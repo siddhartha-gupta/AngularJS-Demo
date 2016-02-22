@@ -4,19 +4,9 @@ module app {
 	'use strict'
 
 	export class HeaderController {
-		heading: string = 'User management';
-
-		headerLeftBtn: Object = {
-			'showBtn': false,
-			'clickFunc': function() { },
-			'text': ''
-		};
-
-		headerRightBtn: Object = {
-			'showBtn': false,
-			'clickFunc': function() { },
-			'text': ''
-		};
+		heading: string;
+		headerLeftBtn: Object;
+		headerRightBtn: Object;
 
 		public static $inject = [
 			'$scope',
@@ -33,10 +23,21 @@ module app {
 			private $log: ng.ILogService,
 			private sharedService: SharedService
 		) {
-			console.log(this);
 			$scope.$on("routeChangeStart", this.onRouteChangeStart.bind(this));
 			$scope.$on("routeChangeSuccess", this.onRouteChangeSuccess.bind(this));
 			$scope.$on("routeChangeError", this.onRouteChangeError.bind(this));
+
+			this.heading = 'User management';
+			this.headerLeftBtn = {
+				'showBtn': false,
+				'clickFunc': function() { },
+				'text': ''
+			};
+			this.headerRightBtn = {
+				'showBtn': false,
+				'clickFunc': function() { },
+				'text': ''
+			};
 		}
 
 		onRouteChangeStart(event: Event, params: Object) {
@@ -46,9 +47,10 @@ module app {
 		onRouteChangeSuccess(event: Event, params: Object) {
 			this.$log.log('onRouteChangeSuccess: ', params);
 
+			// console.log(params.next.$$route.controller);
 			if (params.next && params.next.$$route && params.next.$$route.controller) {
 				switch (params.next.$$route.controller) {
-					case 'usersListController':
+					case 'UsersListController':
 						this.headerLeftBtn = {
 							'showBtn': false,
 							'clickFunc': function() { },
@@ -62,7 +64,7 @@ module app {
 						};
 						break;
 
-					case 'addUserController':
+					case 'AddUserController':
 						this.headerLeftBtn = {
 							'showBtn': true,
 							'clickFunc': 'goBack',
@@ -106,11 +108,10 @@ module app {
 		goToAddUser = function() {
 			// angular.element(document.getElementById("header")).scope()
 			this.$location.path('/addUser').replace();
-			this.$window.location.reload();
 		}
 
 		addUser() {
-			// this.sharedService.broadcastEvent('add-user', {});
+			this.sharedService.broadcastEvent('add-user', {});
 		}
 
 		goBack() {
