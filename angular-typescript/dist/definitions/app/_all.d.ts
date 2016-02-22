@@ -10,5 +10,7 @@
 /// <reference path="controllers/header.controller.d.ts" />
 /// <reference path="controllers/usersList.controller.d.ts" />
 /// <reference path="controllers/addUser.controller.d.ts" />
+/// <reference path="controllers/modalDialogue.controller.d.ts" />
+/// <reference path="directives/modalDialogue.directive.d.ts" />
 /// <reference path="services/api.service.d.ts" />
 /// <reference path="services/shared.service.d.ts" />

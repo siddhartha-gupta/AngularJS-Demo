@@ -11,5 +11,7 @@
 /// <reference path='controllers/header.controller.ts' />
 /// <reference path='controllers/usersList.controller.ts' />
 /// <reference path='controllers/addUser.controller.ts' />
+/// <reference path='controllers/modalDialogue.controller.ts' />
+/// <reference path='directives/modalDialogue.directive.ts' />
 /// <reference path='services/api.service.ts' />
 /// <reference path='services/shared.service.ts' />
