@@ -13,7 +13,7 @@ module app {
 			hideModal: '&',
 			updateData: '&'
         };
-        public templateUrl = 'templates/directives/modal-dialogue.directive.html';
+        public templateUrl = app.Constants.Default.templateUrl + 'directives/modal-dialogue.directive.html';
 		public controller = 'ModalDialogueController';
 		public controllerAs = 'customController';
 		public bindToController = true;

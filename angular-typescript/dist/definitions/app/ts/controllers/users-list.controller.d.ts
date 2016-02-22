@@ -18,5 +18,6 @@ declare module app {
         clone(obj: any): any;
         updateUserData(data: any, userId: string): void;
         hideModal(event?: Event): void;
+        dataAvailable(): boolean;
     }
 }

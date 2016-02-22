@@ -24,6 +24,7 @@ module app {
 			this.appConfig = app.Constants.Default;
 			this.getUsers();
 
+			this.usersList = {};
 			this.modalDialogue = {
 				isVisible: false,
 				title: '',
@@ -134,6 +135,13 @@ module app {
 				user: {},
 				userId: ''
 			};
+		}
+
+		dataAvailable() {
+			if (Object.keys(this.usersList).length > 0) {
+				return true;
+			}
+			return false
 		}
 	}
 }

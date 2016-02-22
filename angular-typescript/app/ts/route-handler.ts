@@ -11,6 +11,10 @@ module app {
 			$location: ng.ILocationService,
 			sharedService: SharedService
 		) {
+			$rootScope.Utils = {
+				keys: Object.keys
+			};
+
 			$rootScope.$on("$routeChangeStart", function(event, next, current) {
 				sharedService.broadcastEvent('routeChangeStart', {
 					next: next,

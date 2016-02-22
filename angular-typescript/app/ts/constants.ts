@@ -7,7 +7,7 @@ module app {
 		static get Default(): any {
 			return {
 				serverUrl: 'http://localhost:8080/',
-				templateUrl: 'templates/'
+				templateUrl: '../templates/'
 			}
 		}
 	}
