@@ -3,16 +3,15 @@
 /// <reference path="../bower_components/DefinitelyTyped/angularjs/angular-route.d.ts" />
 
 /// <reference path='app.ts' />
-/// <reference path='modules.ts' />
-/// <reference path='constants.ts' />
+/// <reference path='ts/modules.ts' />
+/// <reference path='ts/constants.ts' />
+/// <reference path='ts/config.ts' />
+/// <reference path='ts/route-handler.ts' />
 
 /// <reference path='interfaces/app-config.interface.ts' />
 /// <reference path='interfaces/user-data.interface.ts' />
 /// <reference path='interfaces/header.interface.ts' />
 /// <reference path='interfaces/modal-dialogue.interface.ts' />
-
-/// <reference path='config.ts' />
-/// <reference path='route-handler.ts' />
 
 /// <reference path='controllers/header.controller.ts' />
 /// <reference path='controllers/users-list.controller.ts' />
