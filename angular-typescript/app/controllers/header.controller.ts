@@ -5,8 +5,8 @@ module app {
 
 	export class HeaderController {
 		heading: string;
-		headerLeftBtn: Object;
-		headerRightBtn: Object;
+		headerLeftBtn: ButtonsInterface;
+		headerRightBtn: ButtonsInterface;
 
 		public static $inject = [
 			'$scope',
@@ -30,12 +30,12 @@ module app {
 			this.heading = 'User management';
 			this.headerLeftBtn = {
 				'showBtn': false,
-				'clickFunc': function() { },
+				'clickFunc': '',
 				'text': ''
 			};
 			this.headerRightBtn = {
 				'showBtn': false,
-				'clickFunc': function() { },
+				'clickFunc': '',
 				'text': ''
 			};
 		}
@@ -44,57 +44,54 @@ module app {
 			this.$log.log('onRouteChangeStart: ', params);
 		}
 
-		onRouteChangeSuccess(event: Event, params: Object) {
+		onRouteChangeSuccess(event: Event, params: any) {
 			this.$log.log('onRouteChangeSuccess: ', params);
 
-			// console.log(params.next.$$route.controller);
 			if (params.next && params.next.$$route && params.next.$$route.controller) {
 				switch (params.next.$$route.controller) {
 					case 'UsersListController':
-						this.headerLeftBtn = {
-							'showBtn': false,
-							'clickFunc': function() { },
-							'text': ''
-						};
-
-						this.headerRightBtn = {
-							'showBtn': true,
-							'clickFunc': 'goToAddUser',
-							'text': 'New user'
-						};
+						this.setUserListHeader();
 						break;
 
 					case 'AddUserController':
-						this.headerLeftBtn = {
-							'showBtn': true,
-							'clickFunc': 'goBack',
-							'text': 'Back'
-						};
-
-						this.headerRightBtn = {
-							'showBtn': false,
-							'clickFunc': 'addUser',
-							'text': 'Add user'
-						};
+						this.setAddUserHeader();
 						break;
 				}
 			} else {
-				this.headerLeftBtn = {
-					'showBtn': false,
-					'clickFunc': function() { },
-					'text': ''
-				};
-
-				this.headerRightBtn = {
-					'showBtn': true,
-					'clickFunc': 'addUser',
-					'text': 'Add user'
-				};
+				this.setUserListHeader();
 			}
 		}
 
 		onRouteChangeError(event, params) {
 			this.$log.log('onRouteChangeError: ', params);
+		}
+
+		setUserListHeader() {
+			this.headerLeftBtn = {
+				'showBtn': false,
+				'clickFunc': '',
+				'text': ''
+			};
+
+			this.headerRightBtn = {
+				'showBtn': true,
+				'clickFunc': 'goToAddUser',
+				'text': 'New user'
+			};
+		}
+
+		setAddUserHeader() {
+			this.headerLeftBtn = {
+				'showBtn': true,
+				'clickFunc': 'goBack',
+				'text': 'Back'
+			};
+
+			this.headerRightBtn = {
+				'showBtn': false,
+				'clickFunc': '',
+				'text': ''
+			};
 		}
 
 		callFunction(event: Event, clickFunc: string) {

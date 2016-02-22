@@ -5,13 +5,20 @@
 /// <reference path='app.ts' />
 /// <reference path='modules.ts' />
 /// <reference path='constants.ts' />
-/// <reference path='interfaces/appConfig.interface.ts' />
+
+/// <reference path='interfaces/app-config.interface.ts' />
+/// <reference path='interfaces/user-data.interface.ts' />
+/// <reference path='interfaces/header.interface.ts' />
+/// <reference path='interfaces/modal-dialogue.interface.ts' />
+
 /// <reference path='config.ts' />
 /// <reference path='route-handler.ts' />
+
 /// <reference path='controllers/header.controller.ts' />
-/// <reference path='controllers/usersList.controller.ts' />
-/// <reference path='controllers/addUser.controller.ts' />
-/// <reference path='controllers/modalDialogue.controller.ts' />
-/// <reference path='directives/modalDialogue.directive.ts' />
+/// <reference path='controllers/users-list.controller.ts' />
+/// <reference path='controllers/add-user.controller.ts' />
+/// <reference path='controllers/modal-dialogue.controller.ts' />
+
+/// <reference path='directives/modal-dialogue.directive.ts' />
 /// <reference path='services/api.service.ts' />
 /// <reference path='services/shared.service.ts' />

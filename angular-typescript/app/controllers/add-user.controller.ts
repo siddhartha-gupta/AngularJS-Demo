@@ -4,8 +4,8 @@ module app {
 	'use strict';
 
 	export class AddUserController {
-		private user: Object;
 		private validEmail: Boolean;
+		private userdata: UserDataInterface;
 		private appConfig: appConfigInterface;
 
 		public static $inject = [
@@ -27,15 +27,13 @@ module app {
 
 			this.appConfig = app.Constants.Default;
 			this.validEmail = false;
-			this.user = {
+			this.userdata = {
 				'firstname': '',
 				'lastname': '',
 				'email': '',
 				'phonenumber': '',
 				'location': 'IN'
 			};
-			console.log($log);
-			console.log(this);
 		}
 
 		validateEmail = function(val) {
@@ -48,11 +46,11 @@ module app {
 		}
 
 		addUser = function() {
-			console.log('add user: ', this.user);
+			this.$log.log('add user: ', this.userdata);
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'adduser',
-				data: this.user
+				data: this.userdata
 			}).success((response) => {
 				this.$log.log('success: ', response);
 				this.$location.path('/userslist').replace();

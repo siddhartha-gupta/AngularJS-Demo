@@ -7,13 +7,15 @@ declare module app {
         private $log;
         private sharedService;
         heading: string;
-        headerLeftBtn: Object;
-        headerRightBtn: Object;
+        headerLeftBtn: ButtonsInterface;
+        headerRightBtn: ButtonsInterface;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $window: ng.IWindowService, $log: ng.ILogService, sharedService: SharedService);
         onRouteChangeStart(event: Event, params: Object): void;
-        onRouteChangeSuccess(event: Event, params: Object): void;
+        onRouteChangeSuccess(event: Event, params: any): void;
         onRouteChangeError(event: any, params: any): void;
+        setUserListHeader(): void;
+        setAddUserHeader(): void;
         callFunction(event: Event, clickFunc: string): void;
         goToAddUser: () => void;
         addUser(): void;

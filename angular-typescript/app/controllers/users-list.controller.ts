@@ -6,7 +6,7 @@ module app {
 	export class UsersListController {
 		private usersList: Object;
 		private appConfig: appConfigInterface;
-		private modalDialogue = Object;
+		private modalDialogue: ModalDialogueInterface;
 
 		public static $inject = [
 			'$scope',
@@ -35,9 +35,11 @@ module app {
 		getUsers() {
 			this.apiService.getCall({
 				'url': this.appConfig.serverUrl + 'getuserslist'
-			})
-				.success((data, status) => this.processServerData(data))
-				.error((data, status) => this.$log.log('err'));
+			}).success((data, status) => {
+				this.processServerData(data)
+			}).error((data, status) => {
+				this.$log.log('err')
+			});
 		}
 
 		processServerData(data: any) {
@@ -90,7 +92,7 @@ module app {
 			console.log(this.modalDialogue);
 		}
 
-		clone = function(obj) {
+		clone(obj) {
 			if (obj == null || typeof (obj) != 'object')
 				return obj;
 
@@ -101,7 +103,7 @@ module app {
 			return temp;
 		}
 
-		updateUserData = function(data: any, userId: string) {
+		updateUserData(data: any, userId: string) {
 			console.log('updateUserData: ', data, userId);
 			this.hideModal();
 
@@ -111,7 +113,7 @@ module app {
 					'key': userId,
 					'userData': data
 				}
-			}).then((response) => {
+			}).success((response) => {
 				this.$log.log('updateUserData success: ', response);
 				this.getUsers();
 			}).error((response) => {
@@ -119,7 +121,7 @@ module app {
 			});
 		}
 
-		hideModal = function(event: Event) {
+		hideModal(event?: Event) {
 			if (event) {
 				event.stopPropagation();
 				event.preventDefault();

@@ -1,7 +1,6 @@
 /// <reference path="../_all.d.ts" />
 declare module app {
     class ModalDialogue implements ng.IDirective {
-        private myFactory;
         restrict: string;
         scope: {
             isVisible: string;
@@ -15,7 +14,7 @@ declare module app {
         controller: string;
         controllerAs: string;
         bindToController: boolean;
-        constructor(myFactory: app.services.MyFactory);
+        constructor();
         static factory(): ng.IDirectiveFactory;
     }
 }

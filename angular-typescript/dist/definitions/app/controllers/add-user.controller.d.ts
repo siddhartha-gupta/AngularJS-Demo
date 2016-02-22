@@ -5,8 +5,8 @@ declare module app {
         private $location;
         private $log;
         private apiService;
-        private user;
         private validEmail;
+        private userdata;
         private appConfig;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $log: ng.ILogService, apiService: APIService);

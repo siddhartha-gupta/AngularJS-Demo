@@ -18,7 +18,7 @@ module app {
 		public controllerAs = 'customController';
 		public bindToController = true;
 
-		constructor(private myFactory: app.services.MyFactory) {}
+		constructor() {}
 
 		static factory(): ng.IDirectiveFactory {
 			return( () => new ModalDialogue());

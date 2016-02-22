@@ -15,8 +15,8 @@ declare module app {
         addUser(): void;
         deleteUser(event: Event, key: string): void;
         editUserClick(event: Event, key: string): void;
-        clone: (obj: any) => any;
-        updateUserData: (data: any, userId: string) => void;
-        hideModal: (event: Event) => void;
+        clone(obj: any): any;
+        updateUserData(data: any, userId: string): void;
+        hideModal(event?: Event): void;
     }
 }
