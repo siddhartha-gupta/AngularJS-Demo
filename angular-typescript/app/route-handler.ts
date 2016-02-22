@@ -4,37 +4,29 @@ module app {
 	'use strict'
 
 	export class RouteHandler {
-		static $inject = [
-            '$rootScope',
-            '$location'
-            // 'sharedService'
-        ];
+		static inject = ['$rootScope', '$location'];
 
 		constructor(
-			public $rootScope: ng.IRootScopeService, //any
-			private $location: ng.ILocationService
+            $rootScope: any, //ng.IRootScopeService,
+			$location: ng.ILocationService
 			// private sharedService: SharedService
 		) {
-			/*this.$rootScope.Utils = {
-				keys: Object.keys
-			};*/
-
-			this.$rootScope.$on("$routeChangeStart", function(event, next, current) {
-				// this.sharedService.broadcastEvent('routeChangeStart', {
+			$rootScope.$on("$routeChangeStart", function(event, next, current) {
+				// sharedService.broadcastEvent('routeChangeStart', {
 				// 	next: next,
 				// 	current: current
 				// });
 			});
 
-			this.$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
-				// this.sharedService.broadcastEvent('routeChangeSuccess', {
+			$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
+				// sharedService.broadcastEvent('routeChangeSuccess', {
 				// 	next: next,
 				// 	current: current
 				// });
 			});
 
-			this.$rootScope.$on("$routeChangeError", function(event, next, current) {
-				// this.sharedService.broadcastEvent('routeChangeError', {
+			$rootScope.$on("$routeChangeError", function(event, next, current) {
+				// sharedService.broadcastEvent('routeChangeError', {
 				// 	next: next,
 				// 	current: current
 				// });
