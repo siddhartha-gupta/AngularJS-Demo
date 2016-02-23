@@ -10,7 +10,7 @@ module app {
 			title: '=',
 			user: '=',
 			userId: '=',
-			hideModal: '&',
+			hidePopup: '&',
 			updateData: '&'
         };
         public templateUrl = app.Constants.Default.templateUrl + 'directives/edit-user.directive.html';

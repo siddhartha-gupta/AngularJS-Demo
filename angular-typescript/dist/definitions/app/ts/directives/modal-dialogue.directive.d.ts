@@ -1,14 +1,17 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class EditUserDirective implements ng.IDirective {
+    class ModalDialogueDirective implements ng.IDirective {
         restrict: string;
         scope: {
             isVisible: string;
             title: string;
-            user: string;
-            userId: string;
-            hidePopup: string;
-            updateData: string;
+            body: string;
+            btn1Txt: string;
+            btn2Txt: string;
+            showBtn2: string;
+            btn1Callback: string;
+            btn2Callback: string;
+            closeBtnCallback: string;
         };
         templateUrl: string;
         controller: string;

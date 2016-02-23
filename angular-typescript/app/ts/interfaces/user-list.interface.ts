@@ -7,11 +7,11 @@ module app {
 		getUsers() { }
 		processServerData(data: any) { }
 		addUser() { }
-		deleteUser(event: Event, key: string) { }
+		deleteUserClick(event: Event, key: string) { }
 		editUserClick(event: Event, key: string) { }
 		clone(obj: any) { }
 		updateUserData(data: any, userId: string) { }
-		hideModal(event?: Event) { }
+		hideEditPopup(event?: Event) { }
 		dataAvailable() { }
 	}
 }

@@ -6,7 +6,8 @@ module app {
 	export class UsersListController implements UsersListInterface {
 		private usersList: Object;
 		private appConfig: appConfigInterface;
-		private modalDialogue: EditUserInterface;
+		private editUser: EditUserInterface;
+		private modalDialogue: ModalDialogueInterface;
 
 		public static $inject = [
 			'$scope',
@@ -25,12 +26,15 @@ module app {
 			this.getUsers();
 
 			this.usersList = {};
-			this.modalDialogue = {
-				isVisible: false,
-				title: '',
-				user: {},
-				userId: ''
-			};
+			this.editUserDefault();
+			this.modalDialogueDefault();
+		}
+
+		dataAvailable() {
+			if (Object.keys(this.usersList).length > 0) {
+				return true;
+			}
+			return false
 		}
 
 		getUsers() {
@@ -57,26 +61,9 @@ module app {
 			this.$location.path('/addUser').replace();
 		}
 
-		deleteUser(event: Event, key: string) {
-			if (event) {
-				event.stopPropagation();
-				event.preventDefault();
-			}
-			console.log('key: ', key);
-
-			this.apiService.postCall({
-				'url': this.appConfig.serverUrl + 'deleteuser',
-				data: {
-					'key': key
-				}
-			}).success((response) => {
-				this.$log.log('success: ', response);
-				this.getUsers();
-			}).error((response) => {
-				this.$log.log('error: ', response);
-			});
-		}
-
+		/*
+		* Edit user code flow
+		*/
 		editUserClick(event: Event, key: string) {
 			if (event) {
 				event.stopPropagation();
@@ -84,13 +71,13 @@ module app {
 			}
 			console.log('key: ', key);
 
-			this.modalDialogue = {
+			this.editUser = {
 				isVisible: true,
 				title: 'Edit details',
 				user: this.clone(this.usersList[key]),
 				userId: key
 			};
-			console.log(this.modalDialogue);
+			console.log(this.editUser);
 		}
 
 		clone(obj: any) {
@@ -106,7 +93,7 @@ module app {
 
 		updateUserData(data: any, userId: string) {
 			console.log('updateUserData: ', data, userId);
-			this.hideModal();
+			this.hideEditPopup();
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',
@@ -122,13 +109,16 @@ module app {
 			});
 		}
 
-		hideModal(event?: Event) {
+		hideEditPopup(event?: Event) {
 			if (event) {
 				event.stopPropagation();
 				event.preventDefault();
 			}
+			this.editUserDefault();
+		}
 
-			this.modalDialogue = {
+		editUserDefault() {
+			this.editUser = {
 				isVisible: false,
 				title: '',
 				user: {},
@@ -136,11 +126,66 @@ module app {
 			};
 		}
 
-		dataAvailable() {
-			if (Object.keys(this.usersList).length > 0) {
-				return true;
+		/*
+		* Delete user codeflow
+		*/
+		deleteUserClick(event: Event, key: string) {
+			if (event) {
+				event.stopPropagation();
+				event.preventDefault();
 			}
-			return false
+			console.log('key: ', key);
+
+			this.modalDialogue = {
+				isVisible: true,
+				title: 'Delete user?',
+				body: 'Please confirm, you want to delete the user',
+				btn1Txt: 'Ok',
+				btn2Txt: 'Cancel',
+				showBtn2: true,
+				btn1Callback: this.deleteUserConfirm.bind(this, key),
+				btn2Callback: this.hideModalDialogue.bind(this),
+				closeBtnCallback: this.hideModalDialogue.bind(this),
+			};
+		}
+
+		deleteUserConfirm(key: string) {
+			console.log('deleteUserConfirm, key: ', key);
+
+			this.apiService.postCall({
+				'url': this.appConfig.serverUrl + 'deleteuser',
+				data: {
+					'key': key
+				}
+			}).success((response) => {
+				this.$log.log('success: ', response);
+				this.modalDialogueDefault();
+				this.getUsers();
+			}).error((response) => {
+				this.$log.log('error: ', response);
+			});
+		}
+
+		hideModalDialogue(event?: Event) {
+			if (event) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+			this.modalDialogueDefault();
+		}
+
+		modalDialogueDefault() {
+			this.modalDialogue = {
+				isVisible: false,
+				title: '',
+				body: '',
+				btn1Txt: '',
+				btn2Txt: '',
+				showBtn2: false,
+				btn1Callback: function() { },
+				btn2Callback: function() { },
+				closeBtnCallback: function() { },
+			};
 		}
 	}
 }

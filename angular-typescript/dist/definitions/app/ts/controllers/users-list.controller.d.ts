@@ -7,17 +7,22 @@ declare module app {
         private apiService;
         private usersList;
         private appConfig;
+        private editUser;
         private modalDialogue;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $log: ng.ILogService, apiService: APIService);
+        dataAvailable(): boolean;
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
-        deleteUser(event: Event, key: string): void;
         editUserClick(event: Event, key: string): void;
         clone(obj: any): any;
         updateUserData(data: any, userId: string): void;
-        hideModal(event?: Event): void;
-        dataAvailable(): boolean;
+        hideEditPopup(event?: Event): void;
+        editUserDefault(): void;
+        deleteUserClick(event: Event, key: string): void;
+        deleteUserConfirm(key: string): void;
+        hideModalDialogue(event?: Event): void;
+        modalDialogueDefault(): void;
     }
 }

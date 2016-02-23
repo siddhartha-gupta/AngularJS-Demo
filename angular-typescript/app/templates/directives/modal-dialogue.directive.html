@@ -1,0 +1,17 @@
+<div id="myModal" class="modal modal-dialog-custom" ng-show="customController.isVisible">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="customController.closeBtnCallback($event)">&times;</button>
+                <h4 class="modal-title">{{customController.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div>{{customController.body}}</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="customController.btn1Callback($event)">{{customController.btn1Txt}}</button>
+                <button ng-if="customController.showBtn2" type="button" class="btn btn-primary" ng-click="customController.btn2Callback($event)">{{customController.btn2Txt}}</button>
+            </div>
+        </div>
+    </div>
+</div>
