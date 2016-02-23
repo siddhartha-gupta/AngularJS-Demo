@@ -5,6 +5,9 @@ var gulp = require('gulp'),
 	typescript = require('gulp-typescript'),
 	concatSourcemap = require('gulp-concat-sourcemap'),
 	eventStream = require('event-stream'),
+	concat = require('gulp-concat'),
+	rename = require('gulp-rename'),
+	uglify = require('gulp-uglify'),
 	sourcemaps = require('gulp-sourcemaps'),
 	tslint = require('gulp-tslint'),
 	browserSync = require('browser-sync'),
@@ -44,6 +47,10 @@ gulp.task('compile', ['clean'], function() {
 		.pipe(concatSourcemap(tscConfig.paths.outJsFile))
 		.pipe(sourcemaps.write()) // sourcemaps are added to the .js file
 		.pipe(gulp.dest(tscConfig.paths.outJsPath))
+		.pipe(rename('all.min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('dist/app/'))
 	);
 });
 
@@ -54,7 +61,11 @@ gulp.task('copyJSLibs', ['clean'], function() {
 			'bower_components/angular/angular.js',
 			'bower_components/angular-route/angular-route.js'
 		])
-		.pipe(gulp.dest('dist/app/lib'));
+		.pipe(concat('libs.js'))
+		.pipe(gulp.dest('dist/app/lib/'))
+		.pipe(rename('libs.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('dist/app/lib/'))
 });
 
 gulp.task('copyCSSLibs', ['clean'], function() {

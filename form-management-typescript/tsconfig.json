@@ -9,6 +9,6 @@
         "inPath": "app/**/*.ts",
         "outDefPath": "dist/definitions/app",
         "outJsPath": "dist/app",
-        "outJsFile": "output.js"
+        "outJsFile": "all.js"
     }
 }
