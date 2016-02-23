@@ -214,3 +214,14 @@ input.ng-invalid.ng-dirty {
 	font-size: 18px;
 	padding-left: 10px;
 }
+
+.modal-content .cancel-btn {
+ 	padding: 2px;
+    font-size: 14px;
+    color: #286090;
+    cursor: pointer;
+}
+
+.modal-content .cancel-btn:hover {
+	text-decoration: underline;
+}
