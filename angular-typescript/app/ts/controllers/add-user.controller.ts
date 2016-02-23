@@ -84,6 +84,7 @@ module app {
 				'location': 'IN'
 			};
 		}
+		
 		showModalDialogue(errorType: string) {
 			let title: string = '',
 				body: string = '';

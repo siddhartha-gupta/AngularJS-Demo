@@ -2,15 +2,18 @@
 
 module app {
 	'use strict';
-	export class UsersListInterface {
-
-		getUsers() { }
-		processServerData(data: any) { }
-		addUser() { }
-		deleteUserClick(event: Event, key: string) { }
-		editUserClick(event: Event, key: string) { }
-		updateUserData(data: any, userId: string) { }
-		hideEditPopup(event?: Event) { }
-		dataAvailable() { }
+	export interface UsersListInterface {
+		dataAvailable()
+		getUsers()
+		processServerData(data: any)
+		addUser()
+		editUserClick(event: Event, key: string)
+		updateUserData(data: any, userId: string)
+		hideEditPopup(event?: Event)
+		editUserDefault()
+		deleteUserClick(event: Event, key: string)
+		deleteUserConfirm(key: string)
+		hideModalDialogue(event?: Event)
+		modalDialogueDefault()
 	}
 }

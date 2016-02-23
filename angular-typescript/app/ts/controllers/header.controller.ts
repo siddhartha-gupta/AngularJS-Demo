@@ -3,7 +3,7 @@
 module app {
 	'use strict'
 
-	export class HeaderController {
+	export class HeaderController implements HeaderInterface {
 		heading: string;
 		headerLeftBtn: ButtonsInterface;
 		headerRightBtn: ButtonsInterface;
@@ -102,7 +102,7 @@ module app {
 			}
 		}
 
-		goToAddUser = function() {
+		goToAddUser() {
 			// angular.element(document.getElementById("header")).scope()
 			this.$location.path('/addUser').replace();
 		}

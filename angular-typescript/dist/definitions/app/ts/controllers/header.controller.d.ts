@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class HeaderController {
+    class HeaderController implements HeaderInterface {
         private $scope;
         private $location;
         private $window;
@@ -17,7 +17,7 @@ declare module app {
         setUserListHeader(): void;
         setAddUserHeader(): void;
         callFunction(event: Event, clickFunc: string): void;
-        goToAddUser: () => void;
+        goToAddUser(): void;
         addUser(): void;
         goBack(): void;
     }

@@ -3,11 +3,14 @@
 module app {
 	'use strict';
 
-	export class AddUserInterface {
-
-		validateEmail(val: string) { }
-
-		addUser() { }
+	export interface AddUserInterface {
+		validateEmail(val: string)
+		validateForm()
+		addUser()
+		userDataDefault()
+		showModalDialogue(errorType: string)
+		hideModalDialogue(event?:Event)
+		modalDialogueDefault()
 	}
 }
 controllers.controller('AddUserController', app.AddUserController);
