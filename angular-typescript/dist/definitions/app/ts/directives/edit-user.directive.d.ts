@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class ModalDialogue implements ng.IDirective {
+    class EditUserDirective implements ng.IDirective {
         restrict: string;
         scope: {
             isVisible: string;

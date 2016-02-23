@@ -3,7 +3,7 @@
 module app {
 	'use strict'
 
-	export interface ModalDialogueInterface {
+	export interface EditUserInterface {
 		isVisible: Boolean;
 		title: string;
 		user: any;

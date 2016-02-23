@@ -11,6 +11,7 @@ declare module app {
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $log: ng.ILogService, apiService: APIService);
         validateEmail(val: string): void;
+        validateForm(): void;
         addUser(): void;
     }
 }

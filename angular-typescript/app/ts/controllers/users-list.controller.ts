@@ -6,7 +6,7 @@ module app {
 	export class UsersListController implements UsersListInterface {
 		private usersList: Object;
 		private appConfig: appConfigInterface;
-		private modalDialogue: ModalDialogueInterface;
+		private modalDialogue: EditUserInterface;
 
 		public static $inject = [
 			'$scope',
@@ -127,7 +127,6 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			console.log(arguments);
 
 			this.modalDialogue = {
 				isVisible: false,

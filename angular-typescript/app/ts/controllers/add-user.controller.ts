@@ -45,6 +45,10 @@ module app {
 			}
 		}
 
+		validateForm() {
+
+		}
+
 		addUser() {
 			this.$log.log('add user: ', this.userdata);
 

@@ -3,7 +3,7 @@
 module app {
     'use strict';
 
-    export class ModalDialogue implements ng.IDirective {
+    export class EditUserDirective implements ng.IDirective {
 		public restrict = 'E';
         public scope = {
             isVisible: '=',
@@ -13,16 +13,16 @@ module app {
 			hideModal: '&',
 			updateData: '&'
         };
-        public templateUrl = app.Constants.Default.templateUrl + 'directives/modal-dialogue.directive.html';
-		public controller = 'ModalDialogueController';
+        public templateUrl = app.Constants.Default.templateUrl + 'directives/edit-user.directive.html';
+		public controller = 'EditUserController';
 		public controllerAs = 'customController';
 		public bindToController = true;
 
 		constructor() {}
 
 		static factory(): ng.IDirectiveFactory {
-			return( () => new ModalDialogue());
+			return( () => new EditUserDirective());
 		}
     }
 } 
-directives.directive('modalDialogue', app.ModalDialogue.factory());
+directives.directive('editUser', app.EditUserDirective.factory());
