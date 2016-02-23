@@ -26,3 +26,4 @@
 /// <reference path='ts/directives/edit-user.directive.ts' />
 /// <reference path='ts/services/api.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />
+/// <reference path='ts/services/utils.service.ts' />

@@ -12,15 +12,15 @@ module app {
 		public static $inject = [
 			'$scope',
 			'$location',
-			'$log',
-			'APIService'
+			'APIService',
+			'UtilsService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
-			private $log: ng.ILogService,
-			private apiService: APIService
+			private apiService: APIService,
+			private utilsService: UtilsService
 		) {
 			$scope.$on('add-user', function(event, args) {
 				this.addUser();
@@ -33,28 +33,36 @@ module app {
 		}
 
 		validateEmail(val: string) {
-			var emailRegexp = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-			if (val && emailRegexp.test(val)) {
-				this.validEmail = true;
-			} else {
-				this.validEmail = false;
-			}
+			this.validEmail = this.utilsService.validateEmail(val);
 		}
 
 		validateForm() {
 			// make null undefined checks here
+			if (this.utilsService.isNullUndefined(this.userdata.firstname) || this.utilsService.isNullUndefined(this.userdata.lastname)) {
+				this.showModalDialogue('inValidForm-name');
+				return false;
+			} else if (this.utilsService.isNullUndefined(this.userdata.email)) {
+				this.showModalDialogue('inValidForm-email');
+				return false;
+			} else if (this.utilsService.isNullUndefined(this.userdata.phonenumber)) {
+				this.showModalDialogue('inValidForm-phonenumber');
+				return false;
+			} else if (this.utilsService.isNullUndefined(this.userdata.location)) {
+				this.showModalDialogue('inValidForm-location');
+				return false;
+			}
 			return true;
 		}
 
 		addUser() {
-			this.$log.log('add user: ', this.userdata);
+			this.utilsService.log('add user: ', this.userdata);
 
 			if (this.validateForm()) {
 				this.apiService.postCall({
 					'url': this.appConfig.serverUrl + 'adduser',
 					data: this.userdata
 				}).success((response: any) => {
-					this.$log.log('success: ', response);
+					this.utilsService.log('success: ', response);
 
 					if (response && response.resp && response.resp === 'Email already in use') {
 						this.showModalDialogue('emailInUse');
@@ -62,7 +70,7 @@ module app {
 						this.$location.path('/userslist').replace();
 					}
 				}).error((response: any) => {
-					this.$log.log('error: ', response);
+					this.utilsService.log('error: ', response);
 				});
 			}
 		}
@@ -80,16 +88,30 @@ module app {
 			let title: string = '',
 				body: string = '';
 
-			console.log('showModalDialogue: ', errorType);
 			switch (errorType) {
 				case 'emailInUse':
 					title = 'Email already in use';
 					body = 'Email ID is already in use, please enter a unique Email address';
 					break;
 
-				case 'inValidForm':
+				case 'inValidForm-name':
 					title = 'Incomplete form';
-					body = 'Please fill the missing data in the form';
+					body = 'Please fill First name/Last name';
+					break;
+
+				case 'inValidForm-email':
+					title = 'Incomplete form';
+					body = 'Please fill the email address';
+					break;
+
+				case 'inValidForm-phonenumber':
+					title = 'Incomplete form';
+					body = 'Please fill phone number';
+					break;
+
+				case 'inValidForm-location':
+					title = 'Incomplete form';
+					body = 'Please select location';
 					break;
 			}
 

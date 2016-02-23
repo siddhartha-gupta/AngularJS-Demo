@@ -6,7 +6,6 @@ declare module app {
         addUser(): void;
         deleteUserClick(event: Event, key: string): void;
         editUserClick(event: Event, key: string): void;
-        clone(obj: any): void;
         updateUserData(data: any, userId: string): void;
         hideEditPopup(event?: Event): void;
         dataAvailable(): void;

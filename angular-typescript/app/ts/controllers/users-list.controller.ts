@@ -12,15 +12,15 @@ module app {
 		public static $inject = [
 			'$scope',
 			'$location',
-			'$log',
-			'APIService'
+			'APIService',
+			'UtilsService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
-			private $log: ng.ILogService,
-			private apiService: APIService
+			private apiService: APIService,
+			private utilsService: UtilsService
 		) {
 			this.appConfig = app.Constants.Default;
 			this.getUsers();
@@ -43,12 +43,12 @@ module app {
 			}).success((data, status) => {
 				this.processServerData(data)
 			}).error((data, status) => {
-				this.$log.log('err')
+				this.utilsService.log('err')
 			});
 		}
 
 		processServerData(data: any) {
-			this.$log.log('processServerData: ', data);
+			this.utilsService.log('processServerData: ', data);
 
 			if (data && Object.keys(data).length > 0) {
 				this.usersList = data;
@@ -69,30 +69,19 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			console.log('key: ', key);
+			this.utilsService.log('key: ', key);
 
 			this.editUser = {
 				isVisible: true,
 				title: 'Edit details',
-				user: this.clone(this.usersList[key]),
+				user: this.utilsService.clone(this.usersList[key]),
 				userId: key
 			};
-			console.log(this.editUser);
-		}
-
-		clone(obj: any) {
-			if (obj == null || typeof (obj) != 'object')
-				return obj;
-
-			var temp = new obj.constructor();
-			for (var key in obj)
-				temp[key] = this.clone(obj[key]);
-
-			return temp;
+			this.utilsService.log(this.editUser);
 		}
 
 		updateUserData(data: any, userId: string) {
-			console.log('updateUserData: ', data, userId);
+			this.utilsService.log('updateUserData: ', data, userId);
 			this.hideEditPopup();
 
 			this.apiService.postCall({
@@ -102,10 +91,10 @@ module app {
 					'userData': data
 				}
 			}).success((response) => {
-				this.$log.log('updateUserData success: ', response);
+				this.utilsService.log('updateUserData success: ', response);
 				this.getUsers();
 			}).error((response) => {
-				this.$log.log('updateUserData error: ', response);
+				this.utilsService.log('updateUserData error: ', response);
 			});
 		}
 
@@ -134,7 +123,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			console.log('key: ', key);
+			this.utilsService.log('key: ', key);
 
 			this.modalDialogue = {
 				isVisible: true,
@@ -150,7 +139,7 @@ module app {
 		}
 
 		deleteUserConfirm(key: string) {
-			console.log('deleteUserConfirm, key: ', key);
+			this.utilsService.log('deleteUserConfirm, key: ', key);
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'deleteuser',
@@ -158,11 +147,11 @@ module app {
 					'key': key
 				}
 			}).success((response) => {
-				this.$log.log('success: ', response);
+				this.utilsService.log('success: ', response);
 				this.modalDialogueDefault();
 				this.getUsers();
 			}).error((response) => {
-				this.$log.log('error: ', response);
+				this.utilsService.log('error: ', response);
 			});
 		}
 
