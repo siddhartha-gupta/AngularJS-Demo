@@ -5,12 +5,13 @@ declare module app {
         private $location;
         private apiService;
         private utilsService;
+        private sharedService;
         private usersList;
         private appConfig;
         private editUser;
         private modalDialogue;
         static $inject: string[];
-        constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService);
+        constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         dataAvailable(): boolean;
         getUsers(): void;
         processServerData(data: any): void;

@@ -13,14 +13,16 @@ module app {
 			'$scope',
 			'$location',
 			'APIService',
-			'UtilsService'
+			'UtilsService',
+			'SharedService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
 			private apiService: APIService,
-			private utilsService: UtilsService
+			private utilsService: UtilsService,
+			private sharedService: SharedService
 		) {
 			$scope.$on('add-user', function(event, args) {
 				this.addUser();
@@ -84,7 +86,7 @@ module app {
 				'location': 'IN'
 			};
 		}
-		
+
 		showModalDialogue(errorType: string) {
 			let title: string = '',
 				body: string = '';
@@ -116,6 +118,7 @@ module app {
 					break;
 			}
 
+			this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
 			this.modalDialogue = {
 				isVisible: true,
 				title: title,
@@ -134,6 +137,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
+			this.sharedService.broadcastEvent('hide-modal', { id: 'modalDialogue' });
 			this.modalDialogueDefault();
 		}
 

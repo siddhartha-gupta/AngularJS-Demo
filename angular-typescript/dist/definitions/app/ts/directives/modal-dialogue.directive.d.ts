@@ -18,6 +18,7 @@ declare module app {
         controllerAs: string;
         bindToController: boolean;
         constructor();
+        link(scope: ng.IScope): void;
         static factory(): ng.IDirectiveFactory;
     }
 }

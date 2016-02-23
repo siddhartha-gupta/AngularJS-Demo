@@ -23,6 +23,16 @@ module app {
 
 		constructor() { }
 
+		link(scope:ng.IScope) {
+			scope.$on('show-modal', function(event, params: any) {
+				angular.element(document.getElementById(params.id)).modal('show');
+			});
+
+			scope.$on('hide-modal', function(event, params: any) {
+				angular.element(document.getElementById(params.id)).modal('hide');
+			});
+		}
+
 		static factory(): ng.IDirectiveFactory {
 			return (() => new ModalDialogueDirective());
 		}

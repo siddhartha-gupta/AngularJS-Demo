@@ -13,14 +13,16 @@ module app {
 			'$scope',
 			'$location',
 			'APIService',
-			'UtilsService'
+			'UtilsService',
+			'SharedService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
 			private apiService: APIService,
-			private utilsService: UtilsService
+			private utilsService: UtilsService,
+			private sharedService: SharedService
 		) {
 			this.appConfig = app.Constants.Default;
 			this.getUsers();
@@ -77,6 +79,7 @@ module app {
 				user: this.utilsService.clone(this.usersList[key]),
 				userId: key
 			};
+			this.sharedService.broadcastEvent('show-edit-modal', { id: 'editUserModal' });
 			this.utilsService.log(this.editUser);
 		}
 
@@ -103,6 +106,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
+			this.sharedService.broadcastEvent('hide-edit-modal', { id: 'editUserModal' });
 			this.editUserDefault();
 		}
 
@@ -136,6 +140,7 @@ module app {
 				btn2Callback: this.hideModalDialogue.bind(this),
 				closeBtnCallback: this.hideModalDialogue.bind(this),
 			};
+			this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
 		}
 
 		deleteUserConfirm(key: string) {
@@ -160,6 +165,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
+			this.sharedService.broadcastEvent('hide-modal', { id: 'modalDialogue' });
 			this.modalDialogueDefault();
 		}
 
