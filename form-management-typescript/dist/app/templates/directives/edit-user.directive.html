@@ -10,14 +10,14 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">First name</label>
 						<div class="col-sm-10">
-							<input required class="form-control" type="text" placeholder="First name" ng-model="customController.user.firstname" />
+							<input required class="form-control" type="text" placeholder="First name" ng-model="customController.user.firstname" maxlength="64" />
 							<span ng-show="customController.user.firstname" class="tickmark">&#10004;</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Last name</label>
 						<div class="col-sm-10">
-							<input required class="form-control" type="text" placeholder="Last name" ng-model="customController.user.lastname" />
+							<input required class="form-control" type="text" placeholder="Last name" ng-model="customController.user.lastname" maxlength="64" />
 							<span ng-show="customController.user.lastname" class="tickmark">&#10004;</span>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Phone number</label>
 						<div class="col-sm-10">
-							<input disabled required class="form-control" type="number" placeholder="Phone number" ng-model="customController.user.phonenumber" />
+							<input disabled required class="form-control" type="text" placeholder="Phone number" ng-model="customController.user.phonenumber" />
 							<span class="tickmark">&#10004;</span>
 						</div>
 					</div>

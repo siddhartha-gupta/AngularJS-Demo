@@ -85,7 +85,6 @@ module app {
 
 		updateUserData(data: any, userId: string) {
 			this.utilsService.log('updateUserData: ', data, userId);
-			this.hideEditPopup();
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',
@@ -93,9 +92,26 @@ module app {
 					'userId': userId,
 					'userData': data
 				}
-			}).success((response) => {
+			}).success((response:any) => {
 				this.utilsService.log('updateUserData success: ', response);
-				this.getUsers();
+				this.hideEditPopup();
+
+				if(response.resp === true) {
+					this.getUsers();
+				} else {
+					this.modalDialogue = {
+						isVisible: true,
+						title: 'Error!',
+						body: 'We have encountered error while updating user information. Please try again',
+						btn1Txt: 'Ok',
+						btn2Txt: '',
+						showBtn2: false,
+						btn1Callback: this.hideModalDialogue.bind(this),
+						btn2Callback: function() { },
+						closeBtnCallback: this.hideModalDialogue.bind(this),
+					};
+					this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
+				}
 			}).error((response) => {
 				this.utilsService.log('updateUserData error: ', response);
 			});
@@ -151,10 +167,25 @@ module app {
 				data: {
 					'userId': userId
 				}
-			}).success((response) => {
+			}).success((response: any) => {
 				this.utilsService.log('success: ', response);
-				this.modalDialogueDefault();
-				this.getUsers();
+				if (response.resp === true) {
+					this.hideModalDialogue();
+					this.getUsers();
+				} else {
+					console.log('in error');
+					this.modalDialogue = {
+						isVisible: true,
+						title: 'Error!',
+						body: 'We have encountered error while deleting user. Please try again',
+						btn1Txt: 'Ok',
+						btn2Txt: '',
+						showBtn2: false,
+						btn1Callback: this.hideModalDialogue.bind(this),
+						btn2Callback: function() { },
+						closeBtnCallback: this.hideModalDialogue.bind(this),
+					};
+				}
 			}).error((response) => {
 				this.utilsService.log('error: ', response);
 			});
@@ -165,6 +196,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
+
 			this.sharedService.broadcastEvent('hide-modal', { id: 'modalDialogue' });
 			this.modalDialogueDefault();
 		}

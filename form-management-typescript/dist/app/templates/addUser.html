@@ -3,28 +3,28 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">First name</label>
 			<div class="col-sm-10">
-				<input required class="form-control" type="text" placeholder="First name" ng-model="customController.userdata.firstname" />
+				<input required class="form-control" type="text" placeholder="First name" ng-model="customController.userdata.firstname" maxlength="64" />
 				<span ng-show="customController.userdata.firstname" class="tickmark">&#10004;</span>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Last name</label>
 			<div class="col-sm-10">
-				<input required class="form-control" type="text" placeholder="Last name" ng-model="customController.userdata.lastname" />
+				<input required class="form-control" type="text" placeholder="Last name" ng-model="customController.userdata.lastname" maxlength="64" />
 				<span ng-show="customController.userdata.lastname" class="tickmark">&#10004;</span>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Email</label>
 			<div class="col-sm-10">
-				<input required class="form-control" type="email" placeholder="Email" ng-model="customController.userdata.email" ng-keyup="customController.validateEmail(customController.userdata.email)" />
+				<input required class="form-control" type="email" placeholder="Email" ng-model="customController.userdata.email" ng-keyup="customController.validateEmail(customController.userdata.email)" maxlength="255" />
 				<span ng-show="customController.validEmail" class="tickmark">&#10004;</span>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Phone number</label>
 			<div class="col-sm-10">
-				<input required class="form-control" type="number" placeholder="Phone number" ng-model="customController.userdata.phonenumber" />
+				<input required class="form-control" type="text" placeholder="Phone number" ng-model="customController.userdata.phonenumber" maxlength="20" />
 				<span ng-show="customController.userdata.phonenumber" class="tickmark">&#10004;</span>
 			</div>
 		</div>
