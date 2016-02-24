@@ -194,6 +194,10 @@ input.ng-invalid.ng-dirty {
 	background-color: #E0E0E0;
 }
 
+.group-content .actionBtns {
+	text-align: center;
+}
+
 .group-content .editBtn {
 	padding: 2px;
     font-size: 16px;

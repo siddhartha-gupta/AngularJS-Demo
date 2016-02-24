@@ -1,20 +1,20 @@
 <div class="container">
 	<div class="row stats-container" ng-if="customController.dataAvailable()">
 		<div class="row group-title">
-			<div class="heading col-xs-1" ng-click="customController.manageSortOrder($event, 'location')">Location</div>
 			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'firstname')">First Name</div>
 			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'lastname')">Last Name</div>
 			<div class="heading col-xs-3" ng-click="customController.manageSortOrder($event, 'email')">Email</div>
 			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'phonenumber')">Phone number</div>
+			<div class="heading col-xs-1" ng-click="customController.manageSortOrder($event, 'location')">Location</div>
 		</div>
 
 		<div class="row group-content" ng-repeat="user in customController.usersList | orderBy:customController.sortOrder">
-			<div class="col-xs-1">{{user.location}}</div>
 			<div class="col-xs-2">{{user.firstname}}</div>
 			<div class="col-xs-2">{{user.lastname}}</div>
 			<div class="col-xs-3">{{user.email}}</div>
 			<div class="col-xs-2">{{user.phonenumber}}</div>
-			<div class="col-xs-2">
+			<div class="col-xs-1">{{user.location}}</div>
+			<div class="col-xs-2 actionBtns">
 				<span class="editBtn" ng-click="customController.editUserClick(event, user.id_member)">Edit</span>
 				<span class="deleteBtn btn btn-danger" ng-click="customController.deleteUserClick(event, user.id_member)">Delete</span>
 			</div>
