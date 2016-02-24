@@ -73,13 +73,10 @@ module app {
 			}
 			this.utilsService.log('userId: ', userId);
 
-			let data = this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId));
-			data.phonenumber = parseInt(data.phonenumber, 10);
-
 			this.editUser = {
 				isVisible: true,
 				title: 'Edit details',
-				user: data,
+				user: this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId)),
 				userId: userId
 			};
 			this.sharedService.broadcastEvent('show-edit-modal', { id: 'editUserModal' });
