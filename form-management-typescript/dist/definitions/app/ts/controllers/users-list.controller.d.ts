@@ -10,6 +10,7 @@ declare module app {
         private appConfig;
         private editUser;
         private modalDialogue;
+        private sortOrder;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         dataAvailable(): boolean;
@@ -24,5 +25,6 @@ declare module app {
         deleteUserConfirm(userId: string): void;
         hideModalDialogue(event?: Event): void;
         modalDialogueDefault(): void;
+        manageSortOrder(event: Event, orderBy: string): void;
     }
 }

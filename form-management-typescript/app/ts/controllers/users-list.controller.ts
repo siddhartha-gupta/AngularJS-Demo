@@ -8,6 +8,7 @@ module app {
 		private appConfig: appConfigInterface;
 		private editUser: EditUserInterface;
 		private modalDialogue: ModalDialogueInterface;
+		private sortOrder: string;
 
 		public static $inject = [
 			'$scope',
@@ -25,6 +26,7 @@ module app {
 			private sharedService: SharedService
 		) {
 			this.appConfig = app.Constants.Default;
+			this.sortOrder = 'firstname';
 			this.getUsers();
 
 			this.usersList = [];
@@ -213,6 +215,15 @@ module app {
 				btn2Callback: function() { },
 				closeBtnCallback: function() { },
 			};
+		}
+
+		manageSortOrder(event: Event, orderBy: string) {
+			if (orderBy === this.sortOrder) {
+				this.sortOrder = '-' + orderBy;	
+			} else {
+				this.sortOrder = orderBy;
+			}
+			
 		}
 	}
 }
