@@ -4,7 +4,7 @@ module app {
 	'use strict';
 
 	export class UsersListController implements UsersListInterface {
-		private usersList: Object;
+		private usersList: Array<any>;
 		private appConfig: appConfigInterface;
 		private editUser: EditUserInterface;
 		private modalDialogue: ModalDialogueInterface;
@@ -27,13 +27,13 @@ module app {
 			this.appConfig = app.Constants.Default;
 			this.getUsers();
 
-			this.usersList = {};
+			this.usersList = [];
 			this.editUserDefault();
 			this.modalDialogueDefault();
 		}
 
 		dataAvailable() {
-			if (Object.keys(this.usersList).length > 0) {
+			if (this.usersList.length > 0) {
 				return true;
 			}
 			return false
@@ -52,10 +52,10 @@ module app {
 		processServerData(data: any) {
 			this.utilsService.log('processServerData: ', data);
 
-			if (data && Object.keys(data).length > 0) {
+			if (data && data.length > 0) {
 				this.usersList = data;
 			} else {
-				this.usersList = {};
+				this.usersList.length = 0;
 			}
 		}
 
@@ -66,18 +66,21 @@ module app {
 		/*
 		* Edit user code flow
 		*/
-		editUserClick(event: Event, key: string) {
+		editUserClick(event: Event, userId: string) {
 			if (event) {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			this.utilsService.log('key: ', key);
+			this.utilsService.log('userId: ', userId);
+
+			let data = this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId));
+			data.phonenumber = parseInt(data.phonenumber, 10);
 
 			this.editUser = {
 				isVisible: true,
 				title: 'Edit details',
-				user: this.utilsService.clone(this.usersList[key]),
-				userId: key
+				user: data,
+				userId: userId
 			};
 			this.sharedService.broadcastEvent('show-edit-modal', { id: 'editUserModal' });
 			this.utilsService.log(this.editUser);
@@ -90,7 +93,7 @@ module app {
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',
 				data: {
-					'key': userId,
+					'userId': userId,
 					'userData': data
 				}
 			}).success((response) => {
@@ -122,12 +125,12 @@ module app {
 		/*
 		* Delete user codeflow
 		*/
-		deleteUserClick(event: Event, key: string) {
+		deleteUserClick(event: Event, userId: string) {
 			if (event) {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			this.utilsService.log('key: ', key);
+			this.utilsService.log('userId: ', userId);
 
 			this.modalDialogue = {
 				isVisible: true,
@@ -136,20 +139,20 @@ module app {
 				btn1Txt: 'Ok',
 				btn2Txt: 'Cancel',
 				showBtn2: true,
-				btn1Callback: this.deleteUserConfirm.bind(this, key),
+				btn1Callback: this.deleteUserConfirm.bind(this, userId),
 				btn2Callback: this.hideModalDialogue.bind(this),
 				closeBtnCallback: this.hideModalDialogue.bind(this),
 			};
 			this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
 		}
 
-		deleteUserConfirm(key: string) {
-			this.utilsService.log('deleteUserConfirm, key: ', key);
+		deleteUserConfirm(userId: string) {
+			this.utilsService.log('deleteUserConfirm, userId: ', userId);
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'deleteuser',
 				data: {
-					'key': key
+					'userId': userId
 				}
 			}).success((response) => {
 				this.utilsService.log('success: ', response);

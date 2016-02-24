@@ -69,6 +69,7 @@ module app {
 					if (response && response.resp && response.resp === 'Email already in use') {
 						this.showModalDialogue('emailInUse');
 					} else {
+						console.log('add successfully');
 						this.$location.path('/userslist').replace();
 					}
 				}).error((response: any) => {

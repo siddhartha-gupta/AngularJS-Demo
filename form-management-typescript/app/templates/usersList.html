@@ -1,13 +1,13 @@
 <div class="container">
 	<div class="row stats-container" ng-if="customController.dataAvailable()">
-		<div class="row group-content" ng-repeat="(key, user) in customController.usersList">
+		<div class="row group-content" ng-repeat="user in customController.usersList">
 			<div class="col-xs-1">{{user.location}}</div>
 			<div class="col-xs-3">{{user.firstname}} {{user.lastname}}</div>
 			<div class="col-xs-3">{{user.email}}</div>
 			<div class="col-xs-3">{{user.phonenumber}}</div>
 			<div class="col-xs-2">
-				<span class="editBtn" ng-click="customController.editUserClick(event, key)">Edit</span>
-				<span class="deleteBtn" ng-click="customController.deleteUserClick(event, key)">Delete</span>
+				<span class="editBtn" ng-click="customController.editUserClick(event, user.id_member)">Edit</span>
+				<span class="deleteBtn" ng-click="customController.deleteUserClick(event, user.id_member)">Delete</span>
 			</div>
 		</div>
 	</div>

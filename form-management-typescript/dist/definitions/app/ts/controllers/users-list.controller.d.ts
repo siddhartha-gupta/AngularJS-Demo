@@ -16,12 +16,12 @@ declare module app {
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
-        editUserClick(event: Event, key: string): void;
+        editUserClick(event: Event, userId: string): void;
         updateUserData(data: any, userId: string): void;
         hideEditPopup(event?: Event): void;
         editUserDefault(): void;
-        deleteUserClick(event: Event, key: string): void;
-        deleteUserConfirm(key: string): void;
+        deleteUserClick(event: Event, userId: string): void;
+        deleteUserConfirm(userId: string): void;
         hideModalDialogue(event?: Event): void;
         modalDialogueDefault(): void;
     }

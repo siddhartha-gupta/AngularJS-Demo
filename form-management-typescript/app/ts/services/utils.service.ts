@@ -58,6 +58,12 @@ module app {
 			}
 		}
 
+		getObjectFromArr(arr: Array<any>, propName: string, propValue: any) {
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i][propName] == propValue) return arr[i];
+			}
+		}
+
 		log(...msg: any[]) {
 			console.log.apply(console, arguments);
 		}
