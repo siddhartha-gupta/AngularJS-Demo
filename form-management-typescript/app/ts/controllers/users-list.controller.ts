@@ -218,6 +218,14 @@ module app {
 		}
 
 		manageSortOrder(event: Event, orderBy: string) {
+			console.log('manageSortOrder');
+
+			var newClass = 'arrow arrow-down';
+			if (angular.element(event.target).find('span').hasClass('arrow-down')) {
+				newClass = 'arrow arrow-up';
+			}
+			
+			angular.element(event.target).find('span').removeClass().addClass(newClass);
 			if (orderBy === this.sortOrder) {
 				this.sortOrder = '-' + orderBy;	
 			} else {
