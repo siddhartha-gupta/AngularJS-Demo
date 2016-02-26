@@ -210,7 +210,6 @@ module app {
 					this.hideModalDialogue();
 					this.getUsers();
 				} else {
-					console.log('in error');
 					this.modalDialogue = {
 						isVisible: true,
 						title: 'Error!',
@@ -253,8 +252,6 @@ module app {
 		}
 
 		manageSortOrder(orderBy: any) {
-			console.log('manageSortOrder, orderBy: ', orderBy);
-
 			if (orderBy === this.sortOrder) {
 				this.sortOrder = '-' + orderBy;
 			} else {

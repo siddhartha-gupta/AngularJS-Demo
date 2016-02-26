@@ -1,6 +1,6 @@
 <div class="row group-title">
-	<div ng-repeat="heading in customController.tableHeading" class="heading {{heading.className}}" ng-click="customController.manageSortOrder($event, heading.sortOrder)">
-		<span class="arrow arrow-up"></span>
+	<div ng-repeat="heading in customController.tableHeading" id="heading_{{heading.sortOrder}}" class="heading {{heading.className}}" ng-click="customController.manageSortOrder($event, heading.sortOrder)">
+		<span class="arrow arrow-down"></span>
 		{{heading.text}}
 	</div>
 </div>

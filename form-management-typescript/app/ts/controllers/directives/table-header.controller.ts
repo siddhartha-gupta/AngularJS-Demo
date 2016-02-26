@@ -5,8 +5,17 @@ module app {
 
 	export class TableHeaderController {
 		sortFunc: Function;
+		defaultClass: string;
+		lastSortOrder: string;
 
-		constructor() { }
+		public static $inject = [
+			'$element'
+		];
+
+		constructor(private $element: ng.IRootElementService) {
+			this.defaultClass = 'arrow arrow-down';
+			this.lastSortOrder = '';
+		}
 
 		manageSortOrder(event: Event, sortOrder: string) {
 			if (event) {
@@ -14,13 +23,17 @@ module app {
 				event.stopPropagation();
 			}
 
-			var newClass = 'arrow arrow-down';
-			if (angular.element(event.target).find('span').hasClass('arrow-down')) {
-				newClass = 'arrow arrow-up';
+			var newClass = 'arrow arrow-up';
+			if (angular.element(event.target).find('span').hasClass('arrow-up')) {
+				newClass = 'arrow arrow-down';
 			}
 
+			if (this.lastSortOrder !== sortOrder) {
+				angular.element('#heading_' + this.lastSortOrder).find('span').removeClass().addClass(this.defaultClass);
+				this.lastSortOrder = sortOrder;
+			}
 			angular.element(event.target).find('span').removeClass().addClass(newClass);
-			console.log('manageSortOrder: ', this.sortFunc);
+
 			this.sortFunc({
 				'orderBy': sortOrder
 			});
