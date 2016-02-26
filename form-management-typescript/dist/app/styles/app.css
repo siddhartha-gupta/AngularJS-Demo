@@ -223,19 +223,22 @@ input.ng-invalid.ng-dirty {
 	text-align: center;
 }
 
+.group-content .deleteBtn,
 .group-content .editBtn {
-	padding: 2px;
-    font-size: 16px;
-    color: #286090;
-    cursor: pointer;
+	width: 24px;
+	height: 26px;
+	background-image: url('../img/icon-sprite.png');
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
 }
 
-.group-content .editBtn:hover {
-    text-decoration: underline;
+.group-content .editBtn {
+	background-position: 0px -36px	
 }
 
 .group-content .deleteBtn {
-	padding: 2px 10px;
+	background-position: 0px 0px;
 }
 
 .form-group {

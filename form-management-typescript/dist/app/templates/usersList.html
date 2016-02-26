@@ -13,7 +13,7 @@
 				<span class="arrow arrow-up"></span>
 				Email
 			</div>
-			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'phonenumber')">
+			<div class="heading col-xs-3" ng-click="customController.manageSortOrder($event, 'phonenumber')">
 				<span class="arrow arrow-up"></span>
 				Phone number
 			</div>
@@ -27,11 +27,11 @@
 			<div class="col-xs-2">{{user.firstname}}</div>
 			<div class="col-xs-2">{{user.lastname}}</div>
 			<div class="col-xs-3">{{user.email}}</div>
-			<div class="col-xs-2">{{user.phonenumber}}</div>
+			<div class="col-xs-3">{{user.phonenumber}}</div>
 			<div class="col-xs-1">{{user.location}}</div>
-			<div class="col-xs-2 actionBtns">
-				<span class="editBtn" ng-click="customController.editUserClick(event, user.id_member)">Edit</span>
-				<span class="deleteBtn btn btn-danger" ng-click="customController.deleteUserClick(event, user.id_member)">Delete</span>
+			<div class="col-xs-1 actionBtns">
+				<span class="editBtn" title="Edit info" ng-click="customController.editUserClick(event, user.id_member)"></span>
+				<span class="deleteBtn" title="Delete user" ng-click="customController.deleteUserClick(event, user.id_member)"></span>
 			</div>
 		</div>
 	</div>
