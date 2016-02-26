@@ -27,7 +27,7 @@ header .left:after {
 	height: 14px;
 	left: -20px;
 	position: absolute;
-	top: 20px;
+	top: 22px;
 	-webkit-transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
 	transform: rotate(45deg);

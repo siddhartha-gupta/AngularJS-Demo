@@ -41,11 +41,11 @@ module app {
 		}
 
 		onRouteChangeStart(event: Event, params: Object) {
-			this.$log.log('onRouteChangeStart: ', params);
+			// this.$log.log('onRouteChangeStart: ', params);
 		}
 
 		onRouteChangeSuccess(event: Event, params: any) {
-			this.$log.log('onRouteChangeSuccess: ', params);
+			// this.$log.log('onRouteChangeSuccess: ', params);
 
 			if (params.next && params.next.$$route && params.next.$$route.controller) {
 				switch (params.next.$$route.controller) {
@@ -63,7 +63,7 @@ module app {
 		}
 
 		onRouteChangeError(event, params) {
-			this.$log.log('onRouteChangeError: ', params);
+			// this.$log.log('onRouteChangeError: ', params);
 		}
 
 		setUserListHeader() {
@@ -76,7 +76,7 @@ module app {
 			this.headerRightBtn = {
 				'showBtn': true,
 				'clickFunc': 'goToAddUser',
-				'text': 'New user'
+				'text': 'Add user'
 			};
 		}
 
