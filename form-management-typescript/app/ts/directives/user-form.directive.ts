@@ -10,7 +10,8 @@ module app {
 			userId: '=',
 			editMode: '=',
 			validateEmail: '&',
-			formSubmit: '&'
+			formSubmit: '&',
+			discardForm: '&'
         };
         public templateUrl = app.Constants.Default.templateUrl + 'directives/user-form.directive.html';
 		public controller = 'UserFormController';

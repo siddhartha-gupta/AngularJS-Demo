@@ -9,6 +9,7 @@ declare module app {
             userId: string;
             hidePopup: string;
             updateData: string;
+            discardForm: string;
         };
         templateUrl: string;
         controller: string;

@@ -256,13 +256,13 @@ input.ng-invalid.ng-dirty {
 	padding-left: 10px;
 }
 
-.modal-content .cancel-btn {
+.cancel-btn {
  	padding: 2px;
     font-size: 14px;
     color: #286090;
     cursor: pointer;
 }
 
-.modal-content .cancel-btn:hover {
+.cancel-btn:hover {
 	text-decoration: underline;
 }

@@ -11,7 +11,8 @@ module app {
 			userData: '=',
 			userId: '=',
 			hidePopup: '&',
-			updateData: '&'
+			updateData: '&',
+			discardForm: '&'
         };
         public templateUrl = app.Constants.Default.templateUrl + 'directives/edit-user.directive.html';
 		public controller = 'EditUserController';

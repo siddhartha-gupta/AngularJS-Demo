@@ -8,6 +8,7 @@ declare module app {
             editMode: string;
             validateEmail: string;
             formSubmit: string;
+            discardForm: string;
         };
         templateUrl: string;
         controller: string;

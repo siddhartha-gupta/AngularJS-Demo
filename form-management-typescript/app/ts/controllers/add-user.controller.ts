@@ -56,6 +56,10 @@ module app {
 			return true;
 		}
 
+		gotoUserList() {
+			this.$location.path('/userslist').replace();
+		}
+
 		addUser() {
 			this.utilsService.log('add user: ', this.userData);
 
@@ -69,7 +73,7 @@ module app {
 					if (response && response.resp && response.resp === 'Email already in use') {
 						this.showModalDialogue('emailInUse');
 					} else {
-						this.$location.path('/userslist').replace();
+						this.gotoUserList();
 					}
 				}).error((response: any) => {
 					this.utilsService.log('error: ', response);

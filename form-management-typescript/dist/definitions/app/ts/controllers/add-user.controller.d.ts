@@ -14,6 +14,7 @@ declare module app {
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         validateEmail(val: string): void;
         validateForm(): boolean;
+        gotoUserList(): void;
         addUser(): void;
         userDataDefault(): void;
         showModalDialogue(errorType: string): void;

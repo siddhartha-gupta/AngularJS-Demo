@@ -6,7 +6,7 @@
 				<h4 class="modal-title">{{customController.title}}</h4>
 			</div>
 			<div class="modal-body">
-				<user-form user-data="customController.userData" user-id="customController.userId" edit-mode="true" form-submit="customController.updateData({data:customController.userData, userId: customController.userId})"></user-form>
+				<user-form user-data="customController.userData" user-id="customController.userId" edit-mode="true" form-submit="customController.updateData({data:customController.userData, userId: customController.userId})" discard-form="customController.discardForm()"></user-form>
 			</div>
 		</div>
 	</div>
