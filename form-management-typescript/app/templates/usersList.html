@@ -1,31 +1,6 @@
 <div class="container">
 	<div class="row stats-container" ng-if="customController.dataAvailable()">
-		<div class="row group-title">
-			<div class="heading col-xs-1" ng-click="customController.manageSortOrder($event, 'id_member')">
-				<span class="arrow arrow-up"></span>
-				S.No
-			</div>
-			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'firstname')">
-				<span class="arrow arrow-up"></span>
-				First Name
-			</div>
-			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'lastname')">
-				<span class="arrow arrow-up"></span>
-				Last Name
-			</div>
-			<div class="heading col-xs-3" ng-click="customController.manageSortOrder($event, 'email')">
-				<span class="arrow arrow-up"></span>
-				Email
-			</div>
-			<div class="heading col-xs-2" ng-click="customController.manageSortOrder($event, 'phonenumber')">
-				<span class="arrow arrow-up"></span>
-				Phone number
-			</div>
-			<div class="heading col-xs-1" ng-click="customController.manageSortOrder($event, 'location')">
-				<span class="arrow arrow-up"></span>
-				Location
-			</div>
-		</div>
+		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)"></table-header>
 
 		<div class="row group-content" ng-repeat="user in customController.usersList | orderBy:customController.sortOrder">
 			<div class="col-xs-1">{{user.id_member}}</div>

@@ -9,6 +9,8 @@ module app {
 		private editUser: EditUserInterface;
 		private modalDialogue: ModalDialogueInterface;
 		private sortOrder: string;
+		//TODO: create interface
+		private tableHeading: Array<any>;
 
 		public static $inject = [
 			'$scope',
@@ -32,6 +34,35 @@ module app {
 			this.usersList = [];
 			this.editUserDefault();
 			this.modalDialogueDefault();
+			this.createtableHeading();
+		}
+
+		createtableHeading() {
+			this.tableHeading = [{
+				'className': 'col-xs-1',
+				'sortOrder': 'id_member',
+				'text': 'S.No'
+			}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'firstname',
+					'text': 'First name'
+				}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'lastname',
+					'text': 'Last name'
+				}, {
+					'className': 'col-xs-3',
+					'sortOrder': 'email',
+					'text': 'Email'
+				}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'phonenumber',
+					'text': 'Phone Number'
+				}, {
+					'className': 'col-xs-1',
+					'sortOrder': 'location',
+					'text': 'Location'
+				}];
 		}
 
 		dataAvailable() {
@@ -221,15 +252,9 @@ module app {
 			};
 		}
 
-		manageSortOrder(event: Event, orderBy: string) {
-			console.log('manageSortOrder');
+		manageSortOrder(orderBy: any) {
+			console.log('manageSortOrder, orderBy: ', orderBy);
 
-			var newClass = 'arrow arrow-down';
-			if (angular.element(event.target).find('span').hasClass('arrow-down')) {
-				newClass = 'arrow arrow-up';
-			}
-
-			angular.element(event.target).find('span').removeClass().addClass(newClass);
 			if (orderBy === this.sortOrder) {
 				this.sortOrder = '-' + orderBy;
 			} else {

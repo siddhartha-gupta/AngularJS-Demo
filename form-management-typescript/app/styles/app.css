@@ -163,7 +163,8 @@ input.ng-invalid.ng-dirty {
 	margin: 0;
 }
 
-.group-content, .group-title {
+.group-content,
+.group-title {
 	padding: 5px 15px;
 	border-bottom: 1px solid #ddd;
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
