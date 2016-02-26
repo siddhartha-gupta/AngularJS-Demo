@@ -5,7 +5,7 @@ module app {
 
 	export class AddUserController implements AddUserInterface {
 		private validEmail: Boolean;
-		private userdata: UserDataInterface;
+		private userData: UserDataInterface;
 		private appConfig: appConfigInterface;
 		private modalDialogue: ModalDialogueInterface;
 
@@ -40,16 +40,16 @@ module app {
 
 		validateForm() {
 			// make null undefined checks here
-			if (this.utilsService.isNullUndefined(this.userdata.firstname) || this.utilsService.isNullUndefined(this.userdata.lastname)) {
+			if (this.utilsService.isNullUndefined(this.userData.firstname) || this.utilsService.isNullUndefined(this.userData.lastname)) {
 				this.showModalDialogue('inValidForm-name');
 				return false;
-			} else if (this.utilsService.isNullUndefined(this.userdata.email)) {
+			} else if (this.utilsService.isNullUndefined(this.userData.email)) {
 				this.showModalDialogue('inValidForm-email');
 				return false;
-			} else if (this.utilsService.isNullUndefined(this.userdata.phonenumber)) {
+			} else if (this.utilsService.isNullUndefined(this.userData.phonenumber)) {
 				this.showModalDialogue('inValidForm-phonenumber');
 				return false;
-			} else if (this.utilsService.isNullUndefined(this.userdata.location)) {
+			} else if (this.utilsService.isNullUndefined(this.userData.location)) {
 				this.showModalDialogue('inValidForm-location');
 				return false;
 			}
@@ -57,12 +57,12 @@ module app {
 		}
 
 		addUser() {
-			this.utilsService.log('add user: ', this.userdata);
+			this.utilsService.log('add user: ', this.userData);
 
 			if (this.validateForm()) {
 				this.apiService.postCall({
 					'url': this.appConfig.serverUrl + 'adduser',
-					data: this.userdata
+					data: this.userData
 				}).success((response: any) => {
 					this.utilsService.log('success: ', response);
 
@@ -78,7 +78,7 @@ module app {
 		}
 
 		userDataDefault() {
-			this.userdata = {
+			this.userData = {
 				'firstname': '',
 				'lastname': '',
 				'email': '',

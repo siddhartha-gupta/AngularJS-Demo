@@ -6,52 +6,7 @@
 				<h4 class="modal-title">{{customController.title}}</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" ng-submit="customController.addUser()">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">First name</label>
-						<div class="col-sm-10">
-							<input required class="form-control" type="text" placeholder="First name" ng-model="customController.user.firstname" maxlength="64" />
-							<span ng-show="customController.user.firstname" class="tickmark">&#10004;</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Last name</label>
-						<div class="col-sm-10">
-							<input required class="form-control" type="text" placeholder="Last name" ng-model="customController.user.lastname" maxlength="64" />
-							<span ng-show="customController.user.lastname" class="tickmark">&#10004;</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10">
-							<input disabled required class="form-control" type="email" placeholder="Email" ng-model="customController.user.email" />
-							<span class="tickmark">&#10004;</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Phone number</label>
-						<div class="col-sm-10">
-							<input disabled required class="form-control" type="text" placeholder="Phone number" ng-model="customController.user.phonenumber" />
-							<span class="tickmark">&#10004;</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Location</label>
-						<div class="col-sm-10">
-							<select ng-model="customController.user.location" class="form-control input-small">
-								<option selected value="IN">India</option>
-								<option value="US">US</option>
-								<option value="UK">UK</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<span class="cancel-btn" ng-click="customController.hidePopup($event)">Cancel</span>
-							<button type="submit" class="btn btn-primary" ng-click="customController.updateData({data:customController.user, userId: customController.userId})">Update</button>
-						</div>
-					</div>
-				</form>				
+				<user-form></user-form>			
 			</div>
 		</div>
 	</div>

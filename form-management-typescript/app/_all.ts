@@ -20,10 +20,15 @@
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />
 /// <reference path='ts/controllers/add-user.controller.ts' />
+
 /// <reference path='ts/controllers/directives/edit-user.controller.ts' />
 /// <reference path='ts/controllers/directives/modal-dialogue.controller.ts' />
+/// <reference path='ts/controllers/directives/user-form.controller.ts' />
 
 /// <reference path='ts/directives/edit-user.directive.ts' />
+/// <reference path='ts/directives/modal-dialogue.directive.ts' />
+/// <reference path='ts/directives/user-form.directive.ts' />
+
 /// <reference path='ts/services/api.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />
 /// <reference path='ts/services/utils.service.ts' />

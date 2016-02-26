@@ -7,7 +7,7 @@ declare module app {
         private utilsService;
         private sharedService;
         private validEmail;
-        private userdata;
+        private userData;
         private appConfig;
         private modalDialogue;
         static $inject: string[];
