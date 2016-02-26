@@ -3,7 +3,7 @@ declare module app {
     interface EditUserInterface {
         isVisible: Boolean;
         title: string;
-        user: any;
+        userData: any;
         userId: string;
     }
 }

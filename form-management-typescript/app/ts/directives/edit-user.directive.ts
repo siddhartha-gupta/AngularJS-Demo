@@ -8,7 +8,7 @@ module app {
         public scope = {
             isVisible: '=',
 			title: '=',
-			user: '=',
+			userData: '=',
 			userId: '=',
 			hidePopup: '&',
 			updateData: '&'

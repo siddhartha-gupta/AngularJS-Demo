@@ -17,6 +17,7 @@ declare module app {
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
+        validateEmail(val: string): void;
         editUserClick(event: Event, userId: string): void;
         updateUserData(data: any, userId: string): void;
         hideEditPopup(event?: Event): void;

@@ -6,7 +6,7 @@ module app {
 	export interface EditUserInterface {
 		isVisible: Boolean;
 		title: string;
-		user: any;
+		userData: any;
 		userId: string;
 	}
 }

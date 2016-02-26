@@ -68,6 +68,10 @@ module app {
 		/*
 		* Edit user code flow
 		*/
+		validateEmail(val: string) {
+			console.log('validateEmail');
+		}
+
 		editUserClick(event: Event, userId: string) {
 			if (event) {
 				event.stopPropagation();
@@ -78,7 +82,7 @@ module app {
 			this.editUser = {
 				isVisible: true,
 				title: 'Edit details',
-				user: this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId)),
+				userData: this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId)),
 				userId: userId
 			};
 			this.sharedService.broadcastEvent('show-edit-modal', { id: 'editUserModal' });
@@ -94,11 +98,11 @@ module app {
 					'userId': userId,
 					'userData': data
 				}
-			}).success((response:any) => {
+			}).success((response: any) => {
 				this.utilsService.log('updateUserData success: ', response);
 				this.hideEditPopup();
 
-				if(response.resp === true) {
+				if (response.resp === true) {
 					this.getUsers();
 				} else {
 					this.modalDialogue = {
@@ -132,7 +136,7 @@ module app {
 			this.editUser = {
 				isVisible: false,
 				title: '',
-				user: {},
+				userData: {},
 				userId: ''
 			};
 		}
@@ -224,14 +228,14 @@ module app {
 			if (angular.element(event.target).find('span').hasClass('arrow-down')) {
 				newClass = 'arrow arrow-up';
 			}
-			
+
 			angular.element(event.target).find('span').removeClass().addClass(newClass);
 			if (orderBy === this.sortOrder) {
-				this.sortOrder = '-' + orderBy;	
+				this.sortOrder = '-' + orderBy;
 			} else {
 				this.sortOrder = orderBy;
 			}
-			
+
 		}
 	}
 }

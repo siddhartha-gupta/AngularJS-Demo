@@ -5,7 +5,7 @@ declare module app {
         scope: {
             isVisible: string;
             title: string;
-            user: string;
+            userData: string;
             userId: string;
             hidePopup: string;
             updateData: string;
