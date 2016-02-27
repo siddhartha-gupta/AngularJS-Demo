@@ -10,6 +10,7 @@ declare module app {
         private appConfig;
         private editUser;
         private modalDialogue;
+        private infoSlider;
         private sortOrder;
         private tableHeading;
         static $inject: string[];
@@ -22,6 +23,7 @@ declare module app {
         validateEmail(val: string): void;
         editUserClick(event: Event, userId: string): void;
         updateUserData(data: any, userId: string): void;
+        onUserUpdated(): void;
         hideEditPopup(event?: Event): void;
         editUserDefault(): void;
         deleteUserClick(event: Event, userId: string): void;
@@ -29,5 +31,6 @@ declare module app {
         hideModalDialogue(event?: Event): void;
         modalDialogueDefault(): void;
         manageSortOrder(orderBy: any): void;
+        infoSliderDefault(): void;
     }
 }

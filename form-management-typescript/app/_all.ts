@@ -16,6 +16,7 @@
 /// <reference path='ts/interfaces/header.interface.ts' />
 /// <reference path='ts/interfaces/edit-user.interface.ts' />
 /// <reference path='ts/interfaces/modal-dialogue.interface.ts' />
+/// <reference path='ts/interfaces/info-slider.interface.ts' />
 
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />
@@ -25,11 +26,13 @@
 /// <reference path='ts/controllers/directives/modal-dialogue.controller.ts' />
 /// <reference path='ts/controllers/directives/user-form.controller.ts' />
 /// <reference path='ts/controllers/directives/table-header.controller.ts' />
+/// <reference path='ts/controllers/directives/info-slider.controller.ts' />
 
 /// <reference path='ts/directives/edit-user.directive.ts' />
 /// <reference path='ts/directives/modal-dialogue.directive.ts' />
 /// <reference path='ts/directives/user-form.directive.ts' />
 /// <reference path='ts/directives/table-header.directive.ts' />
+/// <reference path='ts/directives/info-slider.directive.ts' />
 
 /// <reference path='ts/services/api.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />

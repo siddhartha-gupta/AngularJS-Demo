@@ -8,6 +8,7 @@ module app {
 		private appConfig: appConfigInterface;
 		private editUser: EditUserInterface;
 		private modalDialogue: ModalDialogueInterface;
+		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
 		//TODO: create interface
 		private tableHeading: Array<any>;
@@ -34,6 +35,7 @@ module app {
 			this.usersList = [];
 			this.editUserDefault();
 			this.modalDialogueDefault();
+			this.infoSliderDefault();
 			this.createtableHeading();
 		}
 
@@ -121,20 +123,29 @@ module app {
 		}
 
 		updateUserData(data: any, userId: string) {
-			this.utilsService.log('updateUserData: ', data, userId);
+			this.utilsService.log('updateUserData: ', data);
+			this.utilsService.log('userId: ', userId);
 
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',
-				data: {
+				'data': {
 					'userId': userId,
-					'userData': data
-				}
+					'userData': {
+						email: data.email,
+						firstname: data.firstname,
+						id_member: data.id_member,
+						lastname: data.lastname,
+						location: data.location,
+						phonenumber: data.phonenumber
+					}
+				},
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			}).success((response: any) => {
 				this.utilsService.log('updateUserData success: ', response);
 				this.hideEditPopup();
 
 				if (response.resp === true) {
-					this.getUsers();
+					this.onUserUpdated();
 				} else {
 					this.modalDialogue = {
 						isVisible: true,
@@ -152,6 +163,17 @@ module app {
 			}).error((response) => {
 				this.utilsService.log('updateUserData error: ', response);
 			});
+		}
+
+		onUserUpdated() {
+			console.log('on user updated');
+			this.infoSlider = {
+				title: 'Update Successfully',
+				body: 'User info has been updated successfully',
+				timer: 5000
+			};
+			this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
+			this.getUsers();
 		}
 
 		hideEditPopup(event?: Event) {
@@ -258,6 +280,14 @@ module app {
 				this.sortOrder = orderBy;
 			}
 
+		}
+
+		infoSliderDefault() {
+			this.infoSlider = {
+				title: '',
+				body: '',
+				timer: 0
+			}
 		}
 	}
 }
