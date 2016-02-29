@@ -224,12 +224,12 @@ module app {
 				'url': this.appConfig.serverUrl + 'deleteuser',
 				data: {
 					'userId': userId
-				}
+				},
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			}).success((response: any) => {
 				this.utilsService.log('success: ', response);
 				if (response.resp === true) {
-					this.hideModalDialogue();
-					this.getUsers();
+					this.onUserDeleted();
 				} else {
 					this.modalDialogue = {
 						isVisible: true,
@@ -246,6 +246,17 @@ module app {
 			}).error((response) => {
 				this.utilsService.log('error: ', response);
 			});
+		}
+
+		onUserDeleted() {
+			this.hideModalDialogue();
+			this.showInfoSlider({
+				title: 'User deleted',
+				body: 'User has been deleted successfully',
+				startTimer: 500,
+				endTimer: 4000
+			});
+			this.getUsers();
 		}
 
 		hideModalDialogue(event?: Event) {
@@ -278,7 +289,6 @@ module app {
 			} else {
 				this.sortOrder = orderBy;
 			}
-
 		}
 
 		showInfoSlider(params: any) {

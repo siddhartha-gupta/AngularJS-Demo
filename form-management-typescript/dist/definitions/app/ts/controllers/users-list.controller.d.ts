@@ -28,6 +28,7 @@ declare module app {
         editUserDefault(): void;
         deleteUserClick(event: Event, userId: string): void;
         deleteUserConfirm(userId: string): void;
+        onUserDeleted(): void;
         hideModalDialogue(event?: Event): void;
         modalDialogueDefault(): void;
         manageSortOrder(orderBy: any): void;
