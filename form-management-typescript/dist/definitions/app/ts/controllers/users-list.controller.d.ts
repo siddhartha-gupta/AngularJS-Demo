@@ -23,10 +23,10 @@ declare module app {
         editUserClick(userId: string): void;
         updateUserData(data: any, userId: string): void;
         onUserUpdateResp(resp: Boolean): void;
-        hideEditPopup(event?: Event): void;
         deleteUserClick(userId: string): void;
         deleteUserConfirm(userId: string): void;
         onUserDeleted(resp: Boolean): void;
+        hideEditPopup(event?: Event): void;
         hideModalDialogue(event?: Event): void;
         manageSortOrder(orderBy: any): void;
         showInfoSlider(params: any): void;

@@ -155,15 +155,6 @@ module app {
 			}
 		}
 
-		hideEditPopup(event?: Event) {
-			if (event) {
-				event.stopPropagation();
-				event.preventDefault();
-			}
-			this.sharedService.broadcastEvent('hide-edit-modal', { id: 'editUserModal' });
-			this.editUserDefault();
-		}
-
 		/*
 		* Delete user codeflow
 		*/
@@ -224,6 +215,19 @@ module app {
 					closeBtnCallback: this.hideModalDialogue.bind(this),
 				};
 			}
+		}
+
+		/*
+		* Generic functions to hide pop ups
+		* to show info slider etc
+		*/
+		hideEditPopup(event?: Event) {
+			if (event) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+			this.sharedService.broadcastEvent('hide-edit-modal', { id: 'editUserModal' });
+			this.editUserDefault();
 		}
 
 		hideModalDialogue(event?: Event) {
