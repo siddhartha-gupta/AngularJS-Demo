@@ -43,12 +43,11 @@ module app {
 			this.createtableHeading();
 		}
 
-		startEditMode($event:Event, userId: string) {
-			if(event) {
+		startEditMode($event: Event, userId: string) {
+			if (event) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
-			console.log('startEditMode: ', userId);
 
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
@@ -56,7 +55,7 @@ module app {
 			}
 		}
 
-		cancelEditMode(event:Event) {
+		cancelEditMode(event?: Event) {
 			if (event) {
 				event.preventDefault();
 				event.stopPropagation();
@@ -66,39 +65,28 @@ module app {
 			this.editUserId = '';
 		}
 
-		createtableHeading() {
-			this.tableHeading = [{
-				'className': 'col-xs-1',
-				'sortOrder': 'id_member',
-				'text': 'S.No'
-			}, {
-					'className': 'col-xs-2',
-					'sortOrder': 'firstname',
-					'text': 'First name'
-				}, {
-					'className': 'col-xs-2',
-					'sortOrder': 'lastname',
-					'text': 'Last name'
-				}, {
-					'className': 'col-xs-3',
-					'sortOrder': 'email',
-					'text': 'Email'
-				}, {
-					'className': 'col-xs-2',
-					'sortOrder': 'phonenumber',
-					'text': 'Phone Number'
-				}, {
-					'className': 'col-xs-1',
-					'sortOrder': 'location',
-					'text': 'Location'
-				}];
-		}
-
-		dataAvailable() {
-			if (this.usersList.length > 0) {
-				return true;
+		saveUserClick(event: Event, userId: string) {
+			if (event) {
+				event.preventDefault();
+				event.stopPropagation();
 			}
-			return false
+			var editRow = angular.element('#userinfo_' + userId),
+				id_member = editRow.find('#id_member').val(),
+				firstname = editRow.find('#firstname').val(),
+				lastname = editRow.find('#lastname').val(),
+				email = editRow.find('#email').val(),
+				phonenumber = editRow.find('#phonenumber').val(),
+				location = editRow.find('#location').val();
+
+			this.updateUserData({
+				id_member: id_member,
+				firstname: firstname,
+				lastname: lastname,
+				email: email,
+				phonenumber: phonenumber,
+				location: location
+			}, id_member);
+			this.cancelEditMode();
 		}
 
 		getUsers() {
@@ -211,15 +199,6 @@ module app {
 			this.editUserDefault();
 		}
 
-		editUserDefault() {
-			this.editUser = {
-				isVisible: false,
-				title: '',
-				userData: {},
-				userId: ''
-			};
-		}
-
 		/*
 		* Delete user codeflow
 		*/
@@ -296,20 +275,6 @@ module app {
 			this.modalDialogueDefault();
 		}
 
-		modalDialogueDefault() {
-			this.modalDialogue = {
-				isVisible: false,
-				title: '',
-				body: '',
-				btn1Txt: '',
-				btn2Txt: '',
-				showBtn2: false,
-				btn1Callback: function() { },
-				btn2Callback: function() { },
-				closeBtnCallback: function() { },
-			};
-		}
-
 		manageSortOrder(orderBy: any) {
 			if (orderBy === this.sortOrder) {
 				this.sortOrder = '-' + orderBy;
@@ -335,6 +300,60 @@ module app {
 		hideInfoSlider() {
 			this.sharedService.broadcastEvent('hide-info-slider', { id: 'infoSlider' });
 			this.infoSliderDefault();
+		}
+
+		/*
+		* Functions to set deafult values for different configs
+		*/
+		createtableHeading() {
+			this.tableHeading = [{
+				'className': 'col-xs-1',
+				'sortOrder': 'id_member',
+				'text': 'S.No'
+			}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'firstname',
+					'text': 'First name'
+				}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'lastname',
+					'text': 'Last name'
+				}, {
+					'className': 'col-xs-3',
+					'sortOrder': 'email',
+					'text': 'Email'
+				}, {
+					'className': 'col-xs-2',
+					'sortOrder': 'phonenumber',
+					'text': 'Phone Number'
+				}, {
+					'className': 'col-xs-1',
+					'sortOrder': 'location',
+					'text': 'Location'
+				}];
+		}
+
+		editUserDefault() {
+			this.editUser = {
+				isVisible: false,
+				title: '',
+				userData: {},
+				userId: ''
+			};
+		}
+
+		modalDialogueDefault() {
+			this.modalDialogue = {
+				isVisible: false,
+				title: '',
+				body: '',
+				btn1Txt: '',
+				btn2Txt: '',
+				showBtn2: false,
+				btn1Callback: function() { },
+				btn2Callback: function() { },
+				closeBtnCallback: function() { },
+			};
 		}
 
 		infoSliderDefault() {

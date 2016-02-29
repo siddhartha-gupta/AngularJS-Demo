@@ -18,9 +18,8 @@ declare module app {
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         startEditMode($event: Event, userId: string): void;
-        cancelEditMode(event: Event): void;
-        createtableHeading(): void;
-        dataAvailable(): boolean;
+        cancelEditMode(event?: Event): void;
+        saveUserClick(event: Event, userId: string): void;
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
@@ -29,15 +28,16 @@ declare module app {
         updateUserData(data: any, userId: string): void;
         onUserUpdated(): void;
         hideEditPopup(event?: Event): void;
-        editUserDefault(): void;
         deleteUserClick(event: Event, userId: string): void;
         deleteUserConfirm(userId: string): void;
         onUserDeleted(): void;
         hideModalDialogue(event?: Event): void;
-        modalDialogueDefault(): void;
         manageSortOrder(orderBy: any): void;
         showInfoSlider(params: any): void;
         hideInfoSlider(): void;
+        createtableHeading(): void;
+        editUserDefault(): void;
+        modalDialogueDefault(): void;
         infoSliderDefault(): void;
     }
 }

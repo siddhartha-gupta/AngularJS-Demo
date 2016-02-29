@@ -1,28 +1,42 @@
 <div class="container">
-	<div class="row stats-container" ng-if="customController.dataAvailable()">
+	<div class="row stats-container" ng-if="customController.usersList.length > 0">
 		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)"></table-header>
 
-		<div class="row group-content" ng-repeat="user in customController.usersList | orderBy:customController.sortOrder">
-			<div class="col-xs-1">{{user.id_member}}</div>
-			<input required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="First name" value="{{user.firstname}}" maxlength="64" ng-click="customController.startEditMode($event, user.id_member)" />
-			<input required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="Last name" value="{{user.lastname}}" maxlength="64" ng-click="customController.startEditMode($event, user.id_member)" />
-			<div class="col-xs-3">{{user.email}}</div>
-			<div class="col-xs-2">{{user.phonenumber}}</div>
-			<div class="col-xs-1" ng-show="customController.editUserId !== user.id_member" ng-click="customController.startEditMode($event, user.id_member)">{{user.location}}</div>
-			<select ng-model="customController.userData.location" class="col-xs-1" ng-show="customController.editUserId === user.id_member">
+		<div ng-repeat="(key, user) in customController.usersList | orderBy:customController.sortOrder" class="row group-content" id="userinfo_{{user.id_member}}">
+			<!-- user info -->
+			<!-- user id -->
+			<input id="id_member" class="col-xs-1" ng-readonly="true" type="text" value="{{user.id_member}}" />
+			<!-- <div class="col-xs-1">{{user.id_member}}</div> -->
+
+			<!-- user first and last name -->
+			<input id="firstname" required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="First name" value="{{user.firstname}}" maxlength="64" ng-dblclick="customController.startEditMode($event, user.id_member)" />
+			<input id="lastname" required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="Last name" value="{{user.lastname}}" maxlength="64" ng-dblclick="customController.startEditMode($event, user.id_member)" />
+			
+			<!-- user email and phone number -->
+			<input id="email" class="col-xs-3" ng-readonly="true" type="text" value="{{user.email}}" />
+			<input id="phonenumber" class="col-xs-2" ng-readonly="true" type="text" value="{{user.phonenumber}}" />
+			
+			<!-- user location -->
+			<div class="col-xs-1" ng-show="customController.editUserId !== user.id_member" ng-dblclick="customController.startEditMode($event, user.id_member)">{{user.location}}</div>
+			<select id="location" ng-model="customController.userData.location" class="col-xs-1" ng-show="customController.editUserId === user.id_member">
 				<option value="IN" ng-selected="'IN' === user.location">India</option>
 				<option value="US" ng-selected="'US' === user.location">US</option>
 				<option value="UK" ng-selected="'UK' === user.location">UK</option>
 			</select>
+
+			<!-- action buttons -->
 			<div class="col-xs-1 actionBtns">
+				<!-- buttons for non-edit mode -->
 				<span ng-show="customController.editUserId !== user.id_member" class="actionBtn editBtn" title="Edit info" ng-click="customController.editUserClick(event, user.id_member)"></span>
 				<span ng-show="customController.editUserId !== user.id_member" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.deleteUserClick(event, user.id_member)"></span>
+
+				<!-- buttons for edit mode -->
 				<span ng-show="customController.editUserId === user.id_member" class="actionBtn saveBtn" title="Save info" ng-click="customController.saveUserClick(event, user.id_member)"></span>
 				<span ng-show="customController.editUserId === user.id_member" class="actionBtn cancelBtn" title="Cancel" ng-click="customController.cancelEditMode(event)"></span>
 			</div>
 		</div>
 	</div>
-	<div class="row stats-container" ng-if="!customController.dataAvailable()">
+	<div class="row stats-container" ng-if="customController.usersList.length === 0">
 		<div class="row group-content">
 			<div class="col-xs-12">No user found</div>
 		</div>
