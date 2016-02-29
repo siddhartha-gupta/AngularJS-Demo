@@ -4,7 +4,7 @@ declare module app {
         restrict: string;
         scope: {
             userData: string;
-            editUserId: string;
+            actionHandler: string;
         };
         templateUrl: string;
         controller: string;

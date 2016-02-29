@@ -10,8 +10,6 @@ module app {
 		private modalDialogue: ModalDialogueInterface;
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
-		private editUserId: string;
-		private readOnlyMode: Boolean;
 		//TODO: create interface
 		private tableHeading: Array<any>;
 
@@ -31,8 +29,6 @@ module app {
 			private sharedService: SharedService
 		) {
 			this.appConfig = app.Constants.Default;
-			this.editUserId = '';
-			this.readOnlyMode = true;
 			this.sortOrder = 'firstname';
 			this.getUsers();
 
@@ -43,51 +39,27 @@ module app {
 			this.createtableHeading();
 		}
 
-		/*startEditMode($event: Event, userId: string) {
-			if (event) {
-				event.preventDefault();
-				event.stopPropagation();
+		actionHandler(type: string, userId: string, userData?: any) {
+			console.log('actionHandler: ', type, ' : ', userId);
+			console.log(userData);
+
+			switch (type) {
+				case 'edit':
+					this.editUserClick(userId);
+					break;
+
+				case 'delete':
+					this.deleteUserClick(userId);
+					break;
+
+				case 'save':
+					this.saveUserClick(userId, userData);
+					break;
 			}
+		}
 
-			console.log('startEditMode');
-			if (this.readOnlyMode) {
-				this.readOnlyMode = false;
-				this.editUserId = userId;
-			}
-		}*/
-
-		/*cancelEditMode(event?: Event) {
-			if (event) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-
-			this.readOnlyMode = true;
-			this.editUserId = '';
-		}*/
-
-		saveUserClick(event: Event, userId: string) {
-			if (event) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			var editRow = angular.element('#userinfo_' + userId),
-				id_member = editRow.find('#id_member').val(),
-				firstname = editRow.find('#firstname').val(),
-				lastname = editRow.find('#lastname').val(),
-				email = editRow.find('#email').val(),
-				phonenumber = editRow.find('#phonenumber').val(),
-				location = editRow.find('#location').val();
-
-			this.updateUserData({
-				id_member: id_member,
-				firstname: firstname,
-				lastname: lastname,
-				email: email,
-				phonenumber: phonenumber,
-				location: location
-			}, id_member);
-			// this.cancelEditMode();
+		saveUserClick(userId: string, userData: any) {
+			this.updateUserData(userData, userId);
 		}
 
 		getUsers() {
@@ -121,11 +93,7 @@ module app {
 			console.log('validateEmail');
 		}
 
-		editUserClick(event: Event, userId: string) {
-			if (event) {
-				event.stopPropagation();
-				event.preventDefault();
-			}
+		editUserClick(userId: string) {
 			this.utilsService.log('userId: ', userId);
 
 			this.editUser = {
@@ -203,11 +171,7 @@ module app {
 		/*
 		* Delete user codeflow
 		*/
-		deleteUserClick(event: Event, userId: string) {
-			if (event) {
-				event.stopPropagation();
-				event.preventDefault();
-			}
+		deleteUserClick(userId: string) {
 			this.utilsService.log('userId: ', userId);
 
 			this.modalDialogue = {

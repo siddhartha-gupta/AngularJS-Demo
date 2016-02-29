@@ -9,7 +9,7 @@ module app {
 		public restrict = 'E';
         public scope = {
 			userData: '=',
-			editUserId: '='
+			actionHandler: '&'
         };
         public templateUrl = app.Constants.Default.templateUrl + 'directives/user-info.directive.html';
 		public controller = 'UserInfoController';

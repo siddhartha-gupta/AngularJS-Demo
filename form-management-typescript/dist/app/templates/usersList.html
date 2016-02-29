@@ -3,7 +3,7 @@
 		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)"></table-header>
 
 		<div ng-repeat="(key, userData) in customController.usersList | orderBy:customController.sortOrder" class="row group-content" id="userinfo_{{userData.id_member}}">
-			<user-info user-data="userData" edit-user-id="customController.editUserId"></user-info>
+			<user-info user-data="userData" edit-user-id="customController.editUserId" action-handler="customController.actionHandler(type, userId, userData)"></user-info>
 		</div>
 	</div>
 	<div class="row stats-container" ng-if="customController.usersList.length === 0">

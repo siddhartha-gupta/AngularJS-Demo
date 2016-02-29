@@ -3,15 +3,15 @@
 <input id="id_member" class="col-xs-1" ng-readonly="true" type="text" value="{{customController.userData.id_member}}" />
 
 <!-- user first and last name -->
-<input id="firstname" required class="col-xs-2" ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" value="{{customController.userData.firstname}}" maxlength="64" ng-dblclick="customController.startEditMode($event, customController.userData.id_member)" />
-<input id="lastname" required class="col-xs-2" ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" value="{{customController.userData.lastname}}" maxlength="64" ng-dblclick="customController.startEditMode($event, customController.userData.id_member)" />
+<input id="firstname" required class="col-xs-2" ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" value="{{customController.userData.firstname}}" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
+<input id="lastname" required class="col-xs-2" ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" value="{{customController.userData.lastname}}" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
 
 <!-- user email and phone number -->
 <input id="email" class="col-xs-3" ng-readonly="true" type="text" value="{{customController.userData.email}}" />
 <input id="phonenumber" class="col-xs-2" ng-readonly="true" type="text" value="{{customController.userData.phonenumber}}" />
 
 <!-- user location -->
-<div class="col-xs-1" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event, customController.userData.id_member)">{{customController.userData.location}}</div>
+<div class="col-xs-1" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)">{{customController.userData.location}}</div>
 <select id="location" ng-model="customController.customController.userData.location" class="col-xs-1" ng-show="!customController.readOnlyMode">
     <option value="IN" ng-selected="'IN' === customController.userData.location">India</option>
     <option value="US" ng-selected="'US' === customController.userData.location">US</option>
@@ -21,10 +21,10 @@
 <!-- action buttons -->
 <div class="col-xs-1 actionBtns">
     <!-- buttons for non-edit mode -->
-    <span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.editUserClick(event, customController.userData.id_member)"></span>
-    <span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.deleteUserClick(event, customController.userData.id_member)"></span>
+    <span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
+    <span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
 
     <!-- buttons for edit mode -->
-    <span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.saveUserClick(event, customController.userData.id_member)"></span>
+    <span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.actionCallback(event, 'save',customController.userData.id_member)"></span>
     <span ng-show="!customController.readOnlyMode" class="actionBtn cancelBtn" title="Cancel" ng-click="customController.cancelEditMode(event)"></span>
 </div>
