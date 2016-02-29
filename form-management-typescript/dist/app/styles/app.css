@@ -252,29 +252,19 @@ input.ng-invalid.ng-dirty {
 .group-content input[readonly] {
 	border: 0;
 	background: transparent;
-	padding: 0;
+	padding: 0 15px;
 }
 
 .group-content input[readonly]:hover {
 	border: 1px solid #000;
 	background: #fff;
-	padding: 0;
+	padding: 0 15px;
 }
 
-.group-content select {
-	border: none;
-	background: transparent;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-
-.group-content select:hover {
+.group-content input {
 	border: 1px solid #000;
 	background: #fff;
-	-webkit-appearance: menulist;
-	-moz-appearance: menulist;
-	appearance: menulist;
+	padding: 0 15px;
 }
 
 .form-group {

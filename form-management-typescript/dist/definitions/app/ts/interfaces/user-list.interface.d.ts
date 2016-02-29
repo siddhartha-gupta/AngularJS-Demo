@@ -1,7 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
     interface UsersListInterface {
-        dataAvailable(): any;
         getUsers(): any;
         processServerData(data: any): any;
         addUser(): any;

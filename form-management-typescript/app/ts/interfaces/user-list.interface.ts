@@ -3,7 +3,6 @@
 module app {
 	'use strict';
 	export interface UsersListInterface {
-		dataAvailable()
 		getUsers()
 		processServerData(data: any)
 		addUser()

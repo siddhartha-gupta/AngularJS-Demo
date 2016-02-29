@@ -43,19 +43,20 @@ module app {
 			this.createtableHeading();
 		}
 
-		startEditMode($event: Event, userId: string) {
+		/*startEditMode($event: Event, userId: string) {
 			if (event) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
 
+			console.log('startEditMode');
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
 				this.editUserId = userId;
 			}
-		}
+		}*/
 
-		cancelEditMode(event?: Event) {
+		/*cancelEditMode(event?: Event) {
 			if (event) {
 				event.preventDefault();
 				event.stopPropagation();
@@ -63,7 +64,7 @@ module app {
 
 			this.readOnlyMode = true;
 			this.editUserId = '';
-		}
+		}*/
 
 		saveUserClick(event: Event, userId: string) {
 			if (event) {
@@ -86,7 +87,7 @@ module app {
 				phonenumber: phonenumber,
 				location: location
 			}, id_member);
-			this.cancelEditMode();
+			// this.cancelEditMode();
 		}
 
 		getUsers() {
