@@ -6,6 +6,8 @@ module app {
 	export class UserInfoController {
 		private readOnlyMode: Boolean;
 		private actionHandler: Function;
+		//TODO: need interface
+		private userData: any;
 
 		constructor() {
 			this.readOnlyMode = true;
@@ -17,7 +19,6 @@ module app {
 				event.stopPropagation();
 			}
 
-			console.log('startEditMode');
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
 			}
@@ -28,8 +29,6 @@ module app {
 				event.preventDefault();
 				event.stopPropagation();
 			}
-			console.log('cancelEditMode');
-
 			this.readOnlyMode = true;
 		}
 
@@ -41,11 +40,11 @@ module app {
 
 			if(type === 'save') {
 				var userData = {
-					id_member: angular.element('#id_member').val(),
+					id_member: this.userData.id_member,
 					firstname: angular.element('#firstname').val(),
 					lastname: angular.element('#lastname').val(),
-					email: angular.element('#email').val(),
-					phonenumber: angular.element('#phonenumber').val(),
+					email: this.userData.email,
+					phonenumber: this.userData.phonenumber,
 					location: angular.element('#location').val()
 				};
 				this.cancelEditMode();

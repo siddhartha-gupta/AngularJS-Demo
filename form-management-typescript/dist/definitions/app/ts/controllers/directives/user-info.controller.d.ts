@@ -3,6 +3,7 @@ declare module app {
     class UserInfoController {
         private readOnlyMode;
         private actionHandler;
+        private userData;
         constructor();
         startEditMode($event: Event): void;
         cancelEditMode(event?: Event): void;
