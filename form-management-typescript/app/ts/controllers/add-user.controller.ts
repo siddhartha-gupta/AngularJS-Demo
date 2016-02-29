@@ -66,7 +66,8 @@ module app {
 			if (this.validateForm()) {
 				this.apiService.postCall({
 					'url': this.appConfig.serverUrl + 'adduser',
-					data: this.userData
+					data: this.userData,
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 				}).success((response: any) => {
 					this.utilsService.log('success: ', response);
 

@@ -39,22 +39,6 @@ module app {
 			this.createtableHeading();
 		}
 
-		actionHandler(type: string, userId: string, userData?: any) {
-			switch (type) {
-				case 'edit':
-					this.editUserClick(userId);
-					break;
-
-				case 'delete':
-					this.deleteUserClick(userId);
-					break;
-
-				case 'save':
-					this.updateUserData(userData, userId);
-					break;
-			}
-		}
-
 		getUsers() {
 			this.apiService.getCall({
 				'url': this.appConfig.serverUrl + 'getuserslist'
@@ -77,6 +61,25 @@ module app {
 
 		addUser() {
 			this.$location.path('/addUser').replace();
+		}
+
+		/*
+		* Action buttons handling
+		*/
+		actionHandler(type: string, userId: string, userData?: any) {
+			switch (type) {
+				case 'edit':
+					this.editUserClick(userId);
+					break;
+
+				case 'delete':
+					this.deleteUserClick(userId);
+					break;
+
+				case 'save':
+					this.updateUserData(userData, userId);
+					break;
+			}
 		}
 
 		/*
@@ -119,37 +122,37 @@ module app {
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			}).success((response: any) => {
 				this.utilsService.log('updateUserData success: ', response);
-				this.hideEditPopup();
-
-				if (response.resp === true) {
-					this.onUserUpdated();
-				} else {
-					this.modalDialogue = {
-						isVisible: true,
-						title: 'Error!',
-						body: 'We have encountered error while updating user information. Please try again',
-						btn1Txt: 'Ok',
-						btn2Txt: '',
-						showBtn2: false,
-						btn1Callback: this.hideModalDialogue.bind(this),
-						btn2Callback: function() { },
-						closeBtnCallback: this.hideModalDialogue.bind(this),
-					};
-					this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
-				}
+				this.onUserUpdateResp(response.resp);
 			}).error((response) => {
 				this.utilsService.log('updateUserData error: ', response);
 			});
 		}
 
-		onUserUpdated() {
-			this.showInfoSlider({
-				title: 'User updated',
-				body: 'User info has been updated successfully',
-				startTimer: 500,
-				endTimer: 4000
-			});
-			this.getUsers();
+		onUserUpdateResp(resp: Boolean) {
+			this.hideEditPopup();
+
+			if (resp === true) {
+				this.showInfoSlider({
+					title: 'User updated',
+					body: 'User info has been updated successfully',
+					startTimer: 500,
+					endTimer: 4000
+				});
+				this.getUsers();
+			} else {
+				this.modalDialogue = {
+					isVisible: true,
+					title: 'Error!',
+					body: 'We have encountered error while updating user information. Please try again',
+					btn1Txt: 'Ok',
+					btn2Txt: '',
+					showBtn2: false,
+					btn1Callback: this.hideModalDialogue.bind(this),
+					btn2Callback: function() { },
+					closeBtnCallback: this.hideModalDialogue.bind(this),
+				};
+				this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
+			}
 		}
 
 		hideEditPopup(event?: Event) {
@@ -192,35 +195,35 @@ module app {
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			}).success((response: any) => {
 				this.utilsService.log('success: ', response);
-				if (response.resp === true) {
-					this.onUserDeleted();
-				} else {
-					this.modalDialogue = {
-						isVisible: true,
-						title: 'Error!',
-						body: 'We have encountered error while deleting user. Please try again',
-						btn1Txt: 'Ok',
-						btn2Txt: '',
-						showBtn2: false,
-						btn1Callback: this.hideModalDialogue.bind(this),
-						btn2Callback: function() { },
-						closeBtnCallback: this.hideModalDialogue.bind(this),
-					};
-				}
+				this.onUserDeleted(response.resp);
 			}).error((response) => {
 				this.utilsService.log('error: ', response);
 			});
 		}
 
-		onUserDeleted() {
-			this.hideModalDialogue();
-			this.showInfoSlider({
-				title: 'User deleted',
-				body: 'User has been deleted successfully',
-				startTimer: 500,
-				endTimer: 4000
-			});
-			this.getUsers();
+		onUserDeleted(resp: Boolean) {
+			if (resp === true) {
+				this.hideModalDialogue();
+				this.showInfoSlider({
+					title: 'User deleted',
+					body: 'User has been deleted successfully',
+					startTimer: 500,
+					endTimer: 4000
+				});
+				this.getUsers();
+			} else {
+				this.modalDialogue = {
+					isVisible: true,
+					title: 'Error!',
+					body: 'We have encountered error while deleting user. Please try again',
+					btn1Txt: 'Ok',
+					btn2Txt: '',
+					showBtn2: false,
+					btn1Callback: this.hideModalDialogue.bind(this),
+					btn2Callback: function() { },
+					closeBtnCallback: this.hideModalDialogue.bind(this),
+				};
+			}
 		}
 
 		hideModalDialogue(event?: Event) {
