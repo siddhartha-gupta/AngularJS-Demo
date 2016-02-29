@@ -40,9 +40,6 @@ module app {
 		}
 
 		actionHandler(type: string, userId: string, userData?: any) {
-			console.log('actionHandler: ', type, ' : ', userId);
-			console.log(userData);
-
 			switch (type) {
 				case 'edit':
 					this.editUserClick(userId);
@@ -53,13 +50,9 @@ module app {
 					break;
 
 				case 'save':
-					this.saveUserClick(userId, userData);
+					this.updateUserData(userData, userId);
 					break;
 			}
-		}
-
-		saveUserClick(userId: string, userData: any) {
-			this.updateUserData(userData, userId);
 		}
 
 		getUsers() {

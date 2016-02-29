@@ -16,7 +16,6 @@ declare module app {
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         actionHandler(type: string, userId: string, userData?: any): void;
-        saveUserClick(userId: string, userData: any): void;
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
