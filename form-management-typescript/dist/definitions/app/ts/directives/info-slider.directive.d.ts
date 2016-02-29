@@ -5,7 +5,6 @@ declare module app {
         scope: {
             title: string;
             body: string;
-            timer: string;
         };
         templateUrl: string;
         controller: string;

@@ -168,11 +168,17 @@ module app {
 		onUserUpdated() {
 			console.log('on user updated');
 			this.infoSlider = {
-				title: 'Update Successfully',
-				body: 'User info has been updated successfully',
-				timer: 5000
+				title: 'User updated',
+				body: 'User info has been updated successfully'
 			};
-			this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
+			setTimeout(() => {
+				this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
+			}, 500);
+
+			setTimeout(() => {
+				this.hideInfoSlider();
+			}, 4000);
+
 			this.getUsers();
 		}
 
@@ -282,11 +288,15 @@ module app {
 
 		}
 
+		hideInfoSlider() {
+			this.sharedService.broadcastEvent('hide-info-slider', { id: 'infoSlider' });
+			this.infoSliderDefault();
+		}
+
 		infoSliderDefault() {
 			this.infoSlider = {
 				title: '',
-				body: '',
-				timer: 0
+				body: ''
 			}
 		}
 	}

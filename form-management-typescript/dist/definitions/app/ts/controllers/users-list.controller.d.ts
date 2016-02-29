@@ -31,6 +31,7 @@ declare module app {
         hideModalDialogue(event?: Event): void;
         modalDialogueDefault(): void;
         manageSortOrder(orderBy: any): void;
+        hideInfoSlider(): void;
         infoSliderDefault(): void;
     }
 }

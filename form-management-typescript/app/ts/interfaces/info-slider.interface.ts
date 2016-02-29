@@ -6,6 +6,5 @@ module app {
 	export interface InfoSliderInterface {
 		title: string;
 		body: string;
-		timer: number;
 	}
 }

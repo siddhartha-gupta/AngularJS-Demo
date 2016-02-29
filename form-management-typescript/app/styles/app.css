@@ -267,3 +267,19 @@ input.ng-invalid.ng-dirty {
 .cancel-btn:hover {
 	text-decoration: underline;
 }
+
+.infoSlider {
+	z-index: 0;
+	top: 0;
+	bottom: auto;
+	right: 10px;
+	left: auto;
+	width: 525px;
+}
+
+@media (min-width: 768px){
+	.infoSlider .modal-dialog {
+	    width: 500px;
+	    margin: 20px auto;
+	}
+}

@@ -3,6 +3,5 @@ declare module app {
     interface InfoSliderInterface {
         title: string;
         body: string;
-        timer: number;
     }
 }
