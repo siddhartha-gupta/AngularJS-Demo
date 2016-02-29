@@ -166,19 +166,12 @@ module app {
 		}
 
 		onUserUpdated() {
-			console.log('on user updated');
-			this.infoSlider = {
+			this.showInfoSlider({
 				title: 'User updated',
-				body: 'User info has been updated successfully'
-			};
-			setTimeout(() => {
-				this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
-			}, 500);
-
-			setTimeout(() => {
-				this.hideInfoSlider();
-			}, 4000);
-
+				body: 'User info has been updated successfully',
+				startTimer: 500,
+				endTimer: 4000
+			});
 			this.getUsers();
 		}
 
@@ -286,6 +279,20 @@ module app {
 				this.sortOrder = orderBy;
 			}
 
+		}
+
+		showInfoSlider(params: any) {
+			this.infoSlider = {
+				title: params.title,
+				body: params.body
+			};
+			setTimeout(() => {
+				this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
+			}, params.startTimer);
+
+			setTimeout(() => {
+				this.hideInfoSlider();
+			}, params.endTimer);
 		}
 
 		hideInfoSlider() {
