@@ -14,6 +14,7 @@
 /// <reference path="ts/interfaces/edit-user.interface.d.ts" />
 /// <reference path="ts/interfaces/modal-dialogue.interface.d.ts" />
 /// <reference path="ts/interfaces/info-slider.interface.d.ts" />
+/// <reference path="ts/interfaces/table-heading.interface.d.ts" />
 /// <reference path="ts/controllers/header.controller.d.ts" />
 /// <reference path="ts/controllers/users-list.controller.d.ts" />
 /// <reference path="ts/controllers/add-user.controller.d.ts" />

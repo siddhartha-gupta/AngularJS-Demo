@@ -6,8 +6,7 @@ module app {
 	export class UserInfoController {
 		private readOnlyMode: Boolean;
 		private actionHandler: Function;
-		//TODO: need interface
-		private userData: any;
+		private userData: UserDataInterface;
 
 		constructor() {
 			this.readOnlyMode = true;

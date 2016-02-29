@@ -10,8 +10,7 @@ module app {
 		private modalDialogue: ModalDialogueInterface;
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
-		//TODO: create interface
-		private tableHeading: Array<any>;
+		private tableHeading: TableHeadingInterface[];
 
 		public static $inject = [
 			'$scope',

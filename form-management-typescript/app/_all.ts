@@ -17,6 +17,7 @@
 /// <reference path='ts/interfaces/edit-user.interface.ts' />
 /// <reference path='ts/interfaces/modal-dialogue.interface.ts' />
 /// <reference path='ts/interfaces/info-slider.interface.ts' />
+/// <reference path='ts/interfaces/table-heading.interface.ts' />
 
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />

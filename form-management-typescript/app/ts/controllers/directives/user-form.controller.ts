@@ -5,8 +5,8 @@ module app {
 
 	export class UserFormController {
 		formSubmit: Function;
-		userData: any;
-		userDataId: any;
+		userData: UserDataInterface;
+		userDataId: string;
 
 		constructor() { }
 
@@ -15,7 +15,6 @@ module app {
 				event.preventDefault();
 				event.stopPropagation();
 			}
-			console.log('onFormSubmit');
 			this.formSubmit({ data: this.userData, userDataId: this.userDataId });
 		}
 	}

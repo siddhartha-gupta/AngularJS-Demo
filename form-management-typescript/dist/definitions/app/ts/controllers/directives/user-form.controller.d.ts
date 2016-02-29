@@ -2,8 +2,8 @@
 declare module app {
     class UserFormController {
         formSubmit: Function;
-        userData: any;
-        userDataId: any;
+        userData: UserDataInterface;
+        userDataId: string;
         constructor();
         onFormSubmit(event: Event): void;
     }
