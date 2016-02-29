@@ -43,15 +43,16 @@ module app {
 			this.createtableHeading();
 		}
 
-		startEditMode($event:Event, elemId: string) {
+		startEditMode($event:Event, userId: string) {
 			if(event) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
+			console.log('startEditMode: ', userId);
 
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
-				this.editUserId = elemId;
+				this.editUserId = userId;
 			}
 		}
 

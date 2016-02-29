@@ -253,23 +253,36 @@ input.ng-invalid.ng-dirty {
 	border: 0;
 	background: transparent;
 	padding: 0;
-	/*padding: 1px 3px;*/
-	/*width: 90%;*/
 }
 
 .group-content input[readonly]:hover {
 	border: 1px solid #000;
 	background: #fff;
 	padding: 0;
-	/*padding: 1px 3px;*/
-	/*width: 90%;*/
+}
+
+.group-content select {
+	border: none;
+	background: transparent;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.group-content select:hover {
+	border: 1px solid #000;
+	background: #fff;
+	-webkit-appearance: menulist;
+	-moz-appearance: menulist;
+	appearance: menulist;
 }
 
 .form-group {
 	margin-bottom: 20px;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
 	width: 60%;
 	display: inline-block;
 }

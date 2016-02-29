@@ -17,7 +17,7 @@ declare module app {
         private tableHeading;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
-        startEditMode($event: Event, elemId: string): void;
+        startEditMode($event: Event, userId: string): void;
         cancelEditMode(event: Event): void;
         createtableHeading(): void;
         dataAvailable(): boolean;

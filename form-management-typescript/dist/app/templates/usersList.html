@@ -4,14 +4,16 @@
 
 		<div class="row group-content" ng-repeat="user in customController.usersList | orderBy:customController.sortOrder">
 			<div class="col-xs-1">{{user.id_member}}</div>
-			<!-- <div class="col-xs-2">{{user.firstname}}</div> -->
-			<!-- test - {{customController.editUserId === user.id_member}} -->
 			<input required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="First name" value="{{user.firstname}}" maxlength="64" ng-click="customController.startEditMode($event, user.id_member)" />
-			<!-- <div class="col-xs-2">{{user.lastname}}</div> -->
 			<input required class="col-xs-2" ng-readonly="customController.editUserId !== user.id_member" type="text" placeholder="Last name" value="{{user.lastname}}" maxlength="64" ng-click="customController.startEditMode($event, user.id_member)" />
 			<div class="col-xs-3">{{user.email}}</div>
 			<div class="col-xs-2">{{user.phonenumber}}</div>
-			<div class="col-xs-1">{{user.location}}</div>
+			<div class="col-xs-1" ng-show="customController.editUserId !== user.id_member" ng-click="customController.startEditMode($event, user.id_member)">{{user.location}}</div>
+			<select ng-model="customController.userData.location" class="col-xs-1" ng-show="customController.editUserId === user.id_member">
+				<option value="IN" ng-selected="'IN' === user.location">India</option>
+				<option value="US" ng-selected="'US' === user.location">US</option>
+				<option value="UK" ng-selected="'UK' === user.location">UK</option>
+			</select>
 			<div class="col-xs-1 actionBtns">
 				<span ng-show="customController.editUserId !== user.id_member" class="actionBtn editBtn" title="Edit info" ng-click="customController.editUserClick(event, user.id_member)"></span>
 				<span ng-show="customController.editUserId !== user.id_member" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.deleteUserClick(event, user.id_member)"></span>
