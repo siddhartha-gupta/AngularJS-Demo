@@ -10,6 +10,8 @@ module app {
 		private modalDialogue: ModalDialogueInterface;
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
+		private editUserId: string;
+		private readOnlyMode: Boolean;
 		//TODO: create interface
 		private tableHeading: Array<any>;
 
@@ -29,6 +31,8 @@ module app {
 			private sharedService: SharedService
 		) {
 			this.appConfig = app.Constants.Default;
+			this.editUserId = '';
+			this.readOnlyMode = true;
 			this.sortOrder = 'firstname';
 			this.getUsers();
 
@@ -37,6 +41,28 @@ module app {
 			this.modalDialogueDefault();
 			this.infoSliderDefault();
 			this.createtableHeading();
+		}
+
+		startEditMode($event:Event, elemId: string) {
+			if(event) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			if (this.readOnlyMode) {
+				this.readOnlyMode = false;
+				this.editUserId = elemId;
+			}
+		}
+
+		cancelEditMode(event:Event) {
+			if (event) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			this.readOnlyMode = true;
+			this.editUserId = '';
 		}
 
 		createtableHeading() {

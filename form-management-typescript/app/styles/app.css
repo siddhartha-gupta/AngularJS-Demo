@@ -224,8 +224,7 @@ input.ng-invalid.ng-dirty {
 	text-align: center;
 }
 
-.group-content .deleteBtn,
-.group-content .editBtn {
+.group-content .actionBtn {
 	width: 24px;
 	height: 26px;
 	background-image: url('../img/icon-sprite.png');
@@ -235,11 +234,35 @@ input.ng-invalid.ng-dirty {
 }
 
 .group-content .editBtn {
-	background-position: 0px -36px	
+	background-position: 0px 0px;
 }
 
 .group-content .deleteBtn {
-	background-position: 0px 0px;
+	background-position: 0px -36px	
+}
+
+.group-content .saveBtn {
+	background-position: 0px -73px	
+}
+
+.group-content .cancelBtn {
+	background-position: 0px -106px	
+}
+
+.group-content input[readonly] {
+	border: 0;
+	background: transparent;
+	padding: 0;
+	/*padding: 1px 3px;*/
+	/*width: 90%;*/
+}
+
+.group-content input[readonly]:hover {
+	border: 1px solid #000;
+	background: #fff;
+	padding: 0;
+	/*padding: 1px 3px;*/
+	/*width: 90%;*/
 }
 
 .form-group {

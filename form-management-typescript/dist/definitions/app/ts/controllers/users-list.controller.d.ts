@@ -12,9 +12,13 @@ declare module app {
         private modalDialogue;
         private infoSlider;
         private sortOrder;
+        private editUserId;
+        private readOnlyMode;
         private tableHeading;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
+        startEditMode($event: Event, elemId: string): void;
+        cancelEditMode(event: Event): void;
         createtableHeading(): void;
         dataAvailable(): boolean;
         getUsers(): void;
