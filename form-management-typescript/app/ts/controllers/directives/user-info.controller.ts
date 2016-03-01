@@ -8,7 +8,11 @@ module app {
 		private actionHandler: Function;
 		private userData: UserDataInterface;
 
-		constructor() {
+		public static $inject = [
+			'DocEventService'
+		];
+
+		constructor(private docEventService: DocEventService) {
 			this.readOnlyMode = true;
 		}
 
@@ -20,6 +24,10 @@ module app {
 
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
+				this.docEventService.bindKeyboardEvent((event: Event) => {
+					this.cancelEditMode(event);
+					// this.readOnlyMode = true;
+				});
 			}
 		}
 
@@ -28,7 +36,9 @@ module app {
 				event.preventDefault();
 				event.stopPropagation();
 			}
+			console.log('cancelEditMode: ', this);
 			this.readOnlyMode = true;
+			this.docEventService.unbindKeyboardEvent();
 		}
 
 		actionCallback(event: Event, type: string, userId: string) {

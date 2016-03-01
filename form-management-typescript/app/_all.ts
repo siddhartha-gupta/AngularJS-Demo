@@ -44,3 +44,4 @@
 /// <reference path='ts/services/api.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />
 /// <reference path='ts/services/utils.service.ts' />
+/// <reference path='ts/services/doc-event.service.ts' />
