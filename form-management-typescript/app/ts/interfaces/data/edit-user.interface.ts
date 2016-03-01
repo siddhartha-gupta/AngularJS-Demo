@@ -6,6 +6,7 @@ module app {
 	export interface EditUserInterface {
 		isVisible: Boolean;
 		title: string;
+		//TODO: need to look into this
 		userData: any;
 		userId: string;
 	}

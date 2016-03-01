@@ -65,7 +65,7 @@ module app {
 		/*
 		* Action buttons handling
 		*/
-		actionHandler(type: string, userId: string, userData?: any) {
+		actionHandler(type: string, userId: string, userData?: UserDataInterface) {
 			switch (type) {
 				case 'edit':
 					this.editUserClick(userId);
@@ -101,7 +101,7 @@ module app {
 			this.utilsService.log(this.editUser);
 		}
 
-		updateUserData(data: any, userId: string) {
+		updateUserData(data: UserDataInterface, userId: string) {
 			this.utilsService.log('updateUserData: ', data);
 			this.utilsService.log('userId: ', userId);
 
@@ -239,7 +239,7 @@ module app {
 			this.modalDialogueDefault();
 		}
 
-		manageSortOrder(orderBy: any) {
+		manageSortOrder(orderBy: string) {
 			if (orderBy === this.sortOrder) {
 				this.sortOrder = '-' + orderBy;
 			} else {
@@ -247,7 +247,7 @@ module app {
 			}
 		}
 
-		showInfoSlider(params: any) {
+		showInfoSlider(params: InfoSliderInterface) {
 			this.infoSlider = {
 				title: params.title,
 				body: params.body
