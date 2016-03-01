@@ -5,8 +5,8 @@ module app {
 
 	export class HeaderController implements HeaderInterface {
 		heading: string;
-		headerLeftBtn: ButtonsInterface;
-		headerRightBtn: ButtonsInterface;
+		headerLeftBtn: HeaderButtonsInterface;
+		headerRightBtn: HeaderButtonsInterface;
 
 		public static $inject = [
 			'$scope',

@@ -7,8 +7,8 @@ declare module app {
         private $log;
         private sharedService;
         heading: string;
-        headerLeftBtn: ButtonsInterface;
-        headerRightBtn: ButtonsInterface;
+        headerLeftBtn: HeaderButtonsInterface;
+        headerRightBtn: HeaderButtonsInterface;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, $window: ng.IWindowService, $log: ng.ILogService, sharedService: SharedService);
         onRouteChangeStart(event: Event, params: Object): void;

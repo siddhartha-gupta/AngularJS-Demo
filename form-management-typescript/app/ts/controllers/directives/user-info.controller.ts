@@ -3,7 +3,7 @@
 module app {
 	'use strict';
 
-	export class UserInfoController implements UserFormInterface {
+	export class UserInfoController implements UserInfoInterface {
 		private readOnlyMode: Boolean;
 		private actionHandler: Function;
 		private userData: UserDataInterface;

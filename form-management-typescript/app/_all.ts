@@ -21,6 +21,7 @@
 /// <reference path='ts/interfaces/data/modal-dialogue.interface.ts' />
 /// <reference path='ts/interfaces/data/info-slider.interface.ts' />
 /// <reference path='ts/interfaces/data/table-heading.interface.ts' />
+/// <reference path='ts/interfaces/data/header-buttons.interface.ts' />
 
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />
