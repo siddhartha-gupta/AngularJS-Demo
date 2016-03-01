@@ -8,16 +8,16 @@
 /// <reference path='ts/config.ts' />
 /// <reference path='ts/route-handler.ts' />
 
-/// <reference path='ts/interfaces/user-list.interface.ts' />
-/// <reference path='ts/interfaces/add-user.interface.ts' />
+/// <reference path='ts/interfaces/classes/user-list.interface.ts' />
+/// <reference path='ts/interfaces/classes/add-user.interface.ts' />
+/// <reference path='ts/interfaces/classes/header.interface.ts' />
 
-/// <reference path='ts/interfaces/app-config.interface.ts' />
-/// <reference path='ts/interfaces/user-data.interface.ts' />
-/// <reference path='ts/interfaces/header.interface.ts' />
-/// <reference path='ts/interfaces/edit-user.interface.ts' />
-/// <reference path='ts/interfaces/modal-dialogue.interface.ts' />
-/// <reference path='ts/interfaces/info-slider.interface.ts' />
-/// <reference path='ts/interfaces/table-heading.interface.ts' />
+/// <reference path='ts/interfaces/data/app-config.interface.ts' />
+/// <reference path='ts/interfaces/data/user-data.interface.ts' />
+/// <reference path='ts/interfaces/data/edit-user.interface.ts' />
+/// <reference path='ts/interfaces/data/modal-dialogue.interface.ts' />
+/// <reference path='ts/interfaces/data/info-slider.interface.ts' />
+/// <reference path='ts/interfaces/data/table-heading.interface.ts' />
 
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />
