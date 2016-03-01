@@ -28,7 +28,7 @@ module app {
 			private sharedService: SharedService
 		) {
 			this.appConfig = app.Constants.Default;
-			this.sortOrder = 'firstname';
+			this.sortOrder = '-id_member';
 			this.getUsers();
 
 			this.usersList = [];
