@@ -7,5 +7,7 @@ module app {
 		className: string;
 		sortOrder: string;
 		text: string;
+		customFunc?: Function;
+		customHTML?: Boolean;
 	}
 }

@@ -13,6 +13,7 @@ declare module app {
         private infoSlider;
         private sortOrder;
         private tableHeading;
+        private selectedAll;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
         getUsers(): void;
@@ -32,6 +33,7 @@ declare module app {
         showInfoSlider(params: InfoSliderInterface): void;
         hideInfoSlider(): void;
         createtableHeading(): void;
+        checkAll(): void;
         editUserDefault(): void;
         modalDialogueDefault(): void;
         infoSliderDefault(): void;

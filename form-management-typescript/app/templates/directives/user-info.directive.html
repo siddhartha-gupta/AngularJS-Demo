@@ -32,6 +32,8 @@
 	<!-- buttons for non-edit mode -->
 	<span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
 	<span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
+	<!-- <span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span> -->
+	<input class="checkAllCheckbox" ng-model="customController.checkboxSelected" ng-show="customController.readOnlyMode" type="checkbox" />
 
 	<!-- buttons for edit mode -->
 	<span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.actionCallback(event, 'save',customController.userData.id_member)"></span>

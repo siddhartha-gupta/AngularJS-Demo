@@ -265,12 +265,19 @@ input.ng-invalid.ng-dirty {
 	padding: 0 5px;
 }
 
-.group-content input {
+.group-content input[text] {
 	border: 1px solid #000;
 	background: #fff;
 	padding: 0 5px;
 	width: 100%;
 	/*border-radius: 3px;*/
+}
+
+.group-content input[type="checkbox"] {
+	margin: 0;
+	position: absolute;
+	top: 4px;
+	right: 14px;
 }
 
 .group-content select {

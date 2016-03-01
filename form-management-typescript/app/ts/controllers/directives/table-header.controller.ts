@@ -9,11 +9,13 @@ module app {
 		private lastSortOrder: string;
 
 		public static $inject = [
-			'$element'
+			'$element',
+			'$sce'
 		];
 
 		constructor(
-			private $element: ng.IRootElementService
+			private $element: ng.IRootElementService,
+			private $sce: ng.ISCEService
 		) {
 			this.defaultClass = 'arrow arrow-down';
 			this.lastSortOrder = '';
@@ -41,6 +43,10 @@ module app {
 			this.sortFunc({
 				'orderBy': sortOrder
 			});
+		}
+
+		toTrustedHTML(html: string) {
+			return this.$sce.trustAsHtml(html);
 		}
 	}
 }

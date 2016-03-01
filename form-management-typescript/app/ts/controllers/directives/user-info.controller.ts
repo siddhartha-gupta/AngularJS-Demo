@@ -8,6 +8,7 @@ module app {
 		private actionHandler: Function;
 		private userData: UserDataInterface;
 		private userEditData: userEditDataInterface;
+		private checkboxSelected: Boolean;
 
 		public static $inject = [
 			'$scope',
@@ -25,6 +26,7 @@ module app {
 			private utilsService: UtilsService
 		) {
 			this.readOnlyMode = true;
+			this.checkboxSelected = false;
 			this.userEditDataDefault();
 		}
 
@@ -90,7 +92,6 @@ module app {
 						phonenumber: this.userData.phonenumber,
 						location: this.userEditData.location
 					};
-					console.log(this.userData);
 					this.cancelEditMode(null, true);
 				} else {
 					this.userEditDataDefault();

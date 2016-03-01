@@ -11,6 +11,7 @@ module app {
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
 		private tableHeading: TableHeadingInterface[];
+		private selectedAll: Boolean;
 
 		public static $inject = [
 			'$scope',
@@ -29,6 +30,7 @@ module app {
 		) {
 			this.appConfig = app.Constants.Default;
 			this.sortOrder = '-id_member';
+			this.selectedAll = false;
 			this.getUsers();
 
 			this.usersList = [];
@@ -294,7 +296,18 @@ module app {
 					'className': 'col-xs-1',
 					'sortOrder': 'location',
 					'text': 'Location'
+				}, {
+					'className': 'col-xs-1 text-right',
+					'sortOrder': '',
+					'text': '<input type="checkbox" />',
+					'customFunc': this.checkAll.bind(this),
+					'customHTML': true
 				}];
+		}
+
+		checkAll() {
+			this.selectedAll = !this.selectedAll;
+			this.sharedService.broadcastEvent('check-all', { state: this.selectedAll });
 		}
 
 		editUserDefault() {

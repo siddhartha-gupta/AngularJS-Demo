@@ -1,6 +1,9 @@
 <div class="row group-title">
-	<div ng-repeat="heading in customController.tableHeading" id="heading_{{heading.sortOrder}}" class="heading {{heading.className}}" ng-click="customController.manageSortOrder($event, heading.sortOrder)">
-		<span class="arrow arrow-down"></span>
-		{{heading.text}}
+	<div ng-repeat="heading in customController.tableHeading" id="heading_{{heading.sortOrder}}" class="heading {{heading.className}}" ng-click="heading.customFunc ? heading.customFunc(event) : customController.manageSortOrder($event, heading.sortOrder)">
+		<div ng-if="!heading.customHTML">
+			<span class="arrow arrow-down"></span>
+			{{heading.text}}
+		</div>
+		<div ng-if="heading.customHTML" ng-bind-html="customController.toTrustedHTML(heading.text)"></div>
 	</div>
 </div>
