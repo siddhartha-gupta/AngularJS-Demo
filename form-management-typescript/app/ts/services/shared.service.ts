@@ -3,7 +3,7 @@
 module app {
     'use strict';
 
-    export class SharedService {
+    export class SharedService implements SharedServiceInterface {
         static $inject = ['$rootScope'];
 
         constructor(private $rootScope: ng.IRootScopeService) { }

@@ -8,12 +8,12 @@
 /// <reference path='ts/config.ts' />
 /// <reference path='ts/route-handler.ts' />
 
-/// <reference path='ts/interfaces/classes/user-list.interface.ts' />
-/// <reference path='ts/interfaces/classes/add-user.interface.ts' />
-/// <reference path='ts/interfaces/classes/header.interface.ts' />
-/// <reference path='ts/interfaces/classes/table-header.interface.ts' />
-/// <reference path='ts/interfaces/classes/user-form.interface.ts' />
-/// <reference path='ts/interfaces/classes/user-info.interface.ts' />
+/// <reference path='ts/interfaces/controllers/user-list.interface.ts' />
+/// <reference path='ts/interfaces/controllers/add-user.interface.ts' />
+/// <reference path='ts/interfaces/controllers/header.interface.ts' />
+/// <reference path='ts/interfaces/controllers/table-header.interface.ts' />
+/// <reference path='ts/interfaces/controllers/user-form.interface.ts' />
+/// <reference path='ts/interfaces/controllers/user-info.interface.ts' />
 
 /// <reference path='ts/interfaces/data/app-config.interface.ts' />
 /// <reference path='ts/interfaces/data/user-data.interface.ts' />
@@ -22,6 +22,11 @@
 /// <reference path='ts/interfaces/data/info-slider.interface.ts' />
 /// <reference path='ts/interfaces/data/table-heading.interface.ts' />
 /// <reference path='ts/interfaces/data/header-buttons.interface.ts' />
+
+/// <reference path='ts/interfaces/services/api.interface.ts' />
+/// <reference path='ts/interfaces/services/doc-event.interface.ts' />
+/// <reference path='ts/interfaces/services/shared.interface.ts' />
+/// <reference path='ts/interfaces/services/utils.interface.ts' />
 
 /// <reference path='ts/controllers/header.controller.ts' />
 /// <reference path='ts/controllers/users-list.controller.ts' />

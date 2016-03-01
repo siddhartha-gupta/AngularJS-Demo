@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class SharedService {
+    class SharedService implements SharedServiceInterface {
         private $rootScope;
         static $inject: string[];
         constructor($rootScope: ng.IRootScopeService);

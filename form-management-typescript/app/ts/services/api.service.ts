@@ -3,7 +3,7 @@
 module app {
 	'use strict';
 
-	export class APIService {
+	export class APIService implements APIServiceInterface {
 		static $inject = ['$http'];
 		httpService: ng.IHttpService;
 

@@ -1,6 +1,6 @@
 /// <reference path="../../_all.d.ts" />
 declare module app {
-    class DocEventService {
+    class DocEventService implements DocEventServiceInterface {
         private $document;
         private docRef;
         static $inject: string[];

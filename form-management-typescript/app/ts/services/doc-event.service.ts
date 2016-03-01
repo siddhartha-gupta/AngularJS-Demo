@@ -3,7 +3,7 @@
 module app {
   'use strict';
 
-  export class DocEventService {
+  export class DocEventService implements DocEventServiceInterface {
     private docRef: HTMLElement;
 
     public static $inject = [

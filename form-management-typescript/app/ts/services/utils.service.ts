@@ -3,7 +3,7 @@
 module app {
     'use strict';
 
-    export class UtilsService {
+    export class UtilsService implements UtilsServiceInterface {
         constructor() { }
 
         getDataType(obj: any) {
