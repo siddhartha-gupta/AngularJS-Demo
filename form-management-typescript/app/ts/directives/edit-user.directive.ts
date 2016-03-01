@@ -21,13 +21,13 @@ module app {
 
 		constructor() {}
 
-		link(scope:ng.IScope) {
+		link(scope: ng.IScope, element: ng.IRootElementService) {
 			scope.$on('show-edit-modal', function(event, params: any) {
-				angular.element(document.getElementById(params.id)).modal('show');
+				element.find(document.getElementById(params.id)).modal('show');
 			});
 
 			scope.$on('hide-edit-modal', function(event, params: any) {
-				angular.element(document.getElementById(params.id)).modal('hide');
+				element.find(document.getElementById(params.id)).modal('hide');
 			});
 		}
 

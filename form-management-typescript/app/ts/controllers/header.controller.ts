@@ -103,7 +103,6 @@ module app {
 		}
 
 		goToAddUser() {
-			// angular.element(document.getElementById("header")).scope()
 			this.$location.path('/addUser').replace();
 		}
 
