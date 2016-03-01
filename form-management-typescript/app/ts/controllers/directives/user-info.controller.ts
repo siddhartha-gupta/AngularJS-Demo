@@ -59,10 +59,10 @@ module app {
 			}*/
 
 			if (!noreset) {
-				console.log('in noreset');
-				angular.element('#firstname').val(this.userData.firstname);
-				angular.element('#lastname').val(this.userData.lastname);
-				angular.element('#location').val(this.userData.location);
+				console.log('in noreset: ', this.userData);
+				this.$element.find('#firstname').val(this.userData.firstname);
+				this.$element.find('#lastname').val(this.userData.lastname);
+				this.$element.find('#location').val(this.userData.location);
 
 				this.$timeout(() => {
 					this.$scope.$apply();
@@ -80,11 +80,11 @@ module app {
 			if (type === 'save') {
 				var userData = {
 					id_member: this.userData.id_member,
-					firstname: angular.element('#firstname').val(),
-					lastname: angular.element('#lastname').val(),
+					firstname: this.$element.find('#firstname').val(),
+					lastname: this.$element.find('#lastname').val(),
 					email: this.userData.email,
 					phonenumber: this.userData.phonenumber,
-					location: angular.element('#location').val()
+					location: this.$element.find('#location').val()
 				};
 				this.cancelEditMode(null, true);
 			}
