@@ -21,12 +21,6 @@ module app {
             return this.httpService.post(params.url, params.data, {
                 headers: params.headers
             });
-            /*return this.httpService({
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            url: params.url,
-                            method: 'POST',
-                            data: $.param(params.data)
-                     });*/
         }
     }
 }
