@@ -7,21 +7,26 @@ module app {
 		private readOnlyMode: Boolean;
 		private actionHandler: Function;
 		private userData: UserDataInterface;
+		//TODO: need interface
+		private userEditData: any;
 
 		public static $inject = [
 			'$scope',
 			'$timeout',
 			'$element',
-			'DocEventService'
+			'DocEventService',
+			'UtilsService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
 			private $timeout: ng.ITimeoutService,
 			private $element: ng.IRootElementService,
-			private docEventService: DocEventService
+			private docEventService: DocEventService,
+			private utilsService: UtilsService
 		) {
 			this.readOnlyMode = true;
+			this.userEditDataDefault();
 		}
 
 		startEditMode($event: Event) {
@@ -76,18 +81,44 @@ module app {
 			}
 
 			if (type === 'save') {
-				var userData = {
-					id_member: this.userData.id_member,
-					firstname: this.$element.find('#firstname').val(),
-					lastname: this.$element.find('#lastname').val(),
-					email: this.userData.email,
-					phonenumber: this.userData.phonenumber,
-					location: this.$element.find('#location').val()
-				};
-				this.cancelEditMode(null, true);
+				if (this.validateForm()) {
+					var userData = {
+						id_member: this.userData.id_member,
+						firstname: this.userEditData.firstname,
+						lastname: this.userEditData.lastname,
+						email: this.userData.email,
+						phonenumber: this.userData.phonenumber,
+						location: this.userEditData.location
+					};
+					console.log(this.userData);
+					this.cancelEditMode(null, true);
+				} else {
+					this.userEditDataDefault();
+					return false;
+				}				
 			}
-
 			this.actionHandler({ type: type, userId: userId, userData: userData });
+		}
+
+		validateForm() {
+			let firstname = this.userEditData.firstname,
+				lastname = this.userEditData.lastname,
+				location = this.userEditData.location;
+
+			if (this.utilsService.isNullUndefined(firstname) || 
+				this.utilsService.isNullUndefined(lastname) || 
+				this.utilsService.isNullUndefined(location)) {
+				return false;
+			}
+			return true
+		}
+
+		userEditDataDefault() {
+			this.userEditData = {
+				firstname: this.userData.firstname,
+				lastname: this.userData.lastname,
+				location: this.userData.location
+			};
 		}
 	}
 }

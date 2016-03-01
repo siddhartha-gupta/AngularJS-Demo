@@ -5,10 +5,10 @@
 
 	<!-- user first and last name -->
 	<div class="col-xs-2">
-		<input id="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" value="{{customController.userData.firstname}}" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
+		<input id="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" ng-model="customController.userEditData.firstname" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
 	</div>
 	<div class="col-xs-2">
-		<input id="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" value="{{customController.userData.lastname}}" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
+		<input id="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" ng-model="customController.userEditData.lastname" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
 	</div>
 
 	<!-- user email and phone number -->
@@ -17,12 +17,12 @@
 
 	<!-- user location -->
 	<div class="col-xs-1">
-		<input ng-readonly="true" type="text" value="{{customController.userData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" />
+		<input ng-readonly="true" type="text" value="{{customController.userEditData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" />
 
-		<select id="location" ng-model="customController.customController.userData.location" ng-show="!customController.readOnlyMode">
-			<option value="IN" ng-selected="'IN' === customController.userData.location">India</option>
-			<option value="US" ng-selected="'US' === customController.userData.location">US</option>
-			<option value="UK" ng-selected="'UK' === customController.userData.location">UK</option>
+		<select id="location" ng-model="customController.userEditData.location" ng-show="!customController.readOnlyMode">
+			<option value="IN" ng-selected="'IN' === customController.userEditData.location">India</option>
+			<option value="US" ng-selected="'US' === customController.userEditData.location">US</option>
+			<option value="UK" ng-selected="'UK' === customController.userEditData.location">UK</option>
 		</select>
 	</div>
 	<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
