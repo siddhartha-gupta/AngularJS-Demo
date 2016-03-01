@@ -8,4 +8,9 @@ declare module app {
         phonenumber: string;
         location: string;
     }
+    interface userEditDataInterface {
+        firstname: string;
+        lastname: string;
+        location: string;
+    }
 }

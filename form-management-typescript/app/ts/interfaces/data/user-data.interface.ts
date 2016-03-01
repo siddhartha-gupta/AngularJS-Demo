@@ -11,4 +11,10 @@ module app {
 		phonenumber: string;
 		location: string;
 	}
+
+	export interface userEditDataInterface {
+		firstname: string;
+		lastname: string;
+		location: string;
+	}
 }

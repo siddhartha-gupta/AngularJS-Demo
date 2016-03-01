@@ -7,8 +7,7 @@ module app {
 		private readOnlyMode: Boolean;
 		private actionHandler: Function;
 		private userData: UserDataInterface;
-		//TODO: need interface
-		private userEditData: any;
+		private userEditData: userEditDataInterface;
 
 		public static $inject = [
 			'$scope',
@@ -42,14 +41,6 @@ module app {
 			}
 		}
 
-		onMouseClick(event) {
-			let tagName = event.target.tagName.toLowerCase();
-
-			if ((tagName !== 'input' && tagName !== 'select') || (this.$element.find(event.target).length === 0)) {
-				this.cancelEditMode(event);
-			}
-		}
-
 		cancelEditMode(event?: Event, noreset?: Boolean) {
 			if (event) {
 				event.preventDefault();
@@ -71,6 +62,15 @@ module app {
 				this.$timeout(() => {
 					this.$scope.$apply();
 				});
+			}
+		}
+
+		onMouseClick(event: Event) {
+			let target = <HTMLElement>event.target;
+			let tagName = target.tagName.toLowerCase();
+
+			if ((tagName !== 'input' && tagName !== 'select') || (this.$element.find(target).length === 0)) {
+				this.cancelEditMode(event);
 			}
 		}
 
