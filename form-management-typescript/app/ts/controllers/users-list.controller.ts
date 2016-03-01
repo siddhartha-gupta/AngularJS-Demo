@@ -85,7 +85,7 @@ module app {
 		* Edit user code flow
 		*/
 		validateEmail(val: string) {
-			console.log('validateEmail');
+			this.utilsService.log('validateEmail');
 		}
 
 		editUserClick(userId: string) {

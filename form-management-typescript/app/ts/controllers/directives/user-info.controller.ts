@@ -59,7 +59,6 @@ module app {
 			}*/
 
 			if (!noreset) {
-				console.log('in noreset: ', this.userData);
 				this.$element.find('#firstname').val(this.userData.firstname);
 				this.$element.find('#lastname').val(this.userData.lastname);
 				this.$element.find('#location').val(this.userData.location);
@@ -76,7 +75,6 @@ module app {
 				event.stopPropagation();
 			}
 
-			console.log('actionCallback: ', type, ' : ', userId);
 			if (type === 'save') {
 				var userData = {
 					id_member: this.userData.id_member,

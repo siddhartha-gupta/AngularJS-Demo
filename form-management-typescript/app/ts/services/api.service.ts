@@ -17,7 +17,6 @@ module app {
 		}
 
 		postCall(params: any) {
-			console.log('params: ', params);
 			return this.httpService.post(params.url, params.data, {
 				headers: params.headers
 			});
