@@ -37,7 +37,8 @@ module app {
 				event.stopPropagation();
 			}
 
-			if(type === 'save') {
+			console.log('actionCallback: ', type, ' : ', userId);
+			if (type === 'save') {
 				var userData = {
 					id_member: this.userData.id_member,
 					firstname: angular.element('#firstname').val(),
