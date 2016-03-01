@@ -13,4 +13,3 @@ module app {
 		modalDialogueDefault()
 	}
 }
-controllers.controller('AddUserController', app.AddUserController);

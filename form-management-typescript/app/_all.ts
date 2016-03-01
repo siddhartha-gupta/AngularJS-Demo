@@ -11,6 +11,9 @@
 /// <reference path='ts/interfaces/classes/user-list.interface.ts' />
 /// <reference path='ts/interfaces/classes/add-user.interface.ts' />
 /// <reference path='ts/interfaces/classes/header.interface.ts' />
+/// <reference path='ts/interfaces/classes/table-header.interface.ts' />
+/// <reference path='ts/interfaces/classes/user-form.interface.ts' />
+/// <reference path='ts/interfaces/classes/user-info.interface.ts' />
 
 /// <reference path='ts/interfaces/data/app-config.interface.ts' />
 /// <reference path='ts/interfaces/data/user-data.interface.ts' />

@@ -3,10 +3,10 @@
 module app {
 	'use strict';
 
-	export class UserFormController {
-		formSubmit: Function;
-		userData: UserDataInterface;
-		userDataId: string;
+	export class UserFormController implements UserFormInterface {
+		private formSubmit: Function;
+		private userData: UserDataInterface;
+		private userDataId: string;
 
 		constructor() { }
 

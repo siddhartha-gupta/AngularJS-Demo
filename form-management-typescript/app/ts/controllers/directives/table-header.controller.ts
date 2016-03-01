@@ -3,10 +3,10 @@
 module app {
 	'use strict';
 
-	export class TableHeaderController {
-		sortFunc: Function;
-		defaultClass: string;
-		lastSortOrder: string;
+	export class TableHeaderController implements TableHeaderInterface {
+		private sortFunc: Function;
+		private defaultClass: string;
+		private lastSortOrder: string;
 
 		public static $inject = [
 			'$element'

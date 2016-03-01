@@ -1,6 +1,6 @@
 /// <reference path="../../../_all.d.ts" />
 declare module app {
-    class UserInfoController {
+    class UserInfoController implements UserFormInterface {
         private readOnlyMode;
         private actionHandler;
         private userData;
