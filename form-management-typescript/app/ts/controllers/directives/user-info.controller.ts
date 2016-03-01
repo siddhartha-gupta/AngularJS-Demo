@@ -10,11 +10,15 @@ module app {
 
 		public static $inject = [
 			'$scope',
+			'$timeout',
+			'$element',
 			'DocEventService'
 		];
 
 		constructor(
 			private $scope: ng.IScope,
+			private $timeout: ng.ITimeoutService,
+			private $element: ng.IRootElementService,
 			private docEventService: DocEventService
 		) {
 			this.readOnlyMode = true;
@@ -29,19 +33,41 @@ module app {
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
 				this.docEventService.bindKeyboardEvent(this.cancelEditMode.bind(this));
-				this.docEventService.bindMouseEvent(this.cancelEditMode.bind(this));
+				this.docEventService.bindMouseEvent(this.onMouseClick.bind(this));
 			}
 		}
 
-		cancelEditMode(event?: Event) {
+		onMouseClick(event) {
+			let tagName = event.target.tagName.toLowerCase();
+
+			if ((tagName !== 'input' && tagName !== 'select') || (this.$element.find(event.target).length === 0)) {
+				this.cancelEditMode(event);
+			}
+		}
+
+		cancelEditMode(event?: Event, noreset?: Boolean) {
 			if (event) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
 			this.docEventService.unbindKeyboardEvent();
 			this.docEventService.unbindMouseEvent();
+
 			this.readOnlyMode = true;
-			this.$scope.$apply();
+			/*if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') {
+				this.$scope.$apply();
+			}*/
+
+			if (!noreset) {
+				console.log('in noreset');
+				angular.element('#firstname').val(this.userData.firstname);
+				angular.element('#lastname').val(this.userData.lastname);
+				angular.element('#location').val(this.userData.location);
+
+				this.$timeout(() => {
+					this.$scope.$apply();
+				});
+			}
 		}
 
 		actionCallback(event: Event, type: string, userId: string) {
@@ -60,7 +86,7 @@ module app {
 					phonenumber: this.userData.phonenumber,
 					location: angular.element('#location').val()
 				};
-				this.cancelEditMode();
+				this.cancelEditMode(null, true);
 			}
 
 			this.actionHandler({ type: type, userId: userId, userData: userData });

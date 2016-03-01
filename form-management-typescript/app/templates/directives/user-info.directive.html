@@ -14,19 +14,19 @@
 	<!-- user location -->
 	<input class="col-xs-1" ng-readonly="true" type="text" value="{{customController.userData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" />
 	<select id="location" ng-model="customController.customController.userData.location" class="col-xs-1" ng-show="!customController.readOnlyMode">
-	    <option value="IN" ng-selected="'IN' === customController.userData.location">India</option>
-	    <option value="US" ng-selected="'US' === customController.userData.location">US</option>
-	    <option value="UK" ng-selected="'UK' === customController.userData.location">UK</option>
+		<option value="IN" ng-selected="'IN' === customController.userData.location">India</option>
+		<option value="US" ng-selected="'US' === customController.userData.location">US</option>
+		<option value="UK" ng-selected="'UK' === customController.userData.location">UK</option>
 	</select>
 	<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
 </form>
 <!-- action buttons -->
 <div class="col-xs-1 actionBtns">
-    <!-- buttons for non-edit mode -->
-    <span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
-    <span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
+	<!-- buttons for non-edit mode -->
+	<span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
+	<span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
 
-    <!-- buttons for edit mode -->
-    <span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.actionCallback(event, 'save',customController.userData.id_member)"></span>
-    <span ng-show="!customController.readOnlyMode" class="actionBtn cancelBtn" title="Cancel" ng-click="customController.cancelEditMode(event)"></span>
+	<!-- buttons for edit mode -->
+	<span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.actionCallback(event, 'save',customController.userData.id_member)"></span>
+	<span ng-show="!customController.readOnlyMode" class="actionBtn cancelBtn" title="Cancel" ng-click="customController.cancelEditMode(event)"></span>
 </div>
