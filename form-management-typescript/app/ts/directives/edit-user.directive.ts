@@ -22,12 +22,12 @@ module app {
 		constructor() {}
 
 		link(scope: ng.IScope, element: ng.IRootElementService) {
-			scope.$on('show-edit-modal', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('show');
+			scope.$on('show-edit-modal', function(event) {
+				(<any>element.find('#editUserModal')).modal('show');
 			});
 
-			scope.$on('hide-edit-modal', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('hide');
+			scope.$on('hide-edit-modal', function(event) {
+				(<any>element.find('#editUserModal')).modal('hide');
 			});
 		}
 

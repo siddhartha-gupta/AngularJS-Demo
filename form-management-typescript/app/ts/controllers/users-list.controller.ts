@@ -97,7 +97,7 @@ module app {
 				userData: this.utilsService.clone(this.utilsService.getObjectFromArr(this.usersList, 'id_member', userId)),
 				userId: userId
 			};
-			this.sharedService.broadcastEvent('show-edit-modal', { id: 'editUserModal' });
+			this.sharedService.broadcastEvent('show-edit-modal', {});
 			this.utilsService.log(this.editUser);
 		}
 
@@ -150,7 +150,7 @@ module app {
 					btn2Callback: function() { },
 					closeBtnCallback: this.hideModalDialogue.bind(this),
 				};
-				this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
+				this.sharedService.broadcastEvent('show-modal', {});
 			}
 		}
 
@@ -171,7 +171,7 @@ module app {
 				btn2Callback: this.hideModalDialogue.bind(this),
 				closeBtnCallback: this.hideModalDialogue.bind(this),
 			};
-			this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
+			this.sharedService.broadcastEvent('show-modal', {});
 		}
 
 		deleteUserConfirm(userId: string) {
@@ -225,7 +225,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			this.sharedService.broadcastEvent('hide-edit-modal', { id: 'editUserModal' });
+			this.sharedService.broadcastEvent('hide-edit-modal', {});
 			this.editUserDefault();
 		}
 
@@ -235,7 +235,7 @@ module app {
 				event.preventDefault();
 			}
 
-			this.sharedService.broadcastEvent('hide-modal', { id: 'modalDialogue' });
+			this.sharedService.broadcastEvent('hide-modal', {});
 			this.modalDialogueDefault();
 		}
 
@@ -253,7 +253,7 @@ module app {
 				body: params.body
 			};
 			setTimeout(() => {
-				this.sharedService.broadcastEvent('show-info-slider', { id: 'infoSlider' });
+				this.sharedService.broadcastEvent('show-info-slider', {});
 			}, params.startTimer);
 
 			setTimeout(() => {
@@ -262,7 +262,7 @@ module app {
 		}
 
 		hideInfoSlider() {
-			this.sharedService.broadcastEvent('hide-info-slider', { id: 'infoSlider' });
+			this.sharedService.broadcastEvent('hide-info-slider', {});
 			this.infoSliderDefault();
 		}
 

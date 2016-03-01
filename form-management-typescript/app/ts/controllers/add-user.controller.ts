@@ -123,7 +123,7 @@ module app {
 					break;
 			}
 
-			this.sharedService.broadcastEvent('show-modal', { id: 'modalDialogue' });
+			this.sharedService.broadcastEvent('show-modal', {});
 			this.modalDialogue = {
 				isVisible: true,
 				title: title,
@@ -142,7 +142,7 @@ module app {
 				event.stopPropagation();
 				event.preventDefault();
 			}
-			this.sharedService.broadcastEvent('hide-modal', { id: 'modalDialogue' });
+			this.sharedService.broadcastEvent('hide-modal', {});
 			this.modalDialogueDefault();
 		}
 

@@ -19,12 +19,12 @@ module app {
 		constructor() { }
 
 		link(scope: ng.IScope, element: ng.IRootElementService) {
-			scope.$on('show-info-slider', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('show');
+			scope.$on('show-info-slider', function(event) {
+				(<any>element.find('#infoSlider')).modal('show');
 			});
 
-			scope.$on('hide-info-slider', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('hide');
+			scope.$on('hide-info-slider', function(event) {
+				(<any>element.find('#infoSlider')).modal('hide');
 			});
 		}
 

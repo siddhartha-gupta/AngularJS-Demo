@@ -24,12 +24,12 @@ module app {
 		constructor() { }
 
 		link(scope:ng.IScope, element: ng.IRootElementService) {
-			scope.$on('show-modal', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('show');
+			scope.$on('show-modal', function(event) {
+				(<any>element.find('#modalDialogue')).modal('show');
 			});
 
 			scope.$on('hide-modal', function(event, params: any) {
-				element.find(document.getElementById(params.id)).modal('hide');
+				(<any>element.find('#modalDialogue')).modal('hide');
 			});
 		}
 
