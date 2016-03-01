@@ -9,10 +9,14 @@ module app {
 		private userData: UserDataInterface;
 
 		public static $inject = [
+			'$scope',
 			'DocEventService'
 		];
 
-		constructor(private docEventService: DocEventService) {
+		constructor(
+			private $scope: ng.IScope,
+			private docEventService: DocEventService
+		) {
 			this.readOnlyMode = true;
 		}
 
@@ -24,10 +28,8 @@ module app {
 
 			if (this.readOnlyMode) {
 				this.readOnlyMode = false;
-				this.docEventService.bindKeyboardEvent((event: Event) => {
-					this.cancelEditMode(event);
-					// this.readOnlyMode = true;
-				});
+				this.docEventService.bindKeyboardEvent(this.cancelEditMode.bind(this));
+				this.docEventService.bindMouseEvent(this.cancelEditMode.bind(this));
 			}
 		}
 
@@ -36,9 +38,10 @@ module app {
 				event.preventDefault();
 				event.stopPropagation();
 			}
-			console.log('cancelEditMode: ', this);
-			this.readOnlyMode = true;
 			this.docEventService.unbindKeyboardEvent();
+			this.docEventService.unbindMouseEvent();
+			this.readOnlyMode = true;
+			this.$scope.$apply();
 		}
 
 		actionCallback(event: Event, type: string, userId: string) {

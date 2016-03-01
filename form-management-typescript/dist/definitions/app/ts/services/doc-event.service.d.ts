@@ -5,8 +5,8 @@ declare module app {
         private docRef;
         static $inject: string[];
         constructor($document: ng.IDocumentService);
-        bindMouseEvent(): void;
-        bindKeyboardEvent(callback: any): void;
+        bindMouseEvent(callback: Function): void;
+        bindKeyboardEvent(callback: Function): void;
         unbindMouseEvent(): void;
         unbindKeyboardEvent(): void;
     }

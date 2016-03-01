@@ -12,18 +12,23 @@ module app {
 
     constructor(private $document: ng.IDocumentService) { }
 
-    bindMouseEvent() { }
+    bindMouseEvent(callback: Function) {
+      this.$document.on('click', (event) => {
+        callback(event);
+      });
+    }
 
-    bindKeyboardEvent(callback) {
+    bindKeyboardEvent(callback: Function) {
       this.$document.on('keydown keypress', (event) => {
         if (event.which === 27) {
-          console.log('esc pressed');
           callback(event);
         }
       });
     }
 
-    unbindMouseEvent() { }
+    unbindMouseEvent() {
+      this.$document.off('click');
+    }
 
     unbindKeyboardEvent() {
       this.$document.off('keydown keypress');

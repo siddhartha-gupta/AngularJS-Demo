@@ -23,7 +23,6 @@
 <!-- action buttons -->
 <div class="col-xs-1 actionBtns">
     <!-- buttons for non-edit mode -->
-    t-{{customController.readOnlyMode}}
     <span ng-show="customController.readOnlyMode" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
     <span ng-show="customController.readOnlyMode" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
 
