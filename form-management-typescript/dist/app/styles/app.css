@@ -171,6 +171,10 @@ input.ng-invalid.ng-dirty {
 	font-size: 15px;
 }
 
+.group-content {
+	height: 36px;
+}
+
 .group-title {
 	font-weight: bold;
 }

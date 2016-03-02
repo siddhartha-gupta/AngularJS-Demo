@@ -4,6 +4,9 @@
 			<span class="arrow arrow-down"></span>
 			{{heading.text}}
 		</div>
-		<div ng-if="heading.customHTML" ng-bind-html="customController.toTrustedHTML(heading.text)"></div>
+		<!-- <div ng-if="heading.customHTML" ng-bind-html="customController.toTrustedHTML(heading.text)"></div> -->
+	</div>
+	<div class="heading col-xs-1 text-right">
+		<input type="checkbox" ng-checked="customController.checkboxHandlerService.checkboxCounter" ng-click="customController.checkAll()" />
 	</div>
 </div>

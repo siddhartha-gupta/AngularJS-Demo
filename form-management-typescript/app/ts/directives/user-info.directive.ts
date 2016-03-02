@@ -18,11 +18,7 @@ module app {
 
 		constructor() { }
 
-		link(scope: UserInfoScopeInterface, element: ng.IRootElementService) {
-			scope.$on('check-all', function(event, params: any) {
-				scope.customController.checkboxSelected = params.state;
-			});
-		}
+		link(scope: UserInfoScopeInterface, element: ng.IRootElementService) { }
 
 		static factory(): ng.IDirectiveFactory {
 			return (() => new UserInfoDirective());

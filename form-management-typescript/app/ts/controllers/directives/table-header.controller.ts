@@ -10,12 +10,14 @@ module app {
 
 		public static $inject = [
 			'$element',
-			'$sce'
+			'$sce',
+			'CheckboxHandlerService'
 		];
 
 		constructor(
 			private $element: ng.IRootElementService,
-			private $sce: ng.ISCEService
+			private $sce: ng.ISCEService,
+			private checkboxHandlerService: CheckboxHandlerService
 		) {
 			this.defaultClass = 'arrow arrow-down';
 			this.lastSortOrder = '';
@@ -44,10 +46,9 @@ module app {
 				'orderBy': sortOrder
 			});
 		}
-
-		toTrustedHTML(html: string) {
+		/*toTrustedHTML(html: string) {
 			return this.$sce.trustAsHtml(html);
-		}
+		}*/
 	}
 }
 controllers.controller('TableHeaderController', app.TableHeaderController);

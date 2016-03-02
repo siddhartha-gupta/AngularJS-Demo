@@ -15,7 +15,8 @@ module app {
 			'$timeout',
 			'$element',
 			'DocEventService',
-			'UtilsService'
+			'UtilsService',
+			'CheckboxHandlerService'
 		];
 
 		constructor(
@@ -23,11 +24,20 @@ module app {
 			private $timeout: ng.ITimeoutService,
 			private $element: ng.IRootElementService,
 			private docEventService: DocEventService,
-			private utilsService: UtilsService
+			private utilsService: UtilsService,
+			private checkboxHandlerService: CheckboxHandlerService
 		) {
 			this.readOnlyMode = true;
 			this.checkboxSelected = false;
 			this.userEditDataDefault();
+
+			this.$scope.$on('check-all', (event, params: any) => {
+				this.onCheckboxClicked(null, params);
+			});
+
+			/*this.$scope.$on('checkbox-counter-changed', (event, params: any) => {
+				this.onCheckboxCounterChanged(event, params);
+			});*/
 		}
 
 		startEditMode($event: Event) {
@@ -96,7 +106,7 @@ module app {
 				} else {
 					this.userEditDataDefault();
 					return false;
-				}				
+				}
 			}
 			this.actionHandler({ type: type, userId: userId, userData: userData });
 		}
@@ -106,8 +116,8 @@ module app {
 				lastname = this.userEditData.lastname,
 				location = this.userEditData.location;
 
-			if (this.utilsService.isNullUndefined(firstname) || 
-				this.utilsService.isNullUndefined(lastname) || 
+			if (this.utilsService.isNullUndefined(firstname) ||
+				this.utilsService.isNullUndefined(lastname) ||
 				this.utilsService.isNullUndefined(location)) {
 				return false;
 			}
@@ -120,6 +130,20 @@ module app {
 				lastname: this.userData.lastname,
 				location: this.userData.location
 			};
+		}
+
+		onCheckboxClicked(event?: Event, params?: any) {
+			let changed = false;
+			if(event) {
+				changed = true;
+			} else if ((params && params.state !== this.checkboxSelected)) {
+				this.checkboxSelected = params.state;
+				changed = true;
+			}
+
+			if(changed) {
+				this.checkboxHandlerService.manageCheckboxCounter(this.checkboxSelected);
+			}
 		}
 	}
 }

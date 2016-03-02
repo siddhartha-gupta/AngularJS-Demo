@@ -6,6 +6,7 @@ declare module app {
         private apiService;
         private utilsService;
         private sharedService;
+        private checkboxHandlerService;
         private usersList;
         private appConfig;
         private editUser;
@@ -13,9 +14,8 @@ declare module app {
         private infoSlider;
         private sortOrder;
         private tableHeading;
-        private selectedAll;
         static $inject: string[];
-        constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService);
+        constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService, checkboxHandlerService: CheckboxHandlerService);
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;
@@ -33,7 +33,6 @@ declare module app {
         showInfoSlider(params: InfoSliderInterface): void;
         hideInfoSlider(): void;
         createtableHeading(): void;
-        checkAll(): void;
         editUserDefault(): void;
         modalDialogueDefault(): void;
         infoSliderDefault(): void;

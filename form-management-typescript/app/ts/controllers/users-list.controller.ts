@@ -11,14 +11,14 @@ module app {
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
 		private tableHeading: TableHeadingInterface[];
-		private selectedAll: Boolean;
 
 		public static $inject = [
 			'$scope',
 			'$location',
 			'APIService',
 			'UtilsService',
-			'SharedService'
+			'SharedService',
+			'CheckboxHandlerService'
 		];
 
 		constructor(
@@ -26,11 +26,11 @@ module app {
 			private $location: ng.ILocationService,
 			private apiService: APIService,
 			private utilsService: UtilsService,
-			private sharedService: SharedService
+			private sharedService: SharedService,
+			private checkboxHandlerService: CheckboxHandlerService
 		) {
 			this.appConfig = app.Constants.Default;
 			this.sortOrder = '-id_member';
-			this.selectedAll = false;
 			this.getUsers();
 
 			this.usersList = [];
@@ -296,18 +296,15 @@ module app {
 					'className': 'col-xs-1',
 					'sortOrder': 'location',
 					'text': 'Location'
-				}, {
+				}
+				/*, {
 					'className': 'col-xs-1 text-right',
 					'sortOrder': '',
-					'text': '<input type="checkbox" />',
-					'customFunc': this.checkAll.bind(this),
+					'text': '<input type="checkbox" ng-checked="customController.checkboxHandlerService.checkboxCounter" />',
+					'customFunc': this.checkboxHandlerService.checkAll.bind(this.checkboxHandlerService),
 					'customHTML': true
-				}];
-		}
-
-		checkAll() {
-			this.selectedAll = !this.selectedAll;
-			this.sharedService.broadcastEvent('check-all', { state: this.selectedAll });
+				}*/
+				];
 		}
 
 		editUserDefault() {
