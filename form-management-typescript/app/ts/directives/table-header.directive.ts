@@ -8,7 +8,8 @@ module app {
         public scope = {
             tableHeading: '=',
 			sortFunc: '&',
-			checkAll: '&'
+			checkAll: '&',
+			deleteAll: '&'
         };
         public templateUrl = app.Constants.Default.templateUrl + 'directives/table-header.directive.html';
 		public controller = 'TableHeaderController';

@@ -7,7 +7,7 @@
 		<!-- <div ng-if="heading.customHTML" ng-bind-html="customController.toTrustedHTML(heading.text)"></div> -->
 	</div>
 	<div class="heading col-xs-1 text-right">
-		<span ng-show="customController.checkboxHandlerService.checkboxCounter > 0" class="actionBtn deleteBtn deleteBtnHeader" title="Delete all users" ng-click=""></span>
+		<span ng-show="customController.checkboxHandlerService.checkboxCounter > 0" class="actionBtn deleteBtn deleteBtnHeader" title="Delete all users" ng-click="customController.deleteAll($event)"></span>
 		<input type="checkbox" ng-checked="customController.checkboxHandlerService.checkboxCounter > 0" ng-click="customController.checkAll()" />
 	</div>
 </div>

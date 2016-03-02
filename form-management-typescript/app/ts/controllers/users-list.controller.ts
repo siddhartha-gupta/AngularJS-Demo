@@ -219,6 +219,74 @@ module app {
 		}
 
 		/*
+		* Delete all users codeflow
+		*/
+		deleteAll($event) {
+			console.log('deleteAll');
+
+			this.modalDialogue = {
+				isVisible: true,
+				title: 'Delete all users?',
+				body: 'Please confirm, you want to delete all users',
+				btn1Txt: 'Ok',
+				btn2Txt: 'Cancel',
+				showBtn2: true,
+				btn1Callback: this.deleteAllUsersConfirm.bind(this),
+				btn2Callback: this.hideModalDialogue.bind(this),
+				closeBtnCallback: this.hideModalDialogue.bind(this),
+			};
+			this.sharedService.broadcastEvent('show-modal', {});
+		}
+
+		deleteAllUsersConfirm(userId: string) {
+			this.utilsService.log('deleteUserConfirm, userId: ', userId);
+
+			var userIds = [];
+
+			for (var i = 0, len = this.usersList.length; i < len; i++) {
+				userIds.push(this.usersList[i].id_member);
+			}
+			console.log(userIds);
+			this.apiService.postCall({
+				'url': this.appConfig.serverUrl + 'deleteallusers',
+				data: {
+					'userIds': userIds
+				},
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success((response: any) => {
+				this.utilsService.log('success: ', response);
+				this.onAllUsersDeleted(response.resp);
+			}).error((response) => {
+				this.utilsService.log('error: ', response);
+			});
+		}
+
+		onAllUsersDeleted(resp: Boolean) {
+			if (resp === true) {
+				this.hideModalDialogue();
+				this.showInfoSlider({
+					title: 'All users deleted',
+					body: 'All Users are deleted successfully',
+					startTimer: 500,
+					endTimer: 4000
+				});
+				this.getUsers();
+			} else {
+				this.modalDialogue = {
+					isVisible: true,
+					title: 'Error!',
+					body: 'We have encountered error while deleting users. Please try again',
+					btn1Txt: 'Ok',
+					btn2Txt: '',
+					showBtn2: false,
+					btn1Callback: this.hideModalDialogue.bind(this),
+					btn2Callback: function() { },
+					closeBtnCallback: this.hideModalDialogue.bind(this),
+				};
+			}
+		}
+
+		/*
 		* Generic functions to hide pop ups
 		* to show info slider etc
 		*/
@@ -304,7 +372,7 @@ module app {
 					'customFunc': this.checkboxHandlerService.checkAll.bind(this.checkboxHandlerService),
 					'customHTML': true
 				}*/
-				];
+			];
 		}
 
 		editUserDefault() {

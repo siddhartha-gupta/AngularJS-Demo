@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row stats-container" ng-if="customController.usersList.length > 0">
-		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)" check-all="customController.checkboxHandlerService.checkAll()"></table-header>
+		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)" check-all="customController.checkboxHandlerService.checkAll()" delete-all="customController.deleteAll($event)"></table-header>
 
 		<div ng-repeat="(key, userData) in customController.usersList | orderBy:customController.sortOrder" class="row group-content">
 			<user-info user-data="userData" edit-user-id="customController.editUserId" action-handler="customController.actionHandler(type, userId, userData)" id="userinfo_{{userData.id_member}}"></user-info>

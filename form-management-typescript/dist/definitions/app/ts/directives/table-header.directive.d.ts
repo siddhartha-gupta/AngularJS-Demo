@@ -8,6 +8,7 @@ declare module app {
             tableHeading: string;
             sortFunc: string;
             checkAll: string;
+            deleteAll: string;
         };
         templateUrl: string;
         controller: string;

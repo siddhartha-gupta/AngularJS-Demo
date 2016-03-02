@@ -27,6 +27,9 @@ declare module app {
         deleteUserClick(userId: string): void;
         deleteUserConfirm(userId: string): void;
         onUserDeleted(resp: Boolean): void;
+        deleteAll($event: any): void;
+        deleteAllUsersConfirm(userId: string): void;
+        onAllUsersDeleted(resp: Boolean): void;
         hideEditPopup(event?: Event): void;
         hideModalDialogue(event?: Event): void;
         manageSortOrder(orderBy: string): void;
