@@ -15,6 +15,8 @@
 /// <reference path='ts/interfaces/controllers/user-form.interface.ts' />
 /// <reference path='ts/interfaces/controllers/user-info.interface.ts' />
 
+/// <reference path='ts/interfaces/directives/user-info.interface.ts' />
+
 /// <reference path='ts/interfaces/data/app-config.interface.ts' />
 /// <reference path='ts/interfaces/data/user-data.interface.ts' />
 /// <reference path='ts/interfaces/data/edit-user.interface.ts' />

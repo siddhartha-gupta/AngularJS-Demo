@@ -3,15 +3,14 @@ declare module app {
     class UserInfoDirective implements ng.IDirective {
         restrict: string;
         scope: {
-            userData: string;
-            actionHandler: string;
+            [key: string]: string;
         };
         templateUrl: string;
         controller: string;
         controllerAs: string;
         bindToController: boolean;
         constructor();
-        link(scope: ng.IScope, element: ng.IRootElementService): void;
+        link(scope: UserInfoScopeInterface, element: ng.IRootElementService): void;
         static factory(): ng.IDirectiveFactory;
     }
 }

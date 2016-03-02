@@ -12,6 +12,7 @@
 /// <reference path="ts/interfaces/controllers/table-header.interface.d.ts" />
 /// <reference path="ts/interfaces/controllers/user-form.interface.d.ts" />
 /// <reference path="ts/interfaces/controllers/user-info.interface.d.ts" />
+/// <reference path="ts/interfaces/directives/user-info.interface.d.ts" />
 /// <reference path="ts/interfaces/data/app-config.interface.d.ts" />
 /// <reference path="ts/interfaces/data/user-data.interface.d.ts" />
 /// <reference path="ts/interfaces/data/edit-user.interface.d.ts" />
