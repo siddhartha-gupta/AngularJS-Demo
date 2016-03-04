@@ -21,8 +21,13 @@ module.exports = function(config) {
 		autoWatch: true,
 		port: 9876,
 		colors: true,
+		// logLevel: config.LOG_DEBUG,
 		logLevel: config.LOG_INFO,
-		browsers: ['Chrome', 'PhantomJS', 'Firefox'],
+		browsers: [
+			'Chrome',
+			// 'PhantomJS',
+			// 'Firefox'
+		],
 		reporters: ['progress', 'coverage'],
 		preprocessors: {
 			'dist/app/*.js': ['coverage']

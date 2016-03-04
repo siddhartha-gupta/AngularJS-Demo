@@ -6,12 +6,20 @@ module app {
 	export class TestController {
 		private validEmail: Boolean;
 
-		constructor() {
+		public static $inject = [
+			'$scope',
+			'UtilsService'
+		];
+
+		constructor(
+			private $scope: ng.IScope,
+			private utilsService: UtilsService
+		) {
 			this.validEmail = false;
 		}
 
 		validateEmail(val: string) {
-			this.validEmail = true;
+			this.validEmail = this.utilsService.validateEmail(val);
 		}
 	}
 }
