@@ -10,7 +10,7 @@ module.exports = function(config) {
 		browsers: ['PhantomJS'],
 		reporters: ['progress', 'coverage'],
 		preprocessors: {
-			'app/scripts/*.js': ['coverage']
+			'dist/app/all.js': ['coverage']
 		},
 		coverageReporter: {
 			type: 'html',
