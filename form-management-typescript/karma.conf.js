@@ -14,7 +14,7 @@ module.exports = function(config) {
 			'dist/app/lib/angular.js',
 			'dist/app/lib/angular-mocks.js',
 			'dist/app/all.js',
-			'tests/*.js'
+			'tests/**/*.js'
 		],
 		exclude: [],
 		singleRun: false,

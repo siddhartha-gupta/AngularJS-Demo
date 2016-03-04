@@ -1,5 +1,5 @@
 describe('app', function() {
-	var TestController;
+	var testController;
 
 	beforeEach(module('controllers'));
 	beforeEach(module('services'));
@@ -7,7 +7,6 @@ describe('app', function() {
 	beforeEach(inject(function($controller, $rootScope, $injector) {
 		var scope = $rootScope.$new(),
 			utilsService = $injector.get('UtilsService');
-
 
 		testController = $controller('TestController', {
 			$scope: scope,
