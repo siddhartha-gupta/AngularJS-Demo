@@ -1,22 +1,33 @@
 module.exports = function(config) {
 	config.set({
+		basePath: '',
 		frameworks: ['jasmine'],
-		plugins: [
+		/*plugins: [
 			'karma-phantomjs-launcher',
 			'karma-jasmine',
 			'karma-coverage'
+		],*/
+		files: [
+			'dist/app/lib/angular.js',
+			'dist/app/lib/angular-mocks.js',
+			'dist/app/all.js',
+			'tests/*.js'
 		],
-		// start these browsers
+		exclude: [],
+		browsers: [
+			'PhantomJS'
+		],
+		singleRun: false,
+		colors: true,
+		logLevel: config.LOG_INFO,
 		browsers: ['PhantomJS'],
 		reporters: ['progress', 'coverage'],
 		preprocessors: {
-			'dist/app/all.js': ['coverage']
+			'dist/app/*.js': ['coverage']
 		},
 		coverageReporter: {
 			type: 'html',
-			dir: 'coverage'
-		},
-		logLevel: config.LOG_INFO,
-		singleRun: false
+			dir: 'tests/coverage/'
+		}
 	});
 };

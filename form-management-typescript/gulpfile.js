@@ -13,6 +13,7 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	tscConfig = require('./tsconfig.json'),
 	karma = require('gulp-karma'),
+	Server = require('karma').Server,
 	reload = browserSync.reload;
 
 // clean the contents of the distribution directory
@@ -63,21 +64,7 @@ gulp.task('copyJSLibs', ['clean'], function() {
 			'bower_components/angular-mocks/angular-mocks.js',
 			'bower_components/angular-route/angular-route.js'
 		])
-		// .pipe(concat('libs.js'))
 		.pipe(gulp.dest('dist/app/lib/'))
-		// .pipe(rename('libs.min.js'))
-		// .pipe(uglify())
-		// .pipe(gulp.dest('dist/app/lib/'))
-});
-
-gulp.task('minifylibs', ['clean'], function() {
-	return gulp.src([
-			'bower_components/jquery/dist/jquery.js',
-			'bower_components/bootstrap/dist/js/bootstrap.js',
-			'bower_components/angular/angular.js',
-			'bower_components/angular-mocks/angular-mocks.js',
-			'bower_components/angular-route/angular-route.js'
-		])
 		.pipe(concat('libs.js'))
 		.pipe(gulp.dest('dist/app/lib/'))
 		.pipe(rename('libs.min.js'))
@@ -104,24 +91,28 @@ gulp.task('serve', ['default'], function() {
 	gulp.watch(['app/**/*', 'index.html'], ['buildAndReload']);
 });
 
-var allFiles = [
+/*var allFiles = [
 	'dist/app/lib/angular.js',
 	'dist/app/lib/angular-mocks.js',
-	'dist/app/*.js',
+	'dist/app/all.js',
 	'test/*.js'
 ];
-
-gulp.task('test', ['compile', 'copyAssets', 'copyJSLibs', 'copyCSSLibs'], function(coverage) {
-	gulp.src(allFiles)
-		.pipe(karma({
-			configFile: 'karma.conf.js',
-			action: 'run'
-		}))
-		.on('error', function(err) {
-			// Make sure failed tests cause gulp to exit non-zero
-			throw err;
-		});
+*/
+gulp.task('test', ['default'], function(done) {
+	/*	gulp.src(allFiles)
+			.pipe(karma({
+				configFile: 'karma.conf.js',
+				action: 'run'
+			}))
+			.on('error', function(err) {
+				// Make sure failed tests cause gulp to exit non-zero
+				throw err;
+			});*/
+	new Server({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done).start();
 });
 
 gulp.task('buildAndReload', ['default'], reload);
-gulp.task('default', ['compile', 'copyAssets', 'minifylibs', 'copyCSSLibs']);
+gulp.task('default', ['compile', 'copyAssets', 'copyJSLibs', 'copyCSSLibs']);
