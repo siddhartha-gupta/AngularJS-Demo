@@ -114,5 +114,9 @@ gulp.task('test', ['default'], function(done) {
 	}, done).start();
 });
 
+gulp.task('autotest', function() {
+	gulp.watch(['app/**/*', 'index.html', 'tests/**/*'], ['test']);
+});
+
 gulp.task('buildAndReload', ['default'], reload);
 gulp.task('default', ['compile', 'copyAssets', 'copyJSLibs', 'copyCSSLibs']);

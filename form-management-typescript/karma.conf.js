@@ -2,11 +2,14 @@ module.exports = function(config) {
 	config.set({
 		basePath: '',
 		frameworks: ['jasmine'],
-		/*plugins: [
+		plugins: [
+			'karma-junit-reporter',
 			'karma-phantomjs-launcher',
 			'karma-jasmine',
-			'karma-coverage'
-		],*/
+			'karma-coverage',
+			'karma-chrome-launcher',
+			'karma-firefox-launcher',
+		],
 		files: [
 			'dist/app/lib/angular.js',
 			'dist/app/lib/angular-mocks.js',
@@ -14,13 +17,12 @@ module.exports = function(config) {
 			'tests/*.js'
 		],
 		exclude: [],
-		browsers: [
-			'PhantomJS'
-		],
 		singleRun: false,
+		autoWatch: true,
+		port: 9876,
 		colors: true,
 		logLevel: config.LOG_INFO,
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome', 'PhantomJS', 'Firefox'],
 		reporters: ['progress', 'coverage'],
 		preprocessors: {
 			'dist/app/*.js': ['coverage']
