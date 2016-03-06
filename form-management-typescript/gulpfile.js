@@ -36,7 +36,6 @@ gulp.task('tslint', function() {
 		.pipe(tslint.report('verbose'));
 });
 
-
 // TypeScript compile
 gulp.task('compile', ['clean'], function() {
 	var tsResult = gulp.src(tscConfig.paths.inPath)
