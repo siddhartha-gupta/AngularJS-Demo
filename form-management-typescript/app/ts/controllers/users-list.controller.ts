@@ -29,11 +29,12 @@ module app {
 			private sharedService: SharedService,
 			private checkboxHandlerService: CheckboxHandlerService
 		) {
+			console.log('usersList constructor');
 			this.appConfig = app.Constants.Default;
 			this.sortOrder = '-id_member';
-			this.getUsers();
-
 			this.usersList = [];
+
+			this.getUsers();
 			this.editUserDefault();
 			this.modalDialogueDefault();
 			this.infoSliderDefault();
