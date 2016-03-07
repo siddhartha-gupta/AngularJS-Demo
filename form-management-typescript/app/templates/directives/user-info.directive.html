@@ -30,7 +30,6 @@
 <!-- action buttons -->
 <div class="col-xs-1 actionBtns">
 	<!-- buttons for non-edit mode -->
-	<!-- {{customController.checkboxHandlerService.checkboxCounter}} -->
 	<span ng-show="customController.readOnlyMode && customController.checkboxHandlerService.checkboxCounter <= 0" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
 	<span ng-show="customController.readOnlyMode && customController.checkboxHandlerService.checkboxCounter <= 0" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
 	<input class="checkAllCheckbox" ng-model="customController.checkboxSelected" ng-show="customController.readOnlyMode" type="checkbox" ng-click="customController.onCheckboxClicked($event)" />

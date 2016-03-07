@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="customController.hidePopup($event)">&times;</button>
-				<h4 class="modal-title">{{customController.title}}</h4>
+				<h4 class="modal-title" ng-bind="customController.title"></h4>
 			</div>
 			<div class="modal-body">
 				<user-form user-data="customController.userData" user-id="customController.userId" edit-mode="true" form-submit="customController.updateData({data:customController.userData, userId: customController.userId})" discard-form="customController.discardForm()"></user-form>
