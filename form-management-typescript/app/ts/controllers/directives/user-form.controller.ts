@@ -10,11 +10,7 @@ module app {
 		private locationOption: Object;
 
 		constructor() {
-			this.locationOption = {
-				'IN': 'India',
-				'US': 'United States',
-				'UK': 'United Kingdom'
-			};
+			this.locationOption = app.Constants.Default.locationOption;
 		}
 
 		onFormSubmit(event: Event) {

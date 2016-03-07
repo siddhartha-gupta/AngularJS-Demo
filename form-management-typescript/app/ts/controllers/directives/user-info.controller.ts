@@ -30,17 +30,12 @@ module app {
 		) {
 			this.readOnlyMode = true;
 			this.checkboxSelected = false;
-			this.userEditDataDefault();
+			this.locationOption = app.Constants.Default.locationOption;
 
+			this.userEditDataDefault();
 			this.$scope.$on('check-all', (event, params: any) => {
 				this.onCheckboxClicked(null, params);
 			});
-
-			this.locationOption = {
-				'IN': 'India',
-				'US': 'United States',
-				'UK': 'United Kingdom'
-			};
 		}
 
 		startEditMode(event: Event) {
@@ -137,14 +132,14 @@ module app {
 
 		onCheckboxClicked(event?: Event, params?: any) {
 			let changed = false;
-			if(event) {
+			if (event) {
 				changed = true;
 			} else if ((params && params.state !== this.checkboxSelected)) {
 				this.checkboxSelected = params.state;
 				changed = true;
 			}
 
-			if(changed) {
+			if (changed) {
 				this.checkboxHandlerService.manageCheckboxCounter(this.checkboxSelected);
 			}
 		}
