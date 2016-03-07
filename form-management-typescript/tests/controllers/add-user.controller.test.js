@@ -42,7 +42,7 @@ describe('app', function() {
 		expect(addUserController.validateForm()).toEqual(false);
 	});
 
-	it('user form should return true', function() {
+	/*it('user form should return true', function() {
 		addUserController.userData = {
 			'firstname': 'test',
 			'lastname': 'test',
@@ -63,31 +63,5 @@ describe('app', function() {
 			'location': 'IN'
 		}
 		expect(addUserController.addUser()).toEqual(false);
-	});
+	});*/
 });
-
-/*
-addUser() {
-	this.utilsService.log('add user: ', this.userData);
-
-	if (this.validateForm()) {
-		this.apiService.postCall({
-			'url': this.appConfig.serverUrl + 'adduser',
-			data: this.userData,
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		}).success((response: any) => {
-			this.utilsService.log('success: ', response);
-
-			if (response && response.resp && response.resp === 'Email already in use') {
-				this.showModalDialogue('emailInUse');
-			} else {
-				this.gotoUserList();
-			}
-		}).error((response: any) => {
-			this.utilsService.log('error: ', response);
-		});
-	}
-}
-*/
