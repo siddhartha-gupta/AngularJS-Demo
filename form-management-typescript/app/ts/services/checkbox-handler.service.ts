@@ -19,8 +19,6 @@ module app {
 		}
 
 		checkAll() {
-			// console.log('checkAll');
-			// console.log(this);
 			this.selectedAll = !this.selectedAll;
 			this.sharedService.broadcastEvent('check-all', { state: this.selectedAll });
 		}
@@ -35,7 +33,6 @@ module app {
 			if (this.checkboxCounter < 0) {
 				this.checkboxCounter = 0;
 			}
-			// console.log('checkboxCounter: ', this.checkboxCounter); 
 		}
 	}
 }

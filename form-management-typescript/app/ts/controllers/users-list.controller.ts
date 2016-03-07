@@ -30,7 +30,6 @@ module app {
 			private sharedService: SharedService,
 			private checkboxHandlerService: CheckboxHandlerService
 		) {
-			console.log('usersList constructor');
 			this.appConfig = app.Constants.Default;
 			this.sortOrder = '-id_member';
 			this.usersList = [];
@@ -229,8 +228,6 @@ module app {
 		* Delete all users codeflow
 		*/
 		deleteAll($event) {
-			console.log('deleteAll');
-
 			this.modalDialogue = {
 				isVisible: true,
 				title: 'Delete all users?',
@@ -253,7 +250,6 @@ module app {
 			for (var i = 0, len = this.usersList.length; i < len; i++) {
 				userIds.push(this.usersList[i].id_member);
 			}
-			console.log(userIds);
 			this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'deleteallusers',
 				data: {

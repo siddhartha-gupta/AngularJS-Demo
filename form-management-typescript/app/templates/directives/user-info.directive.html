@@ -5,19 +5,19 @@
 
 	<!-- user first and last name -->
 	<div class="col-xs-2">
-		<input id="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" ng-model="customController.userEditData.firstname" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
+		<input id="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" ng-model="customController.userEditData.firstname" maxlength="64" ng-dblclick="customController.startEditMode($event)" title="Double click to edit first name" />
 	</div>
 	<div class="col-xs-2">
-		<input id="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" ng-model="customController.userEditData.lastname" maxlength="64" ng-dblclick="customController.startEditMode($event)" />
+		<input id="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" ng-model="customController.userEditData.lastname" maxlength="64" ng-dblclick="customController.startEditMode($event)" title="Double click to edit last name" />
 	</div>
 
 	<!-- user email and phone number -->
-	<div class="col-xs-3">{{customController.userData.email}}</div>
-	<div class="col-xs-2">{{customController.userData.phonenumber}}</div>
+	<div class="col-xs-3" ng-bind="::customController.userData.email"></div>
+	<div class="col-xs-2" ng-bind="::customController.userData.phonenumber"></div>
 
 	<!-- user location -->
 	<div class="col-xs-1">
-		<input ng-readonly="true" type="text" value="{{customController.userEditData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" />
+		<input ng-readonly="true" type="text" value="{{customController.userEditData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" title="Double click to edit location" />
 
 		<select id="location" ng-model="customController.userEditData.location" ng-show="!customController.readOnlyMode">
 			<option value="IN" ng-selected="'IN' === customController.userEditData.location">India</option>
