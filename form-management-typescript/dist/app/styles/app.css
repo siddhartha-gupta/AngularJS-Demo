@@ -1,8 +1,14 @@
 body {
+
 	/*background-color: #52575c !important;*/
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
 	display: none !important;
 }
 
@@ -47,7 +53,7 @@ header {
 	background: #1BBBFB;
 	border: 1px solid #ccc;
 	border-bottom: 1px solid #bbb;
-	box-shadow: 0 1px 2px rgba(1,1,1,0.2);
+	box-shadow: 0 1px 2px rgba(1, 1, 1, 0.2);
 	height: 60px;
 	text-align: center;
 	font-size: 20px;
@@ -67,7 +73,7 @@ header h2 {
 input.ng-invalid.ng-dirty {
 	outline: 0;
 	border-color: rgb(191, 22, 92);
-	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgb(191, 22, 92);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(191, 22, 92);
 }
 
 .custom-container {
@@ -115,7 +121,6 @@ input.ng-invalid.ng-dirty {
 	text-overflow: ellipsis;
 }
 
-
 .bs-callout {
 	padding: 20px;
 	border: 1px solid #eee;
@@ -151,12 +156,12 @@ input.ng-invalid.ng-dirty {
 
 .stats-container {
 	width: 94%;
-    margin: 15px auto;
-    position: relative;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    border-bottom: none;
+	margin: 15px auto;
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	border-bottom: none;
 }
 
 .stats-container .row {
@@ -168,7 +173,7 @@ input.ng-invalid.ng-dirty {
 	padding: 5px 15px;
 	border-bottom: 1px solid #ddd;
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-	font-size: 15px;
+	font-size:15px;
 }
 
 .group-content {
@@ -209,15 +214,15 @@ input.ng-invalid.ng-dirty {
 }
 
 .row .group-content:first-child {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
-.row .group-content:nth-child(even){
-  background-color: #f9f9f9;
+.row .group-content:nth-child(even) {
+	background-color: #f9f9f9;
 }
 
-.row .group-content:nth-child(odd){
-  background-color: #fff;
+.row .group-content:nth-child(odd) {
+	background-color: #fff;
 }
 
 .row .group-content:hover {
@@ -238,13 +243,13 @@ input.ng-invalid.ng-dirty {
 }
 
 .editBtn {
-    background-position: 0px -2px;
-    background-size: 100%;
+	background-position: 0px -2px;
+	background-size: 100%;
 }
 
 .deleteBtn {
 	background-position: 0px -30px;
-    background-size: 100%;
+	background-size: 100%;
 }
 
 .deleteBtnHeader {
@@ -255,13 +260,13 @@ input.ng-invalid.ng-dirty {
 }
 
 .saveBtn {
-    background-position: 1px -61px;
-    background-size: 100%;
+	background-position: 1px -61px;
+	background-size: 100%;
 }
 
 .cancelBtn {
-    background-position: 0px -198px;
-    background-size: 100%;
+	background-position: 0px -198px;
+	background-size: 100%;
 }
 
 .group-content input[type="text"] {
@@ -291,8 +296,7 @@ input.ng-invalid.ng-dirty {
 }
 
 .group-content select {
-	width: 100%;
-	/*border-radius: 3px;*/
+	width: 100%;	/*border-radius: 3px;*/
 }
 
 .form-group {
@@ -312,10 +316,10 @@ input.ng-invalid.ng-dirty {
 }
 
 .cancel-btn {
- 	padding: 2px;
-    font-size: 14px;
-    color: #286090;
-    cursor: pointer;
+	padding: 2px;
+	font-size: 14px;
+	color: #286090;
+	cursor: pointer;
 }
 
 .cancel-btn:hover {
@@ -331,9 +335,130 @@ input.ng-invalid.ng-dirty {
 	width: 525px;
 }
 
-@media (min-width: 768px){
-	.infoSlider .modal-dialog {
-	    width: 500px;
-	    margin: 20px auto;
+.loader-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	left: 0;
+}
+
+.loader {
+	height: 20px;
+	width: 250px;
+	position: relative;
+	top: 48%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.loader--dot {
+	animation-name: loader;
+	animation-timing-function: ease-in-out;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+	background-color: black;
+	position: absolute;
+	border: 2px solid white;
+}
+
+.loader--dot:first-child {
+	background-color: #8cc759;
+	animation-delay: 0.5s;
+}
+
+.loader--dot:nth-child(2) {
+	background-color: #8c6daf;
+	animation-delay: 0.4s;
+}
+
+.loader--dot:nth-child(3) {
+	background-color: #ef5d74;
+	animation-delay: 0.3s;
+}
+
+.loader--dot:nth-child(4) {
+	background-color: #f9a74b;
+	animation-delay: 0.2s;
+}
+
+.loader--dot:nth-child(5) {
+	background-color: #60beeb;
+	animation-delay: 0.1s;
+}
+
+.loader--dot:nth-child(6) {
+	background-color: #fbef5a;
+	animation-delay: 0s;
+}
+
+.loader--text {
+	position: absolute;
+	top: 200%;
+	left: 0;
+	right: 0;
+	width: 4rem;
+	margin: auto;
+}
+
+.loader--text:after {
+	content: "Loading";
+	font-weight: bold;
+	animation-name: loading-text;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	color: #fff;
+}
+
+@keyframes loader {
+	15% {
+		transform: translateX(0);
 	}
+
+	45% {
+		transform: translateX(230px);
+	}
+
+	65% {
+		transform: translateX(230px);
+	}
+
+	95% {
+		transform: translateX(0);
+	}
+
+}
+
+@keyframes loading-text {
+	0% {
+		content: "Loading";
+	}
+
+	25% {
+		content: "Loading.";
+	}
+
+	50% {
+		content: "Loading..";
+	}
+
+	75% {
+		content: "Loading...";
+	}
+
+}
+
+@media (min-width:768px) {
+	.infoSlider .modal-dialog {
+		width: 500px;
+		margin: 20px auto;
+	}
+
 }

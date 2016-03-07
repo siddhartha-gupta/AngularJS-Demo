@@ -14,6 +14,7 @@ declare module app {
         private infoSlider;
         private sortOrder;
         private tableHeading;
+        private showLoader;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, apiService: APIService, utilsService: UtilsService, sharedService: SharedService, checkboxHandlerService: CheckboxHandlerService);
         getUsers(): void;

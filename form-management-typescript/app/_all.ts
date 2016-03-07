@@ -40,6 +40,7 @@
 /// <reference path='ts/controllers/directives/table-header.controller.ts' />
 /// <reference path='ts/controllers/directives/info-slider.controller.ts' />
 /// <reference path='ts/controllers/directives/user-info.controller.ts' />
+/// <reference path='ts/controllers/directives/spinner.controller.ts' />
 
 /// <reference path='ts/directives/edit-user.directive.ts' />
 /// <reference path='ts/directives/modal-dialogue.directive.ts' />
@@ -47,6 +48,7 @@
 /// <reference path='ts/directives/table-header.directive.ts' />
 /// <reference path='ts/directives/info-slider.directive.ts' />
 /// <reference path='ts/directives/user-info.directive.ts' />
+/// <reference path='ts/directives/spinner.directive.ts' />
 
 /// <reference path='ts/services/api.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />

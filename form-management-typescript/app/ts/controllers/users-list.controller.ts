@@ -11,6 +11,7 @@ module app {
 		private infoSlider: InfoSliderInterface;
 		private sortOrder: string;
 		private tableHeading: TableHeadingInterface[];
+		private showLoader: Boolean;
 
 		public static $inject = [
 			'$scope',
@@ -33,6 +34,7 @@ module app {
 			this.appConfig = app.Constants.Default;
 			this.sortOrder = '-id_member';
 			this.usersList = [];
+			this.showLoader = false;
 
 			this.getUsers();
 			this.editUserDefault();
@@ -42,12 +44,15 @@ module app {
 		}
 
 		getUsers() {
+			this.showLoader = true;
+
 			this.apiService.getCall({
 				'url': this.appConfig.serverUrl + 'getuserslist'
 			}).success((data, status) => {
-				this.processServerData(data)
+				this.processServerData(data);
 			}).error((data, status) => {
-				this.utilsService.log('err')
+				this.utilsService.log('err');
+				this.showLoader = false;
 			});
 		}
 
@@ -59,6 +64,7 @@ module app {
 			} else {
 				this.usersList.length = 0;
 			}
+			this.showLoader = false;
 		}
 
 		addUser() {

@@ -6,7 +6,7 @@
 			<user-info user-data="userData" edit-user-id="customController.editUserId" action-handler="customController.actionHandler(type, userId, userData)" id="userinfo_{{userData.id_member}}"></user-info>
 		</div>
 	</div>
-	<div class="row stats-container" ng-if="customController.usersList.length === 0">
+	<div class="row stats-container" ng-if="customController.usersList.length === 0 && customController.showLoader === false">
 		<div class="row group-content">
 			<div class="col-xs-12">No user found</div>
 		</div>
@@ -18,3 +18,4 @@
 ></modal-dialogue>
 
 <info-slider title="customController.infoSlider.title" body="customController.infoSlider.body"></info-slider>
+<spinner show-loader="customController.showLoader"></spinner>
