@@ -12,6 +12,7 @@ declare module app {
         private userData;
         private userEditData;
         private checkboxSelected;
+        private locationOption;
         static $inject: string[];
         constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $element: ng.IRootElementService, docEventService: DocEventService, utilsService: UtilsService, checkboxHandlerService: CheckboxHandlerService);
         startEditMode(event: Event): void;

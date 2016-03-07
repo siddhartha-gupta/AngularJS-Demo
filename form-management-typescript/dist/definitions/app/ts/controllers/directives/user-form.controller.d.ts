@@ -4,6 +4,7 @@ declare module app {
         private formSubmit;
         private userData;
         private userDataId;
+        private locationOption;
         constructor();
         onFormSubmit(event: Event): void;
     }

@@ -17,12 +17,10 @@
 
 	<!-- user location -->
 	<div class="col-xs-1">
-		<input ng-readonly="true" type="text" value="{{customController.userEditData.location}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" title="Double click to edit location" />
+		<input ng-readonly="true" type="text" value="{{customController.locationOption[customController.userEditData.location]}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" title="Double click to edit location" />
 
 		<select id="location" ng-model="customController.userEditData.location" ng-show="!customController.readOnlyMode">
-			<option value="IN" ng-selected="'IN' === customController.userEditData.location">India</option>
-			<option value="US" ng-selected="'US' === customController.userEditData.location">US</option>
-			<option value="UK" ng-selected="'UK' === customController.userEditData.location">UK</option>
+			<option ng-repeat="(key, value) in customController.locationOption" value="{{key}}" ng-bind="value" ng-selected="value === customController.userEditData.location"></option>
 		</select>
 	</div>
 	<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />

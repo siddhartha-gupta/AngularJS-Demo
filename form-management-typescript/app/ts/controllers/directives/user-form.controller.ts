@@ -7,8 +7,15 @@ module app {
 		private formSubmit: Function;
 		private userData: UserDataInterface;
 		private userDataId: string;
+		private locationOption: Object;
 
-		constructor() { }
+		constructor() {
+			this.locationOption = {
+				'IN': 'India',
+				'US': 'United States',
+				'UK': 'United Kingdom'
+			};
+		}
 
 		onFormSubmit(event: Event) {
 			if (event) {

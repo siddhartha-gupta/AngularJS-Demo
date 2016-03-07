@@ -9,6 +9,7 @@ module app {
 		private userData: UserDataInterface;
 		private userEditData: userEditDataInterface;
 		private checkboxSelected: Boolean;
+		private locationOption: Object;
 
 		public static $inject = [
 			'$scope',
@@ -35,9 +36,11 @@ module app {
 				this.onCheckboxClicked(null, params);
 			});
 
-			/*this.$scope.$on('checkbox-counter-changed', (event, params: any) => {
-				this.onCheckboxCounterChanged(event, params);
-			});*/
+			this.locationOption = {
+				'IN': 'India',
+				'US': 'United States',
+				'UK': 'United Kingdom'
+			};
 		}
 
 		startEditMode(event: Event) {
