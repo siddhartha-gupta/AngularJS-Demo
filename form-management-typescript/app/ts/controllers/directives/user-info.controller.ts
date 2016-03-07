@@ -40,7 +40,7 @@ module app {
 			});*/
 		}
 
-		startEditMode($event: Event) {
+		startEditMode(event: Event) {
 			if (event) {
 				event.preventDefault();
 				event.stopPropagation();

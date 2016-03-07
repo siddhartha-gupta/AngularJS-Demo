@@ -14,7 +14,7 @@ declare module app {
         private checkboxSelected;
         static $inject: string[];
         constructor($scope: ng.IScope, $timeout: ng.ITimeoutService, $element: ng.IRootElementService, docEventService: DocEventService, utilsService: UtilsService, checkboxHandlerService: CheckboxHandlerService);
-        startEditMode($event: Event): void;
+        startEditMode(event: Event): void;
         cancelEditMode(event?: Event, noreset?: Boolean): void;
         onMouseClick(event: Event): void;
         actionCallback(event: Event, type: string, userId: string): boolean;

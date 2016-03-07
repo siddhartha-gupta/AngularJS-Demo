@@ -95,7 +95,10 @@ module app {
 		}
 
 		callFunction(event: Event, clickFunc: string) {
-			event.preventDefault();
+			if (event) {
+				event.preventDefault();
+				event.stopPropagation();	
+			}
 
 			if (angular.isFunction(this[clickFunc])) {
 				this[clickFunc]();
@@ -111,7 +114,6 @@ module app {
 		}
 
 		goBack() {
-			event.preventDefault();
 			this.$location.path('/userslist').replace();
 		}
 	}
