@@ -123,7 +123,8 @@ module app {
 						id_member: data.id_member,
 						lastname: data.lastname,
 						location: data.location,
-						phonenumber: data.phonenumber
+						phonenumber: data.phonenumber,
+						timestamp: data.timestamp
 					}
 				},
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

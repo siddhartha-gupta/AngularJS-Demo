@@ -7,6 +7,7 @@ declare module app {
         email: string;
         phonenumber: string;
         location: string;
+        timestamp?: number;
     }
     interface userEditDataInterface {
         firstname: string;

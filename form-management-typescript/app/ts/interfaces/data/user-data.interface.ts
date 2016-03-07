@@ -10,6 +10,7 @@ module app {
 		email: string;
 		phonenumber: string;
 		location: string;
+		timestamp?: number;
 	}
 
 	export interface userEditDataInterface {

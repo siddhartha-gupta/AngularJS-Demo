@@ -98,7 +98,8 @@ module app {
 						lastname: this.userEditData.lastname,
 						email: this.userData.email,
 						phonenumber: this.userData.phonenumber,
-						location: this.userEditData.location
+						location: this.userEditData.location,
+						timestamp: this.userData.timestamp
 					};
 					this.cancelEditMode(null, true);
 				} else {
