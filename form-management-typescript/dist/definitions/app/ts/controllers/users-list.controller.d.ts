@@ -24,7 +24,7 @@ declare module app {
         validateEmail(val: string): void;
         editUserClick(userId: string): void;
         updateUserData(data: UserDataInterface, userId: string): void;
-        onUserUpdateResp(resp: Boolean): void;
+        onUserUpdateResp(resp: any): void;
         deleteUserClick(userId: string): void;
         deleteUserConfirm(userId: string): void;
         onUserDeleted(resp: Boolean): void;

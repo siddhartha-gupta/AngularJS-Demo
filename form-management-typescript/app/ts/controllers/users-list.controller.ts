@@ -136,22 +136,45 @@ module app {
 			});
 		}
 
-		onUserUpdateResp(resp: Boolean) {
-			this.hideEditPopup();
+		onUserUpdateResp(resp: any) {
+			let showModal: Boolean = false,
+				modalTitle: string = 'Error!',
+				modalText: string = '';
 
-			if (resp === true) {
-				this.showInfoSlider({
-					title: 'User updated',
-					body: 'User info has been updated successfully',
-					startTimer: 500,
-					endTimer: 4000
-				});
-				this.getUsers();
-			} else {
+			this.hideEditPopup();
+			console.log('onUserUpdateResp: ', resp);
+			switch (resp) {
+				case true:
+					this.showInfoSlider({
+						title: 'User updated',
+						body: 'User info has been updated successfully',
+						startTimer: 500,
+						endTimer: 4000
+					});
+					this.getUsers();
+					break;
+
+				case 'alreadyUpdated':
+					showModal = true;
+					modalText = 'It seems user has been updated from another source. Please try again';
+					break;
+
+				case 'alreadyDeleted':
+					showModal = true;
+					modalText = 'It seems user has been deleted.';
+					break;
+
+				default:
+					showModal = true;
+					modalText = 'We have encountered error while updating user information. Please try again';
+					break;
+			}
+
+			if (showModal) {
 				this.modalDialogue = {
 					isVisible: true,
-					title: 'Error!',
-					body: 'We have encountered error while updating user information. Please try again',
+					title: modalTitle,
+					body: modalText,
 					btn1Txt: 'Ok',
 					btn2Txt: '',
 					showBtn2: false,
