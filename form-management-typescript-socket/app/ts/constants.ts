@@ -6,8 +6,8 @@ module app {
 	export class Constants {
 		static get Default(): any {
 			return {
-				// serverUrl: 'http://localhost:8080/',
-				serverUrl: 'https://user-management-881512.herokuapp.com/',
+				serverUrl: 'http://localhost:5000',
+				// serverUrl: 'https://user-management-881512.herokuapp.com/',
 				templateUrl: 'templates/',
 				locationOption: {
 					'IN': 'India',

@@ -12,7 +12,7 @@ module app {
 		public static $inject = [
 			'$scope',
 			'$location',
-			'APIService',
+			'SocketService',
 			'UtilsService',
 			'SharedService'
 		];
@@ -20,7 +20,7 @@ module app {
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
-			private apiService: APIService,
+			private socketService: SocketService,
 			private utilsService: UtilsService,
 			private sharedService: SharedService
 		) {

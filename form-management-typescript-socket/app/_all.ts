@@ -25,7 +25,7 @@
 /// <reference path='ts/interfaces/data/table-heading.interface.ts' />
 /// <reference path='ts/interfaces/data/header-buttons.interface.ts' />
 
-/// <reference path='ts/interfaces/services/api.interface.ts' />
+/// <reference path='ts/interfaces/services/socket.interface.ts' />
 /// <reference path='ts/interfaces/services/doc-event.interface.ts' />
 /// <reference path='ts/interfaces/services/shared.interface.ts' />
 /// <reference path='ts/interfaces/services/utils.interface.ts' />
@@ -50,7 +50,7 @@
 /// <reference path='ts/directives/user-info.directive.ts' />
 /// <reference path='ts/directives/spinner.directive.ts' />
 
-/// <reference path='ts/services/api.service.ts' />
+/// <reference path='ts/services/socket.service.ts' />
 /// <reference path='ts/services/shared.service.ts' />
 /// <reference path='ts/services/utils.service.ts' />
 /// <reference path='ts/services/doc-event.service.ts' />
