@@ -151,7 +151,6 @@ module app {
 						startTimer: 500,
 						endTimer: 4000
 					});
-					this.getUsers();
 					break;
 
 				case 'alreadyUpdated':
@@ -184,6 +183,7 @@ module app {
 				};
 				this.sharedService.broadcastEvent('show-modal', {});
 			}
+			this.getUsers();
 		}
 
 		/*
