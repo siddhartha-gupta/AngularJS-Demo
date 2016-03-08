@@ -1,4 +1,5 @@
 <div class="container">
+length - {{customController.usersList.length}}
 	<div class="row stats-container" ng-if="customController.usersList.length > 0">
 		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)" check-all="customController.checkboxHandlerService.checkAll()" delete-all="customController.deleteAll($event)"></table-header>
 

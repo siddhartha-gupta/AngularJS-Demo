@@ -16,7 +16,7 @@ module app {
 		public static $inject = [
 			'$scope',
 			'$location',
-			'APIService',
+			'SocketService',
 			'UtilsService',
 			'SharedService',
 			'CheckboxHandlerService'
@@ -25,7 +25,7 @@ module app {
 		constructor(
 			private $scope: ng.IScope,
 			private $location: ng.ILocationService,
-			private apiService: APIService,
+			private socketService: SocketService,
 			private utilsService: UtilsService,
 			private sharedService: SharedService,
 			private checkboxHandlerService: CheckboxHandlerService
@@ -34,6 +34,10 @@ module app {
 			this.sortOrder = '-id_member';
 			this.usersList = [];
 			this.showLoader = false;
+
+			this.$scope.$on('users-list-resp', (event, data) => {
+				this.processServerData(data);
+			});
 
 			this.getUsers();
 			this.editUserDefault();
@@ -45,14 +49,15 @@ module app {
 		getUsers() {
 			this.showLoader = true;
 
-			this.apiService.getCall({
+			this.socketService.msgSender('get-users-list');
+			/*this.apiService.getCall({
 				'url': this.appConfig.serverUrl + 'getuserslist'
 			}).success((data, status) => {
 				this.processServerData(data);
 			}).error((data, status) => {
 				this.utilsService.log('err');
 				this.showLoader = false;
-			});
+			});*/
 		}
 
 		processServerData(data: any) {
@@ -64,6 +69,9 @@ module app {
 				this.usersList.length = 0;
 			}
 			this.showLoader = false;
+			console.log('showLoader: ', this.showLoader);
+			console.log('usersList: ', this.usersList);
+			console.log('length: ', this.usersList.length);
 		}
 
 		addUser() {
@@ -113,7 +121,7 @@ module app {
 			this.utilsService.log('updateUserData: ', data);
 			this.utilsService.log('userId: ', userId);
 
-			this.apiService.postCall({
+			/*this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',
 				'data': {
 					'userId': userId,
@@ -133,7 +141,7 @@ module app {
 				this.onUserUpdateResp(response.resp);
 			}).error((response) => {
 				this.utilsService.log('updateUserData error: ', response);
-			});
+			});*/
 		}
 
 		onUserUpdateResp(resp: any) {
@@ -209,7 +217,7 @@ module app {
 		deleteUserConfirm(userId: string) {
 			this.utilsService.log('deleteUserConfirm, userId: ', userId);
 
-			this.apiService.postCall({
+			/*this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'deleteuser',
 				data: {
 					'userId': userId
@@ -220,7 +228,7 @@ module app {
 				this.onUserDeleted(response.resp);
 			}).error((response) => {
 				this.utilsService.log('error: ', response);
-			});
+			});*/
 		}
 
 		onUserDeleted(resp: Boolean) {
@@ -274,7 +282,7 @@ module app {
 			for (var i = 0, len = this.usersList.length; i < len; i++) {
 				userIds.push(this.usersList[i].id_member);
 			}
-			this.apiService.postCall({
+			/*this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'deleteallusers',
 				data: {
 					'userIds': userIds
@@ -285,7 +293,7 @@ module app {
 				this.onAllUsersDeleted(response.resp);
 			}).error((response) => {
 				this.utilsService.log('error: ', response);
-			});
+			});*/
 		}
 
 		onAllUsersDeleted(resp: Boolean) {

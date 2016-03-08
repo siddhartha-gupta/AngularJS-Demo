@@ -64,7 +64,8 @@ module app {
 			this.utilsService.log('add user: ', this.userData);
 
 			if (this.validateForm()) {
-				this.apiService.postCall({
+				this.socketService.msgSender('add-user', this.userData);
+				/*this.apiService.postCall({
 					'url': this.appConfig.serverUrl + 'adduser',
 					data: this.userData,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -78,7 +79,7 @@ module app {
 					}
 				}).error((response: any) => {
 					this.utilsService.log('error: ', response);
-				});
+				});*/
 			}
 		}
 

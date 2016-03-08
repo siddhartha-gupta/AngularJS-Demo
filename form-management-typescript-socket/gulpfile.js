@@ -62,7 +62,8 @@ gulp.task('copyJSLibs', ['clean'], function() {
 			'bower_components/angular/angular.js',
 			'bower_components/angular-mocks/angular-mocks.js',
 			'bower_components/angular-route/angular-route.js',
-			'bower_components/socket.io/lib/socket.js'
+			'node_modules/socket.io/node_modules/socket.io-client/socket.io.js',
+			'node_modules/socket.io-client/socket.io.js'
 		])
 		.pipe(gulp.dest('dist/app/lib/'))
 		.pipe(concat('libs.js'))
