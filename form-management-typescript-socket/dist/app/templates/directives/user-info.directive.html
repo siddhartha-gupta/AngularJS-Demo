@@ -1,0 +1,38 @@
+<!-- user info -->
+<form ng-submit="customController.actionCallback(event, 'save',customController.userData.id_member)">
+	<!-- user id -->
+	<div class="col-xs-1">{{customController.userData.id_member}}</div>
+
+	<!-- user first and last name -->
+	<div class="col-xs-2">
+		<input id="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="First name" ng-model="customController.userEditData.firstname" maxlength="64" ng-dblclick="customController.startEditMode($event)" title="Double click to edit first name" />
+	</div>
+	<div class="col-xs-2">
+		<input id="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required ng-readonly="customController.readOnlyMode" type="text" placeholder="Last name" ng-model="customController.userEditData.lastname" maxlength="64" ng-dblclick="customController.startEditMode($event)" title="Double click to edit last name" />
+	</div>
+
+	<!-- user email and phone number -->
+	<div class="col-xs-3" ng-bind="::customController.userData.email"></div>
+	<div class="col-xs-2" ng-bind="::customController.userData.phonenumber"></div>
+
+	<!-- user location -->
+	<div class="col-xs-1">
+		<input ng-readonly="true" type="text" value="{{customController.locationOption[customController.userEditData.location]}}" ng-show="customController.readOnlyMode" ng-dblclick="customController.startEditMode($event)" title="Double click to edit location" />
+
+		<select id="location" ng-model="customController.userEditData.location" ng-show="!customController.readOnlyMode">
+			<option ng-repeat="(key, value) in customController.locationOption" value="{{key}}" ng-bind="value" ng-selected="value === customController.userEditData.location"></option>
+		</select>
+	</div>
+	<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
+</form>
+<!-- action buttons -->
+<div class="col-xs-1 actionBtns">
+	<!-- buttons for non-edit mode -->
+	<span ng-show="customController.readOnlyMode && customController.checkboxHandlerService.checkboxCounter <= 0" class="actionBtn editBtn" title="Edit info" ng-click="customController.actionCallback(event, 'edit', customController.userData.id_member)"></span>
+	<span ng-show="customController.readOnlyMode && customController.checkboxHandlerService.checkboxCounter <= 0" class="actionBtn deleteBtn" title="Delete user" ng-click="customController.actionCallback(event, 'delete', customController.userData.id_member)"></span>
+	<input class="checkAllCheckbox" ng-model="customController.checkboxSelected" ng-show="customController.readOnlyMode" type="checkbox" ng-click="customController.onCheckboxClicked($event)" />
+
+	<!-- buttons for edit mode -->
+	<span ng-show="!customController.readOnlyMode" class="actionBtn saveBtn" title="Save info" ng-click="customController.actionCallback(event, 'save',customController.userData.id_member)"></span>
+	<span ng-show="!customController.readOnlyMode" class="actionBtn cancelBtn" title="Cancel" ng-click="customController.cancelEditMode(event)"></span>
+</div>

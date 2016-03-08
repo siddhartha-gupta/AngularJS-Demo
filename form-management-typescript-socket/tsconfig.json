@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "declarationFiles": true,
+        "noExternalResolve": false,
+        "sortOutput": true
+    },
+    "paths": {
+        "inPath": "app/**/*.ts",
+        "outDefPath": "dist/definitions/app",
+        "outJsPath": "dist/app",
+        "outJsFile": "all.js"
+    }
+}

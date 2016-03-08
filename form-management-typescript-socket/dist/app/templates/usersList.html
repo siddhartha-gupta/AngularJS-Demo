@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row stats-container" ng-if="customController.usersList.length > 0">
+		<table-header table-heading="customController.tableHeading" sort-func="customController.manageSortOrder(orderBy)" check-all="customController.checkboxHandlerService.checkAll()" delete-all="customController.deleteAll($event)"></table-header>
+
+		<div ng-repeat="(key, userData) in customController.usersList | orderBy:customController.sortOrder" class="row group-content">
+			<user-info user-data="userData" edit-user-id="customController.editUserId" action-handler="customController.actionHandler(type, userId, userData)" id="userinfo_{{userData.id_member}}"></user-info>
+		</div>
+	</div>
+
+	<div class="row stats-container" ng-if="customController.usersList.length === 0 && customController.showLoader === false">
+		<div class="row group-content">
+			<div class="col-xs-12">No user found</div>
+		</div>
+	</div>
+</div>
+
+<edit-user user-id="customController.editUser.userId" is-visible="customController.editUser.isVisible" title="customController.editUser.title" user-data="customController.editUser.userData" hide-popup="customController.hideEditPopup(event)" update-data="customController.updateUserData(data, userId)" discard-form="customController.hideEditPopup(event)"></edit-user>
+
+<modal-dialogue is-visible="customController.modalDialogue.isVisible" title="customController.modalDialogue.title" body="customController.modalDialogue.body" btn1-txt="customController.modalDialogue.btn1Txt" btn2-txt="customController.modalDialogue.btn2Txt" show-btn2="customController.modalDialogue.showBtn2" btn1-callback="customController.modalDialogue.btn1Callback()" btn2-callback="customController.modalDialogue.btn2Callback()" close-btn-callback="customController.modalDialogue.closeBtnCallback()"
+></modal-dialogue>
+
+<info-slider title="customController.infoSlider.title" body="customController.infoSlider.body"></info-slider>
+<spinner show-loader="customController.showLoader"></spinner>

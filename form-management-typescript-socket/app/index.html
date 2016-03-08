@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="formApp" ng-strict-di>
+<head>
+	<meta charset="utf-8">
+	<title>angular typescript gulp</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="styles/bootstrap.css" />
+	<link rel="stylesheet" href="styles/app.css">
+	<style>
+		[ng-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header ng-controller="HeaderController as customController">
+			<span ng-if="customController.headerLeftBtn.showBtn" class="left" ng-click="customController.callFunction($event, customController.headerLeftBtn.clickFunc)" ng-bind="::customController.headerLeftBtn.text"></span>
+			<h2 ng-bind="::customController.heading"></h2>
+			<span ng-if="customController.headerRightBtn.showBtn" class="right" ng-click="customController.callFunction($event, customController.headerRightBtn.clickFunc)" ng-bind="::customController.headerRightBtn.text"></span>
+		</header>
+		<div id="content">
+			<div ng-view></div>
+		</div>
+	</div>
+	<script src="lib/libs.min.js"></script>
+	<script src="all.min.js"></script>
+</body>
+</html>
