@@ -35,10 +35,8 @@ module app {
 			this.usersList = [];
 			this.showLoader = false;
 
-			this.$scope.$on('users-list-resp', (event, data) => {
-				this.processServerData(data);
-			});
-
+			this.socketService.initSocket();
+			this.addSocketListeners();
 			this.getUsers();
 			this.editUserDefault();
 			this.modalDialogueDefault();
@@ -46,18 +44,15 @@ module app {
 			this.createtableHeading();
 		}
 
+		addSocketListeners() {
+			this.$scope.$on('users-list-resp', (event, data) => {
+				this.processServerData(data);
+			});
+		}
+
 		getUsers() {
 			this.showLoader = true;
-
 			this.socketService.msgSender('get-users-list');
-			/*this.apiService.getCall({
-				'url': this.appConfig.serverUrl + 'getuserslist'
-			}).success((data, status) => {
-				this.processServerData(data);
-			}).error((data, status) => {
-				this.utilsService.log('err');
-				this.showLoader = false;
-			});*/
 		}
 
 		processServerData(data: any) {
@@ -69,9 +64,7 @@ module app {
 				this.usersList.length = 0;
 			}
 			this.showLoader = false;
-			console.log('showLoader: ', this.showLoader);
-			console.log('usersList: ', this.usersList);
-			console.log('length: ', this.usersList.length);
+			this.$scope.$applyAsync();
 		}
 
 		addUser() {
@@ -120,6 +113,18 @@ module app {
 		updateUserData(data: UserDataInterface, userId: string) {
 			this.utilsService.log('updateUserData: ', data);
 			this.utilsService.log('userId: ', userId);
+			this.socketService.msgSender('update-user', {
+				'userId': userId,
+				'userData': {
+					email: data.email,
+					firstname: data.firstname,
+					id_member: data.id_member,
+					lastname: data.lastname,
+					location: data.location,
+					phonenumber: data.phonenumber,
+					timestamp: data.timestamp
+				}
+			});
 
 			/*this.apiService.postCall({
 				'url': this.appConfig.serverUrl + 'updateuser',

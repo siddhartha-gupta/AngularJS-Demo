@@ -18,12 +18,15 @@ module app {
 			private sharedService: SharedService
 		) { }
 
-		initSocket(callback: Function) {
+		initSocket(callback?: Function) {
 			console.log('initSocket');
 			// this.socket = io.connect('https://tic-tac-toe-881512.herokuapp.com');
 			this.socket = io.connect('http://localhost:5000');
 			this.msgReceiver();
-			callback();
+
+			if (callback) {
+				callback();
+			}
 		}
 
 		msgSender(identifier: string, data?: Object) {

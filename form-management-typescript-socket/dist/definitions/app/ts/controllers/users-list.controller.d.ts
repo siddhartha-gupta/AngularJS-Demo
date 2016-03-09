@@ -17,6 +17,7 @@ declare module app {
         private showLoader;
         static $inject: string[];
         constructor($scope: ng.IScope, $location: ng.ILocationService, socketService: SocketService, utilsService: UtilsService, sharedService: SharedService, checkboxHandlerService: CheckboxHandlerService);
+        addSocketListeners(): void;
         getUsers(): void;
         processServerData(data: any): void;
         addUser(): void;

@@ -6,7 +6,7 @@ declare module app {
         private socket;
         static $inject: string[];
         constructor(utilsService: UtilsService, sharedService: SharedService);
-        initSocket(callback: Function): void;
+        initSocket(callback?: Function): void;
         msgSender(identifier: string, data?: Object): void;
         msgReceiver(): void;
     }
